@@ -35,17 +35,7 @@
         wiki.error = "";
         wiki.leadLarge = false;
 
-        // defaul params for both open and search
-        var commonParams = {
-            action: 'query',
-            prop: 'extracts|pageimages|images',
-            redirects: '', // automatically resolve redirects
-            format: 'json',
-            formatversion: 2,
-            callback: 'JSON_CALLBACK'
-        };
-
-        // params only for search
+        // params for search
         wiki.params = {
             generator: 'search',
             gsrsearch: wiki.term + wiki.searchFilter,
@@ -54,6 +44,16 @@
             exlimit: 'max', // extract for all articles
             imlimit: 'max', // images in articles
             exintro: '' // extracts intro
+        };
+
+        // defaul params both for open and search
+        var commonParams = {
+            action: 'query',
+            prop: 'extracts|pageimages|images',
+            redirects: '', // automatically resolve redirects
+            format: 'json',
+            formatversion: 2,
+            callback: 'JSON_CALLBACK'
         };
 
 
@@ -143,7 +143,7 @@
         }; // checkMax
 
 
-        /*** PRIVATE HELPER FUNCTIONS ***/
+        /*** HELPER FUNCTIONS ***/
 
         function removeDupes(term, results, redirects) {
             for (var x in results) {
