@@ -16,7 +16,6 @@
 <body ng-app='wikiModul' ng-controller='WikiController as wiki' ng-init='wiki.updateSearchTerm(); wiki.searchWikipedia(wiki.term, wiki.params)'>
 
     <header class="header">
-
         <section class="container">
             <div class="wiki-logos row">
                 <div class="col-sm-2 col-xs-4">
@@ -65,7 +64,6 @@
             </div>
 
             <form class="search-form row" role="form">
-
                 <div class="col-md-6">
                     <div class="form-group">
                         <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.searchWikipedia(wiki.term, wiki.params)'>
@@ -93,10 +91,7 @@
                     </div>
                 </div>
             </form>
-
         </section>
-
-
     </header>
 
     <main class="container main" ng-cloak>
