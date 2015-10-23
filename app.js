@@ -35,7 +35,7 @@
         wiki.error = "";
         wiki.leadLarge = false;
 
-        // common static params for open and search
+        // defaul params for both open and search
         var commonParams = {
             action: 'query',
             prop: 'extracts|pageimages|images',
@@ -45,7 +45,7 @@
             callback: 'JSON_CALLBACK'
         };
 
-        // public params for search
+        // params only for search
         wiki.params = {
             generator: 'search',
             gsrsearch: wiki.term + wiki.searchFilter,
