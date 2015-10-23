@@ -13,38 +13,57 @@
     <script src='app.js'></script>
 </head>
 
-<body ng-app='wikiModul' ng-controller='WikiController as wiki' ng-init='wiki.updateSearchTerm(); wiki.searchWikipedia(wiki.term, wiki.params)' >
-
-    <!-- alt logoi https://en.wikibooks.org/wiki/Main_Page -->
-    <table id="content">
-     <tr>
-      <td>
-       <a href="https://www.wikipedia.org/" title="Wikipedia — The free encyclopedia"><img src="https://www.wikimedia.org/static/images/project-logos/enwiki.png" srcset="https://www.wikimedia.org/static/images/project-logos/enwiki-1.5x.png, https://www.wikimedia.org/static/images/project-logos/enwiki-2x.png 2x" width="135" alt="Wikipedia"></a>
-      </td>
-      <td>
-       <a href="https://www.wiktionary.org/" title="Wiktionary — The free dictionary"><img src="https://www.wikimedia.org/static/images/project-logos/enwiktionary.png" srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Wiktionary-logo-en.svg/203px-Wiktionary-logo-en.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Wiktionary-logo-en.svg/270px-Wiktionary-logo-en.svg.png 2x" width="135" alt="Wiktionary"></a>
-      </td>
-      <td>
-       <a href="https://www.wikiquote.org/" title="Wikiquote — Collection of quotations"><img src="https://www.wikimedia.org/static/images/project-logos/wikiquote.png" srcset="https://upload.wikimedia.org/wikipedia/meta/7/7a/Wikiquote-logo_project_1.5x.png 1.5x, //upload.wikimedia.org/wikipedia/meta/5/5b/Wikiquote-logo_project_2x.png 2x" width="135" alt="Wikiquote"></a>
-      </td>
-     </tr>
-     <tr>
-      <td>
-       <a href="https://wikisource.org/" title="Wikisource — The free library"><img src="https://www.wikimedia.org/static/images/project-logos/wikisource.png" width="123" alt="Wikisource"></a>
-      </td>
-     </tr>
-     <tr>
-      <td>
-       <a href="https://commons.wikimedia.org/" title="Wikimedia Commons — Shared media repository"><img src="https://www.wikimedia.org/static/images/project-logos/commonswiki.png" width="135" alt="Wikimedia Commons"></a>
-      </td>
-      <td>
-       <a href="https://www.wikivoyage.org/" title="Wikivoyage — The free, worldwide travel guide"><img src="https://www.wikimedia.org/static/images/project-logos/wikivoyage.png" width="135" alt="Wikivoyage"></a>
-      </td>
-     </tr>
-    </table>
+<body ng-app='wikiModul' ng-controller='WikiController as wiki' ng-init='wiki.updateSearchTerm(); wiki.searchWikipedia(wiki.term, wiki.params)'>
 
     <header class="header">
+
         <section class="container">
+            <div class="wiki-logos row">
+                <div class="col-sm-2 col-xs-4">
+                    <a href="https://en.wikipedia.org/wiki/" title="Wikipedia">
+                        <img alt="Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png" />
+                    </a>
+                    <br />
+                    <a href="https://en.wikipedia.org/wiki/" class="extiw" title="w:">Wikipedia</a>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <a href="https://en.wiktionary.org/wiki/" title="Wiktionary">
+                        <img alt="Wiktionary" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png" />
+                    </a>
+                    <br />
+                    <a href="https://en.wiktionary.org/wiki/" class="extiw" title="wikt:">Wiktionary</a>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <a href="https://en.wikiquote.org/wiki/" title="Wikiquote">
+                        <img alt="Wikiquote" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png" />
+                    </a>
+                    <br />
+                    <a href="https://en.wikiquote.org/wiki/" class="extiw" title="q:">Wikiquote</a>
+                </div>
+                <div class="clear visible-xs"></div>
+                <div class="col-sm-2 col-xs-4">
+                    <a href="https://en.wikisource.org/wiki/" title="Wikisource">
+                        <img alt="Wikisource" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png" />
+                    </a>
+                    <br />
+                    <a href="https://en.wikisource.org/wiki/" class="extiw" title="s:">Wikisource</a>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <a href="https://en.wikivoyage.org/wiki/" title="Wikivoyage">
+                        <img alt="Wikivoyage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png" />
+                    </a>
+                    <br />
+                    <a href="https://en.wikivoyage.org/wiki/" class="extiw" title="wikivoyage:">Wikivoyage</a>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <a href="https://commons.wikimedia.org/wiki/" title="Wikimedia Commons">
+                        <img alt="Wikimedia Commons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png" />
+                    </a>
+                    <br />
+                    <a href="https://commons.wikimedia.org/wiki/" class="extiw" title="commons:">Commons</a>
+                </div>
+            </div>
+
             <form class="search-form row" role="form">
 
                 <div class="col-md-6">

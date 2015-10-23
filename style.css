@@ -1,12 +1,6 @@
-[ng\:cloak],
-[ng-cloak],
-[data-ng-cloak],
-[x-ng-cloak],
-.ng-cloak,
-.x-ng-cloak {
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
-
 * {
     transition: all 0.3s ease-out;
 }
@@ -16,6 +10,9 @@
 .pointer {
     cursor: pointer;
 }
+.clear {
+    clear: both;
+}
 
 /* HEADER */
 
@@ -24,10 +21,13 @@
     padding: 10px 20px;
     margin-bottom: 20px;
 }
-
+.wiki-logos {
+    text-align: center;
+    margin-bottom: 40px;
+}
 .search-button {
-    position:absolute;
-    right:0;
+    position: absolute;
+    right: 0;
 }
 
 /* MAIN PAGE */
@@ -35,26 +35,21 @@
 .main {
     margin-bottom: 40px;
 }
-
 .choosen-article-wrapper {
     border: 1px solid rgb(235, 235, 235);
     border-radius: 4px;
 }
-
-.articles,
-.choosen-article  {
+.articles, .choosen-article {
     padding: 0 20px;
 }
-
-.col-md-6 .choosen-article {    /* have max-height only in column */
+.col-md-6 .choosen-article {
+    /* have max-height only in column */
     max-height: 1200px;
     overflow-y: scroll;
 }
-
 .read-more {
     margin-right: 30px;
 }
-
 .choosen-article-wrapper .read-more {
     margin-top: 10px;
 }
