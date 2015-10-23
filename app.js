@@ -4,6 +4,20 @@
     // ubaciti ostale wiki projekte
     // ubaciti paramUrl u dokumentaciju
 
+/*
+    za naziv slike vraca url:
+    https://en.wikipedia.org/w/api.php?action=query&titles=File:Albert%20Einstein%20Head.jpg&prop=imageinfo&iiprop=url
+    mozemo dodati i zeljenu sirinu: &iiurlwidth=220
+
+    vraca nadjene slike za trazeni termin:
+    https://en.wikipedia.org/w/api.php?action=query&list=allimages&aiprop=url&format=json&ailimit=10&aifrom=Albert
+
+    alternativni commonsapi:
+    https://tools.wmflabs.org/magnus-toolserver/commonsapi.php
+    vraca info o slici i url:
+    https://tools.wmflabs.org/magnus-toolserver/commonsapi.php?image=Albert_Einstein_Head.jpg
+*/
+
     'use strict';
     angular
         .module("wikiModul", ['ngSanitize'])
@@ -24,7 +38,7 @@
         // common static params for open and search
         var commonParams = {
             action: 'query',
-            prop: 'extracts|pageimages',
+            prop: 'extracts|pageimages|images',
             redirects: '', // automatically resolve redirects
             format: 'json',
             formatversion: 2,
@@ -36,8 +50,9 @@
             generator: 'search',
             gsrsearch: wiki.term + wiki.searchFilter,
             gsrlimit: 10, // broj rezultata, max 50
-            pilimit: 'max', // images for all articles, otherwise only for the first
-            exlimit: 'max', // extracts for all articles, otherwise only for the first
+            pilimit: 'max', // thumb image for all articles
+            exlimit: 'max', // extract for all articles
+            imlimit: 'max', // images in articles
             exintro: '' // extracts intro
         };
 
