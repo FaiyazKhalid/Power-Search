@@ -65,6 +65,7 @@
         wiki.setApiUrl = function(domainName) {
             wiki.domain = domainName;
             wiki.apiUrl = 'http://' + wiki.lang + '.' + domainName + '.org/w/api.php';
+            if(domainName == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
             wiki.searchWikipedia(wiki.term, wiki.params);
         };   // setApiUrl
 
