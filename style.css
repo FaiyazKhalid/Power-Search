@@ -26,6 +26,9 @@
     text-align: center;
     margin-bottom: 40px;
 }
+.wiki-logos img {
+    cursor: pointer;
+}
 .search-button {
     position: absolute;
     right: 0;

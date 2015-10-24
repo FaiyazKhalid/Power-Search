@@ -4,6 +4,8 @@
     // ubaciti ostale wiki projekte
     // ubaciti paramUrl u dokumentaciju
 
+    // bag: trazim zen na wiki, pa na recniku, pa opet na wiki, a lead ostane sa recnika
+
 /*
     za naziv slike vraca url:
     https://en.wikipedia.org/w/api.php?action=query&titles=File:Albert%20Einstein%20Head.jpg&prop=imageinfo&iiprop=url
@@ -27,9 +29,9 @@
     function WikiController($http, $window) {
 
         var wiki = this;
+        wiki.apiUrl = 'http://en.wikipedia.org/w/api.php';
         wiki.term = 'zen'; // default
         wiki.searchFilter = "intitle:";
-        wiki.apiUrl = 'http://en.wikipedia.org/w/api.php';
         wiki.page = null;
         wiki.results = null;
         wiki.error = "";
@@ -58,6 +60,12 @@
 
 
         /*** PUBLIC METHODS ***/
+
+        wiki.setBaseUrl = function(domainName) {
+            wiki.apiUrl = 'http://en.' + domainName + '.org/w/api.php';
+            wiki.searchWikipedia(wiki.term, wiki.params);
+        };   // setBaseUrl
+
 
         wiki.openArticle = function(title) {
             if (wiki.page && (wiki.page.title == title)) {
@@ -127,9 +135,9 @@
         }; // toggleLeadLarge
 
 
-        wiki.leadPlaceholder = function() {
+        wiki.leadHoverText = function() {
             return wiki.leadLarge ? "Search for this term" : "Englarge this article";
-        };
+        };  // leadHoverText
 
 
         wiki.emptyResults = function() {
