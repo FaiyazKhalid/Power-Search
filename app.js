@@ -1,5 +1,6 @@
 (function() {
 
+    // ubaciti jezik
     // veliku sliku za glavni clanak
     // sacuvati podesavanja (jezik, broj rez) u local storage
     // commons treba da pretrazuje i otvara fajlove, ne clanke
@@ -29,9 +30,10 @@
     function WikiController($http, $window) {
 
         var wiki = this;
-        wiki.apiUrl = 'http://en.wikipedia.org/w/api.php';
+        wiki.apiUrl = updateBaseUrl();
         wiki.lang = 'en';
         wiki.domain = 'wikipedia';
+        wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
         wiki.term = 'zen'; // default
         wiki.searchFilter = "intitle:";
         wiki.page = null;
@@ -63,12 +65,11 @@
 
         /*** PUBLIC METHODS ***/
 
-        wiki.setApiUrl = function(domainName) {
-            wiki.domain = domainName;
-            wiki.apiUrl = 'http://' + wiki.lang + '.' + domainName + '.org/w/api.php';
-            if(domainName == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
-            wiki.searchWikipedia(wiki.term, wiki.params);
-        };   // setApiUrl
+        wiki.searchDomain = function(domainName) {
+            setDomainName(domainName);
+            updateBaseUrl();
+            wiki.searchWikipedia(wiki.term);
+        };   // searchDomain
 
 
         wiki.openArticle = function(title) {
@@ -78,7 +79,7 @@
             }
             var paramUrl = createParamUrl({
                 titles: title
-            }, commonParams);
+            });
             $http.jsonp(paramUrl)
                 .success(function(data) {
                     if (!data.query) return;
@@ -90,9 +91,9 @@
         }; // openArticle
 
 
-        wiki.searchWikipedia = function(term, params) {
-            params.gsrsearch = wiki.searchFilter + term;
-            var paramUrl = createParamUrl(params, commonParams);
+        wiki.searchWikipedia = function(term) {
+            wiki.params.gsrsearch = wiki.searchFilter + term;
+            var paramUrl = createParamUrl(wiki.params);
 
             $http.jsonp(paramUrl)
                 .success(function(data) {
@@ -157,7 +158,16 @@
 
         /*** HELPER FUNCTIONS ***/
 
-        function removeDupes(term, results, redirects) {
+        function setDomainName(domainName) {
+            wiki.domain = domainName;
+        }   // setDomainName
+
+        function updateBaseUrl() {
+            wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
+            if(wiki.domain == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
+        }   // updateBaseUrl
+
+        function removeDupes(term, results, redirects) {   // remove lead and redirects from the list
             for (var x in results) {
                 if (results[x].title == capitalizeFirst(term)) {
                     results.splice(x, 1); // remove it from the list
@@ -176,7 +186,7 @@
             wiki.error = "Oh no, there was some error in geting data.";
         } // handleErrors
 
-        function createParamUrl(params, commonParams) {
+        function createParamUrl(params) {
             angular.extend(params, commonParams);
             var paramUrl = wiki.apiUrl + '?' + serialize(params);
             console.log(paramUrl);

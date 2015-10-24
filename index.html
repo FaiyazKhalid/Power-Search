@@ -3,7 +3,7 @@
 
 <head>
     <meta charset='UTF-8'>
-    <title>Power Wiki Search</title>
+    <title>All Wiki Search</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
@@ -13,50 +13,55 @@
     <script src='app.js'></script>
 </head>
 
-<body ng-app='wikiModul' ng-controller='WikiController as wiki' ng-init='wiki.updateSearchTerm(); wiki.searchWikipedia(wiki.term, wiki.params)'>
+<body ng-app='wikiModul' ng-controller='WikiController as wiki' ng-init='wiki.updateSearchTerm(); wiki.searchWikipedia(wiki.term)'>
 
     <header class="header">
         <section class="container">
 
             <div class="wiki-logos">
-                <img ng-click="wiki.setApiUrl('wikipedia')" alt="Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png" title="Wikipedia" />
-                <img ng-click="wiki.setApiUrl('wiktionary')" alt="Wiktionary" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png" title="Wiktionary" />
-                <img ng-click="wiki.setApiUrl('wikiquote')" alt="Wikiquote" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png" title="Wikiquote" />
-                <img ng-click="wiki.setApiUrl('wikisource')" alt="Wikisource" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png" title="Wikisource" />
+                <img ng-click="wiki.searchDomain('wikipedia')" alt="Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png" title="Wikipedia" />
+                <img ng-click="wiki.searchDomain('wiktionary')" alt="Wiktionary" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png" title="Wiktionary" />
+                <img ng-click="wiki.searchDomain('wikiquote')" alt="Wikiquote" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png" title="Wikiquote" />
+                <img ng-click="wiki.searchDomain('wikisource')" alt="Wikisource" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png" title="Wikisource" />
                 <span class="justify-helper hidden-sm hidden-md hidden-lg"></span>
 
-                <img ng-click="wiki.setApiUrl('wikispecies')" alt="Wikispecies" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/48px-Wikispecies-logo.svg.png" title="Wikispecies" />
-                <img ng-click="wiki.setApiUrl('wikivoyage')" alt="Wikivoyage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png" title="Wikivoyage" />
-                <img ng-click="wiki.setApiUrl('wikinews')" alt="Wikinews" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/48px-Wikinews-logo.svg.png" title="Wikinews" />
-                <img ng-click="wiki.setApiUrl('commons')" alt="Wikimedia Commons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png" title="Commons" />
+                <img ng-click="wiki.searchDomain('wikispecies')" alt="Wikispecies" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/48px-Wikispecies-logo.svg.png" title="Wikispecies" />
+                <img ng-click="wiki.searchDomain('wikivoyage')" alt="Wikivoyage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png" title="Wikivoyage" />
+                <img ng-click="wiki.searchDomain('wikinews')" alt="Wikinews" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/48px-Wikinews-logo.svg.png" title="Wikinews" />
+                <img ng-click="wiki.searchDomain('commons')" alt="Wikimedia Commons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png" title="Commons" />
                 <span class="justify-helper"></span>
             </div>
 
             <form class="search-form row" role="form">
                 <div class="col-md-6">
                     <div class="search-wrapper form-group">
-                        <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.searchWikipedia(wiki.term, wiki.params)'>
+                        <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.searchWikipedia(wiki.term)'>
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
-                        <input ng-model='wiki.term' ng-change='wiki.updateSearchTerm(); wiki.searchWikipedia(wiki.term, wiki.params)' class="form-control input-lg" autofocus>
+                        <input ng-model='wiki.term' ng-change='wiki.updateSearchTerm(); wiki.searchWikipedia(wiki.term)' class="form-control input-lg" autofocus>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group text-center">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.searchFilter" value="intitle:" ng-change='wiki.searchWikipedia(wiki.term, wiki.params)'> title
+                            <input type="radio" ng-model="wiki.searchFilter" value="intitle:" ng-change='wiki.searchWikipedia(wiki.term)'> title
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.searchFilter" value="" ng-change='wiki.searchWikipedia(wiki.term, wiki.params)'> content
+                            <input type="radio" ng-model="wiki.searchFilter" value="" ng-change='wiki.searchWikipedia(wiki.term)'> content
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.searchFilter" value="prefix:" ng-change='wiki.searchWikipedia(wiki.term, wiki.params)'> prefix
+                            <input type="radio" ng-model="wiki.searchFilter" value="prefix:" ng-change='wiki.searchWikipedia(wiki.term)'> prefix
                         </label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <input ng-model='wiki.lang' ng-change='wiki.searchWikipedia(wiki.term)' class="form-control">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <input type="number" min="1" max="50" ng-model='wiki.params.gsrlimit' ng-change='wiki.checkMax(); wiki.searchWikipedia(wiki.term, wiki.params)' class="form-control input-lg">
+                        <input type="number" min="1" max="50" ng-model='wiki.params.gsrlimit' ng-change='wiki.checkMax(); wiki.searchWikipedia(wiki.term)' class="form-control">
                     </div>
                 </div>
             </form>
