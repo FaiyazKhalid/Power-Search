@@ -95,13 +95,13 @@
         }; // searchWikipedia
 
 
-        wiki.searchForThisTerm = function(title) {
+        wiki.searchForLeadTerm = function(title) {
             if (wiki.leadLarge) {
                 wiki.term = title;
                 wiki.searchWikipedia(title, wiki.params);
             }
             wiki.toggleLeadLarge();
-        }; // searchForThisTerm
+        }; // searchForLeadTerm
 
 
         wiki.updateSearchTerm = function() {

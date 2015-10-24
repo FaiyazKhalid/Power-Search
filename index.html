@@ -19,45 +19,33 @@
         <section class="container">
             <div class="wiki-logos row">
                 <div class="col-sm-2 col-xs-4">
-                    <a href="https://en.wikipedia.org/wiki/" title="Wikipedia">
-                        <img alt="Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png" />
-                    </a>
+                    <img alt="Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png" />
                     <br />
                     <a href="https://en.wikipedia.org/wiki/" class="extiw" title="w:">Wikipedia</a>
                 </div>
                 <div class="col-sm-2 col-xs-4">
-                    <a href="https://en.wiktionary.org/wiki/" title="Wiktionary">
-                        <img alt="Wiktionary" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png" />
-                    </a>
+                    <img alt="Wiktionary" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png" />
                     <br />
                     <a href="https://en.wiktionary.org/wiki/" class="extiw" title="wikt:">Wiktionary</a>
                 </div>
                 <div class="col-sm-2 col-xs-4">
-                    <a href="https://en.wikiquote.org/wiki/" title="Wikiquote">
-                        <img alt="Wikiquote" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png" />
-                    </a>
+                    <img alt="Wikiquote" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png" />
                     <br />
                     <a href="https://en.wikiquote.org/wiki/" class="extiw" title="q:">Wikiquote</a>
                 </div>
                 <div class="clear visible-xs"></div>
                 <div class="col-sm-2 col-xs-4">
-                    <a href="https://en.wikisource.org/wiki/" title="Wikisource">
-                        <img alt="Wikisource" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png" />
-                    </a>
+                    <img alt="Wikisource" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png" />
                     <br />
                     <a href="https://en.wikisource.org/wiki/" class="extiw" title="s:">Wikisource</a>
                 </div>
                 <div class="col-sm-2 col-xs-4">
-                    <a href="https://en.wikivoyage.org/wiki/" title="Wikivoyage">
-                        <img alt="Wikivoyage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png" />
-                    </a>
+                    <img alt="Wikivoyage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png" />
                     <br />
                     <a href="https://en.wikivoyage.org/wiki/" class="extiw" title="wikivoyage:">Wikivoyage</a>
                 </div>
                 <div class="col-sm-2 col-xs-4">
-                    <a href="https://commons.wikimedia.org/wiki/" title="Wikimedia Commons">
-                        <img alt="Wikimedia Commons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png" />
-                    </a>
+                    <img alt="Wikimedia Commons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png" />
                     <br />
                     <a href="https://commons.wikimedia.org/wiki/" class="extiw" title="commons:">Commons</a>
                 </div>
@@ -105,7 +93,7 @@
                 <section class='choosen-article-wrapper' ng-show='wiki.page'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
-                            <span class="pointer" title="{{wiki.leadPlaceholder()}}" ng-click="wiki.searchForThisTerm(wiki.page.title)">{{wiki.page.title}}</span>
+                            <span class="pointer" title="{{wiki.leadPlaceholder()}}" ng-click="wiki.searchForLeadTerm(wiki.page.title)">{{wiki.page.title}}</span>
                         </h1>
                         <img ng-src="{{wiki.page.thumbnail.source}}" alt="{{wiki.page.title}}" class="img-thumbnail" ng-show="wiki.page.thumbnail.source">
                         <section ng-bind-html='wiki.page.extract' ng-dblclick="wiki.selectText()"></section>
