@@ -1,25 +1,29 @@
 (function() {
 
-    // ubaciti jezik
-    // veliku sliku za glavni clanak
     // sacuvati podesavanja (jezik, broj rez) u local storage
+    // veliku sliku za glavni clanak
     // commons treba da pretrazuje i otvara fajlove, ne clanke
     // primer paramUrl u dokumentaciju
     // bug: trazim zen na wiki, pa na recniku, pa opet na wiki, a lead ostane sa recnika
 
-/*
-    za naziv slike vraca url:
-    https://en.wikipedia.org/w/api.php?action=query&titles=File:Albert%20Einstein%20Head.jpg&prop=imageinfo&iiprop=url
-    mozemo dodati i zeljenu sirinu: &iiurlwidth=220
+    /*
+        za naziv slike vraca url:
+        https://en.wikipedia.org/w/api.php?action=query&titles=File:Albert%20Einstein%20Head.jpg&prop=imageinfo&iiprop=url
+        mozemo dodati i zeljenu sirinu: &iiurlwidth=220
 
-    vraca nadjene slike za trazeni termin:
-    https://en.wikipedia.org/w/api.php?action=query&list=allimages&aiprop=url&format=json&ailimit=10&aifrom=Albert
+        vraca nadjene slike za trazeni termin:
+        https://en.wikipedia.org/w/api.php?action=query&list=allimages&aiprop=url&format=json&ailimit=10&aifrom=Albert
 
-    alternativni commonsapi:
-    https://tools.wmflabs.org/magnus-toolserver/commonsapi.php
-    vraca info o slici i url:
-    https://tools.wmflabs.org/magnus-toolserver/commonsapi.php?image=Albert_Einstein_Head.jpg
-*/
+        alternativni commonsapi:
+        https://tools.wmflabs.org/magnus-toolserver/commonsapi.php
+        vraca info o slici i url:
+        https://tools.wmflabs.org/magnus-toolserver/commonsapi.php?image=Albert_Einstein_Head.jpg
+
+        lista jezika:
+        https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
+        https://meta.wikimedia.org/wiki/List_of_Wikipedias
+        https://en.wikipedia.org/wiki/List_of_Wikipedias
+    */
 
     'use strict';
     angular
@@ -40,6 +44,19 @@
         wiki.results = null;
         wiki.error = "";
         wiki.leadLarge = false;
+
+        // TODO: dinamicaly populate list with available languages
+        wiki.languages = [
+        {
+            id: 'en',
+            name: 'English'
+        }, {
+            id: 'sr',
+            name: 'Српски'
+        }, {
+            id: 'sh',
+            name: 'Srpskohrvatski'
+        }]; // languages
 
         wiki.pageParams = {
             titles: wiki.term
@@ -75,6 +92,7 @@
 
             $http.jsonp(paramUrl)
                 .success(function(data) {
+                    resetError();
                     if (!data.query) {
                         wiki.emptyResults();
                         return false;
@@ -106,7 +124,7 @@
         wiki.searchInDomain = function(domainName) {
             setDomainName(domainName);
             wiki.searchWikipedia();
-        };   // searchInDomain
+        }; // searchInDomain
 
 
         wiki.searchForLeadTerm = function(title) {
@@ -138,7 +156,7 @@
 
         wiki.leadHoverText = function() {
             return wiki.leadLarge ? "Search for this term" : "Englarge this article";
-        };  // leadHoverText
+        }; // leadHoverText
 
 
         wiki.emptyResults = function() {
@@ -152,16 +170,23 @@
         }; // checkMax
 
 
+        wiki.checkLang = function() {
+            console.log("prov");
+            if (wiki.lang.length < 2) {
+                return false;
+            }
+        }; // checkMax
+
         /*** HELPER FUNCTIONS ***/
 
         function setDomainName(domainName) {
             wiki.domain = domainName;
-        }   // setDomainName
+        } // setDomainName
 
         function updateBaseUrl() {
             wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
-            if(wiki.domain == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
-        }   // updateBaseUrl
+            if (wiki.domain == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
+        } // updateBaseUrl
 
         function updateSearchTerm() {
             wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.term;
@@ -169,7 +194,7 @@
 
         function isPageOpen(title) {
             return (wiki.page && (wiki.page.title == title));
-        }   // isPageOpen
+        } // isPageOpen
 
         function removeLeadFromList(term, redirects) {
             for (var x in wiki.results) {
@@ -189,6 +214,10 @@
         function handleErrors() {
             wiki.error = "Oh no, there was some error in geting data.";
         } // handleErrors
+
+        function resetError() {
+            wiki.error = "";
+        }
 
         function createParamUrl(params) {
             angular.extend(params, commonParams);
@@ -220,6 +249,6 @@
                 });
             }
         };
-    }   // autofocus
+    } // autofocus
 
 })();
