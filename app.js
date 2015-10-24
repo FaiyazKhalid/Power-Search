@@ -42,7 +42,7 @@
         wiki.leadLarge = false;
 
         // params for search
-        wiki.params = {
+        wiki.searchParams = {
             generator: 'search',
             gsrsearch: wiki.term + wiki.searchFilter,
             gsrlimit: 20, // broj rezultata, max 50
@@ -50,6 +50,10 @@
             exlimit: 'max', // extract for all articles
             imlimit: 'max', // images in articles
             exintro: '' // extracts intro
+        };
+
+        wiki.openParams = {
+            titles: wiki.term
         };
 
         // defaul params both for open and search
@@ -73,27 +77,25 @@
 
 
         wiki.openArticle = function(title) {
-            if (wiki.page && (wiki.page.title == title)) {
-                wiki.results = removeDupes(title, wiki.results);
+            if (pageIsOpen(title)) {
                 return;
             }
-            var paramUrl = createParamUrl({
-                titles: title
-            });
+            wiki.openParams.titles = title;
+            var paramUrl = createParamUrl(wiki.openParams);
+
             $http.jsonp(paramUrl)
                 .success(function(data) {
                     if (!data.query) return;
-                    var page = data.query.pages[0];
-                    wiki.page = page;
-                    wiki.results = removeDupes(title, wiki.results, data.query.redirects);
+                    wiki.page = data.query.pages[0];
+                    removeLeadFromResults(title, data.query.redirects);
                 })
                 .error(handleErrors);
         }; // openArticle
 
 
         wiki.searchWikipedia = function(term) {
-            wiki.params.gsrsearch = wiki.searchFilter + term;
-            var paramUrl = createParamUrl(wiki.params);
+            wiki.searchParams.gsrsearch = wiki.searchFilter + term;
+            var paramUrl = createParamUrl(wiki.searchParams);
 
             $http.jsonp(paramUrl)
                 .success(function(data) {
@@ -111,14 +113,14 @@
         wiki.searchForLeadTerm = function(title) {
             if (wiki.leadLarge) {
                 wiki.term = title;
-                wiki.searchWikipedia(title, wiki.params);
+                wiki.searchWikipedia(title, wiki.searchParams);
             }
             wiki.toggleLeadLarge();
         }; // searchForLeadTerm
 
 
         wiki.updateSearchTerm = function() {
-            wiki.params.gsrsearch = wiki.searchFilter + wiki.term;
+            wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.term;
         }; // updateSearchTerm
 
 
@@ -152,7 +154,7 @@
 
 
         wiki.checkMax = function() {
-            if (wiki.params.gsrlimit > 50) wiki.params.gsrlimit = 50;
+            if (wiki.searchParams.gsrlimit > 50) wiki.searchParams.gsrlimit = 50;
         }; // checkMax
 
 
@@ -167,20 +169,24 @@
             if(wiki.domain == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
         }   // updateBaseUrl
 
-        function removeDupes(term, results, redirects) {   // remove lead and redirects from the list
-            for (var x in results) {
-                if (results[x].title == capitalizeFirst(term)) {
-                    results.splice(x, 1); // remove it from the list
+        function pageIsOpen(title) {
+            return (wiki.page && (wiki.page.title == title));
+        }   // pageIsOpen
+
+        function removeLeadFromResults(term, redirects) {   // remove lead and redirects from the list
+            for (var x in wiki.results) {
+                if (wiki.results[x].title == capitalizeFirst(term)) {
+                    wiki.results.splice(x, 1); // remove it from the list
                 }
-                if (!redirects) return results;
+                if (!redirects) return wiki.results;
                 for (var r in redirects) {
-                    if (redirects[r].to == results[x].title) {
-                        results.splice(x, 1);
+                    if (redirects[r].to == wiki.results[x].title) {
+                        wiki.results.splice(x, 1);
                     }
                 }
             } // end for
-            return results;
-        } // removeDupes
+            return wiki.results;
+        } // removeLeadFromResults
 
         function handleErrors() {
             wiki.error = "Oh no, there was some error in geting data.";
