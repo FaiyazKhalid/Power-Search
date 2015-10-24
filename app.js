@@ -41,7 +41,10 @@
         wiki.error = "";
         wiki.leadLarge = false;
 
-        // params for search
+        wiki.pageParams = {
+            titles: wiki.term
+        };
+
         wiki.searchParams = {
             generator: 'search',
             gsrsearch: wiki.term + wiki.searchFilter,
@@ -50,10 +53,6 @@
             exlimit: 'max', // extract for all articles
             imlimit: 'max', // images in articles
             exintro: '' // extracts intro
-        };
-
-        wiki.openParams = {
-            titles: wiki.term
         };
 
         // defaul params both for open and search
@@ -69,19 +68,29 @@
 
         /*** PUBLIC METHODS ***/
 
-        wiki.searchDomain = function(domainName) {
-            setDomainName(domainName);
-            updateBaseUrl();
-            wiki.searchWikipedia(wiki.term);
-        };   // searchDomain
+        wiki.searchWikipedia = function() { // mozda ne treba ulazni argument
+            updateSearchTerm();
+            var paramUrl = createParamUrl(wiki.searchParams);
+
+            $http.jsonp(paramUrl)
+                .success(function(data) {
+                    if (!data.query) {
+                        wiki.emptyResults();
+                        return false;
+                    }
+                    wiki.results = data.query.pages;
+                    wiki.openArticle(wiki.term);
+                })
+                .error(handleErrors);
+        }; // searchWikipedia
 
 
         wiki.openArticle = function(title) {
-            if (pageIsOpen(title)) {
+            if (isPageOpen(title)) {
                 return;
             }
-            wiki.openParams.titles = title;
-            var paramUrl = createParamUrl(wiki.openParams);
+            wiki.pageParams.titles = title;
+            var paramUrl = createParamUrl(wiki.pageParams);
 
             $http.jsonp(paramUrl)
                 .success(function(data) {
@@ -93,21 +102,11 @@
         }; // openArticle
 
 
-        wiki.searchWikipedia = function(term) {
-            wiki.searchParams.gsrsearch = wiki.searchFilter + term;
-            var paramUrl = createParamUrl(wiki.searchParams);
-
-            $http.jsonp(paramUrl)
-                .success(function(data) {
-                    if (!data.query) {
-                        wiki.emptyResults();
-                        return false;
-                    }
-                    wiki.results = data.query.pages;
-                    wiki.openArticle(term);
-                })
-                .error(handleErrors);
-        }; // searchWikipedia
+        wiki.searchInDomain = function(domainName) {
+            setDomainName(domainName);
+            updateBaseUrl();
+            wiki.searchWikipedia();
+        };   // searchInDomain
 
 
         wiki.searchForLeadTerm = function(title) {
@@ -119,21 +118,16 @@
         }; // searchForLeadTerm
 
 
-        wiki.updateSearchTerm = function() {
-            wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.term;
-        }; // updateSearchTerm
-
-
-        wiki.toggleLeadLarge = function() {
-            wiki.leadLarge = !wiki.leadLarge;
-        }; // toggleLeadLarge
-
-
         wiki.openLarge = function(title) {
             wiki.page = '';
             wiki.openArticle(title);
             wiki.leadLarge = true;
         }; // openLarge
+
+
+        wiki.toggleLeadLarge = function() {
+            wiki.leadLarge = !wiki.leadLarge;
+        }; // toggleLeadLarge
 
 
         wiki.selectText = function() {
@@ -169,9 +163,13 @@
             if(wiki.domain == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
         }   // updateBaseUrl
 
-        function pageIsOpen(title) {
+        function updateSearchTerm() {
+            wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.term;
+        } // updateSearchTerm
+
+        function isPageOpen(title) {
             return (wiki.page && (wiki.page.title == title));
-        }   // pageIsOpen
+        }   // isPageOpen
 
         function removeLeadFromResults(term, redirects) {   // remove lead and redirects from the list
             for (var x in wiki.results) {
