@@ -69,6 +69,7 @@
         /*** PUBLIC METHODS ***/
 
         wiki.searchWikipedia = function() { // mozda ne treba ulazni argument
+            updateBaseUrl();
             updateSearchTerm();
             var paramUrl = createParamUrl(wiki.searchParams);
 
@@ -96,7 +97,7 @@
                 .success(function(data) {
                     if (!data.query) return;
                     wiki.page = data.query.pages[0];
-                    removeLeadFromResults(title, data.query.redirects);
+                    removeLeadFromList(title, data.query.redirects);
                 })
                 .error(handleErrors);
         }; // openArticle
@@ -104,7 +105,6 @@
 
         wiki.searchInDomain = function(domainName) {
             setDomainName(domainName);
-            updateBaseUrl();
             wiki.searchWikipedia();
         };   // searchInDomain
 
@@ -171,7 +171,7 @@
             return (wiki.page && (wiki.page.title == title));
         }   // isPageOpen
 
-        function removeLeadFromResults(term, redirects) {   // remove lead and redirects from the list
+        function removeLeadFromList(term, redirects) {
             for (var x in wiki.results) {
                 if (wiki.results[x].title == capitalizeFirst(term)) {
                     wiki.results.splice(x, 1); // remove it from the list
@@ -184,7 +184,7 @@
                 }
             } // end for
             return wiki.results;
-        } // removeLeadFromResults
+        } // removeLeadFromList
 
         function handleErrors() {
             wiki.error = "Oh no, there was some error in geting data.";
