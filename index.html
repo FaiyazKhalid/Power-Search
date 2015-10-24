@@ -17,26 +17,18 @@
 
     <header class="header">
         <section class="container">
-            <div class="wiki-logos row">
-                <div class="col-sm-2 col-xs-4">
-                    <img ng-click="wiki.setBaseUrl('wikipedia')" alt="Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png" title="Wikipedia" />
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img ng-click="wiki.setBaseUrl('wiktionary')" alt="Wiktionary" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png" title="Wiktionary" />
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img ng-click="wiki.setBaseUrl('wikiquote')" alt="Wikiquote" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png" title="Wikiquote" />
-                </div>
+
+            <div class="wiki-logos">
+                <img ng-click="wiki.setApiUrl('wikipedia')" alt="Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png" title="Wikipedia" />
+                <img ng-click="wiki.setApiUrl('wiktionary')" alt="Wiktionary" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png" title="Wiktionary" />
+                <img ng-click="wiki.setApiUrl('wikiquote')" alt="Wikiquote" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png" title="Wikiquote" />
+                <img ng-click="wiki.setApiUrl('wikisource')" alt="Wikisource" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png" title="Wikisource" />
                 <div class="clear visible-xs"></div>
-                <div class="col-sm-2 col-xs-4">
-                    <img ng-click="wiki.setBaseUrl('wikisource')" alt="Wikisource" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png" title="Wikisource" />
-                </div>
-                <div ng-click="wiki.setBaseUrl('wikivoyage')" class="col-sm-2 col-xs-4">
-                    <img alt="Wikivoyage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png" title="Wikivoyage" />
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img alt="Wikimedia Commons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png" title="Commons" />
-                </div>
+
+                <img ng-click="wiki.setApiUrl('wikispecies')" alt="Wikispecies" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/48px-Wikispecies-logo.svg.png" title="Wikispecies" />
+                <img ng-click="wiki.setApiUrl('wikivoyage')" alt="Wikivoyage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png" title="Wikivoyage" />
+                <img ng-click="wiki.setApiUrl('wikinews')" alt="Wikinews" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/48px-Wikinews-logo.svg.png" title="Wikinews" />
+                <img alt="Wikimedia Commons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png" title="Commons" />
             </div>
 
             <form class="search-form row" role="form">
@@ -67,6 +59,7 @@
                     </div>
                 </div>
             </form>
+
         </section>
     </header>
 
@@ -87,7 +80,7 @@
                         <section ng-bind-html='wiki.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
                     <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.toggleLeadLarge()">« Back</button>
-                    <p class="read-more text-info pull-right"><a ng-href="https://en.wikipedia.org/wiki/{{wiki.page.title}}" target="_blank">Read on Wikipedia >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="https://{{wiki.lang}}.{{wiki.domain}}.org/wiki/{{wiki.page.title}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
                 </section>
             </div>
 
@@ -98,7 +91,7 @@
                     </h2>
                     <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
                     <section ng-bind-html='page.extract' ng-dblclick="wiki.selectText()"></section>
-                    <p class="read-more text-info pull-right"><a ng-href="https://en.wikipedia.org/wiki/{{page.title}}" target="_blank">Read on Wikipedia >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="https://{{wiki.lang}}.{{wiki.domain}}.org/wiki/{{page.title}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
                 </article>
             </div>
 

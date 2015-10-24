@@ -1,10 +1,9 @@
 (function() {
 
     // veliku sliku za glavni clanak
-    // ubaciti ostale wiki projekte
-    // ubaciti paramUrl u dokumentaciju
-
-    // bag: trazim zen na wiki, pa na recniku, pa opet na wiki, a lead ostane sa recnika
+    // sacuvati podesavanja (jezik, broj rez) u local storage
+    // primer paramUrl u dokumentaciju
+    // bug: trazim zen na wiki, pa na recniku, pa opet na wiki, a lead ostane sa recnika
 
 /*
     za naziv slike vraca url:
@@ -30,6 +29,8 @@
 
         var wiki = this;
         wiki.apiUrl = 'http://en.wikipedia.org/w/api.php';
+        wiki.lang = 'en';
+        wiki.domain = 'wikipedia';
         wiki.term = 'zen'; // default
         wiki.searchFilter = "intitle:";
         wiki.page = null;
@@ -61,10 +62,11 @@
 
         /*** PUBLIC METHODS ***/
 
-        wiki.setBaseUrl = function(domainName) {
-            wiki.apiUrl = 'http://en.' + domainName + '.org/w/api.php';
+        wiki.setApiUrl = function(domainName) {
+            wiki.domain = domainName;
+            wiki.apiUrl = 'http://' + wiki.lang + '.' + domainName + '.org/w/api.php';
             wiki.searchWikipedia(wiki.term, wiki.params);
-        };   // setBaseUrl
+        };   // setApiUrl
 
 
         wiki.openArticle = function(title) {
