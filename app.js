@@ -2,6 +2,7 @@
 
     // veliku sliku za glavni clanak
     // sacuvati podesavanja (jezik, broj rez) u local storage
+    // commons treba da pretrazuje i otvara fajlove, ne clanke
     // primer paramUrl u dokumentaciju
     // bug: trazim zen na wiki, pa na recniku, pa opet na wiki, a lead ostane sa recnika
 
@@ -42,7 +43,7 @@
         wiki.params = {
             generator: 'search',
             gsrsearch: wiki.term + wiki.searchFilter,
-            gsrlimit: 10, // broj rezultata, max 50
+            gsrlimit: 20, // broj rezultata, max 50
             pilimit: 'max', // thumb image for all articles
             exlimit: 'max', // extract for all articles
             imlimit: 'max', // images in articles

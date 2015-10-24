@@ -13,7 +13,12 @@
 .clear {
     clear: both;
 }
-
+.justify-helper {
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0
+}
 
 /* HEADER */
 
@@ -23,11 +28,15 @@
     margin-bottom: 20px;
 }
 .wiki-logos {
-    text-align: center;
-    margin-bottom: 40px;
+    text-align: justify;
+    margin-bottom: 20px;
 }
 .wiki-logos img {
     cursor: pointer;
+    display: inline-block;
+}
+.search-wrapper {
+    position: relative;
 }
 .search-button {
     position: absolute;

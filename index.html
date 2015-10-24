@@ -23,17 +23,18 @@
                 <img ng-click="wiki.setApiUrl('wiktionary')" alt="Wiktionary" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png" title="Wiktionary" />
                 <img ng-click="wiki.setApiUrl('wikiquote')" alt="Wikiquote" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png" title="Wikiquote" />
                 <img ng-click="wiki.setApiUrl('wikisource')" alt="Wikisource" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png" title="Wikisource" />
-                <div class="clear visible-xs"></div>
+                <span class="justify-helper hidden-sm hidden-md hidden-lg"></span>
 
                 <img ng-click="wiki.setApiUrl('wikispecies')" alt="Wikispecies" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/48px-Wikispecies-logo.svg.png" title="Wikispecies" />
                 <img ng-click="wiki.setApiUrl('wikivoyage')" alt="Wikivoyage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png" title="Wikivoyage" />
                 <img ng-click="wiki.setApiUrl('wikinews')" alt="Wikinews" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/48px-Wikinews-logo.svg.png" title="Wikinews" />
                 <img ng-click="wiki.setApiUrl('commons')" alt="Wikimedia Commons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png" title="Commons" />
+                <span class="justify-helper"></span>
             </div>
 
             <form class="search-form row" role="form">
                 <div class="col-md-6">
-                    <div class="form-group">
+                    <div class="search-wrapper form-group">
                         <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.searchWikipedia(wiki.term, wiki.params)'>
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
