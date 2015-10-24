@@ -37,7 +37,7 @@
         var wiki = this;
         wiki.apiUrl = updateBaseUrl();
         wiki.lang = 'en';
-        wiki.domain = 'wikiquote';
+        wiki.domain = 'wikipedia';
         wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
         wiki.term = 'zen'; // default
         wiki.searchFilter = "intitle:";
