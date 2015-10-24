@@ -1,5 +1,6 @@
 (function() {
 
+    // osvetliti izabrani projekat, mozda outline
     // sacuvati podesavanja (jezik, broj rez) u local storage
     // veliku sliku za glavni clanak
     // commons treba da pretrazuje i otvara fajlove, ne clanke
@@ -36,7 +37,7 @@
         var wiki = this;
         wiki.apiUrl = updateBaseUrl();
         wiki.lang = 'en';
-        wiki.domain = 'wikipedia';
+        wiki.domain = 'wikiquote';
         wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
         wiki.term = 'zen'; // default
         wiki.searchFilter = "intitle:";
@@ -211,8 +212,8 @@
             return wiki.results;
         } // removeLeadFromList
 
-        function handleErrors() {
-            wiki.error = "Oh no, there was some error in geting data.";
+        function handleErrors(data, status, headers, config) {
+            wiki.error = "Oh no, there was some error in geting data: " + status;
         } // handleErrors
 
         function resetError() {
