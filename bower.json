@@ -7,11 +7,13 @@
   "main": "app.js",
   "moduleType": [],
   "keywords": [
+    "JS",
+    "javascript",
     "angular",
+    "angularjs",
     "wikipedia",
     "mediawiki",
     "api",
-    "angularjs",
     "wikipedia-api",
     "mediawiki-api"
   ],
@@ -28,6 +30,7 @@
     "angular": "~1.4.7",
     "angular-sanitize": "~1.4.7",
     "bootstrap-css-only": "~3.3.5",
-    "github-fork-ribbon-css": "http://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css"
+    "github-fork-ribbon-css": "http://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css",
+    "blueimp-md5": "~1.1.1"
   }
 }
