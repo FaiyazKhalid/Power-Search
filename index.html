@@ -100,7 +100,7 @@
             <div ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
                 <article ng-repeat="page in wiki.results" class="articles clearfix">
                     <h2 class="text-info">
-                        <span class="pointer" title="Open this article" ng-click="wiki.openLarge(page.title)">{{page.title}}</span>
+                        <span class="pointer" title="Open this article" ng-click="wiki.openArticle(page.title)">{{page.title}}</span>
                     </h2>
                     <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
                     <section ng-bind-html='page.extract' ng-dblclick="wiki.selectText()"></section>
