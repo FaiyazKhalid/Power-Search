@@ -1,12 +1,14 @@
 (function () {
 
+	// kad kliknem na clanak sa liste, da ga prvo otvori malog
 	// osvetliti izabrani projekat, mozda outline
 	// sacuvati podesavanja (jezik, broj rez) u local storage
 	// veliku sliku za glavni clanak
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// primer paramUrl u dokumentaciju
 	// bug: trazim zen na wiki, pa na recniku, pa opet na wiki, a lead ostane sa recnika
-
+	// rutirati pojmove
+	
 	/*
 	    za naziv slike vraca url:
 	    https://en.wikipedia.org/w/api.php?action=query&titles=File:Albert%20Einstein%20Head.jpg&prop=imageinfo&iiprop=url
@@ -116,7 +118,6 @@
 					if (!data.query) return;
 					wiki.page = data.query.pages[0];
 					wiki.page.imageUrl = createImageUrl(wiki.page.pageimage);
-					console.log(wiki.page);
 					removeLeadFromList(title, data.query.redirects);
 				})
 				.error(handleErrors);

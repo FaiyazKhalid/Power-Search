@@ -88,7 +88,7 @@
                         <h1 class="text-info">
                             <span class="pointer" title="{{wiki.leadHoverText()}}" ng-click="wiki.searchForLeadTerm(wiki.page.title)">{{wiki.page.title}}</span>
                         </h1>
-                        <img ng-src="{{wiki.page.imageUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail" ng-show="wiki.page.thumbnail.source">
+                        <a ng-href="{{wiki.page.imageUrl}}" target="_blank"><img ng-src="{{wiki.page.imageUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail pull-right" ng-class="wiki.leadLarge ? 'img-large' : 'img-medium'" ng-show="wiki.page.thumbnail.source"></a>
                         <section ng-bind-html='wiki.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
                     <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.toggleLeadLarge()">« Back</button>

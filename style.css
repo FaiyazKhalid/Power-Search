@@ -19,6 +19,12 @@
     font-size: 0;
     line-height: 0
 }
+.img-large {
+    width: 300px;
+}
+.img-medium {
+    width: 200px;
+}
 
 /* HEADER */
 
