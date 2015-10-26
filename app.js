@@ -115,6 +115,8 @@
 				.success(function (data) {
 					if (!data.query) return;
 					wiki.page = data.query.pages[0];
+					wiki.page.imageUrl = createImageUrl(wiki.page.pageimage);
+					console.log(wiki.page);
 					removeLeadFromList(title, data.query.redirects);
 				})
 				.error(handleErrors);
