@@ -119,20 +119,7 @@
                     if (!data.query) return;
                     wiki.page = data.query.pages[0];
                     removeLeadFromList(title, data.query.redirects);
-
-
-                    if(wiki.page.pageimage) {
-                        var test = new Image();
-                        test.onerror = function() {
-                            $scope.$apply(function(){
-                                wiki.page.imageUrl = filenameToWikipediaUrl(wiki.page.pageimage);
-                                }
-                            );
-                        };
-                        wiki.page.imageUrl = test.src = filenameToCommonsUrl(wiki.page.pageimage);
-                    }   // end if
-
-
+                    if(wiki.page.pageimage) testImage(wiki.page.pageimage);
                 })
                 .error(handleErrors);
         }; // openArticle
@@ -270,11 +257,30 @@
 			return digest[0] + '/' + digest[0] + digest[1] + '/' + encodeURIComponent(filename);
 		}	// parseFilename
 
+        function testImage(filename) {
+            var tester = new Image();
+            tester.onerror = function() {
+                $scope.$apply(function(){
+                    wiki.page.imageUrl = filenameToWikipediaUrl(filename);
+                    }
+                );
+            };
+            tester.onload = function() {
+                $scope.$apply(function(){
+                    wiki.page.imageUrl = tester.src;
+                    }
+                );
+            };
+            tester.src = filenameToCommonsUrl(filename);
+        }   // testImage
+
+
     } // WikiController
 
 
     /* FACTORIES */
 
+    // ovde prebaciti nezavisne funkcije
     function utils($q) {
 
         function isImage(src) {
