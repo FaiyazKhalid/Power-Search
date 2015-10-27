@@ -1,9 +1,7 @@
 (function() {
 
-    // kad kliknem na clanak sa liste, da me skroluje gore
     // osvetliti izabrani projekat, mozda outline
     // sacuvati podesavanja (jezik, broj rez) u local storage
-    // veliku sliku za glavni clanak
     // commons treba da pretrazuje i otvara fajlove, ne clanke
     // primer paramUrl u dokumentaciju
     // bug: trazim zen na wiki, pa na recniku, pa opet na wiki, a lead ostane sa recnika
