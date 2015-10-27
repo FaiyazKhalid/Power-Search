@@ -1,6 +1,6 @@
 (function () {
 
-	// osvetliti izabrani projekat, mozda outline (klasa .selected-img)
+	// ne vuci prevelike slike, uzeti neki thumb
 	// sacuvati podesavanja (jezik, broj rez) u local storage
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// primer paramUrl u dokumentaciju
