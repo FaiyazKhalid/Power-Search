@@ -88,7 +88,9 @@
                         <h1 class="text-info">
                             <span class="pointer" title="{{wiki.leadHoverText()}}" ng-click="wiki.searchForLeadTerm(wiki.page.title)">{{wiki.page.title}}</span>
                         </h1>
-                        <a ng-href="{{wiki.page.imageUrl}}" target="_blank"><img ng-src="{{wiki.page.imageUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail pull-right" ng-class="wiki.leadLarge ? 'img-large' : 'img-medium'" ng-show="wiki.page.thumbnail.source"></a>
+                        <a ng-href="{{wiki.page.imageUrl}}" target="_blank">
+                            <img ng-src="{{wiki.page.imageUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail pull-right" ng-class="wiki.leadLarge ? 'img-large' : 'img-medium'" ng-show="wiki.page.imageUrl">
+                        </a>
                         <section ng-bind-html='wiki.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
                     <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.toggleLeadLarge()">« Back</button>
@@ -100,7 +102,7 @@
             <div ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
                 <article ng-repeat="page in wiki.results" class="articles clearfix">
                     <h2 class="text-info">
-                        <span class="pointer" title="Open this article" ng-click="wiki.openArticle(page.title)">{{page.title}}</span>
+                        <span class="pointer" title="Open this article" ng-click="wiki.resetLeadImage(); wiki.openArticle(page.title)">{{page.title}}</span>
                     </h2>
                     <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
                     <section ng-bind-html='page.extract' ng-dblclick="wiki.selectText()"></section>

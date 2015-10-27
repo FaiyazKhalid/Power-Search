@@ -33,7 +33,7 @@
         .directive('autofocus', ['$timeout', autofocus])
         .factory('utils', utils);
 
-    function WikiController($http, $window, $scope) {
+    function WikiController($http, $window, $scope, $animate) {
 
         var wiki = this;
         wiki.apiUrl = updateBaseUrl();
@@ -123,6 +123,10 @@
                 .error(handleErrors);
         }; // openArticle
 
+
+        wiki.resetLeadImage = function() {
+            wiki.page.imageUrl = '';
+        };
 
         wiki.searchInDomain = function(domainName) {
             setDomainName(domainName);
