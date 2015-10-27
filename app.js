@@ -32,7 +32,7 @@
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($http, $window, $scope, $animate, utils) {
+	function WikiController($http, $window, $scope, $animate, utils, DataService) {
 
 		var wiki = this;
 		wiki.apiUrl = updateBaseUrl();
@@ -46,54 +46,16 @@
 		wiki.error = "";
 		wiki.leadLarge = false;
 
-		// TODO: dinamicaly populate list with available languages
-		wiki.languages = [{
-			id: 'en',
-			name: 'English'
-        }, {
-			id: 'sr',
-			name: 'Српски'
-        }, {
-			id: 'sh',
-			name: 'Srpskohrvatski'
-        }]; // languages
+		wiki.languages = DataService.getLanguages();
+		wiki.projects = DataService.getProjects();
 
 		wiki.pageParams = {
 			titles: wiki.term
 		};
 
-
-		wiki.projects = [{
-			name: 'wikipedia',
-			logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png'
-        }, {
-			name: 'wiktionary',
-			logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png'
-        }, {
-			name: 'wikiquote',
-			logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png'
-        }, {
-			name: 'wikisource',
-			logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png'
-        }, {
-			name: 'wikispecies',
-			logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/48px-Wikispecies-logo.svg.png'
-        }, {
-			name: 'wikivoyage',
-			logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png'
-        }, {
-			name: 'wikinews',
-			logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/48px-Wikinews-logo.svg.png'
-        }, {
-			name: 'commons',
-			logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png'
-        }]; // projects
-
-
-		wiki.pageParams = {
+        wiki.pageParams = {
 			titles: wiki.term
 		};
-
 
 		wiki.searchParams = {
 			generator: 'search',
@@ -265,7 +227,6 @@
 			console.log(paramUrl);
 			return paramUrl;
 		} // createParamUrl
-
 
 
 		function filenameToCommonsUrl(name) { // param: filename as a string
