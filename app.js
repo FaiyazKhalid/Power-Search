@@ -1,6 +1,6 @@
 (function() {
 
-    // kad kliknem na clanak sa liste, da ga prvo otvori malog
+    // kad kliknem na clanak sa liste, da me skroluje gore
     // osvetliti izabrani projekat, mozda outline
     // sacuvati podesavanja (jezik, broj rez) u local storage
     // veliku sliku za glavni clanak
@@ -121,22 +121,19 @@
                     removeLeadFromList(title, data.query.redirects);
 
 
-					// kad nema slike izbacuje gresku Cannot read property 'replace' of undefined
-    				// at parseFilename (app.js:269)
-					// if wiki.page.pageimage ...
-					var wikipediaImg = filenameToWikipediaUrl(wiki.page.pageimage);
-					var commonsImg = filenameToCommonsUrl(wiki.page.pageimage);
-					wiki.page.imageUrl = commonsImg;
+                    if(wiki.page.pageimage) {
+                        var commonsImg = filenameToCommonsUrl(wiki.page.pageimage);
+                        wiki.page.imageUrl = commonsImg;
 
-					var test = new Image();
-					test.onerror = function() {
-						console.log("error");
-						$scope.$apply(function(){
-							wiki.page.imageUrl = wikipediaImg;
-							}
-						);
-					};
-					test.src = commonsImg;
+                        var test = new Image();
+                        test.onerror = function() {
+                            $scope.$apply(function(){
+                                wiki.page.imageUrl = filenameToWikipediaUrl(wiki.page.pageimage);
+                                }
+                            );
+                        };
+                        test.src = commonsImg;
+                    }   // end if
 
 
                 })
