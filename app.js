@@ -108,6 +108,7 @@
 
 
         wiki.openArticle = function(title) {
+            $window.scrollTo(0, 0);
             if (isPageOpen(title)) {
                 return;
             }
