@@ -20,19 +20,17 @@
     <header class="header">
         <section class="container">
 
-            <!-- mozda prebaciti u js niz -->
-            <div class="wiki-logos">
-                <img class="img-circle" ng-click="wiki.searchInDomain('wikipedia')" alt="Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png" title="Wikipedia" />
-                <img ng-click="wiki.searchInDomain('wiktionary')" alt="Wiktionary" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png" title="Wiktionary" />
-                <img ng-click="wiki.searchInDomain('wikiquote')" alt="Wikiquote" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png" title="Wikiquote" />
-                <img ng-click="wiki.searchInDomain('wikisource')" alt="Wikisource" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png" title="Wikisource" />
-                <span class="justify-helper hidden-sm hidden-md hidden-lg"></span>
-
-                <img ng-click="wiki.searchInDomain('wikispecies')" alt="Wikispecies" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/48px-Wikispecies-logo.svg.png" title="Wikispecies" />
-                <img ng-click="wiki.searchInDomain('wikivoyage')" alt="Wikivoyage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png" title="Wikivoyage" />
-                <img ng-click="wiki.searchInDomain('wikinews')" alt="Wikinews" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/48px-Wikinews-logo.svg.png" title="Wikinews" />
-                <img ng-click="wiki.searchInDomain('commons')" alt="Wikimedia Commons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png" title="Commons" />
-                <span class="justify-helper"></span>
+            <!-- wiki projects -->
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>All Wiki Search</h1>
+                </div>
+                <div class="col-md-6">
+                    <div class="wiki-logos">
+                        <img ng-repeat="project in wiki.projects" ng-src="{{project.logo}}" alt="{{project.name}}" class="img-circle" ng-click="wiki.searchInDomain(project.name)" title="{{project.name}}" >
+                        <span class="justify-helper"></span>
+                    </div>
+                </div>
             </div>
 
             <!-- search criteria -->
