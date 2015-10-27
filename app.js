@@ -1,6 +1,6 @@
 (function () {
 
-	// ne vuci prevelike slike, uzeti neki thumb
+	// ne vuci prevelike slike, uzeti neki thumb, punu velicinu da otvara na klik
 	// sacuvati podesavanja (jezik, broj rez) u local storage
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// primer paramUrl u dokumentaciju
@@ -15,6 +15,11 @@
 
 	    vraca nadjene slike za trazeni termin:
 	    https://en.wikipedia.org/w/api.php?action=query&list=allimages&aiprop=url&format=json&ailimit=10&aifrom=Albert
+
+		vraca url za zeljenu velicinu slike:
+		https://commons.wikimedia.org/w/api.php?action=query&titles=File:Spelterini_Bl%C3%BCemlisalp.jpg&prop=imageinfo&iiprop=url&iiurlwidth=200
+		ili izravno vraca zeljenu velicinu slike (dodati thumb, a na kraju velicinu i ponovo naziv):
+		https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/ZenX-fi2.JPG/600px-ZenX-fi2.JPG
 
 	    alternativni commonsapi:
 	    https://tools.wmflabs.org/magnus-toolserver/commonsapi.php
