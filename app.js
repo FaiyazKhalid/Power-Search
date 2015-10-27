@@ -31,7 +31,6 @@
 	angular
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController)
-		.directive('autofocus', ['$timeout', autofocus])
 		.factory('utils', utils);
 
 	function WikiController($http, $window, $scope, $animate) {
@@ -349,19 +348,5 @@
 			isImage: isImage
 		};
 	} // utils
-
-
-	/* DIRECTIVES */
-
-	function autofocus($timeout) {
-		return {
-			restrict: 'A',
-			link: function ($scope, $element) {
-				$timeout(function () {
-					$element[0].focus();
-				});
-			}
-		};
-	} // autofocus
 
 })();

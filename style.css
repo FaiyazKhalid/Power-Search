@@ -37,9 +37,11 @@
     padding: 10px 20px;
     margin-bottom: 20px;
 }
+.logo-wrap {
+    margin-bottom: 20px;
+}
 .wiki-logos {
     text-align: justify;
-    margin-bottom: 20px;
 }
 .wiki-logos img {
     cursor: pointer;
