@@ -31,7 +31,7 @@
                 <div class="col-md-6">
                     <div class="wiki-logos">
                         <span ng-repeat="project in wiki.projects" >
-                            <img ng-src="{{project.logo}}" alt="{{project.name}}" class="img-circle" ng-click="wiki.searchInDomain(project.name)" title="{{project.name}}" >
+                            <img ng-src="{{project.logo}}" alt="{{project.name}}" class="img-rounded" ng-click="wiki.searchInDomain(project.name)" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.domain }">
                         </span>
                         <span class="justify-helper"></span>
                     </div>
