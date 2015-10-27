@@ -30,10 +30,9 @@
 	'use strict';
 	angular
 		.module("wikiModul", ['ngSanitize'])
-		.controller('WikiController', WikiController)
-		.factory('utils', utils);
+		.controller('WikiController', WikiController);
 
-	function WikiController($http, $window, $scope, $animate) {
+	function WikiController($http, $window, $scope, $animate, utils) {
 
 		var wiki = this;
 		wiki.apiUrl = updateBaseUrl();
@@ -140,7 +139,7 @@
 
 		wiki.openArticle = function (title) {
 			//$window.scrollTo(0, 0);
-			scrollToTop(300);
+			utils.scrollToTop(300);
 			if (isPageOpen(title)) {
 				return;
 			}
@@ -239,7 +238,7 @@
 
 		function removeLeadFromList(term, redirects) {
 			for (var x in wiki.results) {
-				if (wiki.results[x].title == capitalizeFirst(term)) {
+				if (wiki.results[x].title == utils.capitalizeFirst(term)) {
 					wiki.results.splice(x, 1); // remove it from the list
 				}
 				if (!redirects) return wiki.results;
@@ -262,37 +261,24 @@
 
 		function createParamUrl(params) {
 			angular.extend(params, commonParams);
-			var paramUrl = wiki.apiUrl + '?' + serialize(params);
+			var paramUrl = wiki.apiUrl + '?' + utils.serialize(params);
 			console.log(paramUrl);
 			return paramUrl;
 		} // createParamUrl
 
-		function serialize(params) {
-			var paramString = Object.keys(params).map(function (key) {
-				return key + '=' + encodeURIComponent(params[key]);
-			}).join('&');
-			return (paramString);
-		} // serialize
 
-		function capitalizeFirst(string) {
-			return string.charAt(0).toUpperCase() + string.slice(1);
-		} // capitalizeFirst
 
 		function filenameToCommonsUrl(name) { // param: filename as a string
-			var parsed = parseFilename(name);
+			var parsed = utils.wikiParseFilename(name);
 			return 'http://upload.wikimedia.org/wikipedia/commons/' + parsed;
 		} // filenameToCommonsUrl
 
+
 		function filenameToWikipediaUrl(name) { // param: filename as a string
-			var parsed = parseFilename(name);
+			var parsed = utils.wikiParseFilename(name);
 			return 'http://upload.wikimedia.org/wikipedia/' + wiki.lang + '/' + parsed;
 		} // filenameToWikipediaUrl
 
-		function parseFilename(name) {
-			var filename = name.replace(/ /g, "_");
-			var digest = md5(filename);
-			return digest[0] + '/' + digest[0] + digest[1] + '/' + encodeURIComponent(filename);
-		} // parseFilename
 
 		function testImage(filename) {
 			// if image is not on commons, then it is on wikipedia
@@ -311,42 +297,6 @@
 		} // testImage
 
 
-		function scrollToTop(duration) {
-			var scrollStep = -window.scrollY / (duration / 15),
-				scrollInterval = setInterval(function () {
-					if (window.scrollY === 0) {
-						clearInterval(scrollInterval);
-						return;
-					}
-					window.scrollBy(0, scrollStep);
-				}, 15);
-		} // scrollToTop
-
-
 	} // WikiController
-
-
-	/* FACTORIES */
-
-	// ovde prebaciti nezavisne funkcije
-	function utils($q) {
-
-		function isImage(src) {
-			var deferred = $q.defer();
-			var image = new Image();
-			image.onerror = function () {
-				deferred.resolve(false);
-			};
-			image.onload = function () {
-				deferred.resolve(true);
-			};
-			image.src = src;
-			return deferred.promise;
-		}
-
-		return {
-			isImage: isImage
-		};
-	} // utils
 
 })();
