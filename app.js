@@ -122,9 +122,6 @@
 
 
                     if(wiki.page.pageimage) {
-                        var commonsImg = filenameToCommonsUrl(wiki.page.pageimage);
-                        wiki.page.imageUrl = commonsImg;
-
                         var test = new Image();
                         test.onerror = function() {
                             $scope.$apply(function(){
@@ -132,7 +129,7 @@
                                 }
                             );
                         };
-                        test.src = commonsImg;
+                        wiki.page.imageUrl = test.src = filenameToCommonsUrl(wiki.page.pageimage);
                     }   // end if
 
 
