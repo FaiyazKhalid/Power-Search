@@ -9,12 +9,12 @@
 
 		return {
 			scrollToTop: scrollToTop,
-            wikiParseFilename: wikiParseFilename,
-            capitalizeFirst: capitalizeFirst,
-            serialize: serialize
+			wikiParseFilename: wikiParseFilename,
+			capitalizeFirst: capitalizeFirst,
+			serialize: serialize
 		};
 
-        function scrollToTop(duration) {
+		function scrollToTop(duration) {
 			var scrollStep = -window.scrollY / (duration / 15),
 				scrollInterval = setInterval(function () {
 					if (window.scrollY === 0) {
@@ -25,17 +25,17 @@
 				}, 15);
 		} // scrollToTop
 
-        function wikiParseFilename(name) {
+		function wikiParseFilename(name) {
 			var filename = name.replace(/ /g, "_");
 			var digest = md5(filename);
 			return digest[0] + '/' + digest[0] + digest[1] + '/' + encodeURIComponent(filename);
 		} // wikiParseFilename
 
-        function capitalizeFirst(string) {
+		function capitalizeFirst(string) {
 			return string.charAt(0).toUpperCase() + string.slice(1);
 		} // capitalizeFirst
 
-        function serialize(params) {
+		function serialize(params) {
 			var paramString = Object.keys(params).map(function (key) {
 				return key + '=' + encodeURIComponent(params[key]);
 			}).join('&');
