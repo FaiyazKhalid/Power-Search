@@ -40,6 +40,7 @@
 		var wiki = this;
 
 		/*** PUBLIC PROPERTIES ***/
+
 		wiki.apiUrl = updateWikiDomen();
 		wiki.lang = 'en';
 		wiki.domain = 'wikipedia';
@@ -68,6 +69,7 @@
 		};
 
 		/*** INTERNAL PROPERTIES ***/
+
 		var commonParams = {
 			action: 'query',
 			prop: 'extracts|pageimages|images',
@@ -188,7 +190,10 @@
 			localStorage.wikiLang = wiki.lang || '';
 			localStorage.wikiMaxResult = wiki.searchParams.gsrlimit || '';
 			localStorage.wikiDomain = wiki.domain || '';
-			localStorage.wikiFilter = wiki.searchFilter || '';
+			// filter could be empty string
+			if(wiki.searchFilter !== undefined) {
+				localStorage.wikiFilter = wiki.searchFilter;
+			}
 		} // saveSearchParams
 
 		function loadLocalParams() {
@@ -196,7 +201,9 @@
 			wiki.lang = localStorage.wikiLang || wiki.lang;
 			wiki.searchParams.gsrlimit = Number(localStorage.wikiMaxResult || wiki.searchParams.gsrlimit);
 			wiki.domain = localStorage.wikiDomain || wiki.domain;
-			wiki.searchFilter = localStorage.wikiFilter || wiki.searchFilter;
+			if(localStorage.wikiFilter != 'undefined') {
+				wiki.searchFilter = localStorage.wikiFilter;
+			}
 		} // saveSearchParams
 
 		function setDomainName(domainName) {
