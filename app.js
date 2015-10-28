@@ -1,10 +1,9 @@
 (function () {
 
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
-	// primer paramUrl u dokumentaciju
-	// bug: trazim zen na wiki, pa na recniku, pa opet na wiki, a lead ostane sa recnika
 	// rutirati pojmove
 	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
+	// primer paramUrl u dokumentaciju
 
 	/*
 	    za naziv slike vraca url:
@@ -112,9 +111,7 @@
 		wiki.openArticle = function (title) {
 			//$window.scrollTo(0, 0);
 			utils.scrollToTop(300);
-			if (isPageOpen(title)) {
-				return;
-			}
+
 			wiki.pageParams.titles = title;
 			var paramUrl = createParamUrl(wiki.pageParams);
 
@@ -218,10 +215,6 @@
 			wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.searchTerm;
 		} // updateSearchTerm
 
-		// TODO: proveriti i domen, ne samo naslov
-		function isPageOpen(title) {
-			return (wiki.page && (wiki.page.title == title));
-		} // isPageOpen
 
 		function removeLeadFromList(term, redirects) {
 			for (var x in wiki.results) {
