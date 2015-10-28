@@ -1,12 +1,11 @@
 (function () {
 
-	// ne vuci prevelike slike, uzeti neki thumb, punu velicinu da otvara na klik
 	// sacuvati podesavanja (jezik, broj rez) u local storage
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// primer paramUrl u dokumentaciju
 	// bug: trazim zen na wiki, pa na recniku, pa opet na wiki, a lead ostane sa recnika
 	// rutirati pojmove
-	// checkOnCommons da bude univerzalna za svaki wiki projekt
+	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
 
 	/*
 	    za naziv slike vraca url:
@@ -119,7 +118,7 @@
 					if (!data.query) return;
 					wiki.page = data.query.pages[0];
 					removeLeadFromList(title, data.query.redirects);
-					if (wiki.page.pageimage) checkOnCommons(wiki.page.pageimage);
+					if (wiki.page.pageimage) checkIfOnCommons(wiki.page.pageimage);
 				})
 				.error(handleErrors);
 		}; // openArticle
@@ -193,6 +192,7 @@
 			wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.term;
 		} // updateSearchTerm
 
+		// TODO: proveriti i domen, ne samo naslov
 		function isPageOpen(title) {
 			return (wiki.page && (wiki.page.title == title));
 		} // isPageOpen
@@ -251,7 +251,7 @@
 		} // wikiParseFilename
 
 
-		function checkOnCommons(filename) {
+		function checkIfOnCommons(filename) {
 			// if image is not on commons, then it is on wikipedia
 			var file = new Image();
 			file.onerror = function () {
@@ -266,7 +266,7 @@
 				});
 			};
 			file.src = filenameToCommonsUrl(filename, imgWidth);
-		} // checkOnCommons
+		} // checkIfOnCommons
 
 
 	} // WikiController
