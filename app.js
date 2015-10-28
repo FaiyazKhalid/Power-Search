@@ -6,7 +6,7 @@
 	// primer paramUrl u dokumentaciju
 	// bug: trazim zen na wiki, pa na recniku, pa opet na wiki, a lead ostane sa recnika
 	// rutirati pojmove
-	// testImage da bude univerzalna za svaki wiki projekt
+	// checkOnCommons da bude univerzalna za svaki wiki projekt
 
 	/*
 	    za naziv slike vraca url:
@@ -81,6 +81,7 @@
 			formatversion: 2,
 			callback: 'JSON_CALLBACK'
 		};
+		var imgWidth = 200;
 
 
 		/*** PUBLIC METHODS ***/
@@ -118,14 +119,14 @@
 					if (!data.query) return;
 					wiki.page = data.query.pages[0];
 					removeLeadFromList(title, data.query.redirects);
-					if (wiki.page.pageimage) testImage(wiki.page.pageimage);
+					if (wiki.page.pageimage) checkOnCommons(wiki.page.pageimage);
 				})
 				.error(handleErrors);
 		}; // openArticle
 
 
 		wiki.resetLeadImage = function () {
-			wiki.page.imageUrl = '';
+			wiki.page.imageThumbUrl = '';
 		};
 
 		wiki.searchInDomain = function (domainName) {
@@ -177,13 +178,6 @@
 		}; // checkMax
 
 
-		wiki.checkLang = function () {
-			console.log("prov");
-			if (wiki.lang.length < 2) {
-				return false;
-			}
-		}; // checkMax
-
 		/*** HELPER FUNCTIONS ***/
 
 		function setDomainName(domainName) {
@@ -234,33 +228,45 @@
 		} // createParamUrl
 
 
-		function filenameToCommonsUrl(name) { // param: filename as a string
-			var parsed = utils.wikiParseFilename(name);
+		function filenameToCommonsUrl(name, imgWidth) { // param: filename - string, imgWidth - number
+			var parsed = wikiParseFilename(name, imgWidth);
 			return 'http://upload.wikimedia.org/wikipedia/commons/' + parsed;
 		} // filenameToCommonsUrl
 
 
 		function filenameToWikipediaUrl(name) { // param: filename as a string
-			var parsed = utils.wikiParseFilename(name);
+			var parsed = wikiParseFilename(name);
 			return 'http://upload.wikimedia.org/wikipedia/' + wiki.lang + '/' + parsed;
 		} // filenameToWikipediaUrl
 
 
-		function testImage(filename) {
+		function wikiParseFilename(name, size) {
+			var filename = name.replace(/ /g, "_");
+			var digest = md5(filename);
+			var parsed = digest[0] + '/' + digest[0] + digest[1] + '/' + encodeURIComponent(filename);
+			if(size) {
+				return 'thumb/' + parsed + '/' + size + 'px-' + encodeURIComponent(filename);
+			}
+			return parsed;
+		} // wikiParseFilename
+
+
+		function checkOnCommons(filename) {
 			// if image is not on commons, then it is on wikipedia
-			var tester = new Image();
-			tester.onerror = function () {
+			var file = new Image();
+			file.onerror = function () {
 				$scope.$apply(function () {
-					wiki.page.imageUrl = filenameToWikipediaUrl(filename);
+					wiki.page.imageThumbUrl = filenameToWikipediaUrl(filename);
 				});
 			};
-			tester.onload = function () {
+			file.onload = function () {
 				$scope.$apply(function () {
-					wiki.page.imageUrl = tester.src;
+					wiki.page.imageThumbUrl = file.src;
+					wiki.page.imageUrl = filenameToCommonsUrl(filename);
 				});
 			};
-			tester.src = filenameToCommonsUrl(filename);
-		} // testImage
+			file.src = filenameToCommonsUrl(filename, imgWidth);
+		} // checkOnCommons
 
 
 	} // WikiController

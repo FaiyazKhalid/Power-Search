@@ -63,7 +63,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <select ng-model="wiki.lang" ng-change='wiki.checkLang(); wiki.searchWikipedia()' class="form-control">
+                        <select ng-model="wiki.lang" ng-change='wiki.searchWikipedia()' class="form-control">
                             <option ng-repeat="lang in wiki.languages" value="{{lang.id}}">{{lang.name}}</option>
                         </select>
                     </div>
@@ -93,7 +93,7 @@
                             <span class="pointer" title="{{wiki.leadHoverText()}}" ng-click="wiki.searchForLeadTerm(wiki.page.title)">{{wiki.page.title}}</span>
                         </h1>
                         <a ng-href="{{wiki.page.imageUrl}}" target="_blank">
-                            <img ng-src="{{wiki.page.imageUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail pull-right" ng-class="wiki.leadLarge ? 'img-large' : 'img-medium'" ng-show="wiki.page.imageUrl">
+                            <img ng-src="{{wiki.page.imageThumbUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail pull-right" ng-class="wiki.leadLarge ? 'img-large' : 'img-medium'" ng-show="wiki.page.imageThumbUrl">
                         </a>
                         <section ng-bind-html='wiki.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
