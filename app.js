@@ -37,33 +37,25 @@
 		.controller('WikiController', WikiController);
 
 	function WikiController($http, $window, $scope, $animate, utils, DataService) {
-
 		var wiki = this;
-		wiki.apiUrl = updateBaseUrl();
+
+		/*** PUBLIC PROPERTIES ***/
+		wiki.apiUrl = updateWikiDomen();
 		wiki.lang = 'en';
 		wiki.domain = 'wikipedia';
 		wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
-		wiki.term = 'zen'; // default
+		wiki.searchTerm = 'zen'; // default
 		wiki.searchFilter = "intitle:";
 		wiki.page = null;
 		wiki.results = null;
 		wiki.error = "";
 		wiki.leadLarge = false;
-
 		wiki.languages = DataService.getLanguages();
 		wiki.projects = DataService.getProjects();
 
-		wiki.pageParams = {
-			titles: wiki.term
-		};
-
-        wiki.pageParams = {
-			titles: wiki.term
-		};
-
 		wiki.searchParams = {
 			generator: 'search',
-			gsrsearch: wiki.term + wiki.searchFilter,
+			gsrsearch: wiki.searchTerm + wiki.searchFilter,
 			gsrlimit: 20, // broj rezultata, max 50
 			pilimit: 'max', // thumb image for all articles
 			exlimit: 'max', // extract for all articles
@@ -71,7 +63,11 @@
 			exintro: '' // extracts intro
 		};
 
-		// defaul params both for open and search
+		wiki.pageParams = {
+			titles: wiki.searchTerm
+		};
+
+		/*** INTERNAL PROPERTIES ***/
 		var commonParams = {
 			action: 'query',
 			prop: 'extracts|pageimages|images',
@@ -80,13 +76,19 @@
 			formatversion: 2,
 			callback: 'JSON_CALLBACK'
 		};
-		var imgWidth = 200;
+		var leadImgWidth = 200;
 
 
 		/*** PUBLIC METHODS ***/
 
+		wiki.init = function() {
+			loadLocalParams();
+			wiki.searchWikipedia();
+		};	// init
+
+
 		wiki.searchWikipedia = function () { // mozda ne treba ulazni argument
-			updateBaseUrl();
+			updateWikiDomen();
 			updateSearchTerm();
 			var paramUrl = createParamUrl(wiki.searchParams);
 
@@ -98,9 +100,11 @@
 						return false;
 					}
 					wiki.results = data.query.pages;
-					wiki.openArticle(wiki.term);
+					wiki.openArticle(wiki.searchTerm);
 				})
 				.error(handleErrors);
+
+				saveSearchParams();
 		}; // searchWikipedia
 
 
@@ -136,7 +140,7 @@
 
 		wiki.searchForLeadTerm = function (title) {
 			if (wiki.leadLarge) {
-				wiki.term = title;
+				wiki.searchTerm = title;
 				wiki.searchWikipedia(title, wiki.searchParams);
 			}
 			wiki.toggleLeadLarge();
@@ -157,7 +161,7 @@
 
 		wiki.selectText = function () {
 			var text = $window.getSelection().toString();
-			wiki.term = text;
+			wiki.searchTerm = text;
 		}; // toggleLeadLarge
 
 
@@ -179,17 +183,33 @@
 
 		/*** HELPER FUNCTIONS ***/
 
+		function saveSearchParams() {
+			localStorage.wikiSearchTerm = wiki.searchTerm || '';
+			localStorage.wikiLang = wiki.lang || '';
+			localStorage.wikiMaxResult = wiki.searchParams.gsrlimit || '';
+			localStorage.wikiDomain = wiki.domain || '';
+			localStorage.wikiFilter = wiki.searchFilter || '';
+		} // saveSearchParams
+
+		function loadLocalParams() {
+			wiki.searchTerm = localStorage.wikiSearchTerm || wiki.searchTerm;
+			wiki.lang = localStorage.wikiLang || wiki.lang;
+			wiki.searchParams.gsrlimit = Number(localStorage.wikiMaxResult || wiki.searchParams.gsrlimit);
+			wiki.domain = localStorage.wikiDomain || wiki.domain;
+			wiki.searchFilter = localStorage.wikiFilter || wiki.searchFilter;
+		} // saveSearchParams
+
 		function setDomainName(domainName) {
 			wiki.domain = domainName;
 		} // setDomainName
 
-		function updateBaseUrl() {
+		function updateWikiDomen() {
 			wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
 			if (wiki.domain == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
-		} // updateBaseUrl
+		} // updateWikiDomen
 
 		function updateSearchTerm() {
-			wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.term;
+			wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.searchTerm;
 		} // updateSearchTerm
 
 		// TODO: proveriti i domen, ne samo naslov
@@ -227,18 +247,15 @@
 			return paramUrl;
 		} // createParamUrl
 
-
-		function filenameToCommonsUrl(name, imgWidth) { // param: filename - string, imgWidth - number
-			var parsed = wikiParseFilename(name, imgWidth);
+		function filenameToCommonsUrl(name, leadImgWidth) { // param: filename - string, leadImgWidth - number
+			var parsed = wikiParseFilename(name, leadImgWidth);
 			return 'http://upload.wikimedia.org/wikipedia/commons/' + parsed;
 		} // filenameToCommonsUrl
-
 
 		function filenameToWikipediaUrl(name) { // param: filename as a string
 			var parsed = wikiParseFilename(name);
 			return 'http://upload.wikimedia.org/wikipedia/' + wiki.lang + '/' + parsed;
 		} // filenameToWikipediaUrl
-
 
 		function wikiParseFilename(name, size) {
 			var filename = name.replace(/ /g, "_");
@@ -249,7 +266,6 @@
 			}
 			return parsed;
 		} // wikiParseFilename
-
 
 		function checkIfOnCommons(filename) {
 			// if image is not on commons, then it is on wikipedia
@@ -265,7 +281,7 @@
 					wiki.page.imageUrl = filenameToCommonsUrl(filename);
 				});
 			};
-			file.src = filenameToCommonsUrl(filename, imgWidth);
+			file.src = filenameToCommonsUrl(filename, leadImgWidth);
 		} // checkIfOnCommons
 
 

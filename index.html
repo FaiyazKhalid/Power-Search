@@ -18,7 +18,7 @@
     <script src='services/DataService.js'></script>
 </head>
 
-<body ng-app='wikiModul' ng-controller='WikiController as wiki' ng-init='wiki.searchWikipedia()'>
+<body ng-app='wikiModul' ng-controller='WikiController as wiki' ng-init='wiki.init()'>
 
     <header class="header">
         <section class="container">
@@ -45,7 +45,7 @@
                         <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.searchWikipedia()'>
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
-                        <input ng-model='wiki.term' ng-change='wiki.searchWikipedia()' class="form-control input-lg" autofocus>
+                        <input ng-model='wiki.searchTerm' ng-change='wiki.searchWikipedia()' class="form-control input-lg" autofocus>
                     </div>
                 </div>
                 <div class="col-md-3">
