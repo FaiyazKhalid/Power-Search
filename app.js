@@ -1,6 +1,7 @@
 (function () {
 
-	// zameniti razmake kada setuje i getuje rutu (pretraga i init)
+	// zameniti razmake kada setuje i getuje rutu (pretraga i init); utils.replaceSpacesWithUnderscores
+	// i dalje se desava da fiter bude undefined, postaviti strog uslov da ima samo tri opcije
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
 	// primer paramUrl u dokumentaciju
@@ -83,7 +84,7 @@
 
 		wiki.init = function() {
 			loadLocalParams();
-			wiki.searchTerm = $location.path().substr(1);	// removes '/'
+			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm;	// removes '/'
 			wiki.searchWikipedia();
 			$window.onhashchange = wiki.init;
 		};	// init
@@ -260,7 +261,7 @@
 		} // filenameToWikipediaUrl
 
 		function wikiParseFilename(name, size) {
-			var filename = name.replace(/ /g, "_");
+			var filename = utils.replaceSpacesWithUnderscores(name);
 			var digest = md5(filename);
 			var parsed = digest[0] + '/' + digest[0] + digest[1] + '/' + encodeURIComponent(filename);
 			if(size) {

@@ -8,10 +8,17 @@
 	function utils() {
 
 		return {
+			replaceSpacesWithUnderscores: replaceSpacesWithUnderscores,
 			scrollToTop: scrollToTop,
 			capitalizeFirst: capitalizeFirst,
 			serialize: serialize
 		};
+
+
+		function replaceSpacesWithUnderscores(struna){
+			return struna.replace(/ /g,"_");
+		}	// replaceSpacesWithUnderscores
+
 
 		function scrollToTop(duration) {
 			var scrollStep = -window.scrollY / (duration / 15),
@@ -24,9 +31,11 @@
 				}, 15);
 		} // scrollToTop
 
+
 		function capitalizeFirst(string) {
 			return string.charAt(0).toUpperCase() + string.slice(1);
 		} // capitalizeFirst
+
 
 		function serialize(params) {
 			var paramString = Object.keys(params).map(function (key) {
@@ -34,6 +43,7 @@
 			}).join('&');
 			return (paramString);
 		} // serialize
+
 
 	} // utils
 
