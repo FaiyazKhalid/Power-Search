@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html ng-app='wikiModul' lang='en'>
 
 <head>
     <meta charset='UTF-8'>
+    <base href="/angular-wiki-search/">
     <title>All Wiki Search</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.min.css">
@@ -18,7 +19,7 @@
     <script src='services/DataService.js'></script>
 </head>
 
-<body ng-app='wikiModul' ng-controller='WikiController as wiki' ng-init='wiki.init()'>
+<body ng-controller='WikiController as wiki' ng-init='wiki.init()'>
 
     <header class="header">
         <section class="container">

@@ -1,7 +1,7 @@
 (function () {
 
+	// zameniti razmake kada setuje i getuje rutu (pretraga i init)
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
-	// rutirati pojmove
 	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
 	// primer paramUrl u dokumentaciju
 
@@ -34,7 +34,7 @@
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($http, $window, $scope, $animate, utils, DataService) {
+	function WikiController($http, $window, $scope, $animate, $location, utils, DataService) {
 		var wiki = this;
 
 		/*** PUBLIC PROPERTIES ***/
@@ -83,13 +83,17 @@
 
 		wiki.init = function() {
 			loadLocalParams();
+			wiki.searchTerm = $location.path().substr(1);	// removes '/'
 			wiki.searchWikipedia();
+			$window.onhashchange = wiki.init;
 		};	// init
 
 
 		wiki.searchWikipedia = function () { // mozda ne treba ulazni argument
 			updateWikiDomen();
 			updateSearchTerm();
+			$location.path(wiki.searchTerm);
+
 			var paramUrl = createParamUrl(wiki.searchParams);
 
 			$http.jsonp(paramUrl)
@@ -109,7 +113,6 @@
 
 
 		wiki.openArticle = function (title) {
-			//$window.scrollTo(0, 0);
 			utils.scrollToTop(300);
 
 			wiki.pageParams.titles = title;
