@@ -10,14 +10,15 @@
 		return {
 			replaceSpacesWithUnderscores: replaceSpacesWithUnderscores,
 			scrollToTop: scrollToTop,
+			capitalize: capitalize,
 			capitalizeFirst: capitalizeFirst,
 			serialize: serialize
 		};
 
 
-		function replaceSpacesWithUnderscores(struna){
-			return struna.replace(/ /g,"_");
-		}	// replaceSpacesWithUnderscores
+		function replaceSpacesWithUnderscores(struna) {
+			return struna.replace(/ /g, "_");
+		} // replaceSpacesWithUnderscores
 
 
 		function scrollToTop(duration) {
@@ -30,6 +31,13 @@
 					window.scrollBy(0, scrollStep);
 				}, 15);
 		} // scrollToTop
+
+
+		function capitalize(struna) {
+			return struna.replace(/(?:^|\s)\S/g, function (a) {
+				return a.toUpperCase();
+			});
+		}	// capitalize
 
 
 		function capitalizeFirst(string) {

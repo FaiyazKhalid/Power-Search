@@ -63,7 +63,7 @@
 			exintro: '' // extracts intro
 		};
 
-		wiki.pageParams = {
+		wiki.articleParams = {
 			titles: wiki.searchTerm
 		};
 
@@ -114,14 +114,17 @@
 
 		wiki.openArticle = function (title) {
 			utils.scrollToTop(300);
-
-			wiki.pageParams.titles = title;
-			var paramUrl = createParamUrl(wiki.pageParams);
+			wiki.articleParams.titles = title;
+			var paramUrl = createParamUrl(wiki.articleParams);
+			var secondAttemp = false;
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					if (data.query.pages[0].missing) {
 						wiki.page = '';
+						if(secondAttemp) return;
+						wiki.openArticle(utils.capitalize(title));
+						secondAttemp = true;
 						return;
 					}
 					wiki.page = data.query.pages[0];
