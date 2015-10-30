@@ -1,6 +1,5 @@
 (function () {
 
-	// ako je prazan termin ne slati
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
 	// primer paramUrl u dokumentaciju
