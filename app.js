@@ -5,16 +5,8 @@
 	// primer paramUrl u dokumentaciju
 
 	/*
-	    za naziv slike vraca url:
-	    https://en.wikipedia.org/w/api.php?action=query&titles=File:Albert%20Einstein%20Head.jpg&prop=imageinfo&iiprop=url
-
 	    vraca nadjene slike za trazeni termin:
 	    https://en.wikipedia.org/w/api.php?action=query&list=allimages&aiprop=url&format=json&ailimit=10&aifrom=Albert
-
-		vraca url za zeljenu velicinu slike:
-		https://commons.wikimedia.org/w/api.php?action=query&titles=File:Spelterini_Bl%C3%BCemlisalp.jpg&prop=imageinfo&iiprop=url&iiurlwidth=200
-		ili izravno vraca zeljenu velicinu slike (dodati thumb, a na kraju velicinu i ponovo naziv):
-		https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/ZenX-fi2.JPG/600px-ZenX-fi2.JPG
 
 	    alternativni commonsapi:
 	    https://tools.wmflabs.org/magnus-toolserver/commonsapi.php
@@ -46,9 +38,9 @@
 		wiki.results = null;
 		wiki.error = "";
 		wiki.leadLarge = false;
-		wiki.secondTry = false;		// try again with different capitalisation
 		wiki.languages = WikiService.getLanguages();
 		wiki.projects = WikiService.getProjects();
+		wiki.imageUrl = '';
 		wiki.imageThumbUrl = '';
 
 		wiki.searchParams = {
@@ -76,6 +68,7 @@
 			callback: 'JSON_CALLBACK'
 		};
 		var leadImgWidth = 200;
+		var triedTwice = false;		// try again to find article with different capitalisation
 
 
 		/*** PUBLIC METHODS ***/
@@ -100,6 +93,7 @@
 			$http.jsonp(paramUrl)
 				.success(showResults)
 				.error(handleErrors);
+
 			saveSearchParams();
 		}; // searchWikipedia
 
@@ -109,6 +103,7 @@
 			utils.scrollToTop(300);
 			wiki.articleParams.titles = title;
 			var paramUrl = utils.createParamUrl(wiki.articleParams, commonParams, wiki.apiUrl);
+			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(showArticle)
@@ -182,18 +177,22 @@
 			resetError();
 			if (!data.query) return;
 			wiki.results = data.query.pages;
-			wiki.secondTry = false;
+			triedTwice = false;
 			wiki.openArticle(wiki.searchTerm);
-		}
+		}	// showResults
+
 
 		function showArticle(data) {
 			if (!data.query) return;
 			if (data.query.pages[0].missing) tryAgainCapitalize(wiki.articleParams.titles);
+			if (data.query.pages[0].missing) return;
 			wiki.page = data.query.pages[0];
 			removeArticleFromResults(wiki.articleParams.titles, wiki.results);
 			removeRedirections(data.query.redirects, wiki.results);
+			resetImage();
 			if (wiki.page.pageimage) findImage(wiki.page.pageimage);
-		}
+		}	// showArticle
+
 
 		function saveSearchParams() {
 			localStorage.wikiSearchTerm = wiki.searchTerm || '';
@@ -263,7 +262,13 @@
 
 		function resetArticle(){
 			wiki.page = '';
-		}
+		}	// resetArticle
+
+
+		function resetImage() {
+			wiki.imageThumbUrl = '';
+			wiki.imageUrl = '';
+		}	// resetImage
 
 
 		function filenameToCommonsUrl(name, leadImgWidth) { // param: filename - string, leadImgWidth - number
@@ -308,10 +313,10 @@
 
 
 		function tryAgainCapitalize(title) {
-			if (wiki.secondTry) return;
+			if (triedTwice) return;
 			if (title.split(" ").length < 2) return;
-			wiki.secondTry = true;
 			wiki.openArticle(utils.capitalize(title));
+			triedTwice = true;
 		}	// tryAgainCapitalize
 
 
