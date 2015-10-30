@@ -3,7 +3,7 @@
 
 <head>
     <meta charset='UTF-8'>
-    <title>All Wiki Search</title>
+    <title>Angular Wiki Search</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/github-fork-ribbon-css/index.css" />
@@ -98,7 +98,7 @@
                         <section ng-bind-html='wiki.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
                     <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.toggleLeadLarge()">« Back</button>
-                    <p class="read-more text-info pull-right"><a ng-href="https://{{wiki.lang}}.{{wiki.domain}}.org/wiki/{{wiki.page.title}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.createPageUrl(wiki.page.title)}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
                 </section>
             </div>
 
@@ -110,7 +110,7 @@
                     </h2>
                     <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
                     <section ng-bind-html='page.extract' ng-dblclick="wiki.selectText()"></section>
-                    <p class="read-more text-info pull-right"><a ng-href="https://{{wiki.lang}}.{{wiki.domain}}.org/wiki/{{page.title}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.createPageUrl(page.title)}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
                 </article>
             </div>
 

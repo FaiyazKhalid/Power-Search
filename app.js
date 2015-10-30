@@ -38,7 +38,7 @@
 
 		/*** PUBLIC PROPERTIES ***/
 
-		wiki.apiUrl = updateWikiDomen();
+		wiki.apiUrl = updateApiDomain();
 		wiki.lang = 'en';
 		wiki.domain = 'wikipedia';
 		wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
@@ -89,7 +89,7 @@
 
 
 		wiki.searchWikipedia = function () { // mozda ne treba ulazni argument
-			updateWikiDomen();
+			updateApiDomain();
 			updateSearchTerm();
 			$location.path(wiki.searchTerm);
 			var paramUrl = utils.createParamUrl(wiki.searchParams, commonParams, wiki.apiUrl);
@@ -188,6 +188,12 @@
 		}; // checkMax
 
 
+		wiki.createPageUrl = function(title) {
+			var domainUrl = 'https://' + wiki.lang + wiki.domain + '.org';
+			if (wiki.domain == 'commons') domainUrl = 'https://commons.wikimedia.org';
+			return domainUrl + '/wiki/' + title;
+		};	// createPageUrl
+
 
 		/*** PRIVATE HELPER FUNCTIONS ***/
 
@@ -215,10 +221,10 @@
 		} // setDomainName
 
 
-		function updateWikiDomen() {
+		function updateApiDomain() {
 			wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
 			if (wiki.domain == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
-		} // updateWikiDomen
+		} // updateApiDomain
 
 
 		function updateSearchTerm() {
