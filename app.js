@@ -2,6 +2,7 @@
 
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// findImage da bude univerzalna za svaki wiki projekt
+	// mozda razdvojiti u dva kontrolera
 	// primer paramUrl u dokumentaciju
 
 	/*
