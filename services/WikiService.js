@@ -2,9 +2,9 @@
 	'use strict';
 	angular
 		.module("wikiModul")
-		.service('DataService', DataService);
+		.service('WikiService', WikiService);
 
-	function DataService() {
+	function WikiService() {
 
 		// TODO: dinamicaly populate list with available languages
         var wikiLanguages = [{
@@ -60,6 +60,6 @@
             getLanguages: getLanguages
 		};
 
-	}  // DataService
+	}  // WikiService
 
 })();

@@ -33,7 +33,7 @@
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($http, $window, $scope, $animate, $location, utils, DataService) {
+	function WikiController($http, $window, $scope, $animate, $location, utils, WikiService) {
 		var wiki = this;
 
 		/*** PUBLIC PROPERTIES ***/
@@ -48,8 +48,8 @@
 		wiki.error = "";
 		wiki.leadLarge = false;
 		wiki.secondTry = false;		// try again with different capitalisation
-		wiki.languages = DataService.getLanguages();
-		wiki.projects = DataService.getProjects();
+		wiki.languages = WikiService.getLanguages();
+		wiki.projects = WikiService.getProjects();
 
 		wiki.searchParams = {
 			generator: 'search',
