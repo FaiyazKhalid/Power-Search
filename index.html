@@ -93,7 +93,7 @@
                             <span class="pointer" title="{{wiki.leadHoverText()}}" ng-click="wiki.searchForLeadTerm(wiki.page.title)">{{wiki.page.title}}</span>
                         </h1>
                         <a ng-href="{{wiki.page.imageUrl}}" target="_blank">
-                            <img ng-src="{{wiki.page.imageThumbUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail pull-right" ng-class="wiki.leadLarge ? 'img-large' : 'img-medium'" ng-show="wiki.page.imageThumbUrl">
+                            <img ng-src="{{wiki.imageThumbUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail pull-right" ng-class="wiki.leadLarge ? 'img-large' : 'img-medium'" ng-show="wiki.imageThumbUrl">
                         </a>
                         <section ng-bind-html='wiki.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>

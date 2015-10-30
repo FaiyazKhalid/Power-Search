@@ -50,6 +50,7 @@
 		wiki.secondTry = false;		// try again with different capitalisation
 		wiki.languages = WikiService.getLanguages();
 		wiki.projects = WikiService.getProjects();
+		wiki.imageThumbUrl = '';
 
 		wiki.searchParams = {
 			generator: 'search',
@@ -89,6 +90,8 @@
 
 
 		wiki.searchWikipedia = function () { // mozda ne treba ulazni argument
+			wiki.resetResults();
+			if(!wiki.searchTerm) return;
 			updateApiDomain();
 			updateSearchTerm();
 			$location.path(wiki.searchTerm);
@@ -99,7 +102,6 @@
 				.success(function (data) {
 					resetError();
 					if (!data.query) {
-						wiki.resetResults();
 						return false;
 					}
 					wiki.results = data.query.pages;
@@ -132,7 +134,7 @@
 
 
 		wiki.resetLeadImage = function () {
-			wiki.page.imageThumbUrl = '';
+			wiki.imageThumbUrl = '';
 		};
 
 		wiki.createPageUrl = function(title) {
@@ -292,12 +294,12 @@
 			var file = new Image();
 			file.onerror = function () {
 				$scope.$apply(function () {
-					wiki.page.imageThumbUrl = filenameToWikipediaUrl(filename);
+					wiki.imageThumbUrl = filenameToWikipediaUrl(filename);
 				});
 			};
 			file.onload = function () {
 				$scope.$apply(function () {
-					wiki.page.imageThumbUrl = file.src;
+					wiki.imageThumbUrl = file.src;
 					wiki.page.imageUrl = filenameToCommonsUrl(filename);
 				});
 			};
