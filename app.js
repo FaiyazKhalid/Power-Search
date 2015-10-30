@@ -101,9 +101,7 @@
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					resetError();
-					if (!data.query) {
-						return false;
-					}
+					if (!data.query) return;
 					wiki.results = data.query.pages;
 					wiki.secondTry = false;
 					wiki.openArticle(wiki.searchTerm);
