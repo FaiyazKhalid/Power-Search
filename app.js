@@ -1,6 +1,6 @@
 (function () {
 
-	// greska kad je prazna pretraga
+	// ako je prazan termin ne slati
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
 	// primer paramUrl u dokumentaciju
@@ -38,17 +38,16 @@
 
 		/*** PUBLIC PROPERTIES ***/
 
-		wiki.apiUrl = updateApiDomain();
 		wiki.lang = 'en';
 		wiki.domain = 'wikipedia';
-		wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
+		wiki.apiUrl = 'http://en.wikipedia.org/w/api.php';
 		wiki.searchTerm = 'zen'; // default
 		wiki.searchFilter = "intitle:";
 		wiki.page = null;
 		wiki.results = null;
 		wiki.error = "";
 		wiki.leadLarge = false;
-		wiki.secondTry = false;		// try again with capitalize words
+		wiki.secondTry = false;		// try again with different capitalisation
 		wiki.languages = DataService.getLanguages();
 		wiki.projects = DataService.getProjects();
 
@@ -114,19 +113,18 @@
 
 
 		wiki.openArticle = function (title) {
+			resetArticle();
 			utils.scrollToTop(300);
 			wiki.articleParams.titles = title;
 			var paramUrl = utils.createParamUrl(wiki.articleParams, commonParams, wiki.apiUrl);
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
-					if (data.query.pages[0].missing) {
-						wiki.page = '';
-						tryCapitalize(title);
-					}
+					if (!data.query) return;
+					if (data.query.pages[0].missing) tryAgainCapitalize(title);
 					wiki.page = data.query.pages[0];
-					removeLeadFromList(title, wiki.results);
-					removeRedirects(data.query.redirects, wiki.results);
+					removeArticleFromResults(title, wiki.results);
+					removeRedirectsFromResults(data.query.redirects, wiki.results);
 					if (wiki.page.pageimage) checkIfOnCommons(wiki.page.pageimage);
 				})
 				.error(handleErrors);
@@ -229,17 +227,17 @@
 			wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.searchTerm;
 		} // updateSearchTerm
 
-		function removeLeadFromList(term, results) {
+		function removeArticleFromResults(term, results) {
 			for (var x in results) {
 				if (results[x].title == utils.capitalizeFirst(term)) {
 					results.splice(x, 1); // remove it from the list
 					return results;
 				}
 			} // end for
-		} // removeLeadFromList
+		} // removeArticleFromResults
 
 
-		function removeRedirects(redirects, results) {
+		function removeRedirectsFromResults(redirects, results) {
 			for (var x in results) {
 				for (var r in redirects) {
 					if (redirects[r].to == results[x].title) {
@@ -248,7 +246,7 @@
 				}
 			} // end for
 			return results;
-		} // removeRedirects
+		} // removeRedirectsFromResults
 
 
 		function handleErrors(data, status, headers, config) {
@@ -259,6 +257,11 @@
 		function resetError() {
 			wiki.error = "";
 		}	// resetError
+
+
+		function resetArticle(){
+			wiki.page = '';
+		}
 
 
 		function filenameToCommonsUrl(name, leadImgWidth) { // param: filename - string, leadImgWidth - number
@@ -302,12 +305,12 @@
 		} // checkIfOnCommons
 
 
-		function tryCapitalize(title) {
+		function tryAgainCapitalize(title) {
 			if (wiki.secondTry) return;
 			if (title.split(" ").length < 2) return;
 			wiki.secondTry = true;
 			wiki.openArticle(utils.capitalize(title));
-		}	// tryCapitalize
+		}	// tryAgainCapitalize
 
 
 	} // WikiController
