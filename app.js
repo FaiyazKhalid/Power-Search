@@ -1,7 +1,7 @@
 (function () {
 
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
-	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
+	// findImage da bude univerzalna za svaki wiki projekt
 	// primer paramUrl u dokumentaciju
 
 	/*
@@ -98,15 +98,8 @@
 			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
-				.success(function (data) {
-					resetError();
-					if (!data.query) return;
-					wiki.results = data.query.pages;
-					wiki.secondTry = false;
-					wiki.openArticle(wiki.searchTerm);
-				})
+				.success(showResults)
 				.error(handleErrors);
-
 			saveSearchParams();
 		}; // searchWikipedia
 
@@ -118,14 +111,7 @@
 			var paramUrl = utils.createParamUrl(wiki.articleParams, commonParams, wiki.apiUrl);
 
 			$http.jsonp(paramUrl)
-				.success(function (data) {
-					if (!data.query) return;
-					if (data.query.pages[0].missing) tryAgainCapitalize(title);
-					wiki.page = data.query.pages[0];
-					removeArticleFromResults(title, wiki.results);
-					removeRedirectsFromResults(data.query.redirects, wiki.results);
-					if (wiki.page.pageimage) checkIfOnCommons(wiki.page.pageimage);
-				})
+				.success(showArticle)
 				.error(handleErrors);
 		}; // openArticle
 
@@ -192,6 +178,23 @@
 
 		/*** PRIVATE HELPER FUNCTIONS ***/
 
+		function showResults(data) {
+			resetError();
+			if (!data.query) return;
+			wiki.results = data.query.pages;
+			wiki.secondTry = false;
+			wiki.openArticle(wiki.searchTerm);
+		}
+
+		function showArticle(data) {
+			if (!data.query) return;
+			if (data.query.pages[0].missing) tryAgainCapitalize(wiki.articleParams.titles);
+			wiki.page = data.query.pages[0];
+			removeArticleFromResults(wiki.articleParams.titles, wiki.results);
+			removeRedirections(data.query.redirects, wiki.results);
+			if (wiki.page.pageimage) findImage(wiki.page.pageimage);
+		}
+
 		function saveSearchParams() {
 			localStorage.wikiSearchTerm = wiki.searchTerm || '';
 			localStorage.wikiLang = wiki.lang || '';
@@ -236,7 +239,7 @@
 		} // removeArticleFromResults
 
 
-		function removeRedirectsFromResults(redirects, results) {
+		function removeRedirections(redirects, results) {
 			for (var x in results) {
 				for (var r in redirects) {
 					if (redirects[r].to == results[x].title) {
@@ -245,7 +248,7 @@
 				}
 			} // end for
 			return results;
-		} // removeRedirectsFromResults
+		} // removeRedirections
 
 
 		function handleErrors(data, status, headers, config) {
@@ -286,7 +289,7 @@
 		} // wikiParseFilename
 
 
-		function checkIfOnCommons(filename) {
+		function findImage(filename) {
 			// if image is not on commons, then it is on wikipedia
 			var file = new Image();
 			file.onerror = function () {
@@ -297,11 +300,11 @@
 			file.onload = function () {
 				$scope.$apply(function () {
 					wiki.imageThumbUrl = file.src;
-					wiki.page.imageUrl = filenameToCommonsUrl(filename);
+					wiki.imageUrl = filenameToCommonsUrl(filename);
 				});
 			};
 			file.src = filenameToCommonsUrl(filename, leadImgWidth);
-		} // checkIfOnCommons
+		} // findImage
 
 
 		function tryAgainCapitalize(title) {
