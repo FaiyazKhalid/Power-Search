@@ -81,19 +81,20 @@
 
 		/*** PUBLIC METHODS ***/
 
-		wiki.init = function() {
+		wiki.init = function () {
 			loadLocalParams();
-			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm;	// removes '/'
+			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes '/'
 			wiki.searchWikipedia();
 			$window.onhashchange = wiki.init;
-		};	// init
+		}; // init
 
 
 		wiki.searchWikipedia = function () { // mozda ne treba ulazni argument
 			updateWikiDomen();
 			updateSearchTerm();
 			$location.path(wiki.searchTerm);
-			var paramUrl = createParamUrl(wiki.searchParams);
+			var paramUrl = utils.createParamUrl(wiki.searchParams, commonParams, wiki.apiUrl);
+			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
@@ -107,27 +108,28 @@
 				})
 				.error(handleErrors);
 
-				saveSearchParams();
+			saveSearchParams();
 		}; // searchWikipedia
 
 
 		wiki.openArticle = function (title) {
 			utils.scrollToTop(300);
 			wiki.articleParams.titles = title;
-			var paramUrl = createParamUrl(wiki.articleParams);
+			var paramUrl = utils.createParamUrl(wiki.articleParams, commonParams, wiki.apiUrl);
 			var secondAttemp = false;
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					if (data.query.pages[0].missing) {
 						wiki.page = '';
-						if(secondAttemp) return;
+						if (secondAttemp) return;
 						wiki.openArticle(utils.capitalize(title));
 						secondAttemp = true;
 						return;
 					}
 					wiki.page = data.query.pages[0];
-					removeLeadFromList(title, data.query.redirects);
+					removeLeadFromList(title, wiki.results);
+					removeRedirects(data.query.redirects, wiki.results);
 					if (wiki.page.pageimage) checkIfOnCommons(wiki.page.pageimage);
 				})
 				.error(handleErrors);
@@ -195,84 +197,92 @@
 			localStorage.wikiMaxResult = wiki.searchParams.gsrlimit || '';
 			localStorage.wikiDomain = wiki.domain || '';
 			// filter could be empty string
-			if(wiki.searchFilter !== undefined) {
+			if (wiki.searchFilter !== undefined) {
 				localStorage.wikiFilter = wiki.searchFilter;
 			}
 		} // saveSearchParams
+
 
 		function loadLocalParams() {
 			wiki.searchTerm = localStorage.wikiSearchTerm || wiki.searchTerm;
 			wiki.lang = localStorage.wikiLang || wiki.lang;
 			wiki.searchParams.gsrlimit = Number(localStorage.wikiMaxResult || wiki.searchParams.gsrlimit);
 			wiki.domain = localStorage.wikiDomain || wiki.domain;
-			if(localStorage.wikiFilter != 'undefined') {
+			if (localStorage.wikiFilter != 'undefined') {
 				wiki.searchFilter = localStorage.wikiFilter;
 			}
 		} // saveSearchParams
 
+
 		function setDomainName(domainName) {
 			wiki.domain = domainName;
 		} // setDomainName
+
 
 		function updateWikiDomen() {
 			wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
 			if (wiki.domain == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
 		} // updateWikiDomen
 
+
 		function updateSearchTerm() {
 			wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.searchTerm;
 		} // updateSearchTerm
 
-
-		function removeLeadFromList(term, redirects) {
-			for (var x in wiki.results) {
-				if (wiki.results[x].title == utils.capitalizeFirst(term)) {
-					wiki.results.splice(x, 1); // remove it from the list
+		function removeLeadFromList(term, results) {
+			for (var x in results) {
+				if (results[x].title == utils.capitalizeFirst(term)) {
+					results.splice(x, 1); // remove it from the list
+					return results;
 				}
-				if (!redirects) return wiki.results;
+			} // end for
+		} // removeLeadFromList
+
+
+		function removeRedirects(redirects, results) {
+			for (var x in results) {
 				for (var r in redirects) {
-					if (redirects[r].to == wiki.results[x].title) {
-						wiki.results.splice(x, 1);
+					if (redirects[r].to == results[x].title) {
+						results.splice(x, 1);
 					}
 				}
 			} // end for
-			return wiki.results;
-		} // removeLeadFromList
+			return results;
+		} // removeRedirects
+
 
 		function handleErrors(data, status, headers, config) {
 			wiki.error = "Oh no, there was some error in geting data: " + status;
 		} // handleErrors
 
+
 		function resetError() {
 			wiki.error = "";
-		}
+		}	// resetError
 
-		function createParamUrl(params) {
-			angular.extend(params, commonParams);
-			var paramUrl = wiki.apiUrl + '?' + utils.serialize(params);
-			console.log(paramUrl);
-			return paramUrl;
-		} // createParamUrl
 
 		function filenameToCommonsUrl(name, leadImgWidth) { // param: filename - string, leadImgWidth - number
 			var parsed = wikiParseFilename(name, leadImgWidth);
 			return 'http://upload.wikimedia.org/wikipedia/commons/' + parsed;
 		} // filenameToCommonsUrl
 
+
 		function filenameToWikipediaUrl(name) { // param: filename as a string
 			var parsed = wikiParseFilename(name);
 			return 'http://upload.wikimedia.org/wikipedia/' + wiki.lang + '/' + parsed;
 		} // filenameToWikipediaUrl
 
+
 		function wikiParseFilename(name, size) {
 			var filename = utils.replaceSpacesWithUnderscores(name);
 			var digest = md5(filename);
 			var parsed = digest[0] + '/' + digest[0] + digest[1] + '/' + encodeURIComponent(filename);
-			if(size) {
+			if (size) {
 				return 'thumb/' + parsed + '/' + size + 'px-' + encodeURIComponent(filename);
 			}
 			return parsed;
 		} // wikiParseFilename
+
 
 		function checkIfOnCommons(filename) {
 			// if image is not on commons, then it is on wikipedia

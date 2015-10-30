@@ -12,9 +12,12 @@
 			scrollToTop: scrollToTop,
 			capitalize: capitalize,
 			capitalizeFirst: capitalizeFirst,
-			serialize: serialize
+			serialize: serialize,
+			createParamUrl: createParamUrl
 		};
 
+
+		/* UTILS METHODS */
 
 		function replaceSpacesWithUnderscores(struna) {
 			return struna.replace(/ /g, "_");
@@ -51,6 +54,13 @@
 			}).join('&');
 			return (paramString);
 		} // serialize
+
+
+		function createParamUrl(params, commonParams, apiUrl) {
+			angular.extend(params, commonParams);
+			var paramUrl = apiUrl + '?' + serialize(params);
+			return paramUrl;
+		} // createParamUrl
 
 
 	} // utils
