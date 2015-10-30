@@ -1,6 +1,5 @@
 (function () {
 
-	// kada napisem ada bojana ne dobijem lead clanak
 	// i dalje se desava da fiter bude undefined, postaviti strog uslov da ima samo tri opcije
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
@@ -67,7 +66,7 @@
 			titles: wiki.searchTerm
 		};
 
-		/*** INTERNAL PROPERTIES ***/
+		/*** PRIVATE PROPERTIES ***/
 
 		var commonParams = {
 			action: 'query',
@@ -188,7 +187,7 @@
 		}; // checkMax
 
 
-		/*** HELPER FUNCTIONS ***/
+		/*** PRIVATE HELPER FUNCTIONS ***/
 
 		function saveSearchParams() {
 			localStorage.wikiSearchTerm = wiki.searchTerm || '';
