@@ -1,5 +1,6 @@
 (function () {
 
+	// greska kad je prazna pretraga
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
 	// primer paramUrl u dokumentaciju
@@ -7,7 +8,6 @@
 	/*
 	    za naziv slike vraca url:
 	    https://en.wikipedia.org/w/api.php?action=query&titles=File:Albert%20Einstein%20Head.jpg&prop=imageinfo&iiprop=url
-	    mozemo dodati i zeljenu sirinu: &iiurlwidth=220
 
 	    vraca nadjene slike za trazeni termin:
 	    https://en.wikipedia.org/w/api.php?action=query&list=allimages&aiprop=url&format=json&ailimit=10&aifrom=Albert
@@ -48,6 +48,7 @@
 		wiki.results = null;
 		wiki.error = "";
 		wiki.leadLarge = false;
+		wiki.secondTry = false;		// try again with capitalize words
 		wiki.languages = DataService.getLanguages();
 		wiki.projects = DataService.getProjects();
 
@@ -103,6 +104,7 @@
 						return false;
 					}
 					wiki.results = data.query.pages;
+					wiki.secondTry = false;
 					wiki.openArticle(wiki.searchTerm);
 				})
 				.error(handleErrors);
@@ -115,16 +117,12 @@
 			utils.scrollToTop(300);
 			wiki.articleParams.titles = title;
 			var paramUrl = utils.createParamUrl(wiki.articleParams, commonParams, wiki.apiUrl);
-			var secondAttemp = false;
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					if (data.query.pages[0].missing) {
 						wiki.page = '';
-						if (secondAttemp) return;
-						wiki.openArticle(utils.capitalize(title));
-						secondAttemp = true;
-						return;
+						tryCapitalize(title);
 					}
 					wiki.page = data.query.pages[0];
 					removeLeadFromList(title, wiki.results);
@@ -138,6 +136,13 @@
 		wiki.resetLeadImage = function () {
 			wiki.page.imageThumbUrl = '';
 		};
+
+		wiki.createPageUrl = function(title) {
+			var domainUrl = 'https://' + wiki.lang + '.' + wiki.domain + '.org';
+			if (wiki.domain == 'commons') domainUrl = 'https://commons.wikimedia.org';
+			return domainUrl + '/wiki/' + title;
+		};	// createPageUrl
+
 
 		wiki.searchInDomain = function (domainName) {
 			setDomainName(domainName);
@@ -186,13 +191,6 @@
 		wiki.checkMax = function () {
 			if (wiki.searchParams.gsrlimit > 50) wiki.searchParams.gsrlimit = 50;
 		}; // checkMax
-
-
-		wiki.createPageUrl = function(title) {
-			var domainUrl = 'https://' + wiki.lang + wiki.domain + '.org';
-			if (wiki.domain == 'commons') domainUrl = 'https://commons.wikimedia.org';
-			return domainUrl + '/wiki/' + title;
-		};	// createPageUrl
 
 
 		/*** PRIVATE HELPER FUNCTIONS ***/
@@ -302,6 +300,14 @@
 			};
 			file.src = filenameToCommonsUrl(filename, leadImgWidth);
 		} // checkIfOnCommons
+
+
+		function tryCapitalize(title) {
+			if (wiki.secondTry) return;
+			if (title.split(" ").length < 2) return;
+			wiki.secondTry = true;
+			wiki.openArticle(utils.capitalize(title));
+		}	// tryCapitalize
 
 
 	} // WikiController
