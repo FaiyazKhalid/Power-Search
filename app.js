@@ -1,6 +1,6 @@
 (function () {
 
-	// zameniti razmake kada setuje i getuje rutu (pretraga i init); utils.replaceSpacesWithUnderscores
+	// kada napisem ada bojana ne dobijem lead clanak
 	// i dalje se desava da fiter bude undefined, postaviti strog uslov da ima samo tri opcije
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
@@ -94,14 +94,13 @@
 			updateWikiDomen();
 			updateSearchTerm();
 			$location.path(wiki.searchTerm);
-
 			var paramUrl = createParamUrl(wiki.searchParams);
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					resetError();
 					if (!data.query) {
-						wiki.emptyResults();
+						wiki.resetResults();
 						return false;
 					}
 					wiki.results = data.query.pages;
@@ -121,7 +120,10 @@
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
-					if (!data.query) return;
+					if (data.query.pages[0].missing) {
+						wiki.page = '';
+						return;
+					}
 					wiki.page = data.query.pages[0];
 					removeLeadFromList(title, data.query.redirects);
 					if (wiki.page.pageimage) checkIfOnCommons(wiki.page.pageimage);
@@ -172,10 +174,10 @@
 		}; // leadHoverText
 
 
-		wiki.emptyResults = function () {
+		wiki.resetResults = function () {
 			wiki.results = [];
 			wiki.page = "";
-		}; // emptyResults
+		}; // resetResults
 
 
 		wiki.checkMax = function () {
