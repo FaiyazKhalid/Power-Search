@@ -1,6 +1,5 @@
 (function () {
 
-	// i dalje se desava da fiter bude undefined, postaviti strog uslov da ima samo tri opcije
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// checkIfOnCommons da bude univerzalna za svaki wiki projekt
 	// primer paramUrl u dokumentaciju
@@ -189,6 +188,7 @@
 		}; // checkMax
 
 
+
 		/*** PRIVATE HELPER FUNCTIONS ***/
 
 		function saveSearchParams() {
@@ -196,10 +196,7 @@
 			localStorage.wikiLang = wiki.lang || '';
 			localStorage.wikiMaxResult = wiki.searchParams.gsrlimit || '';
 			localStorage.wikiDomain = wiki.domain || '';
-			// filter could be empty string
-			if (wiki.searchFilter !== undefined) {
-				localStorage.wikiFilter = wiki.searchFilter;
-			}
+			localStorage.wikiFilter = wiki.searchFilter || '';
 		} // saveSearchParams
 
 
@@ -208,9 +205,8 @@
 			wiki.lang = localStorage.wikiLang || wiki.lang;
 			wiki.searchParams.gsrlimit = Number(localStorage.wikiMaxResult || wiki.searchParams.gsrlimit);
 			wiki.domain = localStorage.wikiDomain || wiki.domain;
-			if (localStorage.wikiFilter != 'undefined') {
-				wiki.searchFilter = localStorage.wikiFilter;
-			}
+			wiki.searchFilter = localStorage.wikiFilter || wiki.searchFilter;
+			if(localStorage.wikiFilter === '') wiki.searchFilter = '';
 		} // saveSearchParams
 
 
