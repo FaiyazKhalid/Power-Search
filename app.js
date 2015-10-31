@@ -2,13 +2,10 @@
 
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// findImage da bude univerzalna za svaki wiki projekt
-	// mozda razdvojiti u dva kontrolera
+	// mozda razdvojiti u dva kontrolera, a parametre i api gurnuti u servis
 	// primer paramUrl u dokumentaciju
 
 	/*
-	    vraca nadjene slike za trazeni termin:
-	    https://en.wikipedia.org/w/api.php?action=query&list=allimages&aiprop=url&format=json&ailimit=10&aifrom=Albert
-
 	    alternativni commonsapi:
 	    https://tools.wmflabs.org/magnus-toolserver/commonsapi.php
 	    vraca info o slici i url:
@@ -58,9 +55,23 @@
 			titles: wiki.searchTerm
 		};
 
+		//https://en.wikipedia.org/w/api.php?action=query&list=allimages&aiprop=url&format=json&ailimit=10&aifrom=Albert
+		// https://commons.wikimedia.org/w/api.php?action=help&modules=query%2Ballimages
+		// https://www.mediawiki.org/wiki/API:Lists/All#Allimages
+		wiki.imageParams = {
+			action: 'query',
+			list: 'allimages',
+			aiprop: 'url',
+			format: 'json',
+			ailimit: 10,	// max 500
+			//aicontinue: ''
+			aifrom: 'Albert'
+		};
+
+
 		/*** PRIVATE PROPERTIES ***/
 
-		var commonParams = {
+		var defaulParams = {
 			action: 'query',
 			prop: 'extracts|pageimages|images',
 			redirects: '', // automatically resolve redirects
@@ -88,7 +99,7 @@
 			updateApiDomain();
 			updateSearchTerm();
 			$location.path(wiki.searchTerm);
-			var paramUrl = utils.createParamUrl(wiki.searchParams, commonParams, wiki.apiUrl);
+			var paramUrl = utils.createParamUrl(wiki.searchParams, defaulParams, wiki.apiUrl);
 			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
@@ -103,7 +114,7 @@
 			resetArticle();
 			utils.scrollToTop(300);
 			wiki.articleParams.titles = title;
-			var paramUrl = utils.createParamUrl(wiki.articleParams, commonParams, wiki.apiUrl);
+			var paramUrl = utils.createParamUrl(wiki.articleParams, defaulParams, wiki.apiUrl);
 			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
