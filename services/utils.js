@@ -12,8 +12,7 @@
 			scrollToTop: scrollToTop,
 			capitalize: capitalize,
 			capitalizeFirst: capitalizeFirst,
-			serialize: serialize,
-			createParamUrl: createParamUrl
+			serialize: serialize
 		};
 
 
@@ -54,14 +53,6 @@
 			}).join('&');
 			return (paramString);
 		} // serialize
-
-
-		function createParamUrl(params, commonParams, apiUrl) {
-			angular.extend(params, commonParams);
-			var paramUrl = apiUrl + '?' + serialize(params);
-			return paramUrl;
-		} // createParamUrl
-
 
 	} // utils
 
