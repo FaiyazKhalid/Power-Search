@@ -1,8 +1,8 @@
 (function () {
 /*
-
-	URADITI:
+	TODO:
 	// findWikiImage da bude univerzalna za svaki wiki projekt
+	// napraviti gulp za pakovanje i minifikovanje js fajlova
 
 	RESENJA:
 	// pretrazuje datoteke na ostavi:
@@ -26,7 +26,7 @@
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($http, $window, $scope, $animate, $location, utils, WikidataService) {
+	function WikiController($http, $window, $scope, $animate, $location, utils, WikidataService, ParamService) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
