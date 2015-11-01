@@ -2,9 +2,9 @@
 	'use strict';
 	angular
 		.module("wikiModul")
-		.service('WikiService', WikiService);
+		.service('WikidataService', WikidataService);
 
-	function WikiService() {
+	function WikidataService() {
 
 		// TODO: dinamicaly populate list with available languages
 		// https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
@@ -61,6 +61,6 @@
             getLanguages: getLanguages
 		};
 
-	}  // WikiService
+	}  // WikidataService
 
 })();

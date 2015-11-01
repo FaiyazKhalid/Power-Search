@@ -2,10 +2,10 @@
 /*
 
 	URADITI:
-	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// findWikiImage da bude univerzalna za svaki wiki projekt
 
 	RESENJA:
+	// pretrazuje datoteke na ostavi:
 	// if (domain == 'commons') searchParams.namespace = 6
 
 	BAGOVI:
@@ -26,7 +26,7 @@
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($http, $window, $scope, $animate, $location, utils, WikiService) {
+	function WikiController($http, $window, $scope, $animate, $location, utils, WikidataService) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
@@ -43,8 +43,8 @@
 		wiki.results = null;
 		wiki.error = "";
 		wiki.leadLarge = false;
-		wiki.languages = WikiService.getLanguages();
-		wiki.projects = WikiService.getProjects();
+		wiki.languages = WikidataService.getLanguages();
+		wiki.projects = WikidataService.getProjects();
 		wiki.imageUrl = '';
 		wiki.imageThumbUrl = '';
 
