@@ -2,20 +2,11 @@
 
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// findWikiImage da bude univerzalna za svaki wiki projekt
+	// filenameToCommonsUrl greska kada trazim vecu sirinu od originala
+
+	// bug: damjan prikazuje nerelevantan lead
 	// mozda razdvojiti u dva kontrolera, a parametre i api gurnuti u servis
 	// primer paramUrl u dokumentaciju
-
-	/*
-	    alternativni commonsapi:
-	    https://tools.wmflabs.org/magnus-toolserver/commonsapi.php
-	    vraca info o slici i url:
-	    https://tools.wmflabs.org/magnus-toolserver/commonsapi.php?image=Albert_Einstein_Head.jpg
-
-	    lista jezika:
-	    https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
-	    https://meta.wikimedia.org/wiki/List_of_Wikipedias
-	    https://en.wikipedia.org/wiki/List_of_Wikipedias
-	*/
 
 	'use strict';
 	angular
@@ -23,10 +14,13 @@
 		.controller('WikiController', WikiController);
 
 	function WikiController($http, $window, $scope, $animate, $location, utils, WikiService) {
+
+		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
+		var leadImgWidth = 175;
+		var triedTwice = false;		// try again to find article with different capitalisation
 
 		/*** PUBLIC PROPERTIES ***/
-
 		wiki.lang = 'en';
 		wiki.domain = 'wikipedia';
 		wiki.apiUrl = 'http://en.wikipedia.org/w/api.php';
@@ -41,46 +35,65 @@
 		wiki.imageUrl = '';
 		wiki.imageThumbUrl = '';
 
-		wiki.searchParams = {
-			generator: 'search',
-			gsrsearch: wiki.searchTerm + wiki.searchFilter,
-			gsrlimit: 20, // broj rezultata, max 50
-			pilimit: 'max', // thumb image for all articles
-			exlimit: 'max', // extract for all articles
-			imlimit: 'max', // images in articles
-			exintro: '' // extracts intro
+		var defaulParams = {
+			action: 'query',
+			prop: 'extracts|pageimages',	// images: all images from page
+			redirects: '', // automatically resolve redirects
+			continue: '',	// continue the query?
+			format: 'json',
+			formatversion: 2,
+			callback: 'JSON_CALLBACK'
 		};
 
 		wiki.articleParams = {
 			titles: wiki.searchTerm
 		};
 
-		//https://en.wikipedia.org/w/api.php?action=query&list=allimages&aiprop=url&format=json&ailimit=10&aifrom=Albert
-		// https://commons.wikimedia.org/w/api.php?action=help&modules=query%2Ballimages
+		wiki.searchParams = {
+			generator: 'search',
+			gsrsearch: wiki.searchTerm + wiki.searchFilter,
+			gsrnamespace: 0,	// 0 article, 6 file
+			gsrlimit: 20, // broj rezultata, max 50
+			pilimit: 'max', // thumb image for all articles
+			exlimit: 'max', // extract limit
+			// imlimit: 'max', // images limit
+			exintro: '' // extracts intro
+		};
+
+		//http://stackoverflow.com/questions/12803599/wikimedia-api-image-search-with-public-domain-filter
+		wiki.imageParams3 = {
+			redirects: '', // automatically resolve redirects
+			continue: '',	// continue the query?
+			formatversion: 2,
+			action: 'query',
+			generator: 'search',
+			prop: 'info',	// prop=info&inprop=url
+			gsrsearch: 'dada',
+			gsrnamespace: 6,	// 0 article, 6 file
+			format: 'json',
+			callback: 'JSON_CALLBACK'
+		};
+
 		// https://www.mediawiki.org/wiki/API:Lists/All#Allimages
 		wiki.imageParams = {
 			action: 'query',
 			list: 'allimages',
-			aiprop: 'url',
 			format: 'json',
-			ailimit: 10,	// max 500
+			//ailimit: 10,	// max 500
 			//aicontinue: ''
-			aifrom: 'Albert'
+			aifrom: 'Dada'
 		};
 
-
-		/*** PRIVATE PROPERTIES ***/
-
-		var defaulParams = {
+		wiki.imageParams2 = {
 			action: 'query',
-			prop: 'extracts|pageimages|images',
-			redirects: '', // automatically resolve redirects
+			list: 'search',
 			format: 'json',
-			formatversion: 2,
-			callback: 'JSON_CALLBACK'
+			srsearch: 'dada',
+			srnamespace: 6,	// search in filename
+			srlimit: 10,
+			generator: 'images',
+			gimlimit: 10
 		};
-		var leadImgWidth = 200;
-		var triedTwice = false;		// try again to find article with different capitalisation
 
 
 		/*** PUBLIC METHODS ***/
@@ -91,6 +104,17 @@
 			wiki.searchWikipedia();
 			$window.onhashchange = wiki.init;
 		}; // init
+
+
+		wiki.searchImages = function() {
+			var paramUrl = createParamUrl(wiki.imageParams3, wiki.apiUrl);
+			console.log(paramUrl);
+			$http.jsonp(paramUrl)
+				.success(function(data) {
+					console.log(data);
+				})
+				.error(handleErrors);
+		};
 
 
 		wiki.searchWikipedia = function () { // mozda ne treba ulazni argument
@@ -117,7 +141,7 @@
 			wiki.articleParams.titles = title;
 			var params = angular.extend(wiki.searchParams, defaulParams);
 			var paramUrl = createParamUrl(params, wiki.apiUrl);
-			console.log(paramUrl);
+			//console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(showArticle)
@@ -129,11 +153,11 @@
 			wiki.imageThumbUrl = '';
 		};
 
-		wiki.createPageUrl = function(title) {
+		wiki.createArticleUrl = function(title) {
 			var domainUrl = 'https://' + wiki.lang + '.' + wiki.domain + '.org';
 			if (wiki.domain == 'commons') domainUrl = 'https://commons.wikimedia.org';
 			return domainUrl + '/wiki/' + title;
-		};	// createPageUrl
+		};	// createArticleUrl
 
 
 		wiki.searchInDomain = function (domainName) {
@@ -185,7 +209,8 @@
 		}; // checkMax
 
 
-		/*** PRIVATE HELPER FUNCTIONS ***/
+
+		/*** PRIVATE FUNCTIONS ***/
 
 		function showResults(data) {
 			resetError();
