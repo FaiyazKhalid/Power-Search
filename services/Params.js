@@ -10,7 +10,7 @@
         var searchTerm = 'nula';
         var searchFilter = 'prefix:';
         var domain = 'wikipedia';
-		var apiUrl = 'http://en.wikipedia.org/w/api.php';
+		var apiUrl = createApiUrl();
 
         var defaulParams = {
             action: 'query',
@@ -50,10 +50,6 @@
 			return domain;
 		}
 
-		function getApiUrl() {
-			return apiUrl;
-		}
-
         function getDefaultParams() {
             return defaulParams;
         }
@@ -88,10 +84,21 @@
             searchParams.gsrsearch = filter + searchTerm;
         }
 
+		function setDomain(newDomain){
+			domain = newDomain;
+		}
+
         function setSearchTerm(term) {
             searchTerm = term;
             searchParams.gsrsearch = searchFilter + term;
         }
+
+		function createApiUrl() {
+			var apiUrl = 'http://' + lang + '.' + domain + '.org/w/api.php';
+			if (domain == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
+			return apiUrl;
+		} // updateApiUrl
+
 
         function saveParams() {
             localStorage.wikiSearchTerm = searchTerm || '';
@@ -123,12 +130,13 @@
             getMaxResults: getMaxResults,
 			getLang: getLang,
 			getDomain: getDomain,
-			getApiUrl: getApiUrl,
 
             setArticleTitle: setArticleTitle,
             setFilter: setFilter,
 			setSearchTerm: setSearchTerm,
             setMaxResults: setMaxResults,
+			createApiUrl: createApiUrl,
+			setDomain: setDomain,
 
             saveParams: saveParams,
             loadParams: loadParams

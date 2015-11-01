@@ -11,6 +11,7 @@
 	BAGOVI:
 	// potraga damjan prikazuje nerelevantan lead
 	// filenameToCommonsUrl greska kada trazim vecu sirinu od originala
+	// za svg slike ne pravi thumb, probati montenegro
 
 	REFAKTOR:
 	https://scotch.io/tutorials/making-skinny-angularjs-controllers
@@ -30,6 +31,10 @@
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
+		var apiUrl = Params.createApiUrl();
+		var defaulParams = Params.getDefaultParams();
+		var articleParams = Params.getArticleParams();
+		var searchParams = Params.getSearchParams();
 		var leadImgWidth = 175;
 		var triedTwice = false;		// try again to find article with different capitalisation
 
@@ -37,22 +42,20 @@
 
 		wiki.languages = WikidataService.getLanguages();
 		wiki.projects = WikidataService.getProjects();
+
+		// initial
 		wiki.lang = Params.getLang();
 		wiki.domain = Params.getDomain();
-		wiki.apiUrl = Params.getApiUrl();
 		wiki.searchTerm = Params.getSearchTerm();
 		wiki.searchFilter = Params.getFilter();
 		wiki.maxResults = Params.getMaxResults();
+
 		wiki.page = null;
 		wiki.results = null;
 		wiki.error = null;
 		wiki.leadLarge = false;
 		wiki.imageUrl = '';
 		wiki.imageThumbUrl = '';
-
-		var defaulParams = Params.getDefaultParams();
-		var articleParams = Params.getArticleParams();
-		var searchParams = Params.getSearchParams();
 
 
 		/*** PUBLIC METHODS ***/
@@ -64,19 +67,14 @@
 			$window.onhashchange = wiki.init;
 		}; // init
 
-		function checkUrlTerm() {
-			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes / before path
-		}
-
-
 		wiki.searchWikipedia = function () { // mozda ne treba ulazni argument
-			wiki.emptyResults();
+			emptyResults();
 			if(!wiki.searchTerm) return;
-			updateApiDomain();
+
 			Params.setSearchTerm(wiki.searchTerm);
 			$location.path(wiki.searchTerm);
 			var params = angular.extend(searchParams, defaulParams);
-			var paramUrl = createParamUrl(params, wiki.apiUrl);
+			var paramUrl = createParamUrl(params, apiUrl);
 			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
@@ -88,11 +86,13 @@
 
 
 		wiki.openArticle = function (title) {
-			resetArticle();
+			resetLeadArticle();
 			utils.scrollToTop(300);
+			//if(!title) return;
+
 			Params.setArticleTitle(title);
 			var params = angular.extend(searchParams, defaulParams);
-			var paramUrl = createParamUrl(params, wiki.apiUrl);
+			var paramUrl = createParamUrl(params, apiUrl);
 			//console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
@@ -100,10 +100,6 @@
 				.error(handleErrors);
 		}; // openArticle
 
-
-		wiki.resetLeadImage = function () {
-			wiki.imageThumbUrl = '';
-		};
 
 		wiki.createArticleUrl = function(title) {
 			var domainUrl = 'https://' + wiki.lang + '.' + wiki.domain + '.org';
@@ -117,10 +113,9 @@
 		};
 
 
-		wiki.searchInDomain = function (domainName) {
-			setDomainName(domainName);
-			wiki.searchWikipedia();
-		}; // searchInDomain
+		wiki.setDomain = function (newDomain){
+			Params.setDomain(newDomain);
+		};
 
 
 		wiki.searchForLeadTerm = function (title) {
@@ -154,13 +149,6 @@
 			return wiki.leadLarge ? "Search for this term" : "Englarge this article";
 		}; // leadHoverText
 
-
-		wiki.emptyResults = function () {
-			wiki.results = [];
-			wiki.page = "";
-		}; // emptyResults
-
-
 		wiki.checkMax = function () {
 			if (wiki.maxResults > 50) Params.setMaxResults(50);
 		}; // checkMax
@@ -185,20 +173,8 @@
 			wiki.page = data.query.pages[0];
 			removeArticleFromResults(articleParams.titles, wiki.results);
 			removeRedirections(data.query.redirects, wiki.results);
-			resetImage();
 			if (wiki.page.pageimage) findWikiImage(wiki.page.pageimage);
 		}	// showArticle
-
-
-		function setDomainName(domainName) {
-			wiki.domain = domainName;
-		} // setDomainName
-
-
-		function updateApiDomain() {
-			wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
-			if (wiki.domain == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
-		} // updateApiDomain
 
 
 		function removeArticleFromResults(term, results) {
@@ -233,15 +209,11 @@
 		}	// resetError
 
 
-		function resetArticle(){
+		function resetLeadArticle(){
 			wiki.page = '';
-		}	// resetArticle
-
-
-		function resetImage() {
 			wiki.imageThumbUrl = '';
 			wiki.imageUrl = '';
-		}	// resetImage
+		}	// resetLeadArticle
 
 
 		function filenameToCommonsUrl(name, leadImgWidth) { // param: filename - string, leadImgWidth - number
@@ -297,6 +269,16 @@
 			var paramUrl = apiUrl + '?' + utils.serialize(params);
 			return paramUrl;
 		} // createParamUrl
+
+
+		function checkUrlTerm() {
+			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes / before path
+		}
+
+		function emptyResults() {
+			wiki.results = [];
+			wiki.page = "";
+		} // emptyResults
 
 
 	} // WikiController
