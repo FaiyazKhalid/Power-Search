@@ -48,24 +48,11 @@
 		wiki.projects = WikidataService.getProjects();
 		wiki.imageUrl = '';
 		wiki.imageThumbUrl = '';
+		wiki.maxResults = Params.getMaxResults();
 
 		var defaulParams = Params.getDefaultParams();
 		var articleParams = Params.getArticleParams();
-		Params.setArticleTitle(wiki.searchTerm);
-
-
-		wiki.searchParams = {
-			generator: 'search',
-			gsrsearch: wiki.searchTerm + wiki.searchFilter,
-			gsrnamespace: 0,	// 0 article, 6 file
-			gsrlimit: 20, // broj rezultata, max 50
-			pilimit: 'max', // thumb image for all articles
-			exlimit: 'max', // extract limit
-			// imlimit: 'max', // images limit
-			exintro: '' // extracts intro
-		};
-
-
+		wiki.searchParams = Params.getSearchParams();
 
 
 
@@ -105,7 +92,7 @@
 			wiki.resetResults();
 			if(!wiki.searchTerm) return;
 			updateApiDomain();
-			updateSearchTerm();
+			Params.setSearchTerm(wiki.searchFilter, wiki.searchTerm);
 			$location.path(wiki.searchTerm);
 			var params = angular.extend(wiki.searchParams, defaulParams);
 			var paramUrl = createParamUrl(params, wiki.apiUrl);
@@ -115,7 +102,7 @@
 				.success(showResults)
 				.error(handleErrors);
 
-			saveSearchParams();
+			Params.saveParams();
 		}; // searchWikipedia
 
 
@@ -189,7 +176,7 @@
 
 
 		wiki.checkMax = function () {
-			if (wiki.searchParams.gsrlimit > 50) wiki.searchParams.gsrlimit = 50;
+			if (wiki.maxResults > 50) Params.setMaxResults(50);
 		}; // checkMax
 
 
@@ -217,15 +204,6 @@
 		}	// showArticle
 
 
-		function saveSearchParams() {
-			localStorage.wikiSearchTerm = wiki.searchTerm || '';
-			localStorage.wikiLang = wiki.lang || '';
-			localStorage.wikiMaxResult = wiki.searchParams.gsrlimit || '';
-			localStorage.wikiDomain = wiki.domain || '';
-			localStorage.wikiFilter = wiki.searchFilter || '';
-		} // saveSearchParams
-
-
 		function loadLocalParams() {
 			wiki.searchTerm = localStorage.wikiSearchTerm || wiki.searchTerm;
 			wiki.lang = localStorage.wikiLang || wiki.lang;
@@ -233,7 +211,7 @@
 			wiki.domain = localStorage.wikiDomain || wiki.domain;
 			wiki.searchFilter = localStorage.wikiFilter || wiki.searchFilter;
 			if(localStorage.wikiFilter === '') wiki.searchFilter = '';
-		} // saveSearchParams
+		} // loadLocalParams
 
 
 		function setDomainName(domainName) {
@@ -245,11 +223,6 @@
 			wiki.apiUrl = 'http://' + wiki.lang + '.' + wiki.domain + '.org/w/api.php';
 			if (wiki.domain == 'commons') wiki.apiUrl = 'http://commons.wikimedia.org/w/api.php';
 		} // updateApiDomain
-
-
-		function updateSearchTerm() {
-			wiki.searchParams.gsrsearch = wiki.searchFilter + wiki.searchTerm;
-		} // updateSearchTerm
 
 
 		function removeArticleFromResults(term, results) {
