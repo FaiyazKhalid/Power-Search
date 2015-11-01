@@ -43,7 +43,7 @@
             <form class="search-form row" role="form">
                 <div class="col-md-6">
                     <div class="search-wrapper form-group">
-                        <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.searchImages()'>
+                        <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.searchWikipedia()'>
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <!-- search field -->
@@ -53,13 +53,13 @@
                 <div class="col-md-3">
                     <div class="form-group text-center">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.searchFilter" value="intitle:" ng-change='wiki.searchWikipedia()'> in title
+                            <input type="radio" ng-model="wiki.searchFilter" value="intitle:" ng-change='wiki.setFilter(); wiki.searchWikipedia()'> in title
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.searchFilter" value="" ng-change='wiki.searchWikipedia()'> content
+                            <input type="radio" ng-model="wiki.searchFilter" value="" ng-change='wiki.setFilter(); wiki.searchWikipedia()'> content
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.searchFilter" value="prefix:" ng-change='wiki.searchWikipedia()'> prefix
+                            <input type="radio" ng-model="wiki.searchFilter" value="prefix:" ng-change='wiki.setFilter(); wiki.searchWikipedia()'> prefix
                         </label>
                     </div>
                 </div>

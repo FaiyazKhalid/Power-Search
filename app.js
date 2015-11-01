@@ -38,8 +38,8 @@
 		wiki.lang = 'en';
 		wiki.domain = 'wikipedia';
 		wiki.apiUrl = 'http://en.wikipedia.org/w/api.php';
-		wiki.searchTerm = 'zen'; // default
-		wiki.searchFilter = "intitle:";
+		wiki.searchTerm = Params.getSearchTerm();
+		wiki.searchFilter = Params.getFilter();
 		wiki.page = null;
 		wiki.results = null;
 		wiki.error = "";
@@ -52,49 +52,26 @@
 
 		var defaulParams = Params.getDefaultParams();
 		var articleParams = Params.getArticleParams();
-		wiki.searchParams = Params.getSearchParams();
-
-
-
-		// https://www.mediawiki.org/wiki/API:Lists/All#Allimages
-		wiki.imageParams = {
-			action: 'query',
-			list: 'allimages',
-			format: 'json',
-			//ailimit: 10,	// max 500
-			//aicontinue: ''
-			aifrom: 'Dada'
-		};
+		var searchParams = Params.getSearchParams();
 
 
 		/*** PUBLIC METHODS ***/
 
 		wiki.init = function () {
-			loadLocalParams();
-			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes '/'
-			wiki.searchWikipedia();
-			$window.onhashchange = wiki.init;
+			Params.loadParams();
+			//wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes '/'
+			//wiki.searchWikipedia();
+			//$window.onhashchange = wiki.init;
 		}; // init
 
 
-		wiki.searchImages = function() {
-			var paramUrl = createParamUrl(wiki.imageParams3, wiki.apiUrl);
-			console.log(paramUrl);
-			$http.jsonp(paramUrl)
-				.success(function(data) {
-					console.log(data);
-				})
-				.error(handleErrors);
-		};
-
-
 		wiki.searchWikipedia = function () { // mozda ne treba ulazni argument
-			wiki.resetResults();
+			wiki.emptyResults();
 			if(!wiki.searchTerm) return;
 			updateApiDomain();
-			Params.setSearchTerm(wiki.searchFilter, wiki.searchTerm);
+			Params.setSearchTerm(wiki.searchTerm);
 			$location.path(wiki.searchTerm);
-			var params = angular.extend(wiki.searchParams, defaulParams);
+			var params = angular.extend(searchParams, defaulParams);
 			var paramUrl = createParamUrl(params, wiki.apiUrl);
 			console.log(paramUrl);
 
@@ -110,7 +87,7 @@
 			resetArticle();
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
-			var params = angular.extend(wiki.searchParams, defaulParams);
+			var params = angular.extend(searchParams, defaulParams);
 			var paramUrl = createParamUrl(params, wiki.apiUrl);
 			//console.log(paramUrl);
 
@@ -131,6 +108,11 @@
 		};	// createArticleUrl
 
 
+		wiki.setFilter = function(){
+			Params.setFilter(wiki.searchFilter);
+		};
+
+
 		wiki.searchInDomain = function (domainName) {
 			setDomainName(domainName);
 			wiki.searchWikipedia();
@@ -139,8 +121,8 @@
 
 		wiki.searchForLeadTerm = function (title) {
 			if (wiki.leadLarge) {
-				wiki.searchTerm = title;
-				wiki.searchWikipedia(title, wiki.searchParams);
+				Params.setSearchTerm(title);
+				wiki.searchWikipedia(title, searchParams);
 			}
 			wiki.toggleLeadLarge();
 		}; // searchForLeadTerm
@@ -169,10 +151,10 @@
 		}; // leadHoverText
 
 
-		wiki.resetResults = function () {
+		wiki.emptyResults = function () {
 			wiki.results = [];
 			wiki.page = "";
-		}; // resetResults
+		}; // emptyResults
 
 
 		wiki.checkMax = function () {
@@ -202,16 +184,6 @@
 			resetImage();
 			if (wiki.page.pageimage) findWikiImage(wiki.page.pageimage);
 		}	// showArticle
-
-
-		function loadLocalParams() {
-			wiki.searchTerm = localStorage.wikiSearchTerm || wiki.searchTerm;
-			wiki.lang = localStorage.wikiLang || wiki.lang;
-			wiki.searchParams.gsrlimit = Number(localStorage.wikiMaxResult || wiki.searchParams.gsrlimit);
-			wiki.domain = localStorage.wikiDomain || wiki.domain;
-			wiki.searchFilter = localStorage.wikiFilter || wiki.searchFilter;
-			if(localStorage.wikiFilter === '') wiki.searchFilter = '';
-		} // loadLocalParams
 
 
 		function setDomainName(domainName) {
