@@ -35,20 +35,20 @@
 
 		/*** PUBLIC PROPERTIES ***/
 
-		wiki.lang = 'en';
-		wiki.domain = 'wikipedia';
-		wiki.apiUrl = 'http://en.wikipedia.org/w/api.php';
-		wiki.searchTerm = Params.getSearchTerm();
-		wiki.searchFilter = Params.getFilter();
-		wiki.page = null;
-		wiki.results = null;
-		wiki.error = "";
-		wiki.leadLarge = false;
 		wiki.languages = WikidataService.getLanguages();
 		wiki.projects = WikidataService.getProjects();
+		wiki.lang = Params.getLang();
+		wiki.domain = Params.getDomain();
+		wiki.apiUrl = Params.getApiUrl();
+		wiki.searchTerm = Params.getSearchTerm();
+		wiki.searchFilter = Params.getFilter();
+		wiki.maxResults = Params.getMaxResults();
+		wiki.page = null;
+		wiki.results = null;
+		wiki.error = null;
+		wiki.leadLarge = false;
 		wiki.imageUrl = '';
 		wiki.imageThumbUrl = '';
-		wiki.maxResults = Params.getMaxResults();
 
 		var defaulParams = Params.getDefaultParams();
 		var articleParams = Params.getArticleParams();
@@ -59,10 +59,14 @@
 
 		wiki.init = function () {
 			Params.loadParams();
-			//wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes '/'
-			//wiki.searchWikipedia();
-			//$window.onhashchange = wiki.init;
+			checkUrlTerm();
+			wiki.searchWikipedia();
+			$window.onhashchange = wiki.init;
 		}; // init
+
+		function checkUrlTerm() {
+			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes / before path
+		}
 
 
 		wiki.searchWikipedia = function () { // mozda ne treba ulazni argument

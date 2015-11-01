@@ -10,6 +10,7 @@
         var searchTerm = 'nula';
         var searchFilter = 'prefix:';
         var domain = 'wikipedia';
+		var apiUrl = 'http://en.wikipedia.org/w/api.php';
 
         var defaulParams = {
             action: 'query',
@@ -40,6 +41,18 @@
 		function getSearchTerm() {
             return searchTerm;
         }
+
+		function getLang() {
+			return lang;
+		}
+
+		function getDomain() {
+			return domain;
+		}
+
+		function getApiUrl() {
+			return apiUrl;
+		}
 
         function getDefaultParams() {
             return defaulParams;
@@ -72,12 +85,12 @@
 
         function setFilter(filter) {
             searchFilter = filter;
-            searchParams.gsrsearch = filter + term;
+            searchParams.gsrsearch = filter + searchTerm;
         }
 
         function setSearchTerm(term) {
             searchTerm = term;
-            searchParams.gsrsearch = filter + term;
+            searchParams.gsrsearch = searchFilter + term;
         }
 
         function saveParams() {
@@ -108,6 +121,9 @@
 			getSearchParams: getSearchParams,
 			getFilter: getFilter,
             getMaxResults: getMaxResults,
+			getLang: getLang,
+			getDomain: getDomain,
+			getApiUrl: getApiUrl,
 
             setArticleTitle: setArticleTitle,
             setFilter: setFilter,
