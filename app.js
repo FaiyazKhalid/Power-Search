@@ -26,7 +26,7 @@
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($http, $window, $scope, $animate, $location, utils, WikidataService, ParamService) {
+	function WikiController($http, $window, $scope, $animate, $location, utils, WikidataService, Params) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
@@ -34,6 +34,7 @@
 		var triedTwice = false;		// try again to find article with different capitalisation
 
 		/*** PUBLIC PROPERTIES ***/
+
 		wiki.lang = 'en';
 		wiki.domain = 'wikipedia';
 		wiki.apiUrl = 'http://en.wikipedia.org/w/api.php';
@@ -48,20 +49,10 @@
 		wiki.imageUrl = '';
 		wiki.imageThumbUrl = '';
 
-		var defaulParams = {
-			action: 'query',
-			prop: 'extracts|pageimages|info',	// |images| return all images from page
-			inprop: 'url',	// return full url
-			redirects: '', // automatically resolve redirects
-			continue: '',	// continue the query?
-			format: 'json',
-			formatversion: 2,
-			callback: 'JSON_CALLBACK'
-		};
+		var defaulParams = Params.getDefaultParams();
+		var articleParams = Params.getArticleParams();
+		Params.setArticleTitle(wiki.searchTerm);
 
-		wiki.articleParams = {
-			titles: wiki.searchTerm
-		};
 
 		wiki.searchParams = {
 			generator: 'search',
@@ -131,7 +122,7 @@
 		wiki.openArticle = function (title) {
 			resetArticle();
 			utils.scrollToTop(300);
-			wiki.articleParams.titles = title;
+			Params.setArticleTitle(title);
 			var params = angular.extend(wiki.searchParams, defaulParams);
 			var paramUrl = createParamUrl(params, wiki.apiUrl);
 			//console.log(paramUrl);
@@ -216,10 +207,10 @@
 
 		function showArticle(data) {
 			if (!data.query) return;
-			if (data.query.pages[0].missing) tryAgainCapitalized(wiki.articleParams.titles);
+			if (data.query.pages[0].missing) tryAgainCapitalized(articleParams.titles);
 			if (data.query.pages[0].missing) return;
 			wiki.page = data.query.pages[0];
-			removeArticleFromResults(wiki.articleParams.titles, wiki.results);
+			removeArticleFromResults(articleParams.titles, wiki.results);
 			removeRedirections(data.query.redirects, wiki.results);
 			resetImage();
 			if (wiki.page.pageimage) findWikiImage(wiki.page.pageimage);
