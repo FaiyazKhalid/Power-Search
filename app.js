@@ -1,13 +1,26 @@
 (function () {
+/*
 
+	URADITI:
 	// commons treba da pretrazuje i otvara fajlove, ne clanke
 	// findWikiImage da bude univerzalna za svaki wiki projekt
+
+	RESENJA:
+	// if (domain == 'commons') searchParams.namespace = 6
+
+	BAGOVI:
+	// potraga damjan prikazuje nerelevantan lead
 	// filenameToCommonsUrl greska kada trazim vecu sirinu od originala
 
-	// bug: damjan prikazuje nerelevantan lead
-	// mozda razdvojiti u dva kontrolera, a parametre i api gurnuti u servis
-	// primer paramUrl u dokumentaciju
+	REFAKTOR:
+	https://scotch.io/tutorials/making-skinny-angularjs-controllers
+	// kontroler da bude agnostičan po pitanju podataka, model ide u servis
+	// parametre i http gurnuti u servis
+	// mozda razdvojiti html na delove sa zajednickim kontrolerom
+	// mozda razdvojiti u više kontrolera
 
+	// primer paramUrl u dokumentaciju
+*/
 	'use strict';
 	angular
 		.module("wikiModul", ['ngSanitize'])
@@ -37,7 +50,8 @@
 
 		var defaulParams = {
 			action: 'query',
-			prop: 'extracts|pageimages',	// images: all images from page
+			prop: 'extracts|pageimages|info',	// |images| return all images from page
+			inprop: 'url',	// return full url
 			redirects: '', // automatically resolve redirects
 			continue: '',	// continue the query?
 			format: 'json',
@@ -60,19 +74,9 @@
 			exintro: '' // extracts intro
 		};
 
-		//http://stackoverflow.com/questions/12803599/wikimedia-api-image-search-with-public-domain-filter
-		wiki.imageParams3 = {
-			redirects: '', // automatically resolve redirects
-			continue: '',	// continue the query?
-			formatversion: 2,
-			action: 'query',
-			generator: 'search',
-			prop: 'info',	// prop=info&inprop=url
-			gsrsearch: 'dada',
-			gsrnamespace: 6,	// 0 article, 6 file
-			format: 'json',
-			callback: 'JSON_CALLBACK'
-		};
+
+
+
 
 		// https://www.mediawiki.org/wiki/API:Lists/All#Allimages
 		wiki.imageParams = {
@@ -82,17 +86,6 @@
 			//ailimit: 10,	// max 500
 			//aicontinue: ''
 			aifrom: 'Dada'
-		};
-
-		wiki.imageParams2 = {
-			action: 'query',
-			list: 'search',
-			format: 'json',
-			srsearch: 'dada',
-			srnamespace: 6,	// search in filename
-			srlimit: 10,
-			generator: 'images',
-			gimlimit: 10
 		};
 
 
