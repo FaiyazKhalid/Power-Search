@@ -38,6 +38,29 @@
             exintro: '' // extracts intro
         };
 
+
+        /*** GETTERS ***/
+
+        function getSearchResults (term, handleResults) {
+            updateSearchTerm(term);
+			updateBaseUrl();
+			var paramUrl = createParamUrl(fullSearchParams());
+			// console.log(paramUrl);
+			$http.jsonp(paramUrl)
+				.success(handleResults)
+				.error(handleErrors);
+			saveParams();
+		} // getSearchResults
+
+        function getArticle (title, handleResults) {
+			updateArticleTitle(title);
+			updateBaseUrl();
+			var paramUrl = createParamUrl(fullArticleParams());
+			$http.jsonp(paramUrl)
+				.success(handleResults)
+				.error(handleErrors);
+		} // getArticle
+
 		function getSearchTerm() {
             return searchTerm;
         }
@@ -54,18 +77,8 @@
             return defaulParams;
         }
 
-        function getArticleParams() {
-            var fullParams = angular.extend(articleParams, defaulParams);
-            return fullParams;
-        }
-
         function getMaxResults() {
             return searchParams.gsrlimit;
-        }
-
-        function getSearchParams() {
-            var fullParams = angular.extend(searchParams, defaulParams);
-            return fullParams;
         }
 
         function getFilter() {
@@ -75,6 +88,9 @@
         function getBaseUrl() {
             return apiUrl;
         }
+
+
+        /*** SETTERS ***/
 
         function updateArticleTitle(newName) {
             articleParams.titles = newName;
@@ -98,18 +114,35 @@
             searchParams.gsrsearch = searchFilter + term;
         }
 
-
 		function updateBaseUrl() {
 			apiUrl = 'http://' + lang + '.' + domain + '.org/w/api.php';
 			if (domain == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
 		} // updateBaseUrl
 
 
+        /*** HELPERS ***/
+
+        function fullArticleParams() {
+            var fullParams = angular.extend(articleParams, defaulParams);
+            return fullParams;
+        }
+
+        function fullSearchParams() {
+            var fullParams = angular.extend(searchParams, defaulParams);
+            return fullParams;
+        }
+
         function createParamUrl(params) {
 			var paramUrl = apiUrl + '?' + utils.serialize(params);
 			return paramUrl;
 		} // createParamUrl
 
+        function handleErrors(data, status, headers, config) {
+			wiki.error = "Oh no, there was some error in geting data: " + status;
+		} // handleErrors
+
+
+        /*** LOAD and SAVE ***/
 
         function saveParams() {
             localStorage.wikiSearchTerm = searchTerm || '';
@@ -118,7 +151,6 @@
             localStorage.wikiMaxResult = searchParams.gsrlimit || '';
             localStorage.wikiDomain = domain || '';
         } // saveParams
-
 
         function loadParams() {
             lang = localStorage.wikiLang || lang;
@@ -130,43 +162,11 @@
         } // loadParams
 
 
-        function getSearchResults (term, handleResults) {
-            updateSearchTerm(term);
-			updateBaseUrl();
-			var paramUrl = createParamUrl(getSearchParams());
-			// console.log(paramUrl);
-
-			$http.jsonp(paramUrl)
-				.success(handleResults)
-				.error(handleErrors);
-
-			saveParams();
-		} // getSearchResults
-
-
-        function getArticle (title, handleResults) {
-			updateArticleTitle(title);
-			updateBaseUrl();
-			var paramUrl = createParamUrl(getArticleParams());
-			//console.log(paramUrl);
-
-			$http.jsonp(paramUrl)
-				.success(handleResults)
-				.error(handleErrors);
-		} // getArticle
-
-
-        function handleErrors(data, status, headers, config) {
-			wiki.error = "Oh no, there was some error in geting data: " + status;
-		} // handleErrors
-
-
-
         return {
 			getSearchTerm: getSearchTerm,
             getDefaultParams: getDefaultParams,
-            getArticleParams: getArticleParams,
-			getSearchParams: getSearchParams,
+            fullArticleParams: fullArticleParams,
+			fullSearchParams: fullSearchParams,
 			getFilter: getFilter,
             getMaxResults: getMaxResults,
 			getLang: getLang,

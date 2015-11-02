@@ -1,7 +1,7 @@
 (function () {
 /*
 	TODO:
-	// prebaciti u servis handle, try again, find image..
+	// prebaciti u servis handle results, try again, find image..
 	// findWikiImage da bude univerzalna za svaki wiki projekt
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 
