@@ -63,16 +63,17 @@
 			$window.onhashchange = wiki.init;
 		}; // init
 
+
 		wiki.searchWikipedia = function () {
 			emptyResults();
 			if(!wiki.searchTerm) return;
-			updateUrlTerm();
+			createSearchUrl();
 
 			// update all params
 			Params.setSearchTerm(wiki.searchTerm);
 			Params.updateBaseUrl();
 
-			var paramUrl = createParamUrl(Params.getBaseUrl(), Params.getSearchParams());
+			var paramUrl = Params.createUrl(Params.getSearchParams());
 			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
@@ -92,7 +93,7 @@
 			Params.setArticleTitle(title);
 			Params.updateBaseUrl();
 
-			var paramUrl = createParamUrl(Params.getBaseUrl(), Params.getArticleParams());
+			var paramUrl = Params.createUrl(Params.getArticleParams());
 			//console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
@@ -269,7 +270,7 @@
 			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes / before path
 		}
 
-		function updateUrlTerm(){
+		function createSearchUrl(){
 			$location.path(wiki.searchTerm);
 		}
 
