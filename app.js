@@ -65,7 +65,7 @@
 
 
 		wiki.searchWikipedia = function () {
-			emptyResults();
+			resetSearchResults();
 			if(!wiki.searchTerm) return;
 			writeUrlTerm();
 			Params.getSearchResults(wiki.searchTerm, handleSearchResults);
@@ -74,7 +74,6 @@
 
 		wiki.openArticle = function (title) {
 			resetLeadArticle();
-			if(!title) return;
 			utils.scrollToTop(300);
 			Params.getArticle(title, handleArticle);
 		}; // openArticle
@@ -228,17 +227,17 @@
 
 
 		function readUrlTerm() {
-			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes / before path
+			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm;
 		}
 
 		function writeUrlTerm(){
 			$location.path(wiki.searchTerm);
 		}
 
-		function emptyResults() {
+		function resetSearchResults() {
 			wiki.results = [];
 			wiki.page = "";
-		} // emptyResults
+		} // resetSearchResults
 
 
 	} // WikiController
