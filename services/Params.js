@@ -5,7 +5,7 @@
 		.service('Params', Params);
 
 	function Params($http, utils) {
-
+        // defaults
 		var lang = 'en';
 		var searchTerm = 'nula';
 		var searchFilter = 'prefix:';
@@ -34,12 +34,12 @@
 			gsrlimit: 20, // broj rezultata, max 50
 			pilimit: 'max', // thumb image for all articles
 			exlimit: 'max', // extract limit
-			// imlimit: 'max', // images limit
+			// imlimit: 'max', // images limit, only if prop:images enabled
 			exintro: '' // extracts intro
 		};
 
 
-		/*** GETTERS ***/
+		/*** HTTP ***/
 
 		function getSearchResults(term, handleResults) {
 			updateSearchTerm(term);
@@ -55,6 +55,7 @@
 			saveParams();
 		} // getSearchResults
 
+
 		function getArticle(title, handleResults) {
 			updateArticleTitle(title);
 			updateBaseUrl();
@@ -66,6 +67,9 @@
 				})
 				.error(handleErrors);
 		} // getArticle
+
+
+		/*** GETTERS ***/
 
 		function getSearchTerm() {
 			return searchTerm;
@@ -168,11 +172,11 @@
 		} // loadParams
 
 
+        /*** PUBLIC ***/
+
 		return {
 			getSearchTerm: getSearchTerm,
 			getDefaultParams: getDefaultParams,
-			fullArticleParams: fullArticleParams,
-			fullSearchParams: fullSearchParams,
 			getFilter: getFilter,
 			getMaxResults: getMaxResults,
 			getLang: getLang,
@@ -180,6 +184,9 @@
 			getBaseUrl: getBaseUrl,
 			getSearchResults: getSearchResults,
 			getArticle: getArticle,
+
+            fullArticleParams: fullArticleParams,
+			fullSearchParams: fullSearchParams,
 
 			updateArticleTitle: updateArticleTitle,
 			updateFilter: updateFilter,
