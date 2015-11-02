@@ -55,7 +55,8 @@
         }
 
         function getArticleParams() {
-            return articleParams;
+            var fullParams = angular.extend(articleParams, defaulParams);
+            return fullParams;
         }
 
         function getMaxResults() {
@@ -63,7 +64,8 @@
         }
 
         function getSearchParams() {
-            return searchParams;
+            var fullParams = angular.extend(searchParams, defaulParams);
+            return fullParams;
         }
 
         function getFilter() {

@@ -31,10 +31,7 @@
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
-		var apiUrl = Params.createApiUrl();
-		var defaulParams = Params.getDefaultParams();
-		var articleParams = Params.getArticleParams();
-		var searchParams = Params.getSearchParams();
+		var apiUrl = Params.createApiUrl();	// eliminisat
 		var leadImgWidth = 175;
 		var triedTwice = false;		// try again to find article with different capitalisation
 
@@ -67,15 +64,16 @@
 			$window.onhashchange = wiki.init;
 		}; // init
 
-		wiki.searchWikipedia = function () { // mozda ne treba ulazni argument
+		wiki.searchWikipedia = function () {
 			emptyResults();
 			if(!wiki.searchTerm) return;
 
 			Params.setSearchTerm(wiki.searchTerm);
 			$location.path(wiki.searchTerm);
-			var params = angular.extend(searchParams, defaulParams);
-			var paramUrl = createParamUrl(params, apiUrl);
-			console.log(paramUrl);
+
+			var params = Params.getSearchParams();
+			var paramUrl = createParamUrl(params, Params.createApiUrl());
+			// console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(showResults)
@@ -91,7 +89,7 @@
 			//if(!title) return;
 
 			Params.setArticleTitle(title);
-			var params = angular.extend(searchParams, defaulParams);
+			var params = Params.getArticleParams();
 			var paramUrl = createParamUrl(params, apiUrl);
 			//console.log(paramUrl);
 
@@ -114,6 +112,7 @@
 
 
 		wiki.setDomain = function (newDomain){
+			wiki.domain = newDomain;
 			Params.setDomain(newDomain);
 		};
 
@@ -121,7 +120,7 @@
 		wiki.searchForLeadTerm = function (title) {
 			if (wiki.leadLarge) {
 				Params.setSearchTerm(title);
-				wiki.searchWikipedia(title, searchParams);
+				wiki.searchWikipedia();
 			}
 			wiki.toggleLeadLarge();
 		}; // searchForLeadTerm
