@@ -144,15 +144,14 @@
 		} // getSearchResults
 
 
-        function getArticle (title, handleArticle) {
+        function getArticle (title, handleResults) {
 			updateArticleTitle(title);
 			updateBaseUrl();
-
 			var paramUrl = createParamUrl(getArticleParams());
 			//console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
-				.success(handleArticle)
+				.success(handleResults)
 				.error(handleErrors);
 		} // getArticle
 

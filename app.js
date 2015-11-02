@@ -68,16 +68,17 @@
 			emptyResults();
 			if(!wiki.searchTerm) return;
 			createSearchUrl();
-			Params.getSearchResults(wiki.searchTerm, handleResults);
+			Params.getSearchResults(wiki.searchTerm, handleSearchResults);
 		}; // searchWikipedia
 
 
 		wiki.openArticle = function (title) {
 			resetLeadArticle();
+			if(!title) return;
 			utils.scrollToTop(300);
-			//if(!title) return;
 			Params.getArticle(title, handleArticle);
 		}; // openArticle
+
 
 
 		wiki.setFilter = function(){
@@ -91,11 +92,15 @@
 		};
 
 
+		wiki.setSearchTerm = function (newTerm){
+			wiki.searchTerm = newTerm;
+			Params.updateSearchTerm(newTerm);
+		};
+
+
 		wiki.searchForLeadTerm = function (title) {
-			if (wiki.leadLarge) {
-				Params.setSearchTerm(title);
-				wiki.searchWikipedia();
-			}
+			wiki.setSearchTerm(title);
+			wiki.searchWikipedia();
 			wiki.toggleLeadLarge();
 		}; // searchForLeadTerm
 
@@ -118,10 +123,6 @@
 		}; // toggleLeadLarge
 
 
-		wiki.leadHoverText = function () {
-			return wiki.leadLarge ? "Search for this term" : "Englarge this article";
-		}; // leadHoverText
-
 		wiki.checkMax = function () {
 			if (wiki.maxResults > 50) Params.setMaxResults(50);
 		}; // checkMax
@@ -130,13 +131,14 @@
 
 		/*** PRIVATE FUNCTIONS ***/
 
-		function handleResults(data) {
+		// prebaciti u servis
+		function handleSearchResults(data) {
 			resetError();
 			if (!data.query) return;
 			wiki.results = data.query.pages;
 			triedTwice = false;
 			wiki.openArticle(wiki.searchTerm);
-		}	// handleResults
+		}	// handleSearchResults
 
 
 		function handleArticle(data) {
@@ -170,11 +172,6 @@
 			} // end for
 			return results;
 		} // removeRedirections
-
-
-		function handleErrors(data, status, headers, config) {
-			wiki.error = "Oh no, there was some error in geting data: " + status;
-		} // handleErrors
 
 
 		function resetError() {

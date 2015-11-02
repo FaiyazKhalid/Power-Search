@@ -89,17 +89,20 @@
             <!-- lead article -->
             <div ng-class="wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
                 <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.toggleLeadLarge()">« Back</button>
+
+                <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.searchForLeadTerm(wiki.page.title)">Search for this term »</button>
+
                 <section class='choosen-article-wrapper' ng-show='wiki.page'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
-                            <span class="pointer" title="{{wiki.leadHoverText()}}" ng-click="wiki.searchForLeadTerm(wiki.page.title)">{{wiki.page.title}}</span>
+                            <span class="pointer" title="Englarge this article" ng-click="wiki.toggleLeadLarge()">{{wiki.page.title}}</span>
                         </h1>
                         <a ng-href="{{wiki.imageUrl}}" target="_blank">
                             <img ng-src="{{wiki.imageThumbUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail pull-right" ng-class="wiki.leadLarge ? 'img-large' : 'img-medium'" ng-show="wiki.imageThumbUrl">
                         </a>
                         <section ng-bind-html='wiki.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
-                    <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.toggleLeadLarge()">« Back</button>
+
                     <p class="read-more text-info pull-right"><a ng-href="{{wiki.createArticleUrl(wiki.page.title)}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
                 </section>
             </div>
