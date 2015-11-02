@@ -135,10 +135,10 @@
 
 		function handleArticle(data) {
 			if (!data.query) return;
-			if (data.query.pages[0].missing) tryAgainCapitalized(Params.getArticleParams().titles);
+			if (data.query.pages[0].missing) tryAgainCapitalized(Params.fullArticleParams().titles);
 			if (data.query.pages[0].missing) return;
 			wiki.page = data.query.pages[0];
-			removeArticleFromResults(Params.getArticleParams().titles, wiki.results);
+			removeArticleFromResults(Params.fullArticleParams().titles, wiki.results);
 			removeRedirections(data.query.redirects, wiki.results);
 			if (wiki.page.pageimage) findWikiImage(wiki.page.pageimage);
 		}	// hande
