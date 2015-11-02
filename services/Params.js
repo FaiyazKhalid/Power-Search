@@ -1,69 +1,75 @@
-(function() {
-    'use strict';
-    angular
-        .module("wikiModul")
-        .service('Params', Params);
+(function () {
+	'use strict';
+	angular
+		.module("wikiModul")
+		.service('Params', Params);
 
-    function Params($http, utils) {
+	function Params($http, utils) {
 
-        var lang = 'en';
-        var searchTerm = 'nula';
-        var searchFilter = 'prefix:';
-        var domain = 'wikipedia';
+		var lang = 'en';
+		var searchTerm = 'nula';
+		var searchFilter = 'prefix:';
+		var domain = 'wikipedia';
 		var apiUrl = 'https://en.wikipedia.org/w/api.php';
 
-        var defaulParams = {
-            action: 'query',
-            prop: 'extracts|pageimages|info', // |images| return all images from page
-            inprop: 'url', // return full url
-            redirects: '', // automatically resolve redirects
-            continue: '', // continue the query?
-            format: 'json',
-            formatversion: 2,
-            callback: 'JSON_CALLBACK'
-        };
+		var defaulParams = {
+			action: 'query',
+			prop: 'extracts|pageimages|info', // |images| return all images from page
+			inprop: 'url', // return full url
+			redirects: '', // automatically resolve redirects
+			continue: '', // continue the query?
+			format: 'json',
+			formatversion: 2,
+			callback: 'JSON_CALLBACK'
+		};
 
-        var articleParams = {
-            titles: ''
-        };
+		var articleParams = {
+			titles: ''
+		};
 
-        var searchParams = {
-            generator: 'search',
-            gsrsearch: '',
-            gsrnamespace: 0, // 0 article, 6 file
-            gsrlimit: 20, // broj rezultata, max 50
-            pilimit: 'max', // thumb image for all articles
-            exlimit: 'max', // extract limit
-            // imlimit: 'max', // images limit
-            exintro: '' // extracts intro
-        };
+		var searchParams = {
+			generator: 'search',
+			gsrsearch: '',
+			gsrnamespace: 0, // 0 article, 6 file
+			gsrlimit: 20, // broj rezultata, max 50
+			pilimit: 'max', // thumb image for all articles
+			exlimit: 'max', // extract limit
+			// imlimit: 'max', // images limit
+			exintro: '' // extracts intro
+		};
 
 
-        /*** GETTERS ***/
+		/*** GETTERS ***/
 
-        function getSearchResults (term, handleResults) {
-            updateSearchTerm(term);
+		function getSearchResults(term, handleResults) {
+			updateSearchTerm(term);
 			updateBaseUrl();
 			var paramUrl = createParamUrl(fullSearchParams());
 			// console.log(paramUrl);
+
 			$http.jsonp(paramUrl)
-				.success(handleResults)
+				.success(function (data) {
+					handleResults(data);
+				})
 				.error(handleErrors);
 			saveParams();
 		} // getSearchResults
 
-        function getArticle (title, handleResults) {
+		function getArticle(title, handleResults) {
 			updateArticleTitle(title);
 			updateBaseUrl();
 			var paramUrl = createParamUrl(fullArticleParams());
+
 			$http.jsonp(paramUrl)
-				.success(handleResults)
+				.success(function (data) {
+					handleResults(data);
+				})
 				.error(handleErrors);
 		} // getArticle
 
 		function getSearchTerm() {
-            return searchTerm;
-        }
+			return searchTerm;
+		}
 
 		function getLang() {
 			return lang;
@@ -73,46 +79,46 @@
 			return domain;
 		}
 
-        function getDefaultParams() {
-            return defaulParams;
-        }
+		function getDefaultParams() {
+			return defaulParams;
+		}
 
-        function getMaxResults() {
-            return searchParams.gsrlimit;
-        }
+		function getMaxResults() {
+			return searchParams.gsrlimit;
+		}
 
-        function getFilter() {
-            return searchFilter;
-        }
+		function getFilter() {
+			return searchFilter;
+		}
 
-        function getBaseUrl() {
-            return apiUrl;
-        }
+		function getBaseUrl() {
+			return apiUrl;
+		}
 
 
-        /*** SETTERS ***/
+		/*** SETTERS ***/
 
-        function updateArticleTitle(newName) {
-            articleParams.titles = newName;
-        }
+		function updateArticleTitle(newName) {
+			articleParams.titles = newName;
+		}
 
-        function updateMaxResults(max) {
-            searchParams.gsrlimit = max;
-        }
+		function updateMaxResults(max) {
+			searchParams.gsrlimit = max;
+		}
 
-        function updateFilter(filter) {
-            searchFilter = filter;
-            searchParams.gsrsearch = filter + searchTerm;
-        }
+		function updateFilter(filter) {
+			searchFilter = filter;
+			searchParams.gsrsearch = filter + searchTerm;
+		}
 
-		function updateDomain(newDomain){
+		function updateDomain(newDomain) {
 			domain = newDomain;
 		}
 
-        function updateSearchTerm(term) {
-            searchTerm = term;
-            searchParams.gsrsearch = searchFilter + term;
-        }
+		function updateSearchTerm(term) {
+			searchTerm = term;
+			searchParams.gsrsearch = searchFilter + term;
+		}
 
 		function updateBaseUrl() {
 			apiUrl = 'http://' + lang + '.' + domain + '.org/w/api.php';
@@ -120,71 +126,71 @@
 		} // updateBaseUrl
 
 
-        /*** HELPERS ***/
+		/*** HELPERS ***/
 
-        function fullArticleParams() {
-            var fullParams = angular.extend(articleParams, defaulParams);
-            return fullParams;
-        }
+		function fullArticleParams() {
+			var fullParams = angular.extend(articleParams, defaulParams);
+			return fullParams;
+		}
 
-        function fullSearchParams() {
-            var fullParams = angular.extend(searchParams, defaulParams);
-            return fullParams;
-        }
+		function fullSearchParams() {
+			var fullParams = angular.extend(searchParams, defaulParams);
+			return fullParams;
+		}
 
-        function createParamUrl(params) {
+		function createParamUrl(params) {
 			var paramUrl = apiUrl + '?' + utils.serialize(params);
 			return paramUrl;
 		} // createParamUrl
 
-        function handleErrors(data, status, headers, config) {
+		function handleErrors(data, status, headers, config) {
 			wiki.error = "Oh no, there was some error in geting data: " + status;
 		} // handleErrors
 
 
-        /*** LOAD and SAVE ***/
+		/*** LOAD and SAVE ***/
 
-        function saveParams() {
-            localStorage.wikiSearchTerm = searchTerm || '';
-            localStorage.wikiFilter = searchFilter || '';
-            localStorage.wikiLang = lang || '';
-            localStorage.wikiMaxResult = searchParams.gsrlimit || '';
-            localStorage.wikiDomain = domain || '';
-        } // saveParams
+		function saveParams() {
+			localStorage.wikiSearchTerm = searchTerm || '';
+			localStorage.wikiFilter = searchFilter || '';
+			localStorage.wikiLang = lang || '';
+			localStorage.wikiMaxResult = searchParams.gsrlimit || '';
+			localStorage.wikiDomain = domain || '';
+		} // saveParams
 
-        function loadParams() {
-            lang = localStorage.wikiLang || lang;
-            searchParams.gsrlimit = Number(localStorage.wikiMaxResult || searchParams.gsrlimit);
-            domain = localStorage.wikiDomain || domain;
-            searchTerm = localStorage.wikiSearchTerm || searchTerm;
-            searchFilter = localStorage.wikiFilter || searchFilter;
-            if (localStorage.wikiFilter === '') searchFilter = '';
-        } // loadParams
+		function loadParams() {
+			lang = localStorage.wikiLang || lang;
+			searchParams.gsrlimit = Number(localStorage.wikiMaxResult || searchParams.gsrlimit);
+			domain = localStorage.wikiDomain || domain;
+			searchTerm = localStorage.wikiSearchTerm || searchTerm;
+			searchFilter = localStorage.wikiFilter || searchFilter;
+			if (localStorage.wikiFilter === '') searchFilter = '';
+		} // loadParams
 
 
-        return {
+		return {
 			getSearchTerm: getSearchTerm,
-            getDefaultParams: getDefaultParams,
-            fullArticleParams: fullArticleParams,
+			getDefaultParams: getDefaultParams,
+			fullArticleParams: fullArticleParams,
 			fullSearchParams: fullSearchParams,
 			getFilter: getFilter,
-            getMaxResults: getMaxResults,
+			getMaxResults: getMaxResults,
 			getLang: getLang,
 			getDomain: getDomain,
-            getBaseUrl: getBaseUrl,
-            getSearchResults: getSearchResults,
-            getArticle: getArticle,
+			getBaseUrl: getBaseUrl,
+			getSearchResults: getSearchResults,
+			getArticle: getArticle,
 
-            updateArticleTitle: updateArticleTitle,
-            updateFilter: updateFilter,
+			updateArticleTitle: updateArticleTitle,
+			updateFilter: updateFilter,
 			updateSearchTerm: updateSearchTerm,
-            updateMaxResults: updateMaxResults,
+			updateMaxResults: updateMaxResults,
 			updateBaseUrl: updateBaseUrl,
 			updateDomain: updateDomain,
 
-            loadParams: loadParams
-        };
+			loadParams: loadParams
+		};
 
-    } // Params
+	} // Params
 
 })();
