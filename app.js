@@ -31,7 +31,7 @@
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
-		var apiUrl = Params.createApiUrl();	// eliminisat
+		var apiUrl = Params.createApiUrl();	// eliminisat, prebacit createParamUrl u servis
 		var leadImgWidth = 175;
 		var triedTwice = false;		// try again to find article with different capitalisation
 
