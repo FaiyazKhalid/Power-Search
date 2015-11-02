@@ -68,19 +68,7 @@
 			emptyResults();
 			if(!wiki.searchTerm) return;
 			createSearchUrl();
-
-			// update all params
-			Params.setSearchTerm(wiki.searchTerm);
-			Params.updateBaseUrl();
-
-			var paramUrl = Params.createUrl(Params.getSearchParams());
-			console.log(paramUrl);
-
-			$http.jsonp(paramUrl)
-				.success(handleResults)
-				.error(handleErrors);
-
-			Params.saveParams();
+			Params.getSearchResults(wiki.searchTerm, handleResults);
 		}; // searchWikipedia
 
 
@@ -88,17 +76,7 @@
 			resetLeadArticle();
 			utils.scrollToTop(300);
 			//if(!title) return;
-
-			// update all params
-			Params.setArticleTitle(title);
-			Params.updateBaseUrl();
-
-			var paramUrl = Params.createUrl(Params.getArticleParams());
-			//console.log(paramUrl);
-
-			$http.jsonp(paramUrl)
-				.success(handleArticle)
-				.error(handleErrors);
+			Params.getArticle(title, handleArticle);
 		}; // openArticle
 
 

@@ -4,7 +4,7 @@
         .module("wikiModul")
         .service('Params', Params);
 
-    function Params(utils) {
+    function Params($http, utils) {
 
         var lang = 'en';
         var searchTerm = 'nula';
@@ -76,7 +76,7 @@
             return apiUrl;
         }
 
-        function setArticleTitle(newName) {
+        function updateArticleTitle(newName) {
             articleParams.titles = newName;
         }
 
@@ -93,7 +93,7 @@
 			domain = newDomain;
 		}
 
-        function setSearchTerm(term) {
+        function updateSearchTerm(term) {
             searchTerm = term;
             searchParams.gsrsearch = searchFilter + term;
         }
@@ -105,15 +105,14 @@
 		} // updateBaseUrl
 
 
-        function createUrl(params) {
+        function createParamUrl(params) {
 			var paramUrl = apiUrl + '?' + utils.serialize(params);
 			return paramUrl;
-		} // createUrl
+		} // createParamUrl
 
 
         function saveParams() {
             localStorage.wikiSearchTerm = searchTerm || '';
-
             localStorage.wikiFilter = searchFilter || '';
             localStorage.wikiLang = lang || '';
             localStorage.wikiMaxResult = searchParams.gsrlimit || '';
@@ -126,10 +125,42 @@
             searchParams.gsrlimit = Number(localStorage.wikiMaxResult || searchParams.gsrlimit);
             domain = localStorage.wikiDomain || domain;
             searchTerm = localStorage.wikiSearchTerm || searchTerm;
-
             searchFilter = localStorage.wikiFilter || searchFilter;
             if (localStorage.wikiFilter === '') searchFilter = '';
         } // loadParams
+
+
+        function getSearchResults (term, handleResults) {
+            updateSearchTerm(term);
+			updateBaseUrl();
+			var paramUrl = createParamUrl(getSearchParams());
+			// console.log(paramUrl);
+
+			$http.jsonp(paramUrl)
+				.success(handleResults)
+				.error(handleErrors);
+
+			saveParams();
+		} // getSearchResults
+
+
+        function getArticle (title, handleArticle) {
+			updateArticleTitle(title);
+			updateBaseUrl();
+
+			var paramUrl = createParamUrl(getArticleParams());
+			//console.log(paramUrl);
+
+			$http.jsonp(paramUrl)
+				.success(handleArticle)
+				.error(handleErrors);
+		} // getArticle
+
+
+        function handleErrors(data, status, headers, config) {
+			wiki.error = "Oh no, there was some error in geting data: " + status;
+		} // handleErrors
+
 
 
         return {
@@ -143,16 +174,18 @@
 			getDomain: getDomain,
             getBaseUrl: getBaseUrl,
 
-            setArticleTitle: setArticleTitle,
+            updateArticleTitle: updateArticleTitle,
             setFilter: setFilter,
-			setSearchTerm: setSearchTerm,
+			updateSearchTerm: updateSearchTerm,
             setMaxResults: setMaxResults,
 			updateBaseUrl: updateBaseUrl,
 			setDomain: setDomain,
 
             saveParams: saveParams,
             loadParams: loadParams,
-            createUrl: createUrl
+            createParamUrl: createParamUrl,
+            getSearchResults: getSearchResults,
+            getArticle: getArticle
         };
 
     } // Params
