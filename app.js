@@ -1,6 +1,7 @@
 (function () {
 /*
 	TODO:
+	// prebaciti u servis handle, try again, find image..
 	// findWikiImage da bude univerzalna za svaki wiki projekt
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 
@@ -16,7 +17,6 @@
 	REFAKTOR:
 	https://scotch.io/tutorials/making-skinny-angularjs-controllers
 	// kontroler da bude agnostičan po pitanju podataka, model ide u servis
-	// parametre i http gurnuti u servis
 	// mozda razdvojiti html na delove sa zajednickim kontrolerom
 	// mozda razdvojiti u više kontrolera
 
@@ -58,7 +58,7 @@
 
 		wiki.init = function () {
 			Params.loadParams();
-			checkUrlTerm();
+			readUrlTerm();
 			wiki.searchWikipedia();
 			$window.onhashchange = wiki.init;
 		}; // init
@@ -67,7 +67,7 @@
 		wiki.searchWikipedia = function () {
 			emptyResults();
 			if(!wiki.searchTerm) return;
-			createSearchUrl();
+			writeUrlTerm();
 			Params.getSearchResults(wiki.searchTerm, handleSearchResults);
 		}; // searchWikipedia
 
@@ -80,36 +80,28 @@
 		}; // openArticle
 
 
-
-		wiki.setFilter = function(){
-			Params.setFilter(wiki.searchFilter);
+		wiki.updateFilter = function(){
+			Params.updateFilter(wiki.searchFilter);
 		};
 
 
-		wiki.setDomain = function (newDomain){
+		wiki.updateDomain = function (newDomain){
 			wiki.domain = newDomain;
-			Params.setDomain(newDomain);
-		};
+			Params.updateDomain(newDomain);
+		};	// updateDomain
 
 
-		wiki.setSearchTerm = function (newTerm){
+		wiki.updateSearchTerm = function (newTerm){
 			wiki.searchTerm = newTerm;
 			Params.updateSearchTerm(newTerm);
-		};
+		};	// updateSearchTerm
 
 
 		wiki.searchForLeadTerm = function (title) {
-			wiki.setSearchTerm(title);
+			wiki.updateSearchTerm(title);
 			wiki.searchWikipedia();
 			wiki.toggleLeadLarge();
 		}; // searchForLeadTerm
-
-
-		wiki.openLarge = function (title) {
-			wiki.page = '';
-			wiki.openArticle(title);
-			wiki.leadLarge = true;
-		}; // openLarge
 
 
 		wiki.toggleLeadLarge = function () {
@@ -124,14 +116,14 @@
 
 
 		wiki.checkMax = function () {
-			if (wiki.maxResults > 50) Params.setMaxResults(50);
+			if (wiki.maxResults > 50) wiki.maxResults = 50;
+			Params.updateMaxResults(wiki.maxResults);
 		}; // checkMax
 
 
 
 		/*** PRIVATE FUNCTIONS ***/
 
-		// prebaciti u servis
 		function handleSearchResults(data) {
 			resetError();
 			if (!data.query) return;
@@ -235,17 +227,11 @@
 		}	// tryAgainCapitalized
 
 
-		function createParamUrl(apiUrl, params) {
-			var paramUrl = apiUrl + '?' + utils.serialize(params);
-			return paramUrl;
-		} // createParamUrl
-
-
-		function checkUrlTerm() {
+		function readUrlTerm() {
 			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes / before path
 		}
 
-		function createSearchUrl(){
+		function writeUrlTerm(){
 			$location.path(wiki.searchTerm);
 		}
 

@@ -80,16 +80,16 @@
             articleParams.titles = newName;
         }
 
-        function setMaxResults(max) {
+        function updateMaxResults(max) {
             searchParams.gsrlimit = max;
         }
 
-        function setFilter(filter) {
+        function updateFilter(filter) {
             searchFilter = filter;
             searchParams.gsrsearch = filter + searchTerm;
         }
 
-		function setDomain(newDomain){
+		function updateDomain(newDomain){
 			domain = newDomain;
 		}
 
@@ -172,19 +172,17 @@
 			getLang: getLang,
 			getDomain: getDomain,
             getBaseUrl: getBaseUrl,
+            getSearchResults: getSearchResults,
+            getArticle: getArticle,
 
             updateArticleTitle: updateArticleTitle,
-            setFilter: setFilter,
+            updateFilter: updateFilter,
 			updateSearchTerm: updateSearchTerm,
-            setMaxResults: setMaxResults,
+            updateMaxResults: updateMaxResults,
 			updateBaseUrl: updateBaseUrl,
-			setDomain: setDomain,
+			updateDomain: updateDomain,
 
-            saveParams: saveParams,
-            loadParams: loadParams,
-            createParamUrl: createParamUrl,
-            getSearchResults: getSearchResults,
-            getArticle: getArticle
+            loadParams: loadParams
         };
 
     } // Params
