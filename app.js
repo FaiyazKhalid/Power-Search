@@ -66,12 +66,14 @@
 		wiki.searchWikipedia = function () {
 			emptyResults();
 			if(!wiki.searchTerm) return;
+			updateUrlTerm();
 
+			// update all params
 			Params.setSearchTerm(wiki.searchTerm);
-			$location.path(wiki.searchTerm);
+			Params.updateBaseUrl();
 
 			var params = Params.getSearchParams();
-			var paramUrl = createParamUrl(params, Params.updateApiUrl());
+			var paramUrl = createParamUrl(params, Params.updateBaseUrl());
 			// console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
@@ -87,10 +89,13 @@
 			utils.scrollToTop(300);
 			//if(!title) return;
 
+			// update all params
 			Params.setArticleTitle(title);
+			Params.updateBaseUrl();
+
 			var params = Params.getArticleParams();
-			var paramUrl = createParamUrl(params, Params.updateApiUrl());
-			//console.log(paramUrl);
+			var paramUrl = createParamUrl(params, Params.updateBaseUrl());
+			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(handleArticle)
@@ -264,6 +269,10 @@
 
 		function checkUrlTerm() {
 			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm; // removes / before path
+		}
+
+		function updateUrlTerm(){
+			$location.path(wiki.searchTerm);
 		}
 
 		function emptyResults() {
