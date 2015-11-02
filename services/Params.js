@@ -101,6 +101,9 @@
 			return apiUrl;
 		} // updateBaseUrl
 
+        function getBaseUrl() {
+            return apiUrl;
+        }
 
         function saveParams() {
             localStorage.wikiSearchTerm = searchTerm || '';
@@ -132,6 +135,7 @@
             getMaxResults: getMaxResults,
 			getLang: getLang,
 			getDomain: getDomain,
+            getBaseUrl: getBaseUrl,
 
             setArticleTitle: setArticleTitle,
             setFilter: setFilter,

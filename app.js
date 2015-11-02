@@ -72,9 +72,8 @@
 			Params.setSearchTerm(wiki.searchTerm);
 			Params.updateBaseUrl();
 
-			var params = Params.getSearchParams();
-			var paramUrl = createParamUrl(params, Params.updateBaseUrl());
-			// console.log(paramUrl);
+			var paramUrl = createParamUrl(Params.getBaseUrl(), Params.getSearchParams());
+			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(handleResults)
@@ -93,9 +92,8 @@
 			Params.setArticleTitle(title);
 			Params.updateBaseUrl();
 
-			var params = Params.getArticleParams();
-			var paramUrl = createParamUrl(params, Params.updateBaseUrl());
-			console.log(paramUrl);
+			var paramUrl = createParamUrl(Params.getBaseUrl(), Params.getArticleParams());
+			//console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(handleArticle)
@@ -261,7 +259,7 @@
 		}	// tryAgainCapitalized
 
 
-		function createParamUrl(params, apiUrl) {
+		function createParamUrl(apiUrl, params) {
 			var paramUrl = apiUrl + '?' + utils.serialize(params);
 			return paramUrl;
 		} // createParamUrl
