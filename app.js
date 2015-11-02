@@ -27,7 +27,7 @@
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($http, $window, $scope, $animate, $location, utils, WikidataService, Params) {
+	function WikiController($window, $scope, $animate, $location, utils, WikidataService, Params) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
