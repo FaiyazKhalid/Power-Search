@@ -4,13 +4,13 @@
         .module("wikiModul")
         .service('Params', Params);
 
-    function Params() {
+    function Params(utils) {
 
         var lang = 'en';
         var searchTerm = 'nula';
         var searchFilter = 'prefix:';
         var domain = 'wikipedia';
-		var apiUrl = createApiUrl();
+		var apiUrl = updateApiUrl();
 
         var defaulParams = {
             action: 'query',
@@ -95,7 +95,7 @@
             searchParams.gsrsearch = searchFilter + term;
         }
 
-		function createApiUrl() {
+		function updateApiUrl() {
 			var apiUrl = 'http://' + lang + '.' + domain + '.org/w/api.php';
 			if (domain == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
 			return apiUrl;
@@ -137,7 +137,7 @@
             setFilter: setFilter,
 			setSearchTerm: setSearchTerm,
             setMaxResults: setMaxResults,
-			createApiUrl: createApiUrl,
+			updateApiUrl: updateApiUrl,
 			setDomain: setDomain,
 
             saveParams: saveParams,

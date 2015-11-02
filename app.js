@@ -31,7 +31,6 @@
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
-		var apiUrl = Params.createApiUrl();	// eliminisat, prebacit createParamUrl u servis
 		var leadImgWidth = 175;
 		var triedTwice = false;		// try again to find article with different capitalisation
 
@@ -72,11 +71,11 @@
 			$location.path(wiki.searchTerm);
 
 			var params = Params.getSearchParams();
-			var paramUrl = createParamUrl(params, Params.createApiUrl());
+			var paramUrl = createParamUrl(params, Params.updateApiUrl());
 			// console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
-				.success(showResults)
+				.success(handleResults)
 				.error(handleErrors);
 
 			Params.saveParams();
@@ -90,20 +89,13 @@
 
 			Params.setArticleTitle(title);
 			var params = Params.getArticleParams();
-			var paramUrl = createParamUrl(params, apiUrl);
+			var paramUrl = createParamUrl(params, Params.updateApiUrl());
 			//console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
-				.success(showArticle)
+				.success(handleArticle)
 				.error(handleErrors);
 		}; // openArticle
-
-
-		wiki.createArticleUrl = function(title) {
-			var domainUrl = 'https://' + wiki.lang + '.' + wiki.domain + '.org';
-			if (wiki.domain == 'commons') domainUrl = 'https://commons.wikimedia.org';
-			return domainUrl + '/wiki/' + title;
-		};	// createArticleUrl
 
 
 		wiki.setFilter = function(){
@@ -156,24 +148,24 @@
 
 		/*** PRIVATE FUNCTIONS ***/
 
-		function showResults(data) {
+		function handleResults(data) {
 			resetError();
 			if (!data.query) return;
 			wiki.results = data.query.pages;
 			triedTwice = false;
 			wiki.openArticle(wiki.searchTerm);
-		}	// showResults
+		}	// handleResults
 
 
-		function showArticle(data) {
+		function handleArticle(data) {
 			if (!data.query) return;
-			if (data.query.pages[0].missing) tryAgainCapitalized(articleParams.titles);
+			if (data.query.pages[0].missing) tryAgainCapitalized(Params.getArticleParams().titles);
 			if (data.query.pages[0].missing) return;
 			wiki.page = data.query.pages[0];
-			removeArticleFromResults(articleParams.titles, wiki.results);
+			removeArticleFromResults(Params.getArticleParams().titles, wiki.results);
 			removeRedirections(data.query.redirects, wiki.results);
 			if (wiki.page.pageimage) findWikiImage(wiki.page.pageimage);
-		}	// showArticle
+		}	// hande
 
 
 		function removeArticleFromResults(term, results) {
