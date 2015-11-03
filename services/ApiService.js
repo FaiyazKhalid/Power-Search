@@ -4,14 +4,13 @@
 		.module("wikiModul")
 		.service('ApiService', ApiService);
 
-	function ApiService($http, Params) {
+	function ApiService($http, utils, Params) {
+
 
         /*** HTTP ***/
 
 		function getSearchResults(term, callback) {
-			Params.updateSearchTerm(term);
-			Params.updateBaseUrl();
-			var paramUrl = Params.createParamUrl(Params.fullSearchParams());
+			var paramUrl = createParamUrl(Params.fullSearchParams());
 			// console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
@@ -24,9 +23,7 @@
 
 
 		function getArticle(title, callback) {
-			Params.updateArticleTitle(title);
-			Params.updateBaseUrl();
-			var paramUrl = Params.createParamUrl(Params.fullArticleParams());
+			var paramUrl = createParamUrl(Params.fullArticleParams());
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
@@ -37,6 +34,17 @@
 
 
 		/*** HELPERS ***/
+
+        function getApiUrl() {
+			var apiUrl = 'http://' + Params.getLang() + '.' + Params.getDomain() + '.org/w/api.php';
+			if (Params.getDomain() == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
+            return apiUrl;
+		} // updateApiUrl
+
+        function createParamUrl(params) {
+			var paramUrl = getApiUrl() + '?' + utils.serialize(params);
+			return paramUrl;
+		} // createParamUrl
 
         function handleErrors(data, status, headers, config) {
 			wiki.error = "Oh no, there was some error in geting data: " + status;

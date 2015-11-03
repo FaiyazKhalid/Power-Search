@@ -4,15 +4,14 @@
 		.module("wikiModul")
 		.service('Params', Params);
 
-	function Params($http, utils) {
+	function Params() {
         // defaults
 		var lang = 'en';
 		var searchTerm = 'nula';
 		var searchFilter = 'prefix:';
 		var domain = 'wikipedia';
-		var apiUrl = 'https://en.wikipedia.org/w/api.php';
 
-		var defaulParams = {
+		var baseParams = {
 			action: 'query',
 			prop: 'extracts|pageimages|info', // |images| return all images from page
 			inprop: 'url', // return full url
@@ -53,20 +52,12 @@
 			return domain;
 		}
 
-		function getDefaultParams() {
-			return defaulParams;
-		}
-
 		function getMaxResults() {
 			return searchParams.gsrlimit;
 		}
 
 		function getFilter() {
 			return searchFilter;
-		}
-
-		function getBaseUrl() {
-			return apiUrl;
 		}
 
 
@@ -94,28 +85,18 @@
 			searchParams.gsrsearch = searchFilter + term;
 		}
 
-		function updateBaseUrl() {
-			apiUrl = 'http://' + lang + '.' + domain + '.org/w/api.php';
-			if (domain == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
-		} // updateBaseUrl
-
 
 		/*** HELPERS ***/
 
 		function fullArticleParams() {
-			var fullParams = angular.extend(articleParams, defaulParams);
+			var fullParams = angular.extend(articleParams, baseParams);
 			return fullParams;
 		}
 
 		function fullSearchParams() {
-			var fullParams = angular.extend(searchParams, defaulParams);
+			var fullParams = angular.extend(searchParams, baseParams);
 			return fullParams;
 		}
-
-		function createParamUrl(params) {
-			var paramUrl = apiUrl + '?' + utils.serialize(params);
-			return paramUrl;
-		} // createParamUrl
 
 
 		/*** LOAD and SAVE ***/
@@ -142,24 +123,20 @@
 
 		return {
 			getSearchTerm: getSearchTerm,
-			getDefaultParams: getDefaultParams,
 			getFilter: getFilter,
 			getMaxResults: getMaxResults,
 			getLang: getLang,
 			getDomain: getDomain,
-			getBaseUrl: getBaseUrl,
 
             fullArticleParams: fullArticleParams,
 			fullSearchParams: fullSearchParams,
 
 			updateArticleTitle: updateArticleTitle,
+			updateSearchTerm: updateSearchTerm,			
 			updateFilter: updateFilter,
-			updateSearchTerm: updateSearchTerm,
 			updateMaxResults: updateMaxResults,
-			updateBaseUrl: updateBaseUrl,
 			updateDomain: updateDomain,
 
-			createParamUrl: createParamUrl,
 			loadParams: loadParams,
 			saveParams: saveParams
 		};
