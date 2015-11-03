@@ -39,36 +39,6 @@
 		};
 
 
-		/*** HTTP ***/
-
-		function getSearchResults(term, handleResults) {
-			updateSearchTerm(term);
-			updateBaseUrl();
-			var paramUrl = createParamUrl(fullSearchParams());
-			// console.log(paramUrl);
-
-			$http.jsonp(paramUrl)
-				.success(function (data) {
-					handleResults(data);
-				})
-				.error(handleErrors);
-			saveParams();
-		} // getSearchResults
-
-
-		function getArticle(title, handleResults) {
-			updateArticleTitle(title);
-			updateBaseUrl();
-			var paramUrl = createParamUrl(fullArticleParams());
-
-			$http.jsonp(paramUrl)
-				.success(function (data) {
-					handleResults(data);
-				})
-				.error(handleErrors);
-		} // getArticle
-
-
 		/*** GETTERS ***/
 
 		function getSearchTerm() {
@@ -147,10 +117,6 @@
 			return paramUrl;
 		} // createParamUrl
 
-		function handleErrors(data, status, headers, config) {
-			wiki.error = "Oh no, there was some error in geting data: " + status;
-		} // handleErrors
-
 
 		/*** LOAD and SAVE ***/
 
@@ -182,8 +148,6 @@
 			getLang: getLang,
 			getDomain: getDomain,
 			getBaseUrl: getBaseUrl,
-			getSearchResults: getSearchResults,
-			getArticle: getArticle,
 
             fullArticleParams: fullArticleParams,
 			fullSearchParams: fullSearchParams,
@@ -195,7 +159,9 @@
 			updateBaseUrl: updateBaseUrl,
 			updateDomain: updateDomain,
 
-			loadParams: loadParams
+			createParamUrl: createParamUrl,
+			loadParams: loadParams,
+			saveParams: saveParams
 		};
 
 	} // Params

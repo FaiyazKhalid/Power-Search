@@ -27,7 +27,7 @@
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($window, $scope, $animate, $location, utils, WikidataService, Params) {
+	function WikiController($window, $scope, $animate, $location, utils, WikidataService, Params, ApiService) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
@@ -68,14 +68,14 @@
 			resetSearchResults();
 			if(!wiki.searchTerm) return;
 			writeUrlTerm();
-			Params.getSearchResults(wiki.searchTerm, handleSearchResults);
+			ApiService.getSearchResults(wiki.searchTerm, handleSearchResults);
 		}; // searchWikipedia
 
 
 		wiki.openArticle = function (title) {
 			resetLeadArticle();
 			utils.scrollToTop(300);
-			Params.getArticle(title, handleArticle);
+			ApiService.getArticle(title, handleArticle);
 		}; // openArticle
 
 
