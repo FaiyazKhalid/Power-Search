@@ -43,13 +43,13 @@
 		function createImageUrl(page) {
 			var filename = page.pageimage;
 			var thumbUrl = page.thumbnail.source;
-			// pretvoriti thumb u drugu velicinu i u cist src
-
-			// morace regex da radi
-			// obrazac: /150px-
-
 			console.log(thumbUrl);
-			page.imageThumbUrl = page.thumbnail.source;
+
+			var imgSizeRegex = /\/(\d+)px-/gi;
+			var newThumbSize = "/150px-";
+			page.imageThumbUrl = thumbUrl.replace(imgSizeRegex, newThumbSize);
+
+			// izvuci cist src			
 			page.imageUrl = page.thumbnail.source;
 			return page;
 		} // createImageUrl

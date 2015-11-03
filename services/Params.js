@@ -15,7 +15,7 @@
 		var baseParams = {
 			action: 'query',
 			prop: 'extracts|pageimages|info', // |images| return all images from page
-			pithumbsize: 100,	// thumb image size (height?)
+			//pithumbsize: 100,	// thumb image size (height?)
 			inprop: 'url', // return article url
 			redirects: '', // automatically resolve redirects
 			continue: '', // continue the query?
