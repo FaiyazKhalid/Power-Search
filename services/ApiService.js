@@ -10,7 +10,7 @@
         /*** HTTP ***/
 
 		function getSearchResults(term, callback) {
-			var paramUrl = createParamUrl(Params.fullSearchParams());
+			var paramUrl = createParamUrl(Params.getSearchParams());
 			// console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
@@ -23,7 +23,7 @@
 
 
 		function getArticle(title, callback) {
-			var paramUrl = createParamUrl(Params.fullArticleParams());
+			var paramUrl = createParamUrl(Params.getArticleParams());
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {

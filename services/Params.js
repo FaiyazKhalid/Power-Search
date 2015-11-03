@@ -61,6 +61,16 @@
 		}
 
 
+		function getArticleParams() {
+			var fullParams = angular.extend(baseParams, articleParams);
+			return fullParams;
+		}
+
+		function getSearchParams() {
+			var fullParams = angular.extend(baseParams, searchParams);
+			return fullParams;
+		}
+
 		/*** SETTERS ***/
 
 		function updateArticleTitle(newName) {
@@ -83,19 +93,6 @@
 		function updateSearchTerm(term) {
 			searchTerm = term;
 			searchParams.gsrsearch = searchFilter + term;
-		}
-
-
-		/*** HELPERS ***/
-
-		function fullArticleParams() {
-			var fullParams = angular.extend(articleParams, baseParams);
-			return fullParams;
-		}
-
-		function fullSearchParams() {
-			var fullParams = angular.extend(searchParams, baseParams);
-			return fullParams;
 		}
 
 
@@ -128,11 +125,11 @@
 			getLang: getLang,
 			getDomain: getDomain,
 
-            fullArticleParams: fullArticleParams,
-			fullSearchParams: fullSearchParams,
+            getArticleParams: getArticleParams,
+			getSearchParams: getSearchParams,
 
 			updateArticleTitle: updateArticleTitle,
-			updateSearchTerm: updateSearchTerm,			
+			updateSearchTerm: updateSearchTerm,
 			updateFilter: updateFilter,
 			updateMaxResults: updateMaxResults,
 			updateDomain: updateDomain,
