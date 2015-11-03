@@ -2,7 +2,6 @@
 /*
 	TODO:
 	// prebaciti u servis handle results, try again, find image..
-	// findWikiImage da bude univerzalna za svaki wiki projekt
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
 
@@ -42,8 +41,6 @@
 		wiki.results = null;
 		wiki.error = null;
 		wiki.leadLarge = false;
-		wiki.imageUrl = '';
-		wiki.imageThumbUrl = '';
 
 
 		/*** PUBLIC METHODS ***/
@@ -57,15 +54,13 @@
 
 
 		wiki.searchWikipedia = function () {
-			resetError();
-			resetSearchResults();
+			clearAllResults();
 			if(!wiki.searchTerm) return;
-			writeUrlTerm();
-
-			// updateSearchParams
-			Params.setSearchTerm(wiki.searchTerm);
-
-			ApiService.getSearchResults(Params.getSearchParams(), handleSearchResults);
+			updateSearchTerm();
+			ApiService.searchWikipedia(Params.getSearchParams(), function(results){
+				wiki.results = results;
+				wiki.openArticle(wiki.searchTerm);
+			});
 		}; // searchWikipedia
 
 
@@ -73,33 +68,17 @@
 			resetLeadArticle();
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
-
-			ApiService.getArticle(Params.getArticleParams(), handleArticle);
+			ApiService.getArticle(Params.getArticleParams(), function(page) {
+				// if (!page) tryAgainCapitalized(title);
+				removeFromList(title, wiki.results);
+				wiki.page = page;
+			});
 		}; // openArticle
-
-
-		function handleSearchResults(data) {
-			wiki.results = data.query.pages;
-			triedTwice = false;
-			wiki.openArticle(wiki.searchTerm);
-		}	// handleSearchResults
-
-
-		function handleArticle(data) {
-			if (!data.query) return;
-			if (data.query.pages[0].missing) tryAgainCapitalized(Params.getArticleParams().titles);
-			if (data.query.pages[0].missing) return;
-			wiki.page = data.query.pages[0];
-			removeArticleFromResults(Params.getArticleParams().titles, wiki.results);
-			removeRedirections(data.query.redirects, wiki.results);
-			if (wiki.page.pageimage) findWikiImage(wiki.page.pageimage);
-		}	// hande
 
 
 		wiki.setFilter = function(){
 			Params.setFilter(wiki.searchFilter);
 		};
-
 
 		wiki.setDomain = function (newDomain){
 			wiki.domain = newDomain;
@@ -140,30 +119,6 @@
 
 		/*** PRIVATE FUNCTIONS ***/
 
-
-
-		function removeArticleFromResults(term, results) {
-			for (var x in results) {
-				if (results[x].title == utils.capitalizeFirst(term)) {
-					results.splice(x, 1); // remove it from the list
-					return results;
-				}
-			} // end for
-		} // removeArticleFromResults
-
-
-		function removeRedirections(redirects, results) {
-			for (var x in results) {
-				for (var r in redirects) {
-					if (redirects[r].to == results[x].title) {
-						results.splice(x, 1);
-					}
-				}
-			} // end for
-			return results;
-		} // removeRedirections
-
-
 		function resetError() {
 			wiki.error = "";
 		}	// resetError
@@ -176,45 +131,11 @@
 		}	// resetLeadArticle
 
 
-		function filenameToCommonsUrl(name, leadImgWidth) { // param: filename - string, leadImgWidth - number
-			var parsed = wikiParseFilename(name, leadImgWidth);
-			return 'http://upload.wikimedia.org/wikipedia/commons/' + parsed;
-		} // filenameToCommonsUrl
-
-
-		function filenameToWikipediaUrl(name) { // param: filename as a string
-			var parsed = wikiParseFilename(name);
-			return 'http://upload.wikimedia.org/wikipedia/' + wiki.lang + '/' + parsed;
-		} // filenameToWikipediaUrl
-
-
-		function wikiParseFilename(name, size) {
-			var filename = utils.replaceSpacesWithUnderscores(name);
-			var digest = md5(filename);
-			var parsed = digest[0] + '/' + digest[0] + digest[1] + '/' + encodeURIComponent(filename);
-			if (size) {
-				return 'thumb/' + parsed + '/' + size + 'px-' + encodeURIComponent(filename);
-			}
-			return parsed;
-		} // wikiParseFilename
-
-
-		function findWikiImage(filename) {
-			// if image is not on commons, then it is on wikipedia
-			var file = new Image();
-			file.onerror = function () {
-				$scope.$apply(function () {
-					wiki.imageThumbUrl = filenameToWikipediaUrl(filename);
-				});
-			};
-			file.onload = function () {
-				$scope.$apply(function () {
-					wiki.imageThumbUrl = file.src;
-					wiki.imageUrl = filenameToCommonsUrl(filename);
-				});
-			};
-			file.src = filenameToCommonsUrl(filename, leadImgWidth);
-		} // findWikiImage
+		function clearAllResults() {
+			resetError();
+			wiki.results = [];
+			resetLeadArticle();
+		} // clearAllResults
 
 
 		function tryAgainCapitalized(title) {
@@ -229,14 +150,19 @@
 			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm;
 		}
 
-		function writeUrlTerm(){
+		function updateSearchTerm() {
 			$location.path(wiki.searchTerm);
+			Params.setSearchTerm(wiki.searchTerm);
 		}
 
-		function resetSearchResults() {
-			wiki.results = [];
-			wiki.page = "";
-		} // resetSearchResults
+		function removeFromList(term, results) {
+			for (var x in results) {
+				if (results[x].title == utils.capitalizeFirst(term)) {
+					results.splice(x, 1); // remove it from the list
+					return results;
+				}
+			} // end for
+		} // removeFromList
 
 
 	} // WikiController

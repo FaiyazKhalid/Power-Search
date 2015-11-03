@@ -98,13 +98,13 @@
                         <h1 class="text-info">
                             <span class="pointer" title="Englarge this article" ng-click="wiki.toggleLeadLarge()">{{wiki.page.title}}</span>
                         </h1>
-                        <a ng-href="{{wiki.imageUrl}}" target="_blank">
-                            <img ng-src="{{wiki.imageThumbUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail pull-right" ng-class="wiki.leadLarge ? 'img-large' : 'img-medium'" ng-show="wiki.imageThumbUrl">
+                        <a ng-href="{{wiki.page.imageUrl}}" target="_blank">
+                            <img ng-src="{{wiki.page.imageThumbUrl}}" alt="{{wiki.page.title}}" class="img-thumbnail pull-right" ng-class="wiki.leadLarge ? 'img-large' : 'img-medium'" ng-show="wiki.page.imageThumbUrl">
                         </a>
                         <section ng-bind-html='wiki.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
 
-                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.createArticleUrl(wiki.page.title)}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
                 </section>
             </div>
 
@@ -116,7 +116,7 @@
                     </h2>
                     <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
                     <section ng-bind-html='page.extract' ng-dblclick="wiki.selectText()"></section>
-                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.createArticleUrl(page.title)}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
                 </article>
             </div>
 
