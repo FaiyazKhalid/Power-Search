@@ -27,7 +27,7 @@
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($window, $scope, $animate, $location, utils, WikidataService, Params, ApiService) {
+	function WikiController($window, $scope, $animate, $location, utils, Wikidata, Params, ApiService) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
@@ -36,8 +36,8 @@
 
 		/*** PUBLIC PROPERTIES ***/
 
-		wiki.languages = WikidataService.getLanguages();
-		wiki.projects = WikidataService.getProjects();
+		wiki.languages = Wikidata.getLanguages();
+		wiki.projects = Wikidata.getProjects();
 
 		// initial
 		wiki.lang = Params.getLang();
