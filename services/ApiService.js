@@ -11,10 +11,11 @@
 
 		function getSearchResults(params, callback) {
 			var paramUrl = createParamUrl(params);
-			// console.log(paramUrl);
+			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
+					if (!data.query) return;
 					callback(data);
 				})
 				.error(handleErrors);

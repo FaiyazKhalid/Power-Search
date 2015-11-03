@@ -62,12 +62,12 @@
 		}
 
 		function getArticleParams() {
-			var fullParams = angular.extend(baseParams, articleParams);
+			var fullParams = angular.extend(articleParams, baseParams);
 			return fullParams;
 		}
 
 		function getSearchParams() {
-			var fullParams = angular.extend(baseParams, searchParams);
+			var fullParams = angular.extend(searchParams, baseParams);
 			return fullParams;
 		}
 

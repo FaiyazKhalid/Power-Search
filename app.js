@@ -57,10 +57,13 @@
 
 
 		wiki.searchWikipedia = function () {
+			resetError();
 			resetSearchResults();
 			if(!wiki.searchTerm) return;
 			writeUrlTerm();
-			Params.setSearchTerm(wiki.searchTerm);	// updateParams
+
+			// updateSearchParams
+			Params.setSearchTerm(wiki.searchTerm);
 
 			ApiService.getSearchResults(Params.getSearchParams(), handleSearchResults);
 		}; // searchWikipedia
@@ -76,8 +79,6 @@
 
 
 		function handleSearchResults(data) {
-			resetError();
-			if (!data.query) return;
 			wiki.results = data.query.pages;
 			triedTwice = false;
 			wiki.openArticle(wiki.searchTerm);

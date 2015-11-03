@@ -33,7 +33,7 @@
                 <div class="col-md-6">
                     <div class="wiki-logos">
                         <span ng-repeat="project in wiki.projects" >
-                            <img ng-src="{{project.logo}}" alt="{{project.name}}" ng-click="wiki.updateDomain(project.name); wiki.searchWikipedia();" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.domain }">
+                            <img ng-src="{{project.logo}}" alt="{{project.name}}" ng-click="wiki.setDomain(project.name); wiki.searchWikipedia();" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.domain }">
                         </span>
                         <span class="justify-helper"></span>
                     </div>
