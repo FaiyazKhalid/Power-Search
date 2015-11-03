@@ -5,7 +5,8 @@
 		.service('Params', Params);
 
 	function Params() {
-        // defaults
+
+        // default settings
 		var lang = 'en';
 		var searchTerm = 'nula';
 		var searchFilter = 'prefix:';
@@ -60,7 +61,6 @@
 			return searchFilter;
 		}
 
-
 		function getArticleParams() {
 			var fullParams = angular.extend(baseParams, articleParams);
 			return fullParams;
@@ -71,26 +71,33 @@
 			return fullParams;
 		}
 
+		function getApiUrl() {
+			var apiUrl = 'http://' + getLang() + '.' + getDomain() + '.org/w/api.php';
+			if (getDomain() == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
+            return apiUrl;
+		} // getApiUrl
+
+
 		/*** SETTERS ***/
 
-		function updateArticleTitle(newName) {
+		function setArticleTitle(newName) {
 			articleParams.titles = newName;
 		}
 
-		function updateMaxResults(max) {
+		function setMaxResults(max) {
 			searchParams.gsrlimit = max;
 		}
 
-		function updateFilter(filter) {
+		function setFilter(filter) {
 			searchFilter = filter;
 			searchParams.gsrsearch = filter + searchTerm;
 		}
 
-		function updateDomain(newDomain) {
+		function setDomain(newDomain) {
 			domain = newDomain;
 		}
 
-		function updateSearchTerm(term) {
+		function setSearchTerm(term) {
 			searchTerm = term;
 			searchParams.gsrsearch = searchFilter + term;
 		}
@@ -98,22 +105,22 @@
 
 		/*** LOAD and SAVE ***/
 
-		function saveParams() {
+		function saveSettings() {
 			localStorage.wikiSearchTerm = searchTerm || '';
 			localStorage.wikiFilter = searchFilter || '';
 			localStorage.wikiLang = lang || '';
 			localStorage.wikiMaxResult = searchParams.gsrlimit || '';
 			localStorage.wikiDomain = domain || '';
-		} // saveParams
+		} // saveSettings
 
-		function loadParams() {
+		function loadSettings() {
 			lang = localStorage.wikiLang || lang;
 			searchParams.gsrlimit = Number(localStorage.wikiMaxResult || searchParams.gsrlimit);
 			domain = localStorage.wikiDomain || domain;
 			searchTerm = localStorage.wikiSearchTerm || searchTerm;
 			searchFilter = localStorage.wikiFilter || searchFilter;
 			if (localStorage.wikiFilter === '') searchFilter = '';
-		} // loadParams
+		} // loadSettings
 
 
         /*** PUBLIC ***/
@@ -124,18 +131,18 @@
 			getMaxResults: getMaxResults,
 			getLang: getLang,
 			getDomain: getDomain,
-
             getArticleParams: getArticleParams,
 			getSearchParams: getSearchParams,
+			getApiUrl: getApiUrl,
 
-			updateArticleTitle: updateArticleTitle,
-			updateSearchTerm: updateSearchTerm,
-			updateFilter: updateFilter,
-			updateMaxResults: updateMaxResults,
-			updateDomain: updateDomain,
+			setArticleTitle: setArticleTitle,
+			setSearchTerm: setSearchTerm,
+			setFilter: setFilter,
+			setMaxResults: setMaxResults,
+			setDomain: setDomain,
 
-			loadParams: loadParams,
-			saveParams: saveParams
+			saveSettings: saveSettings,
+			loadSettings: loadSettings
 		};
 
 	} // Params

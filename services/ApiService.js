@@ -9,8 +9,8 @@
 
         /*** HTTP ***/
 
-		function getSearchResults(term, callback) {
-			var paramUrl = createParamUrl(Params.getSearchParams());
+		function getSearchResults(params, callback) {
+			var paramUrl = createParamUrl(params);
 			// console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
@@ -18,12 +18,12 @@
 					callback(data);
 				})
 				.error(handleErrors);
-			Params.saveParams();
+			Params.saveSettings();
 		} // getSearchResults
 
 
-		function getArticle(title, callback) {
-			var paramUrl = createParamUrl(Params.getArticleParams());
+		function getArticle(params, callback) {
+			var paramUrl = createParamUrl(params);
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
@@ -35,14 +35,9 @@
 
 		/*** HELPERS ***/
 
-        function getApiUrl() {
-			var apiUrl = 'http://' + Params.getLang() + '.' + Params.getDomain() + '.org/w/api.php';
-			if (Params.getDomain() == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
-            return apiUrl;
-		} // updateApiUrl
 
         function createParamUrl(params) {
-			var paramUrl = getApiUrl() + '?' + utils.serialize(params);
+			var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
 			return paramUrl;
 		} // createParamUrl
 

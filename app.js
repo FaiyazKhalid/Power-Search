@@ -4,8 +4,8 @@
 	// prebaciti u servis handle results, try again, find image..
 	// findWikiImage da bude univerzalna za svaki wiki projekt
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
+	// primer paramUrl u dokumentaciju
 
-	RESENJA:
 	// pretrazuje datoteke na ostavi:
 	// if (domain == 'commons') searchParams.namespace = 6
 
@@ -13,14 +13,6 @@
 	// potraga damjan prikazuje nerelevantan lead
 	// filenameToCommonsUrl greska kada trazim vecu sirinu od originala
 	// za svg slike ne pravi thumb, probati montenegro
-
-	REFAKTOR:
-	https://scotch.io/tutorials/making-skinny-angularjs-controllers
-	// kontroler da bude agnostičan po pitanju podataka, model ide u servis
-	// mozda razdvojiti html na delove sa zajednickim kontrolerom
-	// mozda razdvojiti u više kontrolera
-
-	// primer paramUrl u dokumentaciju
 */
 	'use strict';
 	angular
@@ -57,7 +49,7 @@
 		/*** PUBLIC METHODS ***/
 
 		wiki.init = function () {
-			Params.loadParams();
+			Params.loadSettings();
 			readUrlTerm();
 			wiki.searchWikipedia();
 			$window.onhashchange = wiki.init;
@@ -68,62 +60,20 @@
 			resetSearchResults();
 			if(!wiki.searchTerm) return;
 			writeUrlTerm();
-			Params.updateSearchTerm(wiki.searchTerm);
-			ApiService.getSearchResults(wiki.searchTerm, handleSearchResults);
+			Params.setSearchTerm(wiki.searchTerm);	// updateParams
+
+			ApiService.getSearchResults(Params.getSearchParams(), handleSearchResults);
 		}; // searchWikipedia
 
 
 		wiki.openArticle = function (title) {
 			resetLeadArticle();
 			utils.scrollToTop(300);
-			Params.updateArticleTitle(title);
-			ApiService.getArticle(title, handleArticle);
+			Params.setArticleTitle(title);
+
+			ApiService.getArticle(Params.getArticleParams(), handleArticle);
 		}; // openArticle
 
-
-		wiki.updateFilter = function(){
-			Params.updateFilter(wiki.searchFilter);
-		};
-
-
-		wiki.updateDomain = function (newDomain){
-			wiki.domain = newDomain;
-			Params.updateDomain(newDomain);
-		};	// updateDomain
-
-
-		wiki.updateSearchTerm = function (newTerm){
-			wiki.searchTerm = newTerm;
-			Params.updateSearchTerm(newTerm);
-		};	// updateSearchTerm
-
-
-		wiki.searchForLeadTerm = function (title) {
-			wiki.updateSearchTerm(title);
-			wiki.searchWikipedia();
-			wiki.toggleLeadLarge();
-		}; // searchForLeadTerm
-
-
-		wiki.toggleLeadLarge = function () {
-			wiki.leadLarge = !wiki.leadLarge;
-		}; // toggleLeadLarge
-
-
-		wiki.selectText = function () {
-			var text = $window.getSelection().toString();
-			wiki.searchTerm = text;
-		}; // toggleLeadLarge
-
-
-		wiki.checkMax = function () {
-			if (wiki.maxResults > 50) wiki.maxResults = 50;
-			Params.updateMaxResults(wiki.maxResults);
-		}; // checkMax
-
-
-
-		/*** PRIVATE FUNCTIONS ***/
 
 		function handleSearchResults(data) {
 			resetError();
@@ -143,6 +93,52 @@
 			removeRedirections(data.query.redirects, wiki.results);
 			if (wiki.page.pageimage) findWikiImage(wiki.page.pageimage);
 		}	// hande
+
+
+		wiki.setFilter = function(){
+			Params.setFilter(wiki.searchFilter);
+		};
+
+
+		wiki.setDomain = function (newDomain){
+			wiki.domain = newDomain;
+			Params.setDomain(newDomain);
+		};	// setDomain
+
+
+		wiki.setSearchTerm = function (newTerm){
+			wiki.searchTerm = newTerm;
+			Params.setSearchTerm(newTerm);
+		};	// setSearchTerm
+
+
+		wiki.searchForLeadTerm = function (title) {
+			wiki.setSearchTerm(title);
+			wiki.searchWikipedia();
+			wiki.toggleLeadLarge();
+		}; // searchForLeadTerm
+
+
+		wiki.toggleLeadLarge = function () {
+			wiki.leadLarge = !wiki.leadLarge;
+		}; // toggleLeadLarge
+
+
+		wiki.selectText = function () {
+			var text = $window.getSelection().toString();
+			wiki.searchTerm = text;
+		}; // toggleLeadLarge
+
+
+		wiki.checkMax = function () {
+			if (wiki.maxResults > 50) wiki.maxResults = 50;
+			Params.setMaxResults(wiki.maxResults);
+		}; // checkMax
+
+
+
+		/*** PRIVATE FUNCTIONS ***/
+
 
 
 		function removeArticleFromResults(term, results) {
