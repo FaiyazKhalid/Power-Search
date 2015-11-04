@@ -9,21 +9,25 @@
 	function WikiApi($http, utils, Params) {
 
 		var thumbSize = 150;
+		var searchResults = null;
+		var exactMatch = null;
+
 
         /*** HTTP ***/
 
 		function search(params, callback) {
 			var paramUrl = createParamUrl(params);
-			console.log(params);
+			console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
+					exactMatch = null;
 					if (!data.query) return;
 					var results = data.query.pages;
-					results.exactMatch = findTerm(Params.getSearchTerm(), results);
-					// removes from the list, to be open as lead; maybe it's bettor to toggle it
-					if (results.exactMatch) removeFromResults(results.exactMatch, results);
-					callback(results);
+					exactMatch = findTerm(Params.getSearchTerm(), results);
+					if (exactMatch) removeFromResults(exactMatch, results);
+					searchResults = results;
+					callback();
 				})
 				.error(handleErrors);
 			Params.saveSettings();
@@ -45,6 +49,17 @@
 				})
 				.error(handleErrors);
 		} // open
+
+
+		/*** GETTERS ***/
+
+		function getSearchResults () {
+			return searchResults;
+		}
+
+		function getExactMatch () {
+		  return exactMatch;
+		}
 
 
 		/*** HELPERS ***/
@@ -91,11 +106,13 @@
 		} // removeFromResults
 
 
-        /*** PUBLIC ***/
+        /*** EXPOSE PUBLIC ***/
 
 		return {
 			search: search,
-			open: open
+			open: open,
+			getSearchResults: getSearchResults,
+			getExactMatch: getExactMatch
 		};
 
 	} // WikiApi

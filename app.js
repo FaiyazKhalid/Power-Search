@@ -1,10 +1,11 @@
 (function () {
 /*
 	TODO:
+	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results)
+	// objekti nisu isti, ali mogu da se extenduju
 	// uključiti babel
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
-
 
 	// pretrazuje datoteke na ostavi:
 	// if (domain == 'commons') searchParams.namespace = 6
@@ -56,9 +57,9 @@
 			clearAllResults();
 			if(!wiki.searchTerm) return;
 			updateSearchTerm();
-			WikiApi.search(Params.getSearchParams(), function(results){
-				if(results.exactMatch) wiki.openArticle(results.exactMatch);
-				wiki.results = results;
+			WikiApi.search(Params.getSearchParams(), function(){
+				wiki.results = WikiApi.getSearchResults();
+				if(WikiApi.getExactMatch()) wiki.openArticle(WikiApi.getExactMatch());
 			});
 		}; // searchWikipedia
 
