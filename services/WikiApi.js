@@ -4,7 +4,6 @@
 		.module("wikiModul")
 		.service('WikiApi', WikiApi);
 
-	// TODO: proveriti imageThumbUrl onload error, ako nema manje slike, staviti obe velike
 
 	function WikiApi($http, utils, Params) {
 

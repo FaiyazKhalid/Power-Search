@@ -1,17 +1,14 @@
 (function () {
 /*
 	TODO:
-	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results)
-	// objekti nisu isti, ali mogu da se extenduju
+	// proveriti imageThumbUrl onload error, ako nema manje slike, staviti obe velike
+	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results); page objekti nisu isti, ali mozda mogu da se extenduju
 	// uključiti babel
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
 
 	// pretrazuje datoteke na ostavi:
 	// if (domain == 'commons') searchParams.namespace = 6
-
-	BAGOVI:
-	// greska kada trazim vecu sirinu slike od originala
 */
 	'use strict';
 	angular
