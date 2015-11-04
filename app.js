@@ -49,51 +49,35 @@
 		wiki.init = function () {
 			Params.loadSettings();
 			readUrlTerm();
-			wiki.searchWikipedia();
+			wiki.search();
 			$window.onhashchange = wiki.init;
 		}; // init
 
 
-		wiki.searchWikipedia = function () {
+		wiki.search = function () {
 			clearAllResults();
 			if(!wiki.searchTerm) return;
 			updateSearchTerm();
 			WikiApi.search(Params.getSearchParams(), function(){
-				if(WikiApi.getExactMatch()) wiki.openArticle(WikiApi.getExactMatch());
+				if(WikiApi.getExactMatch()) wiki.open(WikiApi.getExactMatch());
 				wiki.results = WikiApi.getSearchResults();
 			});
-		}; // searchWikipedia
+		}; // search
 
 
-		wiki.openArticle = function (title) {
+		wiki.open = function (title) {
 			resetLeadArticle();
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
 			WikiApi.open(Params.getArticleParams(), function() {
 				wiki.page = WikiApi.getOpenedPage();
 			});
-		}; // openArticle
-
-
-		wiki.setFilter = function(){
-			Params.setFilter(wiki.searchFilter);
-		};
-
-		wiki.setDomain = function (newDomain){
-			wiki.domain = newDomain;
-			Params.setDomain(newDomain);
-		};	// setDomain
-
-
-		wiki.setSearchTerm = function (newTerm){
-			wiki.searchTerm = newTerm;
-			Params.setSearchTerm(newTerm);
-		};	// setSearchTerm
+		}; // open
 
 
 		wiki.searchForLeadTerm = function (title) {
 			wiki.setSearchTerm(title);
-			wiki.searchWikipedia();
+			wiki.search();
 			wiki.toggleLeadLarge();
 		}; // searchForLeadTerm
 
@@ -115,12 +99,35 @@
 		}; // checkMaxResults
 
 
+		/*** PARAMS ***/
+
+		wiki.setFilter = function(){
+			Params.setFilter(wiki.searchFilter);
+		};
+
+		wiki.setDomain = function (newDomain){
+			wiki.domain = newDomain;
+			Params.setDomain(newDomain);
+		};	// setDomain
+
+
+		wiki.setSearchTerm = function (newTerm){
+			wiki.searchTerm = newTerm;
+			Params.setSearchTerm(newTerm);
+		};	// setSearchTerm
+
+		// moguc duplikat!
+		function updateSearchTerm() {
+			$location.path(wiki.searchTerm);
+			Params.setSearchTerm(wiki.searchTerm);
+		}
+
+
 		/*** PRIVATE FUNCTIONS ***/
 
 		function resetError() {
 			wiki.error = "";
 		}	// resetError
-
 
 		function resetLeadArticle(){
 			wiki.page = '';
@@ -128,22 +135,14 @@
 			wiki.imageUrl = '';
 		}	// resetLeadArticle
 
-
 		function clearAllResults() {
 			resetError();
 			wiki.results = [];
 			resetLeadArticle();
 		} // clearAllResults
 
-
 		function readUrlTerm() {
 			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm;
-		}
-
-
-		function updateSearchTerm() {
-			$location.path(wiki.searchTerm);
-			Params.setSearchTerm(wiki.searchTerm);
 		}
 
 
