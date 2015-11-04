@@ -16,7 +16,7 @@
 		.module("wikiModul", ['ngSanitize', 'underscore'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($window, $scope, $animate, $location, utils, Wikidata, Params, WikiApi, _) {
+	function WikiController($window, $scope, $animate, $location, utils, StaticData, Params, WikiApi, _) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
@@ -25,8 +25,8 @@
 
 		/*** PUBLIC PROPERTIES ***/
 
-		wiki.languages = Wikidata.getLanguages();
-		wiki.projects = Wikidata.getProjects();
+		wiki.languages = StaticData.getLanguages();
+		wiki.projects = StaticData.getProjects();
 
 		// initial
 		wiki.lang = Params.getLang();

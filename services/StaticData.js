@@ -2,13 +2,13 @@
 	'use strict';
 	angular
 		.module("wikiModul")
-		.service('Wikidata', Wikidata);
+		.service('StaticData', StaticData);
 
-	function Wikidata() {
+	function StaticData() {
 
 		// TODO: dinamicaly populate list with available languages
 		// https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
-		
+
         var wikiLanguages = [{
 			id: 'en',
 			name: 'English'
@@ -62,6 +62,6 @@
             getLanguages: getLanguages
 		};
 
-	}  // Wikidata
+	}  // StaticData
 
 })();
