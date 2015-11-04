@@ -30,11 +30,7 @@
 }
 
 .img-large {
-    width: 300px;
-}
-
-.img-medium {
-    width: 200px;
+    max-width: 300px;
 }
 
 .selected-logo {

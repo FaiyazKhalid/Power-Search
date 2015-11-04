@@ -1,8 +1,9 @@
 (function () {
 /*
 	TODO:
-	// prebaciti u servis handle results, try again, find image..
+	// prepraviti try again..
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
+	// uključiti babel
 	// primer paramUrl u dokumentaciju
 
 	// pretrazuje datoteke na ostavi:
