@@ -20,7 +20,7 @@
 		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($window, $scope, $animate, $location, utils, Wikidata, Params, ApiService) {
+	function WikiController($window, $scope, $animate, $location, utils, Wikidata, Params, WikiApi) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
@@ -59,7 +59,7 @@
 			clearAllResults();
 			if(!wiki.searchTerm) return;
 			updateSearchTerm();
-			ApiService.searchWikipedia(Params.getSearchParams(), function(results){
+			WikiApi.search(Params.getSearchParams(), function(results){
 				wiki.results = results;
 				wiki.openArticle(wiki.searchTerm);
 			});
@@ -70,7 +70,7 @@
 			resetLeadArticle();
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
-			ApiService.getArticle(Params.getArticleParams(), function(page) {
+			WikiApi.open(Params.getArticleParams(), function(page) {
 				// if (!page) tryAgainCapitalized(title);
 				removeFromList(title, wiki.results);
 				wiki.page = page;

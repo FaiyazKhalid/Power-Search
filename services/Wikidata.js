@@ -8,6 +8,7 @@
 
 		// TODO: dinamicaly populate list with available languages
 		// https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
+		
         var wikiLanguages = [{
 			id: 'en',
 			name: 'English'

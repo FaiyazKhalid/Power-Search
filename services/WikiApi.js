@@ -2,15 +2,17 @@
 	'use strict';
 	angular
 		.module("wikiModul")
-		.service('ApiService', ApiService);
+		.service('WikiApi', WikiApi);
 
-	function ApiService($http, utils, Params) {
+	// TODO: proveriti imageThumbUrl onload error, ako nema manje slike, staviti obe velike
+
+	function WikiApi($http, utils, Params) {
 
 		var thumbSize = 150;
 
         /*** HTTP ***/
 
-		function searchWikipedia(params, callback) {
+		function search(params, callback) {
 			var paramUrl = createParamUrl(params);
 			console.log(paramUrl);
 
@@ -22,10 +24,10 @@
 				})
 				.error(handleErrors);
 			Params.saveSettings();
-		} // searchWikipedia
+		} // search
 
 
-		function getArticle(params, callback) {
+		function open(params, callback) {
 			var paramUrl = createParamUrl(params);
 
 			$http.jsonp(paramUrl)
@@ -33,14 +35,13 @@
 					if (!data.query) return;
 					var page = data.query.pages[0];
 					if (page.pageimage) {
-						// TODO: proveriti onload error, ako nema manje slike, staviti obe velike
 						page.imageUrl = createFullImageUrl(page.thumbnail.source, page.pageimage);
 						page.imageThumbUrl = changeThumbSize(page.thumbnail.source, thumbSize);
 					}
 					callback(page);
 				})
 				.error(handleErrors);
-		} // getArticle
+		} // open
 
 
 		/*** HELPERS ***/
@@ -71,10 +72,10 @@
         /*** PUBLIC ***/
 
 		return {
-			searchWikipedia: searchWikipedia,
-			getArticle: getArticle
+			search: search,
+			open: open
 		};
 
-	} // ApiService
+	} // WikiApi
 
 })();
