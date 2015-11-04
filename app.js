@@ -58,10 +58,7 @@
 			if(!wiki.searchTerm) return;
 			updateSearchTerm();
 			WikiApi.search(Params.getSearchParams(), function(results){
-				var found = findTerm(wiki.searchTerm, results);
-				if(!found) return;
-				wiki.openArticle(found);
-				removeFromResults(found, results);
+				if(results.exactMatch) wiki.openArticle(results.exactMatch);
 				wiki.results = results;
 			});
 		}; // searchWikipedia
@@ -117,7 +114,6 @@
 		}; // checkMaxResults
 
 
-
 		/*** PRIVATE FUNCTIONS ***/
 
 		function resetError() {
@@ -148,27 +144,6 @@
 			$location.path(wiki.searchTerm);
 			Params.setSearchTerm(wiki.searchTerm);
 		}
-
-
-		function findTerm(searchTerm, results){
-			var found = null;
-			_.each(results, function(result){
-				if (result.title.toLowerCase() == searchTerm.toLowerCase()) {
-					found = result.title;
-				}
-			});
-			return found;
-		}	// findTerm
-
-
-		function removeFromResults(title, results) {
-			for (var x in results) {
-				if (results[x].title == title) {
-					results.splice(x, 1); // remove it from the list
-					return results;
-				}
-			} // end for
-		} // removeFromResults
 
 
 	} // WikiController
