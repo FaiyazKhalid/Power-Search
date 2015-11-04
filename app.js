@@ -1,6 +1,7 @@
 (function () {
 /*
 	TODO:
+	// kad uporedjuje naslov, da otvori kako treba
 	// prepraviti try again..
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// uključiti babel

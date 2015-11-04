@@ -32,8 +32,11 @@
 				.success(function (data) {
 					if (!data.query) return;
 					var page = data.query.pages[0];
-					// removeRedirections(data.query.redirects, wiki.results);
-					if (page.pageimage) createImageUrls(page.pageimage, page.thumbnail.source);
+					if (page.pageimage) {
+						// TODO: proveriti onload error, ako nema manje slike, staviti obe velike
+						page.imageUrl = createFullImageUrl(page.thumbnail.source, page.pageimage);
+						page.imageThumbUrl = changeThumbSize(page.thumbnail.source, thumbSize);
+					}
 					callback(page);
 				})
 				.error(handleErrors);
@@ -41,13 +44,6 @@
 
 
 		/*** HELPERS ***/
-
-		function createImageUrls(filename, thumbUrl) {
-			page.imageThumbUrl = changeThumbSize(thumbUrl, thumbSize);
-			page.imageUrl = createFullImageUrl(thumbUrl, filename);
-			// TODO: proveriti onload error, ako nema manje, obe velike
-			return page;
-		} // createImageUrls
 
 		function changeThumbSize(thumbUrl, newSize) {
 			var regex = /\/(\d+)px-/gi;
@@ -70,17 +66,6 @@
         function handleErrors(data, status, headers, config) {
 			wiki.error = "Oh no, there was some error in geting data: " + status;
 		} // handleErrors
-
-		function removeRedirections(redirects, results) {
-			for (var x in results) {
-				for (var r in redirects) {
-					if (redirects[r].to == results[x].title) {
-						results.splice(x, 1);
-					}
-				}
-			} // end for
-			return results;
-		} // removeRedirections
 
 
         /*** PUBLIC ***/
