@@ -1,6 +1,7 @@
 (function () {
 /*
 	TODO:
+	// napraviti da prvo proverava poklapanje sa kapitalizacijom (first upper and all upper), a posle sa malim slovima; primer buga: dada content
 	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results)
 	// objekti nisu isti, ali mogu da se extenduju
 	// uključiti babel

@@ -23,6 +23,7 @@
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					exactMatch = null;
+					searchResults = null;
 					if (!data.query) return;
 					var results = data.query.pages;
 					exactMatch = findTerm(Params.getSearchTerm(), results);
