@@ -58,8 +58,8 @@
 			if(!wiki.searchTerm) return;
 			updateSearchTerm();
 			WikiApi.search(Params.getSearchParams(), function(){
-				wiki.results = WikiApi.getSearchResults();
 				if(WikiApi.getExactMatch()) wiki.openArticle(WikiApi.getExactMatch());
+				wiki.results = WikiApi.getSearchResults();
 			});
 		}; // searchWikipedia
 
@@ -68,8 +68,8 @@
 			resetLeadArticle();
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
-			WikiApi.open(Params.getArticleParams(), function(page) {
-				wiki.page = page;
+			WikiApi.open(Params.getArticleParams(), function() {
+				wiki.page = WikiApi.getOpenedPage();
 			});
 		}; // openArticle
 

@@ -11,6 +11,7 @@
 		var thumbSize = 150;
 		var searchResults = null;
 		var exactMatch = null;
+		var openedPage = null;
 
 
         /*** HTTP ***/
@@ -39,13 +40,14 @@
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
+					openedPage = null;
 					if (!data.query) return;
-					var page = data.query.pages[0];
-					if (page.pageimage) {
-						page.imageUrl = createFullImageUrl(page.thumbnail.source, page.pageimage);
-						page.imageThumbUrl = changeThumbSize(page.thumbnail.source, thumbSize);
+					openedPage = data.query.pages[0];
+					if (openedPage.pageimage) {
+						openedPage.imageUrl = createFullImageUrl(openedPage.thumbnail.source, openedPage.pageimage);
+						openedPage.imageThumbUrl = changeThumbSize(openedPage.thumbnail.source, thumbSize);
 					}
-					callback(page);
+					callback();
 				})
 				.error(handleErrors);
 		} // open
@@ -59,6 +61,10 @@
 
 		function getExactMatch () {
 		  return exactMatch;
+		}
+
+		function getOpenedPage () {
+			return openedPage;
 		}
 
 
@@ -112,7 +118,8 @@
 			search: search,
 			open: open,
 			getSearchResults: getSearchResults,
-			getExactMatch: getExactMatch
+			getExactMatch: getExactMatch,
+			getOpenedPage: getOpenedPage
 		};
 
 	} // WikiApi
