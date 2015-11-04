@@ -113,7 +113,7 @@
 
             <!-- search results-->
             <div ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
-                <article ng-repeat="page in wiki.results" class="articles clearfix">
+                <article ng-repeat="page in wiki.results | orderBy:'title' " class="articles clearfix">
                     <h2 class="text-info">
                         <span class="pointer" title="Open this article" ng-click="wiki.open(page.title)">{{page.title}}</span>
                     </h2>
