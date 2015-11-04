@@ -1,8 +1,6 @@
 (function () {
 /*
 	TODO:
-	// kad uporedjuje naslov, da otvori kako treba
-	// prepraviti try again..
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// uključiti babel
 	// primer paramUrl u dokumentaciju
@@ -17,10 +15,10 @@
 */
 	'use strict';
 	angular
-		.module("wikiModul", ['ngSanitize'])
+		.module("wikiModul", ['ngSanitize', 'underscore'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($window, $scope, $animate, $location, utils, Wikidata, Params, WikiApi) {
+	function WikiController($window, $scope, $animate, $location, utils, Wikidata, Params, WikiApi, _) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
@@ -60,8 +58,11 @@
 			if(!wiki.searchTerm) return;
 			updateSearchTerm();
 			WikiApi.search(Params.getSearchParams(), function(results){
+				var found = findTerm(wiki.searchTerm, results);
+				if(!found) return;
+				wiki.openArticle(found);
+				removeFromResults(found, results);
 				wiki.results = results;
-				wiki.openArticle(wiki.searchTerm);
 			});
 		}; // searchWikipedia
 
@@ -71,8 +72,6 @@
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
 			WikiApi.open(Params.getArticleParams(), function(page) {
-				// if (!page) tryAgainCapitalized(title);
-				removeFromList(title, wiki.results);
 				wiki.page = page;
 			});
 		}; // openArticle
@@ -112,10 +111,10 @@
 		}; // toggleLeadLarge
 
 
-		wiki.checkMax = function () {
+		wiki.checkMaxResults = function () {
 			if (wiki.maxResults > 50) wiki.maxResults = 50;
 			Params.setMaxResults(wiki.maxResults);
-		}; // checkMax
+		}; // checkMaxResults
 
 
 
@@ -140,31 +139,36 @@
 		} // clearAllResults
 
 
-		function tryAgainCapitalized(title) {
-			if (triedTwice) return;
-			if (title.split(" ").length < 2) return;
-			wiki.openArticle(utils.capitalize(title));
-			triedTwice = true;
-		}	// tryAgainCapitalized
-
-
 		function readUrlTerm() {
 			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm;
 		}
+
 
 		function updateSearchTerm() {
 			$location.path(wiki.searchTerm);
 			Params.setSearchTerm(wiki.searchTerm);
 		}
 
-		function removeFromList(term, results) {
+
+		function findTerm(searchTerm, results){
+			var found = null;
+			_.each(results, function(result){
+				if (result.title.toLowerCase() == searchTerm.toLowerCase()) {
+					found = result.title;
+				}
+			});
+			return found;
+		}	// findTerm
+
+
+		function removeFromResults(title, results) {
 			for (var x in results) {
-				if (results[x].title == utils.capitalizeFirst(term)) {
+				if (results[x].title == title) {
 					results.splice(x, 1); // remove it from the list
 					return results;
 				}
 			} // end for
-		} // removeFromList
+		} // removeFromResults
 
 
 	} // WikiController
