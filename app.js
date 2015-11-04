@@ -1,17 +1,15 @@
 (function () {
 /*
 	TODO:
-	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// uključiti babel
+	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
 
 	// pretrazuje datoteke na ostavi:
 	// if (domain == 'commons') searchParams.namespace = 6
 
 	BAGOVI:
-	// potraga damjan prikazuje nerelevantan lead
-	// filenameToCommonsUrl greska kada trazim vecu sirinu od originala
-	// za svg slike ne pravi thumb, probati montenegro
+	// greska kada trazim vecu sirinu slike od originala
 */
 	'use strict';
 	angular
