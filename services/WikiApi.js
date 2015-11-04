@@ -94,13 +94,14 @@
 		} // handleErrors
 
 		function findTerm(searchTerm, results){
-			var exactMatch = null;
+			var found = null;
 			_.each(results, function(result){
-				if (result.title.toLowerCase() == searchTerm.toLowerCase()) {
-					exactMatch = result.title;
+				if (utils.capitalizeFirst(searchTerm) == result.title) found = result.title;
+				if (searchTerm.toLowerCase() == result.title.toLowerCase()) {
+					found = found || result.title;
 				}
 			});
-			return exactMatch;
+			return found;
 		}	// findTerm
 
 		function removeFromResults(title, results) {
