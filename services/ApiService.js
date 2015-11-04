@@ -6,6 +6,8 @@
 
 	function ApiService($http, utils, Params) {
 
+		var thumbSize = 150;
+
         /*** HTTP ***/
 
 		function searchWikipedia(params, callback) {
@@ -31,7 +33,7 @@
 					if (!data.query) return;
 					var page = data.query.pages[0];
 					// removeRedirections(data.query.redirects, wiki.results);
-					if (page.pageimage) createImageUrls(page);
+					if (page.pageimage) createImageUrls(page.pageimage, page.thumbnail.source);
 					callback(page);
 				})
 				.error(handleErrors);
@@ -40,19 +42,12 @@
 
 		/*** HELPERS ***/
 
-		function createImageUrls(page) {
-			var filename = page.pageimage;
-			var thumbUrl = page.thumbnail.source;
-			console.log(thumbUrl);
-
-			page.imageThumbUrl = changeThumbSize(thumbUrl, 150);
+		function createImageUrls(filename, thumbUrl) {
+			page.imageThumbUrl = changeThumbSize(thumbUrl, thumbSize);
 			page.imageUrl = createFullImageUrl(thumbUrl, filename);
-
-
-			// proveriti onload ako nema thumb da bude velika
+			// TODO: proveriti onload error, ako nema manje, obe velike
 			return page;
 		} // createImageUrls
-
 
 		function changeThumbSize(thumbUrl, newSize) {
 			var regex = /\/(\d+)px-/gi;
@@ -61,13 +56,11 @@
 			return newUrl;
 		}	// changeThumbSize
 
-
 		function createFullImageUrl(thumbUrl, filename) {
 			var substrEnd = thumbUrl.indexOf(filename) + filename.length;
 			var newUrl = thumbUrl.substring(0, substrEnd).replace("thumb/", "");
 			return newUrl;
 		}	// createFullImageUrl
-		
 
         function createParamUrl(params) {
 			var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
