@@ -36,7 +36,8 @@
 			pilimit: 'max', // thumb image for all articles
 			exlimit: 'max', // extract limit
 			// imlimit: 'max', // images limit, only if prop:images enabled
-			exintro: '' // extracts intro
+			exintro: '', // only intro
+			exchars: 1250
 		};
 
 

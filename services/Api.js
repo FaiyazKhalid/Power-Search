@@ -8,7 +8,7 @@
 	function Api($http, utils, Params, $rootScope) {
 
         var api = this;
-		var thumbSize = 150;
+		var leadThumbSize = 150;
 
 		api.page = null;
 		api.results = null;
@@ -19,7 +19,8 @@
 
 		api.search = function(params, callback) {
 			var paramUrl = createParamUrl(params);
-			//console.log(paramUrl);
+			console.log(params);
+			console.log(paramUrl);
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					api.exactMatch = null;
@@ -55,7 +56,7 @@
 
 		function createThumbUrl() {
 			var thumbUrl = api.page.thumbnail.source;
-			var newSize = thumbSize;
+			var newSize = leadThumbSize;
 			var regex = /\/(\d+)px-/gi;
 			var newThumbSize = "/" + newSize + "px-";
 			var newUrl = thumbUrl.replace(regex, newThumbSize);
