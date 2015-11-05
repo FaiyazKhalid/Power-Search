@@ -5,7 +5,7 @@
 		.service('Api', Api);
 
 
-	function Api(_, $http, utils, Params, $rootScope) {
+	function Api($http, utils, Params, $rootScope) {
 
         var api = this;
 		var thumbSize = 150;
@@ -88,7 +88,7 @@
 
 		function findExactTerm(searchTerm, results){
 			var found = null;
-			_.each(results, function(result){
+			angular.forEach(results, function(result) {
 				if (utils.capitalizeFirst(searchTerm) == result.title) found = result.title;
 				if (searchTerm.toLowerCase() == result.title.toLowerCase()) {
 					found = found || result.title;

@@ -14,7 +14,7 @@
 */
 	'use strict';
 	angular
-		.module("wikiModul", ['ngSanitize', 'underscore'])
+		.module("wikiModul", ['ngSanitize'])
 		.controller('WikiController', WikiController);
 
 	function WikiController(Api, $window, $location, utils, StaticData, Params) {
