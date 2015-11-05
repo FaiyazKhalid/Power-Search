@@ -18,14 +18,12 @@
 		.module("wikiModul", ['ngSanitize', 'underscore'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($window, $animate, $location, utils, StaticData, Params, WikiApi, _) {
+	function WikiController(Api, $window, $animate, $location, utils, StaticData, Params, _) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
 		var leadImgWidth = 175;
 
-		wiki.api = WikiApi;
-		console.log(wiki.api);
 
 		/*** PUBLIC PROPERTIES ***/
 
@@ -59,8 +57,8 @@
 			resetLeadArticle();
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
-			WikiApi.open(Params.getArticleParams(), function() {
-				wiki.page = WikiApi.getLoadedPage();
+			Api.open(Params.getArticleParams(), function() {
+				wiki.page = Api.getLoadedPage();
 			});
 		}; // open
 
@@ -69,9 +67,9 @@
 			clearAllResults();
 			if(!wiki.searchTerm) return;
 			wiki.setSearchTerm();
-			WikiApi.search(Params.getSearchParams(), function(){
-				if(WikiApi.getExactMatch()) wiki.open(WikiApi.getExactMatch());
-				wiki.results = WikiApi.getSearchResults();
+			Api.search(Params.getSearchParams(), function(){
+				if(Api.getExactMatch()) wiki.open(Api.getExactMatch());
+				wiki.results = Api.getSearchResults();
 			});
 		}; // search
 

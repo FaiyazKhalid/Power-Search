@@ -2,10 +2,10 @@
 	'use strict';
 	angular
 		.module("wikiModul")
-		.factory('WikiApi', WikiApi);
+		.service('Api', Api);
 
 
-	function WikiApi($http, utils, Params) {
+	function Api($http, utils, Params) {
 
 		var thumbSize = 150;
 		var searchResults = null;
@@ -15,7 +15,7 @@
 
         /*** HTTP ***/
 
-		function search(params, callback) {
+		this.search = function(params, callback) {
 			var paramUrl = createParamUrl(params);
 			console.log(paramUrl);
 
@@ -32,10 +32,10 @@
 				})
 				.error(handleErrors);
 			Params.saveSettings();
-		} // search
+		}; // search
 
 
-		function open(params, callback) {
+		this.open = function(params, callback) {
 			var paramUrl = createParamUrl(params);
 
 			$http.jsonp(paramUrl)
@@ -51,10 +51,9 @@
 					callback();
 				})
 				.error(handleErrors);
-		} // open
+		}; // open
 
-
-		function checkThumbImage() {
+        function checkThumbImage() {
 			var test = new Image();
 			test.onerror = (function() {
 				console.log("nema thumb");
@@ -67,22 +66,22 @@
 		}	// checkThumbImage
 
 
-		/*** GETTERS ***/
+        /*** GETTERS ***/
 
-		function getSearchResults () {
+		this.getSearchResults = function () {
 			return searchResults;
-		}
+		};
 
-		function getExactMatch () {
+		this.getExactMatch = function () {
 		  return exactMatch;
-		}
+        };
 
-		function getLoadedPage () {
+		this.getLoadedPage = function() {
 			return loadedPage;
-		}
+		};
 
 
-		/*** HELPERS ***/
+        /*** HELPERS ***/
 
 		function createThumbUrl(thumbUrl, newSize) {
 			var regex = /\/(\d+)px-/gi;
@@ -128,16 +127,6 @@
 		} // removeFromResults
 
 
-        /*** EXPOSE PUBLIC ***/
-
-		return {
-			search: search,
-			open: open,
-			getSearchResults: getSearchResults,
-			getExactMatch: getExactMatch,
-			getLoadedPage: getLoadedPage
-		};
-
-	} // WikiApi
+	} // Api
 
 })();
