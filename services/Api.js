@@ -20,16 +20,13 @@
 		api.search = function(params, callback) {
 			var paramUrl = createParamUrl(params);
 			//console.log(paramUrl);
-
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					api.exactMatch = null;
-					api.results = null;
 					if (!data.query) return;
-					var results = data.query.pages;
-					api.exactMatch = findTerm(Params.getSearchTerm(), results);
-					if (api.exactMatch) removeFromResults(api.exactMatch, results);
-					api.results = results;
+					api.results = data.query.pages;
+					api.exactMatch = findTerm(Params.getSearchTerm(), api.results);
+					if (api.exactMatch) removeFromResults(api.exactMatch, api.results);
 					callback();
 				})
 				.error(handleErrors);
@@ -39,7 +36,6 @@
 
 		api.open = function(params, callback) {
 			var paramUrl = createParamUrl(params);
-            console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
@@ -47,8 +43,8 @@
 					if (!data.query) return;
 					api.page = data.query.pages[0];
 					if (api.page.pageimage) {
-						api.page.imageUrl = createFullImageUrl(api.page.thumbnail.source, api.page.pageimage);
-						api.page.imageThumbUrl = createThumbUrl(api.page.thumbnail.source, thumbSize);
+						api.page.imageUrl = createImageUrl();
+						api.page.imageThumbUrl = createThumbUrl();
 					}
 				})
 				.error(handleErrors);
@@ -72,19 +68,23 @@
 
         /*** HELPERS ***/
 
-		function createThumbUrl(thumbUrl, newSize) {
+		function createThumbUrl() {
+			var thumbUrl = api.page.thumbnail.source;
+			var newSize = thumbSize;
 			var regex = /\/(\d+)px-/gi;
 			var newThumbSize = "/" + newSize + "px-";
 			var newUrl = thumbUrl.replace(regex, newThumbSize);
 			return newUrl;
 		}	// createThumbUrl
 
-		function createFullImageUrl(thumbUrl, filename) {
+		function createImageUrl() {
+			var thumbUrl = api.page.thumbnail.source;
+			var filename = api.page.pageimage;
 			var escaped = escape(filename);
 			var substrEnd = thumbUrl.indexOf(escaped) + escaped.length;
 			var newUrl = thumbUrl.substring(0, substrEnd).replace("thumb/", "");
 			return newUrl;
-		}	// createFullImageUrl
+		}	// createImageUrl
 
         function createParamUrl(params) {
 			var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);

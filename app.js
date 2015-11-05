@@ -124,7 +124,7 @@
 
 		function clearAllResults() {
 			resetError();
-			wiki.api.results = [];
+			wiki.api.results = null;
 			resetLeadArticle();
 		} // clearAllResults
 
