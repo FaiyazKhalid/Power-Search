@@ -1,5 +1,9 @@
 (function () {
 /*
+	BAGOVI:
+	// ne prikazuje preusmerenja u lead, primer buddha; mozda ako nema exactMatch da pokusa naslepo da otvori?
+	// Buddha (manga) greska u pravljenju slike
+	
 	TODO:
 	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results); page objekti nisu isti, ali mozda mogu da se extenduju
 	// uključiti babel
@@ -49,17 +53,6 @@
 		}; // init
 
 
-		wiki.search = function () {
-			clearAllResults();
-			if(!wiki.searchTerm) return;
-			updateSearchTerm();
-			WikiApi.search(Params.getSearchParams(), function(){
-				if(WikiApi.getExactMatch()) wiki.open(WikiApi.getExactMatch());
-				wiki.results = WikiApi.getSearchResults();
-			});
-		}; // search
-
-
 		wiki.open = function (title) {
 			resetLeadArticle();
 			utils.scrollToTop(300);
@@ -69,6 +62,17 @@
 				checkThumbImage();
 			});
 		}; // open
+
+
+		wiki.search = function () {
+			clearAllResults();
+			if(!wiki.searchTerm) return;
+			wiki.setSearchTerm();
+			WikiApi.search(Params.getSearchParams(), function(){
+				if(WikiApi.getExactMatch()) wiki.open(WikiApi.getExactMatch());
+				wiki.results = WikiApi.getSearchResults();
+			});
+		}; // search
 
 
 		wiki.searchForLeadTerm = function (title) {
@@ -95,7 +99,7 @@
 		}; // checkMaxResults
 
 
-		/*** PARAMS ***/
+		/*** SETTERS ***/
 
 		wiki.setFilter = function(){
 			Params.setFilter(wiki.searchFilter);
@@ -106,17 +110,11 @@
 			Params.setDomain(newDomain);
 		};	// setDomain
 
-
-		wiki.setSearchTerm = function (newTerm){
-			wiki.searchTerm = newTerm;
-			Params.setSearchTerm(newTerm);
-		};	// setSearchTerm
-
-		// moguc duplikat!
-		function updateSearchTerm() {
+		wiki.setSearchTerm = function(newTerm) {
+			if(newTerm) wiki.searchTerm = newTerm;
 			$location.path(wiki.searchTerm);
 			Params.setSearchTerm(wiki.searchTerm);
-		}
+		};	// setSearchTerm
 
 
 		/*** PRIVATE FUNCTIONS ***/

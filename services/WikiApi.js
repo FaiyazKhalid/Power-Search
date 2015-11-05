@@ -80,6 +80,7 @@
 		function createFullImageUrl(thumbUrl, filename) {
 			var substrEnd = thumbUrl.indexOf(filename) + filename.length;
 			var newUrl = thumbUrl.substring(0, substrEnd).replace("thumb/", "");
+			console.log("newUrl", newUrl);
 			return newUrl;
 		}	// createFullImageUrl
 
