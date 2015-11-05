@@ -95,26 +95,26 @@
             <div ng-class="wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
                 <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.toggleLeadLarge()">« Back</button>
 
-                <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.searchForLeadTerm(wiki.page.title)">Search for this term »</button>
+                <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.searchForLeadTerm(wiki.api.page.title)">Search for this term »</button>
 
-                <section class='choosen-article-wrapper' ng-show='wiki.page'>
+                <section class='choosen-article-wrapper' ng-show='wiki.api.page'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
-                            <span class="pointer" title="Englarge this article" ng-click="wiki.toggleLeadLarge()">{{wiki.page.title}}</span>
+                            <span class="pointer" title="Englarge this article" ng-click="wiki.toggleLeadLarge()">{{wiki.api.page.title}}</span>
                         </h1>
-                        <a ng-href="{{wiki.page.imageUrl}}" target="_blank">
-                            <img ng-src="{{wiki.leadLarge && wiki.page.imageUrl || wiki.page.imageThumbUrl}}" alt="{{wiki.page.title}}" class="img-large img-thumbnail pull-right" ng-show="wiki.page.imageUrl">
+                        <a ng-href="{{wiki.api.page.imageUrl}}" target="_blank">
+                            <img ng-src="{{wiki.leadLarge && wiki.api.page.imageUrl || wiki.api.page.imageThumbUrl}}" alt="{{wiki.api.page.title}}" class="img-large img-thumbnail pull-right" ng-show="wiki.api.page.imageUrl">
                         </a>
-                        <section ng-bind-html='wiki.page.extract' ng-dblclick="wiki.selectText()"></section>
+                        <section ng-bind-html='wiki.api.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
 
-                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.api.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
                 </section>
             </div>
 
             <!-- search results-->
             <div ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
-                <article ng-repeat="page in wiki.results | orderBy:'title' " class="articles clearfix">
+                <article ng-repeat="page in wiki.api.results | orderBy:'title' " class="articles clearfix">
                     <h2 class="text-info">
                         <span class="pointer" title="Open this article" ng-click="wiki.open(page.title)">{{page.title}}</span>
                     </h2>

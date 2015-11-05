@@ -23,11 +23,9 @@
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
 		var leadImgWidth = 175;
-		wiki.api = Api;
-
 
 		/*** PUBLIC PROPERTIES ***/
-
+		wiki.api = Api;
 		wiki.languages = StaticData.getLanguages();
 		wiki.projects = StaticData.getProjects();
 
@@ -38,8 +36,6 @@
 		wiki.searchFilter = Params.getFilter();
 		wiki.maxResults = Params.getMaxResults();
 
-		wiki.page = null;
-		wiki.results = null;
 		wiki.error = null;
 		wiki.leadLarge = false;
 
@@ -59,8 +55,7 @@
 			if(!wiki.searchTerm) return;
 			wiki.setSearchTerm();
 			Api.search(Params.getSearchParams(), function handleResults(){
-				if(Api.getExactMatch()) wiki.open(Api.getExactMatch());
-				wiki.results = Api.getSearchResults();
+				if(wiki.api.exactMatch) wiki.open(wiki.api.exactMatch);
 			});
 		}; // search
 
@@ -69,9 +64,7 @@
 			resetLeadArticle();
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
-			Api.open(Params.getArticleParams(), function handleResults() {
-				wiki.page = Api.getLoadedPage();
-			});
+			Api.open(Params.getArticleParams());
 		}; // open
 
 
@@ -124,14 +117,14 @@
 		}	// resetError
 
 		function resetLeadArticle(){
-			wiki.page = '';
-			wiki.imageThumbUrl = '';
-			wiki.imageUrl = '';
+			wiki.api.page = '';
+			wiki.api.imageThumbUrl = '';
+			wiki.api.imageUrl = '';
 		}	// resetLeadArticle
 
 		function clearAllResults() {
 			resetError();
-			wiki.results = [];
+			wiki.api.results = [];
 			resetLeadArticle();
 		} // clearAllResults
 

@@ -9,9 +9,10 @@
 
         var api = this;
 		var thumbSize = 150;
-		api.searchResults = null;
-		api.exactMatch = null;
+
 		api.page = null;
+		api.results = null;
+		api.exactMatch = null;
 
 
         /*** HTTP ***/
@@ -23,12 +24,12 @@
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					api.exactMatch = null;
-					api.searchResults = null;
+					api.results = null;
 					if (!data.query) return;
 					var results = data.query.pages;
 					api.exactMatch = findTerm(Params.getSearchTerm(), results);
 					if (api.exactMatch) removeFromResults(api.exactMatch, results);
-					api.searchResults = results;
+					api.results = results;
 					callback();
 				})
 				.error(handleErrors);
@@ -48,48 +49,25 @@
 					if (api.page.pageimage) {
 						api.page.imageUrl = createFullImageUrl(api.page.thumbnail.source, api.page.pageimage);
 						api.page.imageThumbUrl = createThumbUrl(api.page.thumbnail.source, thumbSize);
-						checkThumbImage(callback);
-
-					} else {
-    					callback();
-                    }
+					}
 				})
 				.error(handleErrors);
 		}; // open
 
-        // callback undefined inside onload ?
 
-        function checkThumbImage(callback) {
-            console.log("callback", callback);
+        function checkThumbImage() {
 			var test = new Image();
 
 			test.onerror = function() {
 				console.log("nema thumba");
 				api.page.imageThumbUrl = api.page.imageUrl;
-                checkThumbImage();
 			};
 
 			test.onload = function() {
 				console.log("ima thumba");
-                console.log("callback", callback);
 			};
 			test.src = api.page.imageThumbUrl;
 		}	// checkThumbImage
-
-
-        /*** GETTERS ***/
-
-		api.getSearchResults = function () {
-			return api.searchResults;
-		};
-
-		api.getExactMatch = function () {
-		  return api.exactMatch;
-        };
-
-		api.getLoadedPage = function() {
-			return api.page;
-		};
 
 
         /*** HELPERS ***/
