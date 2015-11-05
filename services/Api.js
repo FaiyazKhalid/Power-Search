@@ -5,29 +5,30 @@
 		.service('Api', Api);
 
 
-	function Api($http, utils, Params) {
+	function Api(_, $http, utils, Params) {
 
+        var api = this;
 		var thumbSize = 150;
-		var searchResults = null;
-		var exactMatch = null;
-		var loadedPage = null;
+		api.searchResults = null;
+		api.exactMatch = null;
+		api.loadedPage = null;
 
 
         /*** HTTP ***/
 
-		this.search = function(params, callback) {
+		api.search = function(params, callback) {
 			var paramUrl = createParamUrl(params);
-			console.log(paramUrl);
+			//console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
-					exactMatch = null;
-					searchResults = null;
+					api.exactMatch = null;
+					api.searchResults = null;
 					if (!data.query) return;
 					var results = data.query.pages;
-					exactMatch = findTerm(Params.getSearchTerm(), results);
-					if (exactMatch) removeFromResults(exactMatch, results);
-					searchResults = results;
+					api.exactMatch = findTerm(Params.getSearchTerm(), results);
+					if (api.exactMatch) removeFromResults(api.exactMatch, results);
+					api.searchResults = results;
 					callback();
 				})
 				.error(handleErrors);
@@ -35,17 +36,17 @@
 		}; // search
 
 
-		this.open = function(params, callback) {
+		api.open = function(params, callback) {
 			var paramUrl = createParamUrl(params);
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
-					loadedPage = null;
+					api.loadedPage = null;
 					if (!data.query) return;
-					loadedPage = data.query.pages[0];
-					if (loadedPage.pageimage) {
-						loadedPage.imageUrl = createFullImageUrl(loadedPage.thumbnail.source, loadedPage.pageimage);
-						loadedPage.imageThumbUrl = createThumbUrl(loadedPage.thumbnail.source, thumbSize);
+					api.loadedPage = data.query.pages[0];
+					if (api.loadedPage.pageimage) {
+						api.loadedPage.imageUrl = createFullImageUrl(api.loadedPage.thumbnail.source, api.loadedPage.pageimage);
+						api.loadedPage.imageThumbUrl = createThumbUrl(api.loadedPage.thumbnail.source, thumbSize);
 						checkThumbImage();
 					}
 					callback();
@@ -56,28 +57,28 @@
         function checkThumbImage() {
 			var test = new Image();
 			test.onerror = (function() {
-				console.log("nema thumb");
-				loadedPage.imageThumbUrl = loadedPage.imageUrl;
+				console.log("nema thumba");
+				api.loadedPage.imageThumbUrl = api.loadedPage.imageUrl;
 			});
 			test.onload = (function() {
-				console.log("ima thumb");
+				console.log("ima thumba");
 			});
-			test.src = loadedPage.imageThumbUrl;
+			test.src = api.loadedPage.imageThumbUrl;
 		}	// checkThumbImage
 
 
         /*** GETTERS ***/
 
-		this.getSearchResults = function () {
-			return searchResults;
+		api.getSearchResults = function () {
+			return api.searchResults;
 		};
 
-		this.getExactMatch = function () {
-		  return exactMatch;
+		api.getExactMatch = function () {
+		  return api.exactMatch;
         };
 
-		this.getLoadedPage = function() {
-			return loadedPage;
+		api.getLoadedPage = function() {
+			return api.loadedPage;
 		};
 
 
