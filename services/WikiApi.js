@@ -63,7 +63,7 @@
 		  return exactMatch;
 		}
 
-		function getloadedPage () {
+		function getLoadedPage () {
 			return loadedPage;
 		}
 
@@ -120,7 +120,7 @@
 			open: open,
 			getSearchResults: getSearchResults,
 			getExactMatch: getExactMatch,
-			getloadedPage: getloadedPage
+			getLoadedPage: getLoadedPage
 		};
 
 	} // WikiApi

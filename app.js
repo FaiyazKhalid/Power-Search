@@ -1,7 +1,6 @@
 (function () {
 /*
 	TODO:
-	// proveriti imageThumbUrl onload error, ako nema manje slike, staviti obe velike
 	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results); page objekti nisu isti, ali mozda mogu da se extenduju
 	// uključiti babel
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
@@ -66,7 +65,8 @@
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
 			WikiApi.open(Params.getArticleParams(), function() {
-				wiki.page = WikiApi.getOpenedPage();
+				wiki.page = WikiApi.getLoadedPage();
+				checkThumbImage();
 			});
 		}; // open
 
@@ -140,6 +140,16 @@
 		function readUrlTerm() {
 			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm;
 		}
+
+		function checkThumbImage() {
+			if(wiki.page.imageThumbUrl) {
+				var test = new Image();
+				test.onerror = (function() {
+					wiki.page.imageThumbUrl = wiki.page.imageUrl;
+				});
+				test.src = wiki.page.imageThumbUrl;
+			}
+		}	// checkThumbImage
 
 
 	} // WikiController
