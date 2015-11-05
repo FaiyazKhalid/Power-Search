@@ -89,11 +89,6 @@
 		}; // checkMaxResults
 
 
-		wiki.mainImageSize = function(){
-			return wiki.leadLarge && wiki.api.page.imageUrl || wiki.api.page.imageThumbUrl;
-		};
-
-
 		/*** SETTERS ***/
 
 		wiki.setFilter = function(){
