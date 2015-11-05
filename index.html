@@ -87,7 +87,7 @@
 
     <main class="container main" ng-cloak>
 
-        <p>{{wiki.error}}</p>
+        <p>{{wiki.api.error}}</p>
 
         <div class="row">
 
@@ -103,7 +103,7 @@
                             <span class="pointer" title="Englarge this article" ng-click="wiki.toggleLeadLarge()">{{wiki.api.page.title}}</span>
                         </h1>
                         <a ng-href="{{wiki.api.page.imageUrl}}" target="_blank">
-                            <img ng-src="{{wiki.leadLarge && wiki.api.page.imageUrl || wiki.api.page.imageThumbUrl}}" alt="{{wiki.api.page.title}}" class="img-large img-thumbnail pull-right" ng-show="wiki.api.page.imageUrl">
+                            <img ng-src="{{wiki.api.page.imageThumbUrl}}" alt="{{wiki.api.page.title}}" class="img-large img-thumbnail pull-right" ng-show="wiki.api.page.imageUrl">
                         </a>
                         <section ng-bind-html='wiki.api.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>

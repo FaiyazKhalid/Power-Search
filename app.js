@@ -1,7 +1,6 @@
 (function () {
 /*
 	BAGOVI:
-	// Buddha (manga) checkThumbImage
 	// ne prikazuje preusmerenja u lead, primer buddha; naci preusmerenja; ako nema exactMatch da pokusa naslepo da otvori?
 
 	TODO:
@@ -35,8 +34,6 @@
 		wiki.searchTerm = Params.getSearchTerm();
 		wiki.searchFilter = Params.getFilter();
 		wiki.maxResults = Params.getMaxResults();
-
-		wiki.error = null;
 		wiki.leadLarge = false;
 
 
@@ -92,6 +89,11 @@
 		}; // checkMaxResults
 
 
+		wiki.mainImageSize = function(){
+			return wiki.leadLarge && wiki.api.page.imageUrl || wiki.api.page.imageThumbUrl;
+		};
+
+
 		/*** SETTERS ***/
 
 		wiki.setFilter = function(){
@@ -113,7 +115,7 @@
 		/*** PRIVATE FUNCTIONS ***/
 
 		function resetError() {
-			wiki.error = "";
+			wiki.api.error = "";
 		}	// resetError
 
 		function resetLeadArticle(){

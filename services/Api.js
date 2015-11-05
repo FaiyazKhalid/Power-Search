@@ -5,7 +5,7 @@
 		.service('Api', Api);
 
 
-	function Api(_, $http, utils, Params) {
+	function Api(_, $http, utils, Params, $rootScope) {
 
         var api = this;
 		var thumbSize = 150;
@@ -25,7 +25,7 @@
 					api.exactMatch = null;
 					if (!data.query) return;
 					api.results = data.query.pages;
-					api.exactMatch = findTerm(Params.getSearchTerm(), api.results);
+					api.exactMatch = findExactTerm(Params.getSearchTerm(), api.results);
 					if (api.exactMatch) removeFromResults(api.exactMatch, api.results);
 					callback();
 				})
@@ -36,7 +36,6 @@
 
 		api.open = function(params, callback) {
 			var paramUrl = createParamUrl(params);
-
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					api.page = null;
@@ -45,25 +44,11 @@
 					if (api.page.pageimage) {
 						api.page.imageUrl = createImageUrl();
 						api.page.imageThumbUrl = createThumbUrl();
+						checkThumbImage();
 					}
 				})
 				.error(handleErrors);
 		}; // open
-
-
-        function checkThumbImage() {
-			var test = new Image();
-
-			test.onerror = function() {
-				console.log("nema thumba");
-				api.page.imageThumbUrl = api.page.imageUrl;
-			};
-
-			test.onload = function() {
-				console.log("ima thumba");
-			};
-			test.src = api.page.imageThumbUrl;
-		}	// checkThumbImage
 
 
         /*** HELPERS ***/
@@ -91,11 +76,17 @@
 			return paramUrl;
 		} // createParamUrl
 
-        function handleErrors(data, status, headers, config) {
-			wiki.error = "Oh no, there was some error in geting data: " + status;
-		} // handleErrors
+        function checkThumbImage() {
+			var test = new Image();
+			test.onerror = function() {
+				$rootScope.$apply(function(){
+	 				api.page.imageThumbUrl = api.page.imageUrl;
+				 });
+			};
+			test.src = api.page.imageThumbUrl;
+		}	// checkThumbImage
 
-		function findTerm(searchTerm, results){
+		function findExactTerm(searchTerm, results){
 			var found = null;
 			_.each(results, function(result){
 				if (utils.capitalizeFirst(searchTerm) == result.title) found = result.title;
@@ -104,7 +95,7 @@
 				}
 			});
 			return found;
-		}	// findTerm
+		}	// findExactTerm
 
 		function removeFromResults(title, results) {
 			for (var x in results) {
@@ -115,6 +106,9 @@
 			} // end for
 		} // removeFromResults
 
+		function handleErrors(data, status, headers, config) {
+			wiki.error = "Oh no, there was some error in geting data: " + status;
+		} // handleErrors
 
 	} // Api
 
