@@ -78,7 +78,14 @@
 		}	// createThumbUrl
 
 		function createFullImageUrl(thumbUrl, filename) {
-			var substrEnd = thumbUrl.indexOf(filename) + filename.length;
+			console.log("thumbUrl", thumbUrl);
+			console.log("filename", filename);
+			var encoded = escape(filename);
+			console.log("encoded", encoded);
+
+			var substrEnd = thumbUrl.indexOf(encoded) + encoded.length;
+			console.log('substrEnd', substrEnd); // nije preveden uri
+
 			var newUrl = thumbUrl.substring(0, substrEnd).replace("thumb/", "");
 			console.log("newUrl", newUrl);
 			return newUrl;

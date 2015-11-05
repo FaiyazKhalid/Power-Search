@@ -35,9 +35,9 @@
 		} // scrollToTop
 
 
-		function capitalize(struna) {
-			return struna.replace(/(?:^|\s)\S/g, function (a) {
-				return a.toUpperCase();
+		function capitalize(words) {
+			return words.replace(/(?:^|\s)\S/g, function (word) {
+				return word.toUpperCase();
 			});
 		}	// capitalize
 

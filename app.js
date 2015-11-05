@@ -1,9 +1,9 @@
 (function () {
 /*
 	BAGOVI:
-	// ne prikazuje preusmerenja u lead, primer buddha; mozda ako nema exactMatch da pokusa naslepo da otvori?
 	// Buddha (manga) greska u pravljenju slike
-	
+	// ne prikazuje preusmerenja u lead, primer buddha; naci preusmerenja; ako nema exactMatch da pokusa naslepo da otvori?
+
 	TODO:
 	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results); page objekti nisu isti, ali mozda mogu da se extenduju
 	// uključiti babel
