@@ -46,11 +46,25 @@
 					if (loadedPage.pageimage) {
 						loadedPage.imageUrl = createFullImageUrl(loadedPage.thumbnail.source, loadedPage.pageimage);
 						loadedPage.imageThumbUrl = createThumbUrl(loadedPage.thumbnail.source, thumbSize);
+						checkThumbImage();
 					}
 					callback();
 				})
 				.error(handleErrors);
 		} // open
+
+
+		function checkThumbImage() {
+			var test = new Image();
+			test.onerror = (function() {
+				console.log("nema thumb");
+				loadedPage.imageThumbUrl = loadedPage.imageUrl;
+			});
+			test.onload = (function() {
+				console.log("ima thumb");
+			});
+			test.src = loadedPage.imageThumbUrl;
+		}	// checkThumbImage
 
 
 		/*** GETTERS ***/
@@ -78,16 +92,9 @@
 		}	// createThumbUrl
 
 		function createFullImageUrl(thumbUrl, filename) {
-			console.log("thumbUrl", thumbUrl);
-			console.log("filename", filename);
-			var encoded = escape(filename);
-			console.log("encoded", encoded);
-
-			var substrEnd = thumbUrl.indexOf(encoded) + encoded.length;
-			console.log('substrEnd', substrEnd); // nije preveden uri
-
+			var escaped = escape(filename);
+			var substrEnd = thumbUrl.indexOf(escaped) + escaped.length;
 			var newUrl = thumbUrl.substring(0, substrEnd).replace("thumb/", "");
-			console.log("newUrl", newUrl);
 			return newUrl;
 		}	// createFullImageUrl
 

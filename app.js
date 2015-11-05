@@ -1,7 +1,7 @@
 (function () {
 /*
 	BAGOVI:
-	// Buddha (manga) greska u pravljenju slike
+	// Buddha (manga) checkThumbImage
 	// ne prikazuje preusmerenja u lead, primer buddha; naci preusmerenja; ako nema exactMatch da pokusa naslepo da otvori?
 
 	TODO:
@@ -59,7 +59,6 @@
 			Params.setArticleTitle(title);
 			WikiApi.open(Params.getArticleParams(), function() {
 				wiki.page = WikiApi.getLoadedPage();
-				checkThumbImage();
 			});
 		}; // open
 
@@ -138,16 +137,6 @@
 		function readUrlTerm() {
 			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm;
 		}
-
-		function checkThumbImage() {
-			if(wiki.page.imageThumbUrl) {
-				var test = new Image();
-				test.onerror = (function() {
-					wiki.page.imageThumbUrl = wiki.page.imageUrl;
-				});
-				test.src = wiki.page.imageThumbUrl;
-			}
-		}	// checkThumbImage
 
 
 	} // WikiController
