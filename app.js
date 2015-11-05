@@ -58,7 +58,7 @@
 			clearAllResults();
 			if(!wiki.searchTerm) return;
 			wiki.setSearchTerm();
-			Api.search(Params.getSearchParams(), function(){
+			Api.search(Params.getSearchParams(), function handleResults(){
 				if(Api.getExactMatch()) wiki.open(Api.getExactMatch());
 				wiki.results = Api.getSearchResults();
 			});
@@ -69,7 +69,7 @@
 			resetLeadArticle();
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
-			Api.open(Params.getArticleParams(), function() {
+			Api.open(Params.getArticleParams(), function handleResults() {
 				wiki.page = Api.getLoadedPage();
 			});
 		}; // open

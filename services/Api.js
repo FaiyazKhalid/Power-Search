@@ -11,7 +11,7 @@
 		var thumbSize = 150;
 		api.searchResults = null;
 		api.exactMatch = null;
-		api.loadedPage = null;
+		api.page = null;
 
 
         /*** HTTP ***/
@@ -38,32 +38,42 @@
 
 		api.open = function(params, callback) {
 			var paramUrl = createParamUrl(params);
+            console.log(paramUrl);
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
-					api.loadedPage = null;
+					api.page = null;
 					if (!data.query) return;
-					api.loadedPage = data.query.pages[0];
-					if (api.loadedPage.pageimage) {
-						api.loadedPage.imageUrl = createFullImageUrl(api.loadedPage.thumbnail.source, api.loadedPage.pageimage);
-						api.loadedPage.imageThumbUrl = createThumbUrl(api.loadedPage.thumbnail.source, thumbSize);
-						checkThumbImage();
-					}
-					callback();
+					api.page = data.query.pages[0];
+					if (api.page.pageimage) {
+						api.page.imageUrl = createFullImageUrl(api.page.thumbnail.source, api.page.pageimage);
+						api.page.imageThumbUrl = createThumbUrl(api.page.thumbnail.source, thumbSize);
+						checkThumbImage(callback);
+
+					} else {
+    					callback();
+                    }
 				})
 				.error(handleErrors);
 		}; // open
 
-        function checkThumbImage() {
+        // callback undefined inside onload ?
+
+        function checkThumbImage(callback) {
+            console.log("callback", callback);
 			var test = new Image();
-			test.onerror = (function() {
+
+			test.onerror = function() {
 				console.log("nema thumba");
-				api.loadedPage.imageThumbUrl = api.loadedPage.imageUrl;
-			});
-			test.onload = (function() {
+				api.page.imageThumbUrl = api.page.imageUrl;
+                checkThumbImage();
+			};
+
+			test.onload = function() {
 				console.log("ima thumba");
-			});
-			test.src = api.loadedPage.imageThumbUrl;
+                console.log("callback", callback);
+			};
+			test.src = api.page.imageThumbUrl;
 		}	// checkThumbImage
 
 
@@ -78,7 +88,7 @@
         };
 
 		api.getLoadedPage = function() {
-			return api.loadedPage;
+			return api.page;
 		};
 
 
