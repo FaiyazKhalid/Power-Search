@@ -10,7 +10,7 @@
 		var thumbSize = 150;
 		var searchResults = null;
 		var exactMatch = null;
-		var openedPage = null;
+		var loadedPage = null;
 
 
         /*** HTTP ***/
@@ -40,12 +40,12 @@
 
 			$http.jsonp(paramUrl)
 				.success(function (data) {
-					openedPage = null;
+					loadedPage = null;
 					if (!data.query) return;
-					openedPage = data.query.pages[0];
-					if (openedPage.pageimage) {
-						openedPage.imageUrl = createFullImageUrl(openedPage.thumbnail.source, openedPage.pageimage);
-						openedPage.imageThumbUrl = changeThumbSize(openedPage.thumbnail.source, thumbSize);
+					loadedPage = data.query.pages[0];
+					if (loadedPage.pageimage) {
+						loadedPage.imageUrl = createFullImageUrl(loadedPage.thumbnail.source, loadedPage.pageimage);
+						loadedPage.imageThumbUrl = createThumbUrl(loadedPage.thumbnail.source, thumbSize);
 					}
 					callback();
 				})
@@ -63,19 +63,19 @@
 		  return exactMatch;
 		}
 
-		function getOpenedPage () {
-			return openedPage;
+		function getloadedPage () {
+			return loadedPage;
 		}
 
 
 		/*** HELPERS ***/
 
-		function changeThumbSize(thumbUrl, newSize) {
+		function createThumbUrl(thumbUrl, newSize) {
 			var regex = /\/(\d+)px-/gi;
 			var newThumbSize = "/" + newSize + "px-";
 			var newUrl = thumbUrl.replace(regex, newThumbSize);
 			return newUrl;
-		}	// changeThumbSize
+		}	// createThumbUrl
 
 		function createFullImageUrl(thumbUrl, filename) {
 			var substrEnd = thumbUrl.indexOf(filename) + filename.length;
@@ -120,7 +120,7 @@
 			open: open,
 			getSearchResults: getSearchResults,
 			getExactMatch: getExactMatch,
-			getOpenedPage: getOpenedPage
+			getloadedPage: getloadedPage
 		};
 
 	} // WikiApi
