@@ -2,7 +2,7 @@
 	'use strict';
 	angular
 		.module("wikiModul")
-		.service('Params', Params);
+		.factory('Params', Params);
 
 	function Params() {
 

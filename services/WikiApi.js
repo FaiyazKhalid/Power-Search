@@ -2,7 +2,7 @@
 	'use strict';
 	angular
 		.module("wikiModul")
-		.service('WikiApi', WikiApi);
+		.factory('WikiApi', WikiApi);
 
 
 	function WikiApi($http, utils, Params) {

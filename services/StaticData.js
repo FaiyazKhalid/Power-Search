@@ -2,7 +2,7 @@
 	'use strict';
 	angular
 		.module("wikiModul")
-		.service('StaticData', StaticData);
+		.factory('StaticData', StaticData);
 
 	function StaticData() {
 

@@ -18,12 +18,14 @@
 		.module("wikiModul", ['ngSanitize', 'underscore'])
 		.controller('WikiController', WikiController);
 
-	function WikiController($window, $scope, $animate, $location, utils, StaticData, Params, WikiApi, _) {
+	function WikiController($window, $animate, $location, utils, StaticData, Params, WikiApi, _) {
 
 		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
 		var leadImgWidth = 175;
-		var triedTwice = false;		// try again to find article with different capitalisation
+
+		wiki.api = WikiApi;
+		console.log(wiki.api);
 
 		/*** PUBLIC PROPERTIES ***/
 
