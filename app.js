@@ -1,7 +1,14 @@
 (function () {
 /*
-	BAGOVI:
-	// ne prikazuje preusmerenja u lead, primer buddha; naci preusmerenja; ako nema exactMatch da pokusa naslepo da otvori?
+
+In MediaWiki, all titles will be capitalized automatically. Therefore, "wreck-it Ralph" and "Wreck-it Ralph" is the same page.
+http://stackoverflow.com/questions/21211037/how-can-i-make-the-wikipedia-api-normalize-and-redirect-without-knowing-the-exac
+
+	BAG:
+	// ne prikazuje preusmerenja u lead, primer buddha;
+	RESENJE:
+	- sad vraca sva preusmerenja za svaki clanak
+
 
 	TODO:
 	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results); page objekti nisu isti, ali mozda mogu da se extenduju

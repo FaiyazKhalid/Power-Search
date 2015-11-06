@@ -16,11 +16,11 @@
 
         params.basic = {
             action: 'query',
-            prop: 'extracts|pageimages|info', // |images| return all images from page
+            prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
             //pithumbsize: 100,	// thumb image size (height?)
             inprop: 'url', // return article url
             redirects: '', // automatically resolve redirects
-            continue: '', // continue the query?
+            // continue: '', // continue the query	https://www.mediawiki.org/wiki/API:Query#Continuing_queries
             format: 'json',
             formatversion: 2,
             callback: 'JSON_CALLBACK'
@@ -37,7 +37,14 @@
             gsrlimit: 20, // broj rezultata, max 50
             pilimit: 'max', // thumb image for all articles
             exlimit: 'max', // extract limit
+			rdlimit: 'max',	// redirects limit
             // imlimit: 'max', // images limit, only if prop:images enabled
+
+			// neprepoznato
+			//srwhat: 'text', // title, text, nearmatch   // default title za sve osim wikipedije, ona je tekst
+			//srprop: 'size',
+			// srinfo: 'totalhits',
+
             exintro: '', // only intro
             exchars: 1250 // character limit
         };
