@@ -37,7 +37,7 @@
 			exlimit: 'max', // extract limit
 			// imlimit: 'max', // images limit, only if prop:images enabled
 			exintro: '', // only intro
-			exchars: 1250
+			exchars: 1250 // character limit
 		};
 
 

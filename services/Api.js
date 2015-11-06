@@ -19,7 +19,6 @@
 
 		api.search = function(params, callback) {
 			var paramUrl = createParamUrl(params);
-			console.log(params);
 			console.log(paramUrl);
 			$http.jsonp(paramUrl)
 				.success(function (data) {
@@ -27,8 +26,7 @@
 					if (!data.query) return;
 					api.results = data.query.pages;
 					api.exactMatch = findExactTerm(Params.getSearchTerm(), api.results);
-					if (api.exactMatch) removeFromResults(api.exactMatch, api.results);
-					callback();
+					if (api.exactMatch) api.open(Params.getArticleParams());
 				})
 				.error(handleErrors);
 			Params.saveSettings();

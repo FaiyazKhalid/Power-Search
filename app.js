@@ -25,6 +25,8 @@
 
 		/*** PUBLIC PROPERTIES ***/
 		wiki.api = Api;
+		wiki.params = Params;
+
 		wiki.languages = StaticData.getLanguages();
 		wiki.projects = StaticData.getProjects();
 
@@ -51,9 +53,7 @@
 			clearAllResults();
 			if(!wiki.searchTerm) return;
 			wiki.setSearchTerm();
-			Api.search(Params.getSearchParams(), function handleResults(){
-				if(wiki.api.exactMatch) wiki.open(wiki.api.exactMatch);
-			});
+			Api.search(Params.getSearchParams());
 		}; // search
 
 
@@ -104,6 +104,7 @@
 			if(newTerm) wiki.searchTerm = newTerm;
 			$location.path(wiki.searchTerm);
 			Params.setSearchTerm(wiki.searchTerm);
+			Params.setArticleTitle(wiki.searchTerm);
 		};	// setSearchTerm
 
 
