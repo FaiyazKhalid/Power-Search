@@ -91,10 +91,11 @@
 		function findExactTerm(searchTerm, results){
 			var found = null;
 			angular.forEach(results, function(result) {
-				if (utils.capitalizeFirst(searchTerm) == result.title) found = result.title;
-				if (searchTerm.toLowerCase() == result.title.toLowerCase()) {
-					found = found || result.title;
-				}
+				if (utils.capitalize(searchTerm) == utils.capitalize(result.title)) found = result.title;
+				// if (utils.capitalizeFirst(searchTerm) == result.title) found = result.title;
+				// if (searchTerm.toLowerCase() == result.title.toLowerCase()) {
+				// 	found = found || result.title;
+				// }
 			});
 			return found;
 		}	// findExactTerm
