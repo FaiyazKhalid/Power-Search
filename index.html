@@ -81,8 +81,8 @@
                         <input type="number" min="1" max="50" ng-model='wiki.params.search.gsrlimit' ng-change='wiki.checkMaxResults(); wiki.search()' class="form-control">
                     </div>
                     <label>
-                        <!-- alphabetical -->
-                        <input type="checkbox" ng-model="wiki.alphabetical" ng-true-value="'title'" ng-false-value="''"> abc
+                        <!-- orderBy -->
+                        <input type="checkbox" ng-model="wiki.params.orderBy" ng-true-value="'title'" ng-false-value="''"> abc
                     </label>
                 </div>
 
@@ -123,7 +123,7 @@
 
             <!-- search results-->
             <div ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
-                <article ng-repeat="page in wiki.api.results | orderBy: wiki.alphabetical" class="articles clearfix" ng-class="{'hidden': page.title == wiki.api.page.title}">
+                <article ng-repeat="page in wiki.api.results | orderBy: wiki.params.orderBy" class="articles clearfix" ng-class="{'hidden': page.title == wiki.api.page.title}">
                     <h2 class="text-info">
                         <span class="pointer" title="Open this article" ng-click="wiki.open(page.title)">{{page.title}}</span>
                     </h2>

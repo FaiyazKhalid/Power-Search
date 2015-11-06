@@ -7,12 +7,12 @@
 	function Params() {
 
 		var params = this;
-
         // default settings
 		params.lang = 'en';
 		params.domain = 'wikipedia';
 		params.searchTerm = 'nula';
 		params.searchFilter = 'prefix:';
+		params.orderBy = '';
 
         params.basic = {
             action: 'query',
