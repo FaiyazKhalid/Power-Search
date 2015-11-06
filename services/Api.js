@@ -96,6 +96,11 @@
 				// if (searchTerm.toLowerCase() == result.title.toLowerCase()) {
 				// 	found = found || result.title;
 				// }
+				for(var redirect in result.redirects) {
+					if(utils.capitalize(searchTerm) == utils.capitalize(result.redirects[redirect].title) ) {
+						found = found || result.title;
+					}
+				}
 			});
 			return found;
 		}	// findExactTerm
