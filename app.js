@@ -1,11 +1,10 @@
 (function () {
 /*
 	TODO:
-	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results); page objekti nisu isti, ali mozda mogu da se extenduju
+	// u interfejs save settings checkbox
 	// uključiti babel
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
-	// u interfejs save settings checkbox i alphabetical/unorder radio
 
 	// pretrazuje datoteke na ostavi:
 	// if (domain == 'commons') searchParams.namespace = 6
@@ -77,8 +76,7 @@
 
 
 		wiki.checkMaxResults = function () {
-			if (wiki.params.maxResults > 50) wiki.params.maxResults = 50;
-			Params.setMaxResults(wiki.params.maxResults);
+			if (wiki.params.search.gsrlimit > 50) wiki.params.search.gsrlimit = 50;
 		}; // checkMaxResults
 
 
