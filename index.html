@@ -99,9 +99,12 @@
 
             <!-- lead article -->
             <div ng-class="wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
-                <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.toggleLeadLarge()">« Back</button>
 
-                <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.searchForLeadTerm(wiki.api.page.title)">Search for this term »</button>
+                <div>
+                    <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.toggleLeadLarge()">« Back</button>
+
+                    <button title="Search for this term" class="btn btn-link pull-right" ng-show="wiki.leadLarge" ng-click="wiki.searchForLeadTerm()">Search for this term »</button>
+                </div>
 
                 <section class='choosen-article-wrapper' ng-show='wiki.api.page'>
                     <article class="choosen-article clearfix">
@@ -120,7 +123,7 @@
 
             <!-- search results-->
             <div ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
-                <article ng-repeat="page in wiki.api.results | orderBy: wiki.alphabetical" class="articles clearfix">
+                <article ng-repeat="page in wiki.api.results | orderBy: wiki.alphabetical" class="articles clearfix" ng-class="{'hidden': page.title == wiki.api.page.title}">
                     <h2 class="text-info">
                         <span class="pointer" title="Open this article" ng-click="wiki.open(page.title)">{{page.title}}</span>
                     </h2>

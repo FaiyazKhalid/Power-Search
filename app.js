@@ -1,7 +1,7 @@
 (function () {
 /*
 	TODO:
-	// u interfejs save settings checkbox
+	// u interfejs save settings checkbox, srediti param save i load
 	// uključiti babel
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
@@ -57,8 +57,8 @@
 		}; // open
 
 
-		wiki.searchForLeadTerm = function (title) {
-			wiki.setSearchTerm(title);
+		wiki.searchForLeadTerm = function () {
+			wiki.setSearchTerm(wiki.api.page.title);
 			wiki.search();
 			wiki.toggleLeadLarge();
 		}; // searchForLeadTerm
