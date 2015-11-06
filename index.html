@@ -34,7 +34,11 @@
                     <div class="wiki-logos">
                         <!-- domain -->
                         <span ng-repeat="project in wiki.projects" >
-                            <img ng-src="{{project.logo}}" alt="{{project.name}}" ng-click="wiki.setDomain(project.name); wiki.search();" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.domain }">
+
+                            <!-- <img ng-src="{{project.logo}}" alt="{{project.name}}" ng-click="wiki.setDomain(project.name); wiki.search();" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.domain }"> -->
+
+                            <input ng-model="wiki.params.domain" type="image" ng-src="{{project.logo}}" alt="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.domain }" ng-click="wiki.setDomain(project.name); wiki.search();" >
+
                         </span>
                         <span class="justify-helper"></span>
                     </div>

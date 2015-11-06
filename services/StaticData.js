@@ -23,28 +23,28 @@
 
         var wikiProjects = [{
             name: 'wikipedia',
-            logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png'
+            logo: 'img/wikipedia-logo.png'
         }, {
             name: 'wiktionary',
-            logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png'
+            logo: 'img/wiktionary-logo.png'
         }, {
             name: 'wikiquote',
-            logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png'
+            logo: 'img/wikiquote-logo.png'
         }, {
             name: 'wikisource',
-            logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png'
+            logo: 'img/wikisource-logo.png'
         }, {
             name: 'wikispecies',
-            logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/48px-Wikispecies-logo.svg.png'
+            logo: 'img/wikispecies-logo.png'
         }, {
             name: 'wikivoyage',
-            logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png'
+            logo: 'img/wikivoyage-logo.png'
         }, {
             name: 'wikinews',
-            logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/48px-Wikinews-logo.svg.png'
+            logo: 'img/wikinews-logo.png'
         }, {
             name: 'commons',
-            logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png'
+            logo: 'img/commons-logo.png'
         }]; // projects
 
 

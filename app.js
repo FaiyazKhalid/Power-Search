@@ -93,8 +93,9 @@
 		};
 
 		wiki.setDomain = function (newDomain){
-			wiki.params.domain = newDomain;
-			Params.setDomain(newDomain);
+			console.log(wiki.params.domain);
+			//wiki.params.domain = newDomain;
+			//Params.setDomain(newDomain);
 		};	// setDomain
 
 		wiki.setSearchTerm = function(newTerm) {
