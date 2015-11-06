@@ -9,6 +9,7 @@
 	// uključiti babel
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
+	// u interfejs save settings checkbox i alphabetical/unorder radio
 
 	// pretrazuje datoteke na ostavi:
 	// if (domain == 'commons') searchParams.namespace = 6
@@ -52,7 +53,7 @@
 
 
 		wiki.search = function () {
-			clearAllResults();
+			//clearAllResults();
 			if(!wiki.params.searchTerm) return;
 			wiki.setSearchTerm();
 			Api.search(Params.getSearchParams());
