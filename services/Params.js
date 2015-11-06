@@ -2,152 +2,96 @@
 	'use strict';
 	angular
 		.module("wikiModul")
-		.factory('Params', Params);
+		.service('Params', Params);
 
 	function Params() {
 
+		var params = this;
         // default settings
-		var lang = 'en';
-		var searchTerm = 'nula';
-		var searchFilter = 'prefix:';
-		var domain = 'wikipedia';
+		params.lang = 'en';
+		params.searchTerm = 'nula';
+		params.searchFilter = 'prefix:';
+		params.domain = 'wikipedia';
 
-		var baseParams = {
-			action: 'query',
-			prop: 'extracts|pageimages|info', // |images| return all images from page
-			//pithumbsize: 100,	// thumb image size (height?)
-			inprop: 'url', // return article url
-			redirects: '', // automatically resolve redirects
-			continue: '', // continue the query?
-			format: 'json',
-			formatversion: 2,
-			callback: 'JSON_CALLBACK'
-		};
+        params.baseParams = {
+            action: 'query',
+            prop: 'extracts|pageimages|info', // |images| return all images from page
+            //pithumbsize: 100,	// thumb image size (height?)
+            inprop: 'url', // return article url
+            redirects: '', // automatically resolve redirects
+            continue: '', // continue the query?
+            format: 'json',
+            formatversion: 2,
+            callback: 'JSON_CALLBACK'
+        };
 
-		var articleParams = {
-			titles: ''
-		};
+        params.articleParams = {
+            titles: ''
+        };
 
-		var searchParams = {
-			generator: 'search',
-			gsrsearch: '',
-			gsrnamespace: 0, // 0 article, 6 file
-			gsrlimit: 20, // broj rezultata, max 50
-			pilimit: 'max', // thumb image for all articles
-			exlimit: 'max', // extract limit
-			// imlimit: 'max', // images limit, only if prop:images enabled
-			exintro: '', // only intro
-			exchars: 1250 // character limit
-		};
+        params.searchParams = {
+            generator: 'search',
+            gsrsearch: '',
+            gsrnamespace: 0, // 0 article, 6 file
+            gsrlimit: 20, // broj rezultata, max 50
+            pilimit: 'max', // thumb image for all articles
+            exlimit: 'max', // extract limit
+            // imlimit: 'max', // images limit, only if prop:images enabled
+            exintro: '', // only intro
+            exchars: 1250 // character limit
+        };
 
 
 		/*** GETTERS ***/
 
-		function getSearchTerm() {
-			return searchTerm;
-		}
-
-		function getLang() {
-			return lang;
-		}
-
-		function getDomain() {
-			return domain;
-		}
-
-		function getMaxResults() {
-			return searchParams.gsrlimit;
-		}
-
-		function getFilter() {
-			return searchFilter;
-		}
-
-		function getArticleParams() {
-			var fullParams = angular.extend(articleParams, baseParams);
+        this.getArticleParams = function() {
+			var fullParams = angular.extend(params.articleParams, params.baseParams);
 			return fullParams;
-		}
+		};
 
-		function getSearchParams() {
-			var fullParams = angular.extend(searchParams, baseParams);
+        this.getSearchParams = function() {
+			var fullParams = angular.extend(params.searchParams, params.baseParams);
 			return fullParams;
-		}
+		};
 
-		function getApiUrl() {
-			var apiUrl = 'http://' + getLang() + '.' + getDomain() + '.org/w/api.php';
-			if (getDomain() == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
+        this.getApiUrl = function() {
+            var apiUrl = 'http://' + params.lang + '.' + params.domain + '.org/w/api.php';
+            if (params.domain == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
             return apiUrl;
-		} // getApiUrl
+        }; // getApiUrl
 
 
 		/*** SETTERS ***/
 
-		function setArticleTitle(newName) {
-			articleParams.titles = newName;
-		}
-
-		function setMaxResults(max) {
-			searchParams.gsrlimit = max;
-		}
-
-		function setFilter(filter) {
-			searchFilter = filter;
-			searchParams.gsrsearch = filter + searchTerm;
-		}
-
-		function setDomain(newDomain) {
-			domain = newDomain;
-		}
-
-		function setSearchTerm(term) {
-			searchTerm = term;
-			searchParams.gsrsearch = searchFilter + term;
-		}
-
-
-		/*** LOAD and SAVE ***/
-
-		function saveSettings() {
-			localStorage.wikiSearchTerm = searchTerm || '';
-			localStorage.wikiFilter = searchFilter || '';
-			localStorage.wikiLang = lang || '';
-			localStorage.wikiMaxResult = searchParams.gsrlimit || '';
-			localStorage.wikiDomain = domain || '';
-		} // saveSettings
-
-		function loadSettings() {
-			lang = localStorage.wikiLang || lang;
-			searchParams.gsrlimit = Number(localStorage.wikiMaxResult || searchParams.gsrlimit);
-			domain = localStorage.wikiDomain || domain;
-			searchTerm = localStorage.wikiSearchTerm || searchTerm;
-			searchFilter = localStorage.wikiFilter || searchFilter;
-			if (localStorage.wikiFilter === '') searchFilter = '';
-		} // loadSettings
-
-
-        /*** PUBLIC ***/
-
-		return {
-			getSearchTerm: getSearchTerm,
-			getFilter: getFilter,
-			getMaxResults: getMaxResults,
-			getLang: getLang,
-			getDomain: getDomain,
-            getArticleParams: getArticleParams,
-			getSearchParams: getSearchParams,
-			getApiUrl: getApiUrl,
-
-			setArticleTitle: setArticleTitle,
-			setSearchTerm: setSearchTerm,
-			setFilter: setFilter,
-			setMaxResults: setMaxResults,
-			setDomain: setDomain,
-
-			saveSettings: saveSettings,
-			loadSettings: loadSettings,
-
-			searchTerm: searchTerm
+        this.setSearchTerm = function(term) {
+			params.searchTerm = term;
+			params.searchParams.gsrsearch = params.searchFilter + term;
 		};
+
+        this.setArticleTitle = function(newName) {
+			params.articleParams.titles = newName;
+		};
+
+
+        /*** LOAD and SAVE ***/
+
+		params.saveSettings = function() {
+			localStorage.wikiSearchTerm = params.searchTerm || '';
+			localStorage.wikiFilter = params.searchFilter || '';
+			localStorage.wikiLang = params.lang || '';
+			localStorage.wikiMaxResult = params.searchParams.gsrlimit || '';
+			localStorage.wikiDomain = params.domain || '';
+		}; // saveSettings
+
+		params.loadSettings = function() {
+			params.lang = localStorage.wikiLang || params.lang;
+			params.searchParams.gsrlimit = Number(localStorage.wikiMaxResult || params.searchParams.gsrlimit);
+			params.domain = localStorage.wikiDomain || params.domain;
+			params.searchTerm = localStorage.wikiSearchTerm || params.searchTerm;
+			params.searchFilter = localStorage.wikiFilter || params.searchFilter;
+			if (localStorage.wikiFilter === '') params.searchFilter = '';
+		}; // loadSettings
+
 
 	} // Params
 

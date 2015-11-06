@@ -8,6 +8,7 @@
 	function Api($http, utils, Params, $rootScope) {
 
         var api = this;
+		api.params = Params;
 		var leadThumbSize = 150;
 
 		api.page = null;
@@ -25,7 +26,7 @@
 					api.exactMatch = null;
 					if (!data.query) return;
 					api.results = data.query.pages;
-					api.exactMatch = findExactTerm(Params.getSearchTerm(), api.results);
+					api.exactMatch = findExactTerm(api.params.searchTerm, api.results);
 					if (api.exactMatch) api.open(Params.getArticleParams());
 				})
 				.error(handleErrors);

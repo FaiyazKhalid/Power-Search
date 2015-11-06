@@ -34,7 +34,7 @@
                 <div class="col-md-6">
                     <div class="wiki-logos">
                         <span ng-repeat="project in wiki.projects" >
-                            <img ng-src="{{project.logo}}" alt="{{project.name}}" ng-click="wiki.setDomain(project.name); wiki.search();" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.domain }">
+                            <img ng-src="{{project.logo}}" alt="{{project.name}}" ng-click="wiki.setDomain(project.name); wiki.search();" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.domain }">
                         </span>
                         <span class="justify-helper"></span>
                     </div>
@@ -56,26 +56,26 @@
                     <div class="form-group text-center">
                         <!-- TODO: create ng repeat -->
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.searchFilter" value="intitle:" ng-change='wiki.setFilter(); wiki.search()'> in title
+                            <input type="radio" ng-model="wiki.params.searchFilter" value="intitle:" ng-change='wiki.setFilter(); wiki.search()'> in title
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.searchFilter" value="" ng-change='wiki.setFilter(); wiki.search()'> content
+                            <input type="radio" ng-model="wiki.params.searchFilter" value="" ng-change='wiki.setFilter(); wiki.search()'> content
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.searchFilter" value="prefix:" ng-change='wiki.setFilter(); wiki.search()'> prefix
+                            <input type="radio" ng-model="wiki.params.searchFilter" value="prefix:" ng-change='wiki.setFilter(); wiki.search()'> prefix
                         </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <select ng-model="wiki.lang" ng-change='wiki.search()' class="form-control">
+                        <select ng-model="wiki.params.lang" ng-change='wiki.search()' class="form-control">
                             <option ng-repeat="lang in wiki.languages" value="{{lang.id}}">{{lang.name}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-1">
                     <div class="form-group">
-                        <input type="number" min="1" max="50" ng-model='wiki.maxResults' ng-change='wiki.checkMaxResults(); wiki.search()' class="form-control">
+                        <input type="number" min="1" max="50" ng-model='wiki.params.maxResults' ng-change='wiki.checkMaxResults(); wiki.search()' class="form-control">
                     </div>
                 </div>
             </form>
@@ -106,7 +106,7 @@
                         <section ng-bind-html='wiki.api.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
 
-                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.api.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.api.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.domain}}</span> >> </a></p>
                 </section>
             </div>
 
@@ -118,7 +118,7 @@
                     </h2>
                     <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
                     <section ng-bind-html='page.extract' ng-dblclick="wiki.selectText()"></section>
-                    <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.domain}}</span> >> </a></p>
                 </article>
             </div>
 

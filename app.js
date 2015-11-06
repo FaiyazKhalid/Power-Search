@@ -4,7 +4,7 @@
 	// ne prikazuje preusmerenja u lead, primer buddha; naci preusmerenja; ako nema exactMatch da pokusa naslepo da otvori?
 
 	TODO:
-	// vezati parametre direktno za ng model, pretvoriti Params u service
+	// vezati parametre direktno za ng model
 	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results); page objekti nisu isti, ali mozda mogu da se extenduju
 	// uključiti babel
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
@@ -28,17 +28,12 @@
 		/*** PUBLIC PROPERTIES ***/
 		wiki.api = Api;
 		wiki.params = Params;
-		console.log(wiki.params.searchTerm);
+		console.log(wiki.params.lang);
 
 		wiki.languages = StaticData.getLanguages();
 		wiki.projects = StaticData.getProjects();
 
 		// initial
-		wiki.lang = Params.getLang();
-		wiki.domain = Params.getDomain();
-		wiki.params.searchTerm = Params.getSearchTerm();
-		wiki.searchFilter = Params.getFilter();
-		wiki.maxResults = Params.getMaxResults();
 		wiki.leadLarge = false;
 
 
@@ -53,7 +48,7 @@
 
 
 		wiki.search = function () {
-			//clearAllResults();
+			clearAllResults();
 			if(!wiki.params.searchTerm) return;
 			wiki.setSearchTerm();
 			Api.search(Params.getSearchParams());
@@ -87,19 +82,19 @@
 
 
 		wiki.checkMaxResults = function () {
-			if (wiki.maxResults > 50) wiki.maxResults = 50;
-			Params.setMaxResults(wiki.maxResults);
+			if (wiki.params.maxResults > 50) wiki.params.maxResults = 50;
+			Params.setMaxResults(wiki.params.maxResults);
 		}; // checkMaxResults
 
 
 		/*** SETTERS ***/
 
 		wiki.setFilter = function(){
-			Params.setFilter(wiki.searchFilter);
+			Params.setFilter(wiki.params.searchFilter);
 		};
 
 		wiki.setDomain = function (newDomain){
-			wiki.domain = newDomain;
+			wiki.params.domain = newDomain;
 			Params.setDomain(newDomain);
 		};	// setDomain
 
