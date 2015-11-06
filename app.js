@@ -4,6 +4,7 @@
 	// ne prikazuje preusmerenja u lead, primer buddha; naci preusmerenja; ako nema exactMatch da pokusa naslepo da otvori?
 
 	TODO:
+	// vezati parametre direktno za ng model, pretvoriti Params u service
 	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results); page objekti nisu isti, ali mozda mogu da se extenduju
 	// uključiti babel
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
@@ -26,6 +27,7 @@
 		/*** PUBLIC PROPERTIES ***/
 		wiki.api = Api;
 		wiki.params = Params;
+		console.log(wiki.params.searchTerm);
 
 		wiki.languages = StaticData.getLanguages();
 		wiki.projects = StaticData.getProjects();
@@ -33,7 +35,7 @@
 		// initial
 		wiki.lang = Params.getLang();
 		wiki.domain = Params.getDomain();
-		wiki.searchTerm = Params.getSearchTerm();
+		wiki.params.searchTerm = Params.getSearchTerm();
 		wiki.searchFilter = Params.getFilter();
 		wiki.maxResults = Params.getMaxResults();
 		wiki.leadLarge = false;
@@ -51,7 +53,7 @@
 
 		wiki.search = function () {
 			clearAllResults();
-			if(!wiki.searchTerm) return;
+			if(!wiki.params.searchTerm) return;
 			wiki.setSearchTerm();
 			Api.search(Params.getSearchParams());
 		}; // search
@@ -79,7 +81,7 @@
 
 		wiki.selectText = function () {
 			var text = $window.getSelection().toString();
-			wiki.searchTerm = text;
+			wiki.params.searchTerm = text;
 		}; // toggleLeadLarge
 
 
@@ -101,10 +103,10 @@
 		};	// setDomain
 
 		wiki.setSearchTerm = function(newTerm) {
-			if(newTerm) wiki.searchTerm = newTerm;
-			$location.path(wiki.searchTerm);
-			Params.setSearchTerm(wiki.searchTerm);
-			Params.setArticleTitle(wiki.searchTerm);
+			if(newTerm) wiki.params.searchTerm = newTerm;
+			$location.path(wiki.params.searchTerm);
+			Params.setSearchTerm(wiki.params.searchTerm);
+			Params.setArticleTitle(wiki.params.searchTerm);
 		};	// setSearchTerm
 
 
@@ -127,7 +129,7 @@
 		} // clearAllResults
 
 		function readUrlTerm() {
-			wiki.searchTerm = $location.path().substr(1) || wiki.searchTerm;
+			wiki.params.searchTerm = $location.path().substr(1) || wiki.params.searchTerm;
 		}
 
 

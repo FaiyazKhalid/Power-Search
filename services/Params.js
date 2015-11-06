@@ -144,7 +144,9 @@
 			setDomain: setDomain,
 
 			saveSettings: saveSettings,
-			loadSettings: loadSettings
+			loadSettings: loadSettings,
+
+			searchTerm: searchTerm
 		};
 
 	} // Params
