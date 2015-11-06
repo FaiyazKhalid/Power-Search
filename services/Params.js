@@ -72,10 +72,6 @@
 			params.article.titles = newName;
 		};
 
-        this.setDomain = function(newDomain) {
-            params.domain = newDomain;
-        };
-
 
         /*** LOAD and SAVE ***/
 

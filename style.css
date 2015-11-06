@@ -55,9 +55,12 @@
     text-align: justify;
 }
 
+.wiki-logos label {
+    display: inline;    /* becouse of justify */
+}
+
 .wiki-logos img {
     cursor: pointer;
-    /*display: inline-block;*/
 }
 
 .search-wrapper {
