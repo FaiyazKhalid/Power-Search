@@ -87,10 +87,6 @@
 
 		/*** SETTERS ***/
 
-		wiki.setFilter = function(){
-			Params.updateSearchTerm();
-		};
-
 		wiki.setSearchTerm = function(newTerm) {
 			if(newTerm) wiki.params.searchTerm = newTerm;
 			$location.path(wiki.params.searchTerm);

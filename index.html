@@ -57,13 +57,13 @@
                         <!-- filters -->
                         <!-- TODO: create ng repeat -->
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.params.searchFilter" value="intitle:" ng-change='wiki.setFilter(); wiki.search()'> in title
+                            <input type="radio" ng-model="wiki.params.searchFilter" value="intitle:" ng-change='wiki.search()'> in title
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.params.searchFilter" value="" ng-change='wiki.setFilter(); wiki.search()'> content
+                            <input type="radio" ng-model="wiki.params.searchFilter" value="" ng-change='wiki.search()'> content
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.params.searchFilter" value="prefix:" ng-change='wiki.setFilter(); wiki.search()'> prefix
+                            <input type="radio" ng-model="wiki.params.searchFilter" value="prefix:" ng-change='wiki.search()'> prefix
                         </label>
                     </div>
                 </div>
