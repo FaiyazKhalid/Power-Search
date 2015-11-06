@@ -4,7 +4,7 @@
 	// ne prikazuje preusmerenja u lead, primer buddha; naci preusmerenja; ako nema exactMatch da pokusa naslepo da otvori?
 
 	TODO:
-	// vezati parametre direktno za ng model
+	// vezati parametre direktno za ng model, domain
 	// kad izaberem clanak sa liste da se iz rezultata premesti u glavni, i obratno (da moze da se vraca u results); page objekti nisu isti, ali mozda mogu da se extenduju
 	// uključiti babel
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
@@ -28,7 +28,6 @@
 		/*** PUBLIC PROPERTIES ***/
 		wiki.api = Api;
 		wiki.params = Params;
-		console.log(wiki.params.lang);
 
 		wiki.languages = StaticData.getLanguages();
 		wiki.projects = StaticData.getProjects();
@@ -90,7 +89,7 @@
 		/*** SETTERS ***/
 
 		wiki.setFilter = function(){
-			Params.setFilter(wiki.params.searchFilter);
+			Params.updateSearchTerm();
 		};
 
 		wiki.setDomain = function (newDomain){
@@ -101,7 +100,7 @@
 		wiki.setSearchTerm = function(newTerm) {
 			if(newTerm) wiki.params.searchTerm = newTerm;
 			$location.path(wiki.params.searchTerm);
-			Params.setSearchTerm(wiki.params.searchTerm);
+			Params.updateSearchTerm();
 			Params.setArticleTitle(wiki.params.searchTerm);
 		};	// setSearchTerm
 

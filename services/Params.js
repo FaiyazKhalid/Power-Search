@@ -32,7 +32,7 @@
 
         params.search = {
             generator: 'search',
-            gsrsearch: '',
+            gsrsearch: '',  // searchTerm + searchFilter
             gsrnamespace: 0, // 0 article, 6 file
             gsrlimit: 20, // broj rezultata, max 50
             pilimit: 'max', // thumb image for all articles
@@ -64,9 +64,8 @@
 
 		/*** SETTERS ***/
 
-        this.setSearchTerm = function(term) {
-			params.searchTerm = term;
-			params.search.gsrsearch = params.searchFilter + term;
+        this.updateSearchTerm = function() {
+			params.search.gsrsearch = params.searchFilter + params.searchTerm;
 		};
 
         this.setArticleTitle = function(newName) {
@@ -76,11 +75,6 @@
         this.setDomain = function(newDomain) {
             params.domain = newDomain;
         };
-
-        this.setFilter = function(filter) {
-			params.searchFilter = filter;
-			params.search.gsrsearch = filter + params.searchTerm;
-		};
 
 
         /*** LOAD and SAVE ***/

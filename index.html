@@ -25,14 +25,14 @@
 
     <header class="header">
         <section class="container">
-
-            <!-- wiki projects -->
             <div class="logo-wrap row">
                 <div class="col-md-6">
                     <h1>Wikipedia power search</h1>
                 </div>
+                <!-- search criteria -->
                 <div class="col-md-6">
                     <div class="wiki-logos">
+                        <!-- domain -->
                         <span ng-repeat="project in wiki.projects" >
                             <img ng-src="{{project.logo}}" alt="{{project.name}}" ng-click="wiki.setDomain(project.name); wiki.search();" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.domain }">
                         </span>
@@ -41,19 +41,19 @@
                 </div>
             </div>
 
-            <!-- search criteria -->
             <form class="search-form row" role="form">
                 <div class="col-md-6">
                     <div class="search-wrapper form-group">
                         <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.search()'>
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
-                        <!-- search field -->
+                        <!-- input field -->
                         <input ng-model='wiki.params.searchTerm' ng-change='wiki.search()' class="form-control input-lg" autofocus>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center">
+                        <!-- filters -->
                         <!-- TODO: create ng repeat -->
                         <label class="radio-inline">
                             <input type="radio" ng-model="wiki.params.searchFilter" value="intitle:" ng-change='wiki.setFilter(); wiki.search()'> in title
@@ -68,6 +68,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
+                        <!-- lang -->
                         <select ng-model="wiki.params.lang" ng-change='wiki.search()' class="form-control">
                             <option ng-repeat="lang in wiki.languages" value="{{lang.id}}">{{lang.name}}</option>
                         </select>
@@ -75,6 +76,7 @@
                 </div>
                 <div class="col-md-1">
                     <div class="form-group">
+                        <!-- maxResults -->
                         <input type="number" min="1" max="50" ng-model='wiki.params.maxResults' ng-change='wiki.checkMaxResults(); wiki.search()' class="form-control">
                     </div>
                 </div>
