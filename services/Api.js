@@ -27,7 +27,9 @@
 					if (!data.query) return;
 					api.results = data.query.pages;
 					api.exactMatch = findExactTerm(api.params.searchTerm, api.results);
-					if (api.exactMatch) api.open(Params.getArticleParams());
+					if (!api.exactMatch) return;
+					api.params.setArticleTitle(api.exactMatch);
+					api.open(Params.getArticleParams());
 				})
 				.error(handleErrors);
 			Params.saveSettings();
