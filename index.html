@@ -33,7 +33,7 @@
                 <div class="col-md-6">
                     <div class="wiki-logos">
                         <!-- domain -->
-                        <label ng-repeat="project in wiki.projects" >
+                        <label ng-repeat="project in wiki.projects">
                             <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.domain }">
                             <input type="radio" ng-model="wiki.params.domain" value="{{project.name}}" ng-click="wiki.search();">
                         </label>
