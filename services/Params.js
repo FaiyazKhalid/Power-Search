@@ -7,13 +7,14 @@
 	function Params() {
 
 		var params = this;
+
         // default settings
 		params.lang = 'en';
+		params.domain = 'wikipedia';
 		params.searchTerm = 'nula';
 		params.searchFilter = 'prefix:';
-		params.domain = 'wikipedia';
 
-        params.baseParams = {
+        params.basic = {
             action: 'query',
             prop: 'extracts|pageimages|info', // |images| return all images from page
             //pithumbsize: 100,	// thumb image size (height?)
@@ -25,11 +26,11 @@
             callback: 'JSON_CALLBACK'
         };
 
-        params.articleParams = {
+        params.article = {
             titles: ''
         };
 
-        params.searchParams = {
+        params.search = {
             generator: 'search',
             gsrsearch: '',
             gsrnamespace: 0, // 0 article, 6 file
@@ -45,12 +46,12 @@
 		/*** GETTERS ***/
 
         this.getArticleParams = function() {
-			var fullParams = angular.extend(params.articleParams, params.baseParams);
+			var fullParams = angular.extend(params.article, params.basic);
 			return fullParams;
 		};
 
         this.getSearchParams = function() {
-			var fullParams = angular.extend(params.searchParams, params.baseParams);
+			var fullParams = angular.extend(params.search, params.basic);
 			return fullParams;
 		};
 
@@ -65,11 +66,20 @@
 
         this.setSearchTerm = function(term) {
 			params.searchTerm = term;
-			params.searchParams.gsrsearch = params.searchFilter + term;
+			params.search.gsrsearch = params.searchFilter + term;
 		};
 
         this.setArticleTitle = function(newName) {
-			params.articleParams.titles = newName;
+			params.article.titles = newName;
+		};
+
+        this.setDomain = function(newDomain) {
+            params.domain = newDomain;
+        };
+
+        this.setFilter = function(filter) {
+			params.searchFilter = filter;
+			params.search.gsrsearch = filter + params.searchTerm;
 		};
 
 
@@ -79,13 +89,13 @@
 			localStorage.wikiSearchTerm = params.searchTerm || '';
 			localStorage.wikiFilter = params.searchFilter || '';
 			localStorage.wikiLang = params.lang || '';
-			localStorage.wikiMaxResult = params.searchParams.gsrlimit || '';
+			localStorage.wikiMaxResult = params.search.gsrlimit || '';
 			localStorage.wikiDomain = params.domain || '';
 		}; // saveSettings
 
 		params.loadSettings = function() {
 			params.lang = localStorage.wikiLang || params.lang;
-			params.searchParams.gsrlimit = Number(localStorage.wikiMaxResult || params.searchParams.gsrlimit);
+			params.search.gsrlimit = Number(localStorage.wikiMaxResult || params.search.gsrlimit);
 			params.domain = localStorage.wikiDomain || params.domain;
 			params.searchTerm = localStorage.wikiSearchTerm || params.searchTerm;
 			params.searchFilter = localStorage.wikiFilter || params.searchFilter;
