@@ -43,7 +43,7 @@
 
 		wiki.search = function () {
 			clearAllResults();
-			if(!wiki.params.searchTerm) return;
+			if(!wiki.params.settings.searchTerm) return;
 			wiki.setSearchTerm();
 			Api.search(Params.getSearchParams());
 		}; // search
@@ -71,7 +71,7 @@
 
 		wiki.selectText = function () {
 			var text = $window.getSelection().toString();
-			wiki.params.searchTerm = text;
+			wiki.params.settings.searchTerm = text;
 		}; // toggleLeadLarge
 
 
@@ -83,10 +83,10 @@
 		/*** SETTERS ***/
 
 		wiki.setSearchTerm = function(newTerm) {
-			if(newTerm) wiki.params.searchTerm = newTerm;
-			$location.path(wiki.params.searchTerm);
+			if(newTerm) wiki.params.settings.searchTerm = newTerm;
+			$location.path(wiki.params.settings.searchTerm);
 			Params.updateSearchTerm();
-			Params.setArticleTitle(wiki.params.searchTerm);
+			Params.setArticleTitle(wiki.params.settings.searchTerm);
 		};	// setSearchTerm
 
 
@@ -109,7 +109,7 @@
 		} // clearAllResults
 
 		function readUrlTerm() {
-			wiki.params.searchTerm = $location.path().substr(1) || wiki.params.searchTerm;
+			wiki.params.settings.searchTerm = $location.path().substr(1) || wiki.params.settings.searchTerm;
 		}
 
 

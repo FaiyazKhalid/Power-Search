@@ -8,18 +8,21 @@
 
 		var params = this;
 		params.filters = ['intitle:', '', 'prefix:'];
-		
-        // default settings
-		params.lang = 'en';
-		params.domain = 'wikipedia';
-		params.searchTerm = 'zen';
-		params.searchFilter = 'intitle:';
-		params.orderBy = '';
 
+        // default user settings
+		params.settings = {
+			lang: 'en',
+			domain: 'wikipedia',
+			searchTerm: 'zen',
+			searchFilter: params.filters[0],
+			orderBy: ''
+		};
+
+		// basic api params
         params.basic = {
             action: 'query',
             prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
-            //pithumbsize: 100,	// thumb size (height?)
+            //pithumbsize: 200,	// thumb size (height?)
             inprop: 'url', // return article url
             redirects: '', // automatically resolve redirects
             format: 'json',
@@ -58,8 +61,8 @@
 		};
 
         this.getApiUrl = function() {
-            var apiUrl = 'http://' + params.lang + '.' + params.domain + '.org/w/api.php';
-            if (params.domain == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
+            var apiUrl = 'http://' + params.settings.lang + '.' + params.settings.domain + '.org/w/api.php';
+            if (params.settings.domain == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
             return apiUrl;
         }; // getApiUrl
 
@@ -67,7 +70,7 @@
 		/*** SETTERS ***/
 
         this.updateSearchTerm = function() {
-			params.search.gsrsearch = params.searchFilter + params.searchTerm;
+			params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
 		};
 
         this.setArticleTitle = function(newName) {
@@ -78,22 +81,12 @@
         /*** LOAD and SAVE ***/
 
 		params.saveSettings = function() {
-			localStorage.wikiSearchTerm = params.searchTerm || '';
-			localStorage.wikiFilter = params.searchFilter || '';
-			localStorage.wikiLang = params.lang || '';
-			localStorage.wikiMaxResult = params.search.gsrlimit || '';
-			localStorage.wikiDomain = params.domain || '';
+			localStorage.wikiSettings = JSON.stringify(params.settings);
 		}; // saveSettings
 
 		params.loadSettings = function() {
-			params.lang = localStorage.wikiLang || params.lang;
-			params.search.gsrlimit = Number(localStorage.wikiMaxResult || params.search.gsrlimit);
-			params.domain = localStorage.wikiDomain || params.domain;
-			params.searchTerm = localStorage.wikiSearchTerm || params.searchTerm;
-			params.searchFilter = localStorage.wikiFilter || params.searchFilter;
-			if (localStorage.wikiFilter === '') params.searchFilter = '';
+			params.settings = JSON.parse(localStorage.wikiSettings);
 		}; // loadSettings
-
 
 	} // Params
 

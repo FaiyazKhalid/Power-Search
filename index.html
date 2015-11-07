@@ -34,8 +34,8 @@
                     <div class="wiki-logos">
                         <!-- domain -->
                         <label ng-repeat="project in wiki.projects">
-                            <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.domain }">
-                            <input type="radio" ng-model="wiki.params.domain" value="{{project.name}}" ng-click="wiki.search()">
+                            <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.settings.domain }">
+                            <input type="radio" ng-model="wiki.params.settings.domain" value="{{project.name}}" ng-click="wiki.search()">
                         </label>
                         <span class="justify-helper"></span>
                     </div>
@@ -49,21 +49,21 @@
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <!-- search field -->
-                        <input ng-model='wiki.params.searchTerm' ng-change='wiki.search()' class="form-control input-lg" autofocus>
+                        <input ng-model='wiki.params.settings.searchTerm' ng-change='wiki.search()' class="form-control input-lg" autofocus>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center">
                         <!-- filters -->
                         <label ng-repeat="filter in wiki.params.filters" class="radio-inline">
-                            <input type="radio" ng-model="wiki.params.searchFilter" value="{{filter}}" ng-change="wiki.search()"> {{filter || 'content'}}
+                            <input type="radio" ng-model="wiki.params.settings.searchFilter" value="{{filter}}" ng-change="wiki.search()"> {{filter || 'content'}}
                         </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         <!-- lang -->
-                        <select ng-model="wiki.params.lang" ng-change='wiki.search()' class="form-control">
+                        <select ng-model="wiki.params.settings.lang" ng-change='wiki.search()' class="form-control">
                             <option ng-repeat="lang in wiki.languages" value="{{lang.id}}">{{lang.name}}</option>
                         </select>
                     </div>
@@ -75,7 +75,7 @@
                     </div>
                     <label>
                         <!-- orderBy -->
-                        <input type="checkbox" ng-model="wiki.params.orderBy" ng-true-value="'title'" ng-false-value="''"> abc
+                        <input type="checkbox" ng-model="wiki.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''"> abc
                     </label>
                 </div>
             </form>
@@ -108,19 +108,19 @@
                         <section ng-bind-html='wiki.api.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
 
-                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.api.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{wiki.api.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.settings.domain}}</span> >> </a></p>
                 </section>
             </div>
 
             <!-- search results-->
             <div ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
-                <article ng-repeat="page in wiki.api.results | orderBy: wiki.params.orderBy" class="articles clearfix" ng-class="{'hidden': page.title == wiki.api.page.title}">
+                <article ng-repeat="page in wiki.api.results | orderBy: wiki.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': page.title == wiki.api.page.title}">
                     <h2 class="text-info">
                         <span class="pointer" title="Open this article" ng-click="wiki.open(page.title)">{{page.title}}</span>
                     </h2>
                     <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
                     <section ng-bind-html='page.extract' ng-dblclick="wiki.selectText()"></section>
-                    <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.settings.domain}}</span> >> </a></p>
                 </article>
             </div>
 
