@@ -80,10 +80,9 @@
 		}; // checkMaxResults
 
 
-		wiki.resetSettings = function() {
-			Params.resetSettings();
-			resetPath();
-			location.reload();
+		wiki.resetAndReload = function() {
+			resetSearchTerm();
+			$window.location.reload();
 		};	// setSearchTerm
 
 
@@ -108,15 +107,20 @@
 
 		/*** PRIVATE FUNCTIONS ***/
 
-		function resetError() {
-			wiki.api.error = "";
-		}	// resetError
+		function resetSearchTerm() {
+			wiki.params.settings.searchTerm = '';
+			resetPath();
+		}
 
 		function resetLeadArticle(){
 			wiki.api.page = '';
 			wiki.api.imageThumbUrl = '';
 			wiki.api.imageUrl = '';
 		}	// resetLeadArticle
+
+		function resetError() {
+			wiki.api.error = "";
+		}	// resetError
 
 		function clearAllResults() {
 			resetError();

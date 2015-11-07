@@ -27,7 +27,7 @@
         <section class="container">
             <div class="logo-wrap row">
                 <div class="col-md-6">
-                    <h1><a href="index.html" ng-click="wiki.resetSettings()">Wikipedia power search</a></h1>
+                    <h1><a href="index.html" ng-click="wiki.resetAndReload()">Wikipedia power search</a></h1>
                 </div>
                 <!-- search criteria -->
                 <form class="col-md-6" role="form">
@@ -67,7 +67,7 @@
                             <option ng-repeat="lang in wiki.languages" value="{{lang.id}}">{{lang.name}}</option>
                         </select>
                     </div>
-                    <label>
+                    <label class="checkbox-inline">
                         <!-- remember -->
                         <input type="checkbox" ng-model="wiki.params.settings.remember" ng-change="wiki.rememberSettings()">
                         <small>remember settings</small>
@@ -78,9 +78,9 @@
                         <!-- maxResults -->
                         <input type="number" min="1" max="50" ng-model='wiki.params.search.gsrlimit' ng-change='wiki.checkMaxResults(); wiki.search()' class="form-control input-sm">
                     </div>
-                    <label>
+                    <label class="checkbox-inline">
                         <!-- orderBy -->
-                        <input type="checkbox" ng-model="wiki.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''"> <small>abc sort</small>
+                        <input type="checkbox" ng-model="wiki.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''"> <small>alphabetical</small>
                     </label>
                 </div>
             </form>
@@ -89,20 +89,16 @@
 
 
     <main class="container main" ng-cloak>
-
         <p>{{wiki.api.error}}</p>
-
         <div class="row">
 
             <!-- lead article -->
             <div ng-class="wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
-
                 <div>
                     <button title="Back to serch results" class="btn btn-link" ng-show="wiki.leadLarge" ng-click="wiki.toggleLeadLarge()">« Back</button>
 
                     <button title="Search for this term" class="btn btn-link pull-right" ng-show="wiki.leadLarge" ng-click="wiki.searchForLeadTerm()">Search for this term »</button>
                 </div>
-
                 <section class='choosen-article-wrapper' ng-show='wiki.api.page'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
