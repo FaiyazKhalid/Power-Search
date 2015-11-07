@@ -63,29 +63,30 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <!-- lang -->
-                        <select ng-model="wiki.params.settings.lang" ng-change='wiki.search()' class="form-control">
+                        <select ng-model="wiki.params.settings.lang" ng-change='wiki.search()' class="form-control input-sm">
                             <option ng-repeat="lang in wiki.languages" value="{{lang.id}}">{{lang.name}}</option>
                         </select>
                     </div>
                     <label>
-                        <!-- autosave -->
-                        <input type="checkbox" ng-model="wiki.params.settings.autosave">
+                        <!-- remember -->
+                        <input type="checkbox" ng-model="wiki.params.settings.remember" ng-change="wiki.rememberSettings()">
                         <small>remember settings</small>
                     </label>
                 </div>
                 <div class="col-md-1">
                     <div class="form-group">
                         <!-- maxResults -->
-                        <input type="number" min="1" max="50" ng-model='wiki.params.search.gsrlimit' ng-change='wiki.checkMaxResults(); wiki.search()' class="form-control">
+                        <input type="number" min="1" max="50" ng-model='wiki.params.search.gsrlimit' ng-change='wiki.checkMaxResults(); wiki.search()' class="form-control input-sm">
                     </div>
                     <label>
                         <!-- orderBy -->
-                        <input type="checkbox" ng-model="wiki.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''"> <small>abc</small>
+                        <input type="checkbox" ng-model="wiki.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''"> <small>abc sort</small>
                     </label>
                 </div>
             </form>
         </section>
     </header>
+
 
     <main class="container main" ng-cloak>
 

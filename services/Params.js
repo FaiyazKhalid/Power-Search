@@ -16,7 +16,7 @@
 			searchTerm: '',
 			searchFilter: params.filters[0],
 			orderBy: '',
-			autosave: false
+			remember: false
 		};
 
 		// basic api params
@@ -82,7 +82,7 @@
         /*** STORAGE ***/
 
 		params.saveSettings = function() {
-			if(params.settings.autosave) {
+			if(params.settings.remember) {
 				localStorage.wikiSettings = JSON.stringify(params.settings);
 			}
 		}; // saveSettings
