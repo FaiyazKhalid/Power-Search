@@ -93,13 +93,6 @@
 			if (localStorage.searchParams) params.search = JSON.parse(localStorage.searchParams);
 		}; // loadSettings
 
-		params.resetSettings = function () {
-			for(var key in params.settings) {
-				params.settings[key] = null;
-			}
-			params.deleteStorage();
-		}; // resetSettings
-
 		params.deleteStorage = function () {
 			localStorage.removeItem("wikiSettings");
 			localStorage.removeItem("searchParams");
