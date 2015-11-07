@@ -70,7 +70,7 @@
 
 		/*** SETTERS ***/
 
-        this.updateSearchTerm = function() {
+        this.setSearchTerm = function() {
 			params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
 		};
 
@@ -84,24 +84,25 @@
 		params.saveSettings = function() {
 			if(params.settings.remember) {
 				localStorage.wikiSettings = JSON.stringify(params.settings);
+				localStorage.searchParams = JSON.stringify(params.search);
 			}
 		}; // saveSettings
 
 		params.loadSettings = function() {
-			if(localStorage.wikiSettings) {
-				params.settings = JSON.parse(localStorage.wikiSettings);
-			}
+			if(localStorage.wikiSettings) params.settings = JSON.parse(localStorage.wikiSettings);
+			if (localStorage.searchParams) params.search = JSON.parse(localStorage.searchParams);
 		}; // loadSettings
 
 		params.resetSettings = function () {
-			for(var param in params.settings) {
-				params.settings[param] = null;
+			for(var key in params.settings) {
+				params.settings[key] = null;
 			}
 			params.deleteStorage();
 		}; // resetSettings
 
 		params.deleteStorage = function () {
 			localStorage.removeItem("wikiSettings");
+			localStorage.removeItem("searchParams");
 		}; // deleteSettings
 
 	} // Params

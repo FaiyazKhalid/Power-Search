@@ -7,6 +7,9 @@
 
 	// pretrazuje datoteke na ostavi:
 	// if (domain == 'commons') searchParams.namespace = 6
+
+	BAG:
+	dolazi do greske kada pretrazuje projekte na kojima nema sh jezik
 */
 	'use strict';
 	angular
@@ -86,7 +89,7 @@
 		};	// setSearchTerm
 
 
-		wiki.rememberSettings = function() {
+		wiki.remember = function() {
 			if(wiki.params.settings.remember) {
 				Params.saveSettings();
 			} else {
@@ -100,7 +103,7 @@
 		wiki.setSearchTerm = function(newTerm) {
 			if(newTerm) wiki.params.settings.searchTerm = newTerm;
 			setPath();
-			Params.updateSearchTerm();
+			Params.setSearchTerm();
 			Params.setArticleTitle(wiki.params.settings.searchTerm);
 		};	// setSearchTerm
 
