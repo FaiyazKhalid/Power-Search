@@ -13,9 +13,10 @@
 		params.settings = {
 			lang: 'en',
 			domain: 'wikipedia',
-			searchTerm: 'zen',
+			searchTerm: '',
 			searchFilter: params.filters[0],
-			orderBy: ''
+			orderBy: '',
+			autosave: false
 		};
 
 		// basic api params
@@ -78,15 +79,30 @@
 		};
 
 
-        /*** LOAD and SAVE ***/
+        /*** STORAGE ***/
 
 		params.saveSettings = function() {
-			localStorage.wikiSettings = JSON.stringify(params.settings);
+			if(params.settings.autosave) {
+				localStorage.wikiSettings = JSON.stringify(params.settings);
+			}
 		}; // saveSettings
 
 		params.loadSettings = function() {
-			params.settings = JSON.parse(localStorage.wikiSettings);
+			if(localStorage.wikiSettings) {
+				params.settings = JSON.parse(localStorage.wikiSettings);
+			}
 		}; // loadSettings
+
+		params.resetSettings = function () {
+			for(var param in params.settings) {
+				params.settings[param] = null;
+			}
+			params.deleteStorage();
+		}; // resetSettings
+
+		params.deleteStorage = function () {
+			localStorage.removeItem("wikiSettings");
+		}; // deleteSettings
 
 	} // Params
 

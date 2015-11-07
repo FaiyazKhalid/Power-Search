@@ -32,7 +32,6 @@
 					api.open(Params.getArticleParams());
 				})
 				.error(handleErrors);
-			Params.saveSettings();
 		}; // search
 
 
@@ -115,7 +114,7 @@
 		} // removeFromResults
 
 		function handleErrors(data, status, headers, config) {
-			wiki.error = "Oh no, there was some error in geting data: " + status;
+			api.error = "Oh no, there was some error in geting data: " + status;
 		} // handleErrors
 
 	} // Api

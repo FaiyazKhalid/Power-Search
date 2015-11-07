@@ -1,7 +1,7 @@
 (function () {
 /*
 	TODO:
-	// u interfejs save settings checkbox, srediti param save i load
+	// save settings checkbox
 	// uključiti babel
 	// napraviti gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
@@ -46,6 +46,7 @@
 			if(!wiki.params.settings.searchTerm) return;
 			wiki.setSearchTerm();
 			Api.search(Params.getSearchParams());
+			Params.saveSettings();
 		}; // search
 
 
@@ -79,12 +80,18 @@
 			if (wiki.params.search.gsrlimit > 50) wiki.params.search.gsrlimit = 50;
 		}; // checkMaxResults
 
+		wiki.resetSettings = function() {
+			Params.resetSettings();
+			resetUrlTerm();
+			location.reload();
+		};	// setSearchTerm
+
 
 		/*** SETTERS ***/
 
 		wiki.setSearchTerm = function(newTerm) {
 			if(newTerm) wiki.params.settings.searchTerm = newTerm;
-			$location.path(wiki.params.settings.searchTerm);
+			writeUrlTerm();
 			Params.updateSearchTerm();
 			Params.setArticleTitle(wiki.params.settings.searchTerm);
 		};	// setSearchTerm
@@ -112,6 +119,13 @@
 			wiki.params.settings.searchTerm = $location.path().substr(1) || wiki.params.settings.searchTerm;
 		}
 
+		function writeUrlTerm() {
+			$location.path(wiki.params.settings.searchTerm);
+		}
+
+		function resetUrlTerm() {
+			$location.path("");
+		}
 
 	} // WikiController
 
