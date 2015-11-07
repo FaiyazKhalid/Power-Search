@@ -10,8 +10,8 @@
         // default settings
 		params.lang = 'en';
 		params.domain = 'wikipedia';
-		params.searchTerm = 'nula';
-		params.searchFilter = 'prefix:';
+		params.searchTerm = 'zen';
+		params.searchFilter = 'intitle:';
 		params.orderBy = '';
 
         params.basic = {
