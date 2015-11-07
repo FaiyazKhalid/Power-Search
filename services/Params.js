@@ -7,6 +7,8 @@
 	function Params() {
 
 		var params = this;
+		params.filters = ['intitle:', '', 'prefix:'];
+		
         // default settings
 		params.lang = 'en';
 		params.domain = 'wikipedia';

@@ -30,16 +30,16 @@
                     <h1>Wikipedia power search</h1>
                 </div>
                 <!-- search criteria -->
-                <div class="col-md-6">
+                <form class="col-md-6" role="form">
                     <div class="wiki-logos">
                         <!-- domain -->
                         <label ng-repeat="project in wiki.projects">
                             <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.domain }">
-                            <input type="radio" ng-model="wiki.params.domain" value="{{project.name}}" ng-click="wiki.search();">
+                            <input type="radio" ng-model="wiki.params.domain" value="{{project.name}}" ng-click="wiki.search()">
                         </label>
                         <span class="justify-helper"></span>
                     </div>
-                </div>
+                </form>
             </div>
 
             <form class="search-form row" role="form">
@@ -48,22 +48,15 @@
                         <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.search()'>
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
-                        <!-- input field -->
+                        <!-- search field -->
                         <input ng-model='wiki.params.searchTerm' ng-change='wiki.search()' class="form-control input-lg" autofocus>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center">
                         <!-- filters -->
-                        <!-- TODO: create ng repeat -->
-                        <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.params.searchFilter" value="intitle:" ng-change='wiki.search()'> in title
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.params.searchFilter" value="" ng-change='wiki.search()'> content
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" ng-model="wiki.params.searchFilter" value="prefix:" ng-change='wiki.search()'> prefix
+                        <label ng-repeat="filter in wiki.params.filters" class="radio-inline">
+                            <input type="radio" ng-model="wiki.params.searchFilter" value="{{filter}}" ng-change="wiki.search()"> {{filter || 'content'}}
                         </label>
                     </div>
                 </div>
@@ -85,9 +78,7 @@
                         <input type="checkbox" ng-model="wiki.params.orderBy" ng-true-value="'title'" ng-false-value="''"> abc
                     </label>
                 </div>
-
             </form>
-
         </section>
     </header>
 
