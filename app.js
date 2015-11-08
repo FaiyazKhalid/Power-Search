@@ -9,7 +9,7 @@
 	// if (domain == 'commons') searchParams.namespace = 6
 
 	BAG:
-	dolazi do greske kada pretrazuje projekte na kojima nema sh jezik
+	dolazi do greske kada pretrazuje projekte na kojima nema jezik
 */
 	'use strict';
 	angular
