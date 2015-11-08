@@ -1,4 +1,11 @@
 (function () {
+
+/*
+	od ovog thumba:
+https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Poor_wash_facilities_-_%C3%A9quipement_de_lavage_rudimentaire_%283267343742%29.jpg/50px-Poor_wash_facilities_-_%C3%A9quipement_de_lavage_rudimentaire_%283267343742%29.jpg
+	napravi loš url:
+https://upload.wikimedia.org/wikipedia/commons/6/6e/Poor_wash_facilities
+*/
 	'use strict';
 	angular
 		.module("wikiModul")
@@ -26,7 +33,8 @@
 					api.exactMatch = null;
 					if (!data.query) return;
 					api.results = data.query.pages;
-					api.exactMatch = findExactTerm(api.params.settings.searchTerm, api.results);
+					findImagesInResults();
+					api.exactMatch = findExactTerm();
 					if (!api.exactMatch) return;
 					api.params.setArticleTitle(api.exactMatch);
 					api.open(Params.getArticleParams());
@@ -43,7 +51,9 @@
 					if (!data.query) return;
 					api.page = data.query.pages[0];
 					if (api.page.pageimage) {
-						api.page.imageUrl = createImageUrl();
+						var filename = api.page.pageimage;
+						var thumbUrl = api.page.thumbnail.source;
+						api.page.imageUrl = createImageUrl(filename, thumbUrl);
 						api.page.imageThumbUrl = createThumbUrl();
 						checkThumbImage();
 					}
@@ -63,9 +73,7 @@
 			return newUrl;
 		}	// createThumbUrl
 
-		function createImageUrl() {
-			var thumbUrl = api.page.thumbnail.source;
-			var filename = api.page.pageimage;
+		function createImageUrl(filename, thumbUrl) {
 			var escaped = escape(filename);
 			var substrEnd = thumbUrl.indexOf(escaped) + escaped.length;
 			var newUrl = thumbUrl.substring(0, substrEnd).replace("thumb/", "");
@@ -87,7 +95,9 @@
 			test.src = api.page.imageThumbUrl;
 		}	// checkThumbImage
 
-		function findExactTerm(searchTerm, results){
+		function findExactTerm(){
+			var searchTerm = api.params.settings.searchTerm;
+			var results = api.results;
 			var found = null;
 			angular.forEach(results, function(result) {
 				if (utils.capitalize(searchTerm) == utils.capitalize(result.title)) found = result.title;
@@ -104,14 +114,16 @@
 			return found;
 		}	// findExactTerm
 
-		function removeFromResults(title, results) {
-			for (var x in results) {
-				if (results[x].title == title) {
-					results.splice(x, 1); // remove it from the list
-					return results;
+		function findImagesInResults(){
+			for(var r in api.results) {
+				if (api.results[r].thumbnail) {
+				var filename = api.results[r].pageimage;
+				var thumbUrl = api.results[r].thumbnail.source;
+				api.results[r].imageUrl = createImageUrl(filename, thumbUrl);
 				}
-			} // end for
-		} // removeFromResults
+			}
+			return api.results;
+		}	// findImagesInResults
 
 		function handleErrors(data, status, headers, config) {
 			api.error = "Oh no, there was some error in geting data: " + status;
