@@ -1,12 +1,10 @@
 (function () {
 /*
 	TODO:
-	// uključiti babel
-	// napraviti gulp za pakovanje i minifikovanje js fajlova
-	// primer paramUrl u dokumentaciju
-
 	// pretrazuje datoteke na ostavi:
 	// if (domain == 'commons') searchParams.namespace = 6
+	// gulp za pakovanje i minifikovanje js fajlova
+	// primer paramUrl u dokumentaciju
 
 	BAG:
 	dolazi do greske kada pretrazuje projekte na kojima nema jezik
