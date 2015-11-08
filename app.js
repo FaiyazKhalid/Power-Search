@@ -1,8 +1,7 @@
 (function () {
 /*
 	TODO:
-	// pretrazuje datoteke na ostavi:
-	// if (domain == 'commons') searchParams.namespace = 6
+	// prikazati datoteke sa ostave
 	// gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
 
