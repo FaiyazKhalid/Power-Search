@@ -1,8 +1,9 @@
 (function () {
 /*
 	TODO:
-	// prikazati vece datoteke sa ostave
-	// if commons, fullUrl umesto thumb
+	// izbaciti logiku iz viewa
+	// saznati velicinu slike na ostavi
+	
 	// gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
 
