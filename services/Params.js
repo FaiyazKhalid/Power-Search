@@ -57,7 +57,7 @@
 		};	// getArticleParams
 
         this.getSearchParams = function() {
-			checkDomain();
+			adjustForCommons();
 			return angular.extend(params.search, params.basic);
 		};	// getSearchParams
 
@@ -72,7 +72,7 @@
 		/*** SETTERS ***/
 
         this.setFilteredTerm = function() {
-			if (isPrefixedCommons()) {
+			if (isPrefixOnCommons()) {
 				setPrefixedCommonsTerm();
 				return;
 			}
@@ -114,14 +114,18 @@
 
 		/*** HELPERS ***/
 
-		function checkDomain() {
+		function adjustForCommons() {
 			if (params.settings.domain == 'commons') {
 				params.search.gsrnamespace = 6;
+				params.basic.pithumbsize = 200;
 			}
-			else params.search.gsrnamespace = 0;
-		}
+			else {
+				params.search.gsrnamespace = 0;
+				params.basic.pithumbsize = 50;
+			}
+		}	// adjustForCommons
 
-		function isPrefixedCommons() {
+		function isPrefixOnCommons() {
 			return (params.settings.domain == 'commons') && (params.settings.searchFilter == 'prefix:');
 		}
 
