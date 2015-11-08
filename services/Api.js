@@ -101,10 +101,6 @@ https://upload.wikimedia.org/wikipedia/commons/6/6e/Poor_wash_facilities
 			var found = null;
 			angular.forEach(results, function(result) {
 				if (utils.capitalize(searchTerm) == utils.capitalize(result.title)) found = result.title;
-				// if (utils.capitalizeFirst(searchTerm) == result.title) found = result.title;
-				// if (searchTerm.toLowerCase() == result.title.toLowerCase()) {
-				// 	found = found || result.title;
-				// }
 				for(var redirect in result.redirects) {
 					if(utils.capitalize(searchTerm) == utils.capitalize(result.redirects[redirect].title) ) {
 						found = found || result.title;
