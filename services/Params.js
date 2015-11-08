@@ -54,29 +54,37 @@
         this.getArticleParams = function() {
 			var fullParams = angular.extend(params.article, params.basic);
 			return fullParams;
-		};
+		};	// getArticleParams
 
         this.getSearchParams = function() {
+			if (params.settings.domain == 'commons') {
+				params.search.gsrnamespace = 6;
+			}
 			var fullParams = angular.extend(params.search, params.basic);
 			return fullParams;
-		};
+		};	// getSearchParams
 
         this.getApiUrl = function() {
-            var apiUrl = 'http://' + params.settings.lang + '.' + params.settings.domain + '.org/w/api.php';
-            if (params.settings.domain == 'commons') apiUrl = 'http://commons.wikimedia.org/w/api.php';
-            return apiUrl;
+			if (params.settings.domain == 'commons') {
+				return 'http://commons.wikimedia.org/w/api.php';
+			}
+            return 'http://' + params.settings.lang + '.' + params.settings.domain + '.org/w/api.php';
         }; // getApiUrl
 
 
 		/*** SETTERS ***/
 
         this.setFilteredTerm = function() {
+			if (prefixOnCommons()) {
+				params.search.gsrsearch = params.settings.searchFilter + 'File:' + params.settings.searchTerm;
+				return;
+			}
 			params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
-		};
+		};	// setFilteredTerm
 
         this.setArticleTitle = function(newName) {
 			params.article.titles = newName;
-		};
+		};	// setArticleTitle
 
 
         /*** STORAGE ***/
@@ -105,6 +113,13 @@
 			}
 			params.deleteStorage();
 		}; // toggleSave
+
+
+		/*** HELPERS ***/
+
+		function prefixOnCommons() {
+			return params.settings.domain == 'commons' && params.settings.searchFilter == 'prefix:';
+		}
 
 	} // Params
 

@@ -36,7 +36,7 @@
 
 		wiki.search = function () {
 			resetResults();
-			if(!getSearchTerm()) return;
+			if(!searchTerm()) return;
 			wiki.updateSearchTerm();
 			Api.search();
 			Params.saveSettings();
@@ -81,13 +81,13 @@
 			if(newTerm) setSearchTerm(newTerm);
 			setPathTerm();
 			Params.setFilteredTerm();
-			Params.setArticleTitle(getSearchTerm());
+			Params.setArticleTitle(searchTerm());
 		};	// updateSearchTerm
 
 
 		/*** PRIVATE FUNCTIONS ***/
 
-		function getSearchTerm() {
+		function searchTerm() {
 			return wiki.params.settings.searchTerm;
 		}
 
@@ -121,7 +121,7 @@
 		}
 
 		function setPathTerm() {
-			$location.path(getSearchTerm());
+			$location.path(searchTerm());
 		}
 
 		function resetPath() {
