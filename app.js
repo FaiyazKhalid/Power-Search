@@ -1,8 +1,9 @@
 (function () {
 /*
 	TODO:
-	// izbaciti logiku iz viewa
-	// pithumbsize resava velicinu slike
+	// createImageUrl nekad pogresi
+	// saznati full url slike ako je moguce spojiti Allimages i generator search
+	// https://www.mediawiki.org/wiki/API:Allimages
 
 	// gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
@@ -63,7 +64,7 @@
 		wiki.selectText = function () {
 			var text = $window.getSelection().toString();
 			setSearchTerm(text);
-		}; // toggleLeadLarge
+		}; // selectText
 
 		wiki.checkMaxResults = function () {
 			if (wiki.params.search.gsrlimit > 50) wiki.params.search.gsrlimit = 50;

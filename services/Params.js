@@ -7,14 +7,15 @@
 	function Params() {
 
 		var params = this;
-		params.filters = ['intitle:', '', 'prefix:'];
+		params.leadImageSize = 250;
+		params.searchFilters = ['intitle:', '', 'prefix:'];
 
         // default user settings
 		params.settings = {
 			lang: 'en',
 			domain: 'wikipedia',
 			searchTerm: '',
-			searchFilter: params.filters[0],
+			searchFilter: params.searchFilters[0],
 			orderBy: '',
 			remember: false
 		};
@@ -51,17 +52,18 @@
 
 		/*** GETTERS ***/
 
-        this.getArticleParams = function() {
+        params.getArticleParams = function() {
+			params.setLeadImageSize(params.leadImageSize);
 			var fullParams = angular.extend(params.article, params.basic);
 			return fullParams;
 		};	// getArticleParams
 
-        this.getSearchParams = function() {
+        params.getSearchParams = function() {
 			adjustForCommons();
 			return angular.extend(params.search, params.basic);
 		};	// getSearchParams
 
-        this.getApiUrl = function() {
+        params.getApiUrl = function() {
 			if (params.settings.domain == 'commons') {
 				return 'http://commons.wikimedia.org/w/api.php';
 			}
@@ -71,7 +73,7 @@
 
 		/*** SETTERS ***/
 
-        this.setFilteredTerm = function() {
+        params.setFilteredTerm = function() {
 			if (isPrefixOnCommons()) {
 				setPrefixedCommonsTerm();
 				return;
@@ -79,9 +81,13 @@
 			params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
 		};	// setFilteredTerm
 
-        this.setArticleTitle = function(newName) {
+        params.setArticleTitle = function(newName) {
 			params.article.titles = newName;
 		};	// setArticleTitle
+
+		params.setLeadImageSize = function (size) {
+			params.basic.pithumbsize = size;
+		};	// setLeadImageSize
 
 
         /*** STORAGE ***/
