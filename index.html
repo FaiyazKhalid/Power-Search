@@ -32,7 +32,7 @@
                 <!-- search criteria -->
                 <form class="col-md-6" role="form">
                     <div class="wiki-logos">
-                        <!-- domain -->
+                        <!-- wiki projects -->
                         <label ng-repeat="project in wiki.projects">
                             <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.settings.domain }">
                             <input type="radio" ng-model="wiki.params.settings.domain" value="{{project.name}}" ng-click="wiki.search()">

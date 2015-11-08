@@ -18,18 +18,12 @@
 
 	function WikiController(Api, $window, $location, utils, StaticData, Params) {
 
-		/*** PRIVATE PROPERTIES ***/
 		var wiki = this;
-		var leadImgWidth = 175;
 
-		/*** PUBLIC PROPERTIES ***/
 		wiki.api = Api;
 		wiki.params = Params;
-
 		wiki.languages = StaticData.getLanguages();
 		wiki.projects = StaticData.getProjects();
-
-		// initial
 		wiki.leadLarge = false;
 
 
@@ -42,15 +36,13 @@
 			$window.onhashchange = wiki.init;
 		}; // init
 
-
 		wiki.search = function () {
-			clearAllResults();
+			resetResults();
 			if(!wiki.params.settings.searchTerm) return;
 			wiki.setSearchTerm();
 			Api.search(Params.getSearchParams());
 			Params.saveSettings();
 		}; // search
-
 
 		wiki.open = function (title) {
 			resetLeadArticle();
@@ -59,13 +51,11 @@
 			Api.open(Params.getArticleParams());
 		}; // open
 
-
 		wiki.searchForLeadTerm = function () {
 			wiki.setSearchTerm(wiki.api.page.title);
 			wiki.search();
 			wiki.toggleLeadLarge();
 		}; // searchForLeadTerm
-
 
 		wiki.toggleLeadLarge = function () {
 			wiki.leadLarge = !wiki.leadLarge;
@@ -92,13 +82,10 @@
 		wiki.remember = function() {
 			if(wiki.params.settings.remember) {
 				Params.saveSettings();
-			} else {
-				Params.deleteStorage();
 			}
+			else Params.deleteStorage();
 		};	// checkRemember
 
-
-		/*** SETTERS ***/
 
 		wiki.setSearchTerm = function(newTerm) {
 			if(newTerm) wiki.params.settings.searchTerm = newTerm;
@@ -109,6 +96,8 @@
 
 
 		/*** PRIVATE FUNCTIONS ***/
+
+		/*** RESET ***/
 
 		function resetSearchTerm() {
 			wiki.params.settings.searchTerm = '';
@@ -125,11 +114,13 @@
 			wiki.api.error = "";
 		}	// resetError
 
-		function clearAllResults() {
+		function resetResults() {
 			resetError();
 			wiki.api.results = null;
 			resetLeadArticle();
-		} // clearAllResults
+		} // resetResults
+
+		/*** PATH ***/
 
 		function getPath() {
 			wiki.params.settings.searchTerm = $location.path().substr(1) || wiki.params.settings.searchTerm;
