@@ -23,7 +23,7 @@
         params.basic = {
             action: 'query',
             prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
-            //pithumbsize: 200,	// thumb size (height?)
+            pithumbsize: 50,	// thumb height
             inprop: 'url', // return article url
             redirects: '', // automatically resolve redirects
             format: 'json',
@@ -57,11 +57,8 @@
 		};	// getArticleParams
 
         this.getSearchParams = function() {
-			if (params.settings.domain == 'commons') {
-				params.search.gsrnamespace = 6;
-			}
-			var fullParams = angular.extend(params.search, params.basic);
-			return fullParams;
+			checkDomain();
+			return angular.extend(params.search, params.basic);
 		};	// getSearchParams
 
         this.getApiUrl = function() {
@@ -75,8 +72,8 @@
 		/*** SETTERS ***/
 
         this.setFilteredTerm = function() {
-			if (prefixOnCommons()) {
-				params.search.gsrsearch = params.settings.searchFilter + 'File:' + params.settings.searchTerm;
+			if (isPrefixedCommons()) {
+				setPrefixedCommonsTerm();
 				return;
 			}
 			params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
@@ -117,9 +114,21 @@
 
 		/*** HELPERS ***/
 
-		function prefixOnCommons() {
-			return params.settings.domain == 'commons' && params.settings.searchFilter == 'prefix:';
+		function checkDomain() {
+			if (params.settings.domain == 'commons') {
+				params.search.gsrnamespace = 6;
+			}
+			else params.search.gsrnamespace = 0;
 		}
+
+		function isPrefixedCommons() {
+			return (params.settings.domain == 'commons') && (params.settings.searchFilter == 'prefix:');
+		}
+
+		function setPrefixedCommonsTerm() {
+			params.search.gsrsearch = params.settings.searchFilter + 'File:' + params.settings.searchTerm;
+		}
+
 
 	} // Params
 

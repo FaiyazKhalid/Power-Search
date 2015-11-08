@@ -1,11 +1,5 @@
 (function () {
 
-/*
-	od ovog thumba:
-https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Poor_wash_facilities_-_%C3%A9quipement_de_lavage_rudimentaire_%283267343742%29.jpg/50px-Poor_wash_facilities_-_%C3%A9quipement_de_lavage_rudimentaire_%283267343742%29.jpg
-	napravi loš url:
-https://upload.wikimedia.org/wikipedia/commons/6/6e/Poor_wash_facilities
-*/
 	'use strict';
 	angular
 		.module("wikiModul")
@@ -33,7 +27,6 @@ https://upload.wikimedia.org/wikipedia/commons/6/6e/Poor_wash_facilities
 					api.exactMatch = null;
 					if (!data.query) return;
 					api.results = data.query.pages;
-					findImagesInResults();
 					api.exactMatch = findExactTerm();
 					if (!api.exactMatch) return;
 					api.params.setArticleTitle(api.exactMatch);
@@ -109,17 +102,6 @@ https://upload.wikimedia.org/wikipedia/commons/6/6e/Poor_wash_facilities
 			});
 			return found;
 		}	// findExactTerm
-
-		function findImagesInResults(){
-			for(var r in api.results) {
-				if (api.results[r].thumbnail) {
-				var filename = api.results[r].pageimage;
-				var thumbUrl = api.results[r].thumbnail.source;
-				api.results[r].imageUrl = createImageUrl(filename, thumbUrl);
-				}
-			}
-			return api.results;
-		}	// findImagesInResults
 
 		function handleErrors(data, status, headers, config) {
 			api.error = "Oh no, there was some error in geting data: " + status;

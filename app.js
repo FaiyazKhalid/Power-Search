@@ -2,8 +2,8 @@
 /*
 	TODO:
 	// izbaciti logiku iz viewa
-	// saznati velicinu slike na ostavi
-	
+	// pithumbsize resava velicinu slike
+
 	// gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
 
