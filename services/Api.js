@@ -18,8 +18,8 @@
 
         /*** HTTP ***/
 
-		api.search = function(params, callback) {
-			var paramUrl = createParamUrl(params);
+		api.search = function() {
+			var paramUrl = createParamUrl(Params.getSearchParams());
 			console.log(paramUrl);
 			$http.jsonp(paramUrl)
 				.success(function (data) {
@@ -35,8 +35,8 @@
 		}; // search
 
 
-		api.open = function(params, callback) {
-			var paramUrl = createParamUrl(params);
+		api.open = function() {
+			var paramUrl = createParamUrl(Params.getArticleParams());
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					api.page = null;

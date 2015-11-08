@@ -31,16 +31,16 @@
 
 		wiki.init = function () {
 			Params.loadSettings();
-			getPath();
+			getPathTerm();
 			wiki.search();
 			$window.onhashchange = wiki.init;
 		}; // init
 
 		wiki.search = function () {
 			resetResults();
-			if(!wiki.params.settings.searchTerm) return;
-			wiki.setSearchTerm();
-			Api.search(Params.getSearchParams());
+			if(!getSearchTerm()) return;
+			wiki.updateSearchTerm();
+			Api.search();
 			Params.saveSettings();
 		}; // search
 
@@ -48,11 +48,11 @@
 			resetLeadArticle();
 			utils.scrollToTop(300);
 			Params.setArticleTitle(title);
-			Api.open(Params.getArticleParams());
+			Api.open();
 		}; // open
 
 		wiki.searchForLeadTerm = function () {
-			wiki.setSearchTerm(wiki.api.page.title);
+			wiki.updateSearchTerm(wiki.api.page.title);
 			wiki.search();
 			wiki.toggleLeadLarge();
 		}; // searchForLeadTerm
@@ -61,46 +61,44 @@
 			wiki.leadLarge = !wiki.leadLarge;
 		}; // toggleLeadLarge
 
-
 		wiki.selectText = function () {
 			var text = $window.getSelection().toString();
-			wiki.params.settings.searchTerm = text;
+			setSearchTerm(text);
 		}; // toggleLeadLarge
-
 
 		wiki.checkMaxResults = function () {
 			if (wiki.params.search.gsrlimit > 50) wiki.params.search.gsrlimit = 50;
 		}; // checkMaxResults
 
-
 		wiki.resetAndReload = function() {
 			resetSearchTerm();
 			$window.location.reload();
-		};	// setSearchTerm
+		};	// resetAndReload
 
+		wiki.toggleSave = function() {
+			Params.toggleSave();
+		};	// toggleRemember
 
-		wiki.remember = function() {
-			if(wiki.params.settings.remember) {
-				Params.saveSettings();
-			}
-			else Params.deleteStorage();
-		};	// checkRemember
-
-
-		wiki.setSearchTerm = function(newTerm) {
-			if(newTerm) wiki.params.settings.searchTerm = newTerm;
-			setPath();
-			Params.setSearchTerm();
-			Params.setArticleTitle(wiki.params.settings.searchTerm);
-		};	// setSearchTerm
+		wiki.updateSearchTerm = function(newTerm) {
+			if(newTerm) setSearchTerm(newTerm);
+			setPathTerm();
+			Params.setFilteredTerm();
+			Params.setArticleTitle(getSearchTerm());
+		};	// updateSearchTerm
 
 
 		/*** PRIVATE FUNCTIONS ***/
 
-		/*** RESET ***/
+		function getSearchTerm() {
+			return wiki.params.settings.searchTerm;
+		}
+
+		function setSearchTerm(term) {
+			wiki.params.settings.searchTerm = term;
+		}
 
 		function resetSearchTerm() {
-			wiki.params.settings.searchTerm = '';
+			setSearchTerm('');
 			resetPath();
 		}
 
@@ -120,14 +118,12 @@
 			resetLeadArticle();
 		} // resetResults
 
-		/*** PATH ***/
-
-		function getPath() {
+		function getPathTerm() {
 			wiki.params.settings.searchTerm = $location.path().substr(1) || wiki.params.settings.searchTerm;
 		}
 
-		function setPath() {
-			$location.path(wiki.params.settings.searchTerm);
+		function setPathTerm() {
+			$location.path(getSearchTerm());
 		}
 
 		function resetPath() {

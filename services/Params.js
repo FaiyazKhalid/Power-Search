@@ -70,7 +70,7 @@
 
 		/*** SETTERS ***/
 
-        this.setSearchTerm = function() {
+        this.setFilteredTerm = function() {
 			params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
 		};
 
@@ -97,6 +97,14 @@
 			localStorage.removeItem("wikiSettings");
 			localStorage.removeItem("searchParams");
 		}; // deleteSettings
+
+		params.toggleSave = function () {
+			if(params.settings.remember) {
+				params.saveSettings();
+				return;
+			}
+			params.deleteStorage();
+		}; // toggleSave
 
 	} // Params
 
