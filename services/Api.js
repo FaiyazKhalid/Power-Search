@@ -27,6 +27,7 @@
 					api.exactMatch = null;
 					if (!data.query) return;
 					api.results = data.query.pages;
+					findImagePages();
 					api.exactMatch = findExactTerm();
 					if (!api.exactMatch) return;
 					api.params.setArticleTitle(api.exactMatch);
@@ -38,6 +39,7 @@
 
 		api.open = function() {
 			var paramUrl = createParamUrl(Params.getArticleParams());
+			//console.log(paramUrl);
 			$http.jsonp(paramUrl)
 				.success(function (data) {
 					api.page = null;
@@ -102,6 +104,21 @@
 			});
 			return found;
 		}	// findExactTerm
+
+		function findImagePages() {
+			for(var r in api.results) {
+				if(api.results[r].pageimage) {
+					var imgSrc = api.results[r].thumbnail.source;
+					var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
+					var imageName = api.results[r].pageimage;
+					if(utils.startsWith(imgSrc, commonsUrl)) {
+						api.results[r].imagePage = "https://commons.wikimedia.org/wiki/File:" + 	imageName;
+					} else {
+						api.results[r].imagePage = "https://" + api.params.settings.lang + "." + api.params.settings.domain + ".org/wiki/File:" + imageName;
+					}
+				}
+			}	// end for
+		} // findImagePages
 
 		function handleErrors(data, status, headers, config) {
 			api.error = "Oh no, there was some error in geting data: " + status;

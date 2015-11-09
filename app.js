@@ -4,6 +4,7 @@
 	// createImageUrl nekad pogresi
 	// saznati full url slike ako je moguce spojiti Allimages i generator search
 	// https://www.mediawiki.org/wiki/API:Allimages
+	// disable lang for commons
 
 	// gulp za pakovanje i minifikovanje js fajlova
 	// primer paramUrl u dokumentaciju
