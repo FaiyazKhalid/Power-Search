@@ -84,7 +84,15 @@
 
 		wiki.isCommons = function() {
 			return wiki.params.settings.domain == 'commons';
-		};
+		};	// isCommons
+
+		wiki.isSelectedProject = function(project) {
+			return wiki.params.settings.domain == project.name;
+		};	// isChosenProject
+
+		wiki.isSelectedPage = function(page) {
+			return page.title == wiki.api.page.title;
+		};	// isSelectedPage
 
 
 		/*** PRIVATE FUNCTIONS ***/

@@ -34,7 +34,7 @@
                     <div class="wiki-logos">
                         <!-- wiki projects -->
                         <label ng-repeat="project in wiki.projects">
-                            <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': project.name == wiki.params.settings.domain }">
+                            <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': wiki.isSelectedProject(project) }">
                             <input type="radio" ng-model="wiki.params.settings.domain" value="{{project.name}}" ng-click="wiki.search()">
                         </label>
                         <span class="justify-helper"></span>
@@ -116,7 +116,7 @@
 
             <!-- search results-->
             <div ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
-                <article ng-repeat="page in wiki.api.results | orderBy: wiki.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': page.title == wiki.api.page.title}">
+                <article ng-repeat="page in wiki.api.results | orderBy: wiki.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': wiki.isSelectedPage(page) }">
                     <h2 class="text-info">
                         <span class="pointer" title="Open this article" ng-click="wiki.open(page.title)">{{page.title}}</span>
                     </h2>
