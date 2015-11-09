@@ -14,9 +14,11 @@
     <script src="bower_components/blueimp-md5/js/md5.min.js"></script>
 
     <script src='app.js'></script>
+    <script src='controllers/LanguageController.js'></script>
     <script src='directives/autofocus.js'></script>
     <script src='services/utils.js'></script>
     <script src='services/StaticData.js'></script>
+    <script src='services/LanguageService.js'></script>
     <script src='services/Params.js'></script>
     <script src='services/Api.js'></script>
 </head>
@@ -24,6 +26,11 @@
 <body ng-controller='WikiController as wiki' ng-init='wiki.init()'>
 
     <header class="header">
+
+        <form ng-controller="LanguageController as lang">
+            <select ng-options="item.prefix as item.language for item in lang.languages.all" ng-model="lang.selected"></select>
+        </form>
+
         <section class="container">
             <div class="logo-wrap row">
                 <div class="col-md-6">
