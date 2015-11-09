@@ -63,7 +63,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <!-- lang -->
-                        <select ng-model="wiki.params.settings.lang" ng-change='wiki.search()' class="form-control input-sm">
+                        <select ng-model="wiki.params.settings.lang" ng-change='wiki.search()' class="form-control input-sm" ng-disabled="wiki.isCommons()">
                             <option ng-repeat="lang in wiki.languages" value="{{lang.id}}">{{lang.name}}</option>
                         </select>
                     </div>
