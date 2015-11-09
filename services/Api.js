@@ -49,8 +49,6 @@
 						var filename = api.page.pageimage;
 						var thumbUrl = api.page.thumbnail.source;
 						api.page.imageUrl = createImageUrl(filename, thumbUrl);
-						api.page.imageThumbUrl = createThumbUrl();
-						checkThumbImage();
 					}
 				})
 				.error(handleErrors);
@@ -58,15 +56,6 @@
 
 
         /*** HELPERS ***/
-
-		function createThumbUrl() {
-			var thumbUrl = api.page.thumbnail.source;
-			var newSize = leadThumbSize;
-			var regex = /\/(\d+)px-/gi;
-			var newThumbSize = "/" + newSize + "px-";
-			var newUrl = thumbUrl.replace(regex, newThumbSize);
-			return newUrl;
-		}	// createThumbUrl
 
 		function createImageUrl(filename, thumbUrl) {
 			var escaped = escape(filename);
@@ -79,16 +68,6 @@
 			var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
 			return paramUrl;
 		} // createParamUrl
-
-        function checkThumbImage() {
-			var test = new Image();
-			test.onerror = function() {
-				$rootScope.$apply(function(){
-	 				api.page.imageThumbUrl = api.page.imageUrl;
-				 });
-			};
-			test.src = api.page.imageThumbUrl;
-		}	// checkThumbImage
 
 		function findExactTerm(){
 			var searchTerm = api.params.settings.searchTerm;

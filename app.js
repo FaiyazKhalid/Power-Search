@@ -105,8 +105,6 @@
 
 		function resetLeadArticle(){
 			wiki.api.page = '';
-			wiki.api.imageThumbUrl = '';
-			wiki.api.imageUrl = '';
 		}	// resetLeadArticle
 
 		function resetError() {
