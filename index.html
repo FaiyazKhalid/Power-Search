@@ -104,8 +104,8 @@
                         <h1 class="text-info">
                             <span class="pointer" title="Englarge this article" ng-click="wiki.toggleLeadLarge()">{{wiki.api.page.title}}</span>
                         </h1>
-                        <a ng-href="{{wiki.api.page.imageUrl}}" target="_blank">
-                            <img ng-src="{{wiki.api.page.thumbnail.source}}" alt="{{wiki.api.page.title}}" class="img-large img-thumbnail pull-right" ng-show="wiki.api.page.imageUrl">
+                        <a ng-href="{{wiki.api.page.imagePage}}" target="_blank">
+                            <img ng-src="{{wiki.api.page.thumbnail.source}}" alt="{{wiki.api.page.title}}" class="img-large img-thumbnail pull-right" ng-show="wiki.api.page.thumbnail">
                         </a>
                         <section ng-bind-html='wiki.api.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
