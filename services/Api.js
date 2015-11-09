@@ -71,13 +71,13 @@
 		} // createParamUrl
 
 		function findExactTerm(){
-			var searchTerm = api.params.settings.searchTerm;
+			var capitalizedTerm = utils.capitalize(api.params.settings.searchTerm);
 			var results = api.results;
 			var found = null;
 			angular.forEach(results, function(result) {
-				if (utils.capitalize(searchTerm) == utils.capitalize(result.title)) found = result.title;
-				for(var redirect in result.redirects) {
-					if(utils.capitalize(searchTerm) == utils.capitalize(result.redirects[redirect].title) ) {
+				if (capitalizedTerm == utils.capitalize(result.title)) found = result.title;
+				for(var r in result.redirects) {
+					if(capitalizedTerm == utils.capitalize(result.redirects[r].title) ) {
 						found = found || result.title;
 					}
 				}
