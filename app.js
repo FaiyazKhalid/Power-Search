@@ -26,11 +26,9 @@ var Api = require('./services/Api');
 
 angular
 	.module('wikiModul', [ngSanitize])
-
 	.controller('WikiController', WikiController)
 	.controller('LanguageController', LanguageController)
 	.directive('autofocus', ['$timeout', autofocus])
-
     .factory('utils', utils)
     .factory('StaticData', StaticData)
 	.service('LanguageService', LanguageService)

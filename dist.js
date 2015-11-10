@@ -30161,6 +30161,7 @@ function utils() {
 module.exports = utils;
 
 },{}],13:[function(require,module,exports){
+'use strict';
 // browserify app.js -o bundle.js
 /*
 	TODO:
@@ -30173,7 +30174,7 @@ module.exports = utils;
 	BAG:
 	dolazi do greske kada pretrazuje projekte na kojima nema jezik
 */
-'use strict';
+
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 var WikiController = require('./controllers/WikiController');
@@ -30184,7 +30185,6 @@ var StaticData = require('./services/StaticData');
 var LanguageService = require('./services/LanguageService');
 var Params = require('./services/Params');
 var Api = require('./services/Api');
-
 
 
 angular
