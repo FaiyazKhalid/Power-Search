@@ -16,7 +16,12 @@ var ngSanitize = require('angular-sanitize');
 var WikiController = require('./controllers/WikiController');
 var LanguageController = require('./controllers/LanguageController');
 var autofocus = require('./directives/autofocus');
-var utils = require('./services/utils.js');
+var utils = require('./services/utils');
+var StaticData = require('./services/StaticData');
+var LanguageService = require('./services/LanguageService');
+var Params = require('./services/Params');
+var Api = require('./services/Api');
+
 
 
 angular
@@ -24,4 +29,8 @@ angular
 	.controller('WikiController', WikiController)
 	.controller('LanguageController', LanguageController)
 	.directive('autofocus', ['$timeout', autofocus])
-    .factory('utils', utils);
+    .factory('utils', utils)
+    .factory('StaticData', StaticData)
+	.service('LanguageService', LanguageService)
+	.service('Params', Params)
+	.service('Api', Api);

@@ -1,50 +1,45 @@
-(function () {
+'use strict';
 
-	'use strict';
-	angular
-		.module("wikiModul")
-		.service('LanguageService', LanguageService);
+function LanguageService($http, Params, utils) {
 
+    var languages = this;
+	languages.all = [];
 
-	function LanguageService($http, Params, utils) {
+    var params = {
+        action: 'query',
+        meta: 'siteinfo',
+        siprop: 'interwikimap',
+        sifilteriw: 'local',
+        format: 'json',
+        formatversion: 2,
+        callback: 'JSON_CALLBACK'
+    };
 
-        var languages = this;
-		languages.all = [];
+    /*** HTTP ***/
 
-        var params = {
-            action: 'query',
-            meta: 'siteinfo',
-            siprop: 'interwikimap',
-            sifilteriw: 'local',
-            format: 'json',
-            formatversion: 2,
-            callback: 'JSON_CALLBACK'
-        };
+	languages.get = function() {
+        var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
+        console.log(paramUrl);
 
-        /*** HTTP ***/
+		$http.jsonp(paramUrl)
+			.success(function (data) {
 
-		languages.get = function() {
-            var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
-            console.log(paramUrl);
-
-			$http.jsonp(paramUrl)
-				.success(function (data) {
-
-					angular.forEach(data.query.interwikimap, function(map) {
-	                    if (map.language) {
-							languages.all.push(map);
-						}
-					});
-
+				angular.forEach(data.query.interwikimap, function(map) {
+                    if (map.language) {
+						languages.all.push(map);
+					}
 				});
-		}; // search
+
+			});
+	}; // search
 
 
-		function filterResults() {
+	function filterResults() {
 
-		}
+	}	// filterResults
 
 
-	} // LanguageService
+} // LanguageService
 
-})();
+
+module.exports = LanguageService;

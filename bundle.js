@@ -29758,6 +29758,352 @@ module.exports = angular;
 },{"./angular":6}],8:[function(require,module,exports){
 'use strict';
 
+function Api($http, utils, Params) {
+
+    var api = this;
+	api.params = Params;
+	api.page = null;
+	api.results = null;
+	api.exactMatch = null;
+
+
+    /*** HTTP ***/
+
+	api.search = function() {
+		var paramUrl = createParamUrl(Params.getSearchParams());
+		//console.log(paramUrl);
+		$http.jsonp(paramUrl)
+			.success(function (data) {
+				api.exactMatch = null;
+				if (!data.query) return;
+				api.results = data.query.pages;
+				angular.forEach(api.results, findImagePage);
+				api.exactMatch = findExactTerm();
+				if (!api.exactMatch) return;
+				api.params.setArticleTitle(api.exactMatch);
+				api.open(Params.getArticleParams());
+			})
+			.error(handleErrors);
+	}; // search
+
+
+	api.open = function() {
+		var paramUrl = createParamUrl(Params.getArticleParams());
+		$http.jsonp(paramUrl)
+			.success(function (data) {
+				api.page = null;
+				if (!data.query) return;
+				api.page = data.query.pages[0];
+				findImagePage(api.page);
+			})
+			.error(handleErrors);
+	}; // open
+
+
+    /*** HELPERS ***/
+
+	function findImagePage(thisResult) {
+		if(thisResult.pageimage) {
+			var imgSrc = thisResult.thumbnail.source;
+			var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
+			var imageName = thisResult.pageimage;
+			if(utils.startsWith(imgSrc, commonsUrl)) {
+				thisResult.imagePage = "https://commons.wikimedia.org/wiki/File:" + 	imageName;
+			} else {
+				thisResult.imagePage = "https://" + api.params.settings.lang + "." + api.params.settings.domain + ".org/wiki/File:" + imageName;
+			}
+		}
+	} // findImagePage
+
+    function createParamUrl(params) {
+		var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
+		return paramUrl;
+	} // createParamUrl
+
+	function findExactTerm(){
+		var capitalizedTerm = utils.capitalize(api.params.settings.searchTerm);
+		var results = api.results;
+		var found = null;
+		angular.forEach(results, function(result) {
+			if (capitalizedTerm == utils.capitalize(result.title)) found = result.title;
+			for(var r in result.redirects) {
+				if(capitalizedTerm == utils.capitalize(result.redirects[r].title) ) {
+					found = found || result.title;
+				}
+			}
+		});
+		return found;
+	}	// findExactTerm
+
+	function handleErrors(data, status) {
+		api.error = "Oh no, there was some error in geting data: " + status;
+	} // handleErrors
+
+} // Api
+
+
+module.exports = Api;
+
+},{}],9:[function(require,module,exports){
+'use strict';
+
+function LanguageService($http, Params, utils) {
+
+    var languages = this;
+	languages.all = [];
+
+    var params = {
+        action: 'query',
+        meta: 'siteinfo',
+        siprop: 'interwikimap',
+        sifilteriw: 'local',
+        format: 'json',
+        formatversion: 2,
+        callback: 'JSON_CALLBACK'
+    };
+
+    /*** HTTP ***/
+
+	languages.get = function() {
+        var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
+        console.log(paramUrl);
+
+		$http.jsonp(paramUrl)
+			.success(function (data) {
+
+				angular.forEach(data.query.interwikimap, function(map) {
+                    if (map.language) {
+						languages.all.push(map);
+					}
+				});
+
+			});
+	}; // search
+
+
+	function filterResults() {
+
+	}	// filterResults
+
+
+} // LanguageService
+
+
+module.exports = LanguageService;
+
+},{}],10:[function(require,module,exports){
+'use strict';
+
+function Params() {
+
+	var params = this;
+	params.leadImageSize = 250;
+	params.searchFilters = ['intitle:', '', 'prefix:'];
+
+	// default user settings
+	params.settings = {
+		lang: 'en',
+		domain: 'wikipedia',
+		searchTerm: '',
+		searchFilter: params.searchFilters[0],
+		orderBy: '',
+		remember: false
+	};
+
+	// basic api params
+	params.basic = {
+		action: 'query',
+		prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
+		pithumbsize: 50,	// thumb height
+		inprop: 'url', // return article url
+		redirects: '', // automatically resolve redirects
+		format: 'json',
+		formatversion: 2,
+		callback: 'JSON_CALLBACK'
+	};
+
+	params.article = {
+		titles: ''
+	};
+
+	params.search = {
+		generator: 'search',
+		gsrsearch: '',  // searchTerm + searchFilter
+		gsrnamespace: 0, // 0 article, 6 file
+		gsrlimit: 20, // broj rezultata, max 50
+		pilimit: 'max', // thumb image for all articles
+		exlimit: 'max', // extract limit
+		rdlimit: 'max',	// redirects limit
+		// imlimit: 'max', // images limit, only if prop:images enabled
+		exintro: '', // only intro
+		exchars: 1250 // character limit
+	};
+
+
+	/*** GETTERS ***/
+
+	params.getArticleParams = function() {
+		params.setLeadImageSize(params.leadImageSize);
+		var fullParams = angular.extend(params.article, params.basic);
+		return fullParams;
+	};	// getArticleParams
+
+	params.getSearchParams = function() {
+		adjustForCommons();
+		return angular.extend(params.search, params.basic);
+	};	// getSearchParams
+
+	params.getApiUrl = function() {
+		if (params.settings.domain == 'commons') {
+			return 'http://commons.wikimedia.org/w/api.php';
+		}
+		return 'http://' + params.settings.lang + '.' + params.settings.domain + '.org/w/api.php';
+	}; // getApiUrl
+
+
+	/*** SETTERS ***/
+
+	params.setFilteredTerm = function() {
+		if (isPrefixOnCommons()) {
+			setPrefixedCommonsTerm();
+			return;
+		}
+		params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
+	};	// setFilteredTerm
+
+	params.setArticleTitle = function(newName) {
+		params.article.titles = newName;
+	};	// setArticleTitle
+
+	params.setLeadImageSize = function (size) {
+		params.basic.pithumbsize = size;
+	};	// setLeadImageSize
+
+
+	/*** STORAGE ***/
+
+	params.saveSettings = function() {
+		if(params.settings.remember) {
+			localStorage.wikiSettings = JSON.stringify(params.settings);
+			localStorage.searchParams = JSON.stringify(params.search);
+		}
+	}; // saveSettings
+
+	params.loadSettings = function() {
+		if(localStorage.wikiSettings) params.settings = JSON.parse(localStorage.wikiSettings);
+		if (localStorage.searchParams) params.search = JSON.parse(localStorage.searchParams);
+	}; // loadSettings
+
+	params.deleteStorage = function () {
+		localStorage.removeItem("wikiSettings");
+		localStorage.removeItem("searchParams");
+	}; // deleteSettings
+
+	params.toggleSave = function () {
+		if(params.settings.remember) {
+			params.saveSettings();
+			return;
+		}
+		params.deleteStorage();
+	}; // toggleSave
+
+
+	/*** HELPERS ***/
+
+	function adjustForCommons() {
+		if (params.settings.domain == 'commons') {
+			params.search.gsrnamespace = 6;
+			params.basic.pithumbsize = 200;
+		}
+		else {
+			params.search.gsrnamespace = 0;
+			params.basic.pithumbsize = 50;
+		}
+	}	// adjustForCommons
+
+	function isPrefixOnCommons() {
+		return (params.settings.domain == 'commons') && (params.settings.searchFilter == 'prefix:');
+	}
+
+	function setPrefixedCommonsTerm() {
+		params.search.gsrsearch = params.settings.searchFilter + 'File:' + params.settings.searchTerm;
+	}
+
+
+} // Params
+
+
+module.exports = Params;
+
+},{}],11:[function(require,module,exports){
+'use strict';
+
+
+function StaticData() {
+
+	// TODO: dinamicaly populate list with available languages
+	// https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
+
+	var wikiLanguages = [{
+		id: 'en',
+		name: 'English'
+    }, {
+		id: 'sr',
+		name: 'Српски'
+    }, {
+		id: 'sh',
+		name: 'Srpskohrvatski'
+    }]; // languages
+
+
+	var wikiProjects = [{
+		name: 'wikipedia',
+		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png'
+    }, {
+		name: 'wiktionary',
+		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Wiktionary_small.svg/48px-Wiktionary_small.svg.png'
+    }, {
+		name: 'wikiquote',
+		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png'
+    }, {
+		name: 'wikisource',
+		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/46px-Wikisource-logo.svg.png'
+    }, {
+		name: 'wikispecies',
+		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/48px-Wikispecies-logo.svg.png'
+    }, {
+		name: 'wikivoyage',
+		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/48px-Wikivoyage-Logo-v3-icon.svg.png'
+    }, {
+		name: 'wikinews',
+		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/48px-Wikinews-logo.svg.png'
+    }, {
+		name: 'commons',
+		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png'
+    }]; // projects
+
+
+	function getProjects() {
+		return wikiProjects;
+	}
+
+	function getLanguages() {
+		return wikiLanguages;
+	}
+
+
+	return {
+		getProjects: getProjects,
+		getLanguages: getLanguages
+	};
+
+} // StaticData
+
+module.exports = StaticData;
+
+},{}],12:[function(require,module,exports){
+'use strict';
+
 function utils() {
 
     function replaceSpacesWithUnderscores(struna) {
@@ -29814,7 +30160,7 @@ function utils() {
 
 module.exports = utils;
 
-},{}],9:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 // browserify app.js -o bundle.js
 /*
 	TODO:
@@ -29833,7 +30179,12 @@ var ngSanitize = require('angular-sanitize');
 var WikiController = require('./controllers/WikiController');
 var LanguageController = require('./controllers/LanguageController');
 var autofocus = require('./directives/autofocus');
-var utils = require('./services/utils.js');
+var utils = require('./services/utils');
+var StaticData = require('./services/StaticData');
+var LanguageService = require('./services/LanguageService');
+var Params = require('./services/Params');
+var Api = require('./services/Api');
+
 
 
 angular
@@ -29841,6 +30192,10 @@ angular
 	.controller('WikiController', WikiController)
 	.controller('LanguageController', LanguageController)
 	.directive('autofocus', ['$timeout', autofocus])
-    .factory('utils', utils);
+    .factory('utils', utils)
+    .factory('StaticData', StaticData)
+	.service('LanguageService', LanguageService)
+	.service('Params', Params)
+	.service('Api', Api);
 
-},{"./controllers/LanguageController":1,"./controllers/WikiController":2,"./directives/autofocus":3,"./services/utils.js":8,"angular":7,"angular-sanitize":5}]},{},[9]);
+},{"./controllers/LanguageController":1,"./controllers/WikiController":2,"./directives/autofocus":3,"./services/Api":8,"./services/LanguageService":9,"./services/Params":10,"./services/StaticData":11,"./services/utils":12,"angular":7,"angular-sanitize":5}]},{},[13]);
