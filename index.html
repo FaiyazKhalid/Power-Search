@@ -9,19 +9,18 @@
     <link rel="stylesheet" href="bower_components/github-fork-ribbon-css/index.css" />
     <link rel="stylesheet" href="style.css">
 
-    <script src='bower_components/angular/angular.min.js'></script>
-    <script src='bower_components/angular-sanitize/angular-sanitize.min.js'></script>
-    <script src="bower_components/blueimp-md5/js/md5.min.js"></script>
 
-    <script src='app.js'></script>
-    <script src='controllers/WikiController.js'></script>
-    <script src='controllers/LanguageController.js'></script>
-    <script src='directives/autofocus.js'></script>
-    <script src='services/utils.js'></script>
+    <script src="bundle.js"></script>
+
+
+
     <script src='services/StaticData.js'></script>
     <script src='services/LanguageService.js'></script>
     <script src='services/Params.js'></script>
     <script src='services/Api.js'></script>
+    <script src="bower_components/blueimp-md5/js/md5.min.js"></script>
+
+
 </head>
 
 <body ng-controller='WikiController as wiki' ng-init='wiki.init()'>

@@ -1,16 +1,11 @@
-(function () {
-	'use strict';
-	angular
-		.module("wikiModul")
-		.controller('LanguageController', LanguageController);
+'use strict';
 
-	function LanguageController(LanguageService) {
+function LanguageController(LanguageService) {
+	var lang = this;
+	lang.languages = LanguageService;
 
-		var lang = this;
-		lang.languages = LanguageService;
+	LanguageService.get();
 
-		LanguageService.get();
+} // LanguageController
 
-	} // LanguageController
-
-})();
+module.exports = LanguageController;

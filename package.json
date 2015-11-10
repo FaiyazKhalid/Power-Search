@@ -25,5 +25,9 @@
   "bugs": {
     "url": "https://github.com/mudroljub/angular-wiki-search/issues"
   },
-  "homepage": "https://github.com/mudroljub/angular-wiki-search#readme"
+  "homepage": "https://github.com/mudroljub/angular-wiki-search#readme",
+  "dependencies": {
+    "angular": "^1.4.7",
+    "angular-sanitize": "^1.4.7"
+  }
 }

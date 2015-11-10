@@ -1,4 +1,4 @@
-(function () {
+// browserify app.js -o bundle.js
 /*
 	TODO:
 	// ucitati jezike za svaki projekat
@@ -10,8 +10,18 @@
 	BAG:
 	dolazi do greske kada pretrazuje projekte na kojima nema jezik
 */
-	'use strict';
-	angular
-		.module("wikiModul", ['ngSanitize']);
+'use strict';
+var angular = require('angular');
+var ngSanitize = require('angular-sanitize');
+var WikiController = require('./controllers/WikiController');
+var LanguageController = require('./controllers/LanguageController');
+var autofocus = require('./directives/autofocus');
+var utils = require('./services/utils.js');
 
-})();
+
+angular
+	.module('wikiModul', [ngSanitize])
+	.controller('WikiController', WikiController)
+	.controller('LanguageController', LanguageController)
+	.directive('autofocus', ['$timeout', autofocus])
+    .factory('utils', utils);
