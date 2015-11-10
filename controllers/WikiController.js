@@ -1,12 +1,11 @@
-function WikiController(Api, $window, $location, utils, StaticData, Params) {
+function WikiController(Api, $window, $location, utils, Projects, Params) {
 'use strict';
 
 	var wiki = this;
 
 	wiki.api = Api;
 	wiki.params = Params;
-	wiki.languages = StaticData.getLanguages();
-	wiki.projects = StaticData.getProjects();
+	wiki.projects = Projects.getProjects();
 	wiki.leadLarge = false;
 
 

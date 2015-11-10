@@ -4,7 +4,9 @@
   "description": "AngularJS module for consuming Wikipedia API",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify app.js -o dist.js",
+    "watch": "watchify app.js -o dist.js --debug --verbose"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,8 @@
 'use strict';
 
+// TODO: dinamicaly populate list with available languages
+// https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
+
 function LanguageService($http, Params, utils) {
 
     var languages = this;
@@ -15,6 +18,7 @@ function LanguageService($http, Params, utils) {
         callback: 'JSON_CALLBACK'
     };
 
+
     /*** HTTP ***/
 
 	languages.get = function() {
@@ -23,19 +27,18 @@ function LanguageService($http, Params, utils) {
 
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-
-				angular.forEach(data.query.interwikimap, function(map) {
-                    if (map.language) {
-						languages.all.push(map);
-					}
-				});
+                filterResults(data);
 
 			});
 	}; // search
 
 
-	function filterResults() {
-
+	function filterResults(data) {
+        angular.forEach(data.query.interwikimap, function(map) {
+            if (map.language) {
+                languages.all.push(map);
+            }
+        });
 	}	// filterResults
 
 

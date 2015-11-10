@@ -1,8 +1,7 @@
 'use strict';
-// browserify app.js -o bundle.js
 /*
 	TODO:
-	// ucitati jezike za svaki projekat
+	// kad se promeni domen, osveziti info za jezik
 	// prikazivati jezike na osnovu izabranog domena
 
 	// primer paramUrl u dokumentaciju
@@ -18,7 +17,7 @@ var WikiController = require('./controllers/WikiController');
 var LanguageController = require('./controllers/LanguageController');
 var autofocus = require('./directives/autofocus');
 var utils = require('./services/utils');
-var StaticData = require('./services/StaticData');
+var Projects = require('./services/Projects');
 var LanguageService = require('./services/LanguageService');
 var Params = require('./services/Params');
 var Api = require('./services/Api');
@@ -30,7 +29,7 @@ angular
 	.controller('LanguageController', LanguageController)
 	.directive('autofocus', ['$timeout', autofocus])
     .factory('utils', utils)
-    .factory('StaticData', StaticData)
+    .factory('Projects', Projects)
 	.service('LanguageService', LanguageService)
 	.service('Params', Params)
 	.service('Api', Api);

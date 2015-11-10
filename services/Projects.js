@@ -1,22 +1,7 @@
 'use strict';
 
 
-function StaticData() {
-
-	// TODO: dinamicaly populate list with available languages
-	// https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
-
-	var wikiLanguages = [{
-		id: 'en',
-		name: 'English'
-    }, {
-		id: 'sr',
-		name: 'Српски'
-    }, {
-		id: 'sh',
-		name: 'Srpskohrvatski'
-    }]; // languages
-
+function Projects() {
 
 	var wikiProjects = [{
 		name: 'wikipedia',
@@ -49,16 +34,11 @@ function StaticData() {
 		return wikiProjects;
 	}
 
-	function getLanguages() {
-		return wikiLanguages;
-	}
-
 
 	return {
-		getProjects: getProjects,
-		getLanguages: getLanguages
+		getProjects: getProjects
 	};
 
-} // StaticData
+} // Projects
 
-module.exports = StaticData;
+module.exports = Projects;
