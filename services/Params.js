@@ -85,6 +85,10 @@ function Params() {
 		params.basic.pithumbsize = size;
 	};	// setLeadImageSize
 
+	params.setLanguage = function (lang) {
+		params.settings.lang = lang;
+	};
+
 
 	/*** STORAGE ***/
 

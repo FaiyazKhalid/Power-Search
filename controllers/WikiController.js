@@ -1,10 +1,11 @@
-function WikiController(Api, $window, $location, utils, Projects, Params) {
+function WikiController(Api, $window, $location, utils, Projects, Params, Languages) {
 'use strict';
 
 	var wiki = this;
 
 	wiki.api = Api;
 	wiki.params = Params;
+	wiki.languages = Languages;
 	wiki.projects = Projects.getProjects();
 	wiki.leadLarge = false;
 
@@ -13,6 +14,7 @@ function WikiController(Api, $window, $location, utils, Projects, Params) {
 
 	wiki.init = function () {
 		Params.loadSettings();
+		Languages.get();
 		getPathTerm();
 		wiki.search();
 		$window.onhashchange = wiki.init;
@@ -79,6 +81,10 @@ function WikiController(Api, $window, $location, utils, Projects, Params) {
 	wiki.isSelectedPage = function(page) {
 		return page.title == wiki.api.page.title;
 	};	// isSelectedPage
+
+	wiki.refreshLanguages = function() {
+		Languages.get();
+	};
 
 
 	/*** PRIVATE FUNCTIONS ***/

@@ -25,7 +25,7 @@
                         <!-- wiki projects -->
                         <label ng-repeat="project in wiki.projects">
                             <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': wiki.isSelectedProject(project) }">
-                            <input type="radio" ng-model="wiki.params.settings.domain" value="{{project.name}}" ng-click="wiki.search()">
+                            <input type="radio" ng-model="wiki.params.settings.domain" value="{{project.name}}" ng-click="wiki.refreshLanguages(); wiki.search()">
                         </label>
                         <span class="justify-helper"></span>
                     </div>
@@ -51,9 +51,9 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="form-group" ng-controller="LanguageController as lang">
+                    <div class="form-group">
                         <!-- languages -->
-                        <select ng-model="wiki.params.settings.lang" ng-options="item.prefix as item.language for item in lang.languages.all" ng-change='wiki.search()' class="form-control input-sm" ng-disabled="wiki.isCommons()"></select>
+                        <select ng-model="wiki.params.settings.lang" ng-options="item.prefix as item.language for item in wiki.languages.all | orderBy:'prefix' " ng-change='wiki.search()' class="form-control input-sm" ng-disabled="wiki.isCommons()"></select>
                     </div>
                     <label class="checkbox-inline">
                         <!-- remember -->
@@ -67,7 +67,7 @@
                         <input type="number" min="1" max="50" ng-model='wiki.params.search.gsrlimit' ng-change='wiki.checkMaxResults(); wiki.search()' class="form-control input-sm">
                     </div>
                     <label class="checkbox-inline">
-                        <!-- orderBy -->
+                        <!-- alphabetical -->
                         <input type="checkbox" ng-model="wiki.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''"> <small>alphabetical</small>
                     </label>
                 </div>
@@ -77,7 +77,7 @@
 
 
     <main class="container main" ng-cloak>
-        <p>{{wiki.api.error}}</p>
+        <p class="text-danger">{{wiki.api.error}}</p>
         <div class="row">
 
             <!-- lead article -->

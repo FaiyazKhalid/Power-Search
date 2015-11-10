@@ -24,12 +24,16 @@ function Languages($http, Params, utils) {
 	languages.get = function() {
         var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
         console.log(paramUrl);
-
 		$http.jsonp(paramUrl)
 			.success(function (data) {
+                languages.error = "";
+                languages.all = [];
                 filterResults(data);
-
-			});
+			})
+            .error(function(){
+                console.log("The language you requesting does not exist for this wiki. Try search in different language.");
+                Params.setLanguage('en');
+            });
 	}; // search
 
 

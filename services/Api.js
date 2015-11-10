@@ -78,6 +78,10 @@ function Api($http, utils, Params) {
 	}	// findExactTerm
 
 	function handleErrors(data, status) {
+        if(status == 404) {
+            api.error = "The wiki page you requesting does not exist. Try again with different criteria.";
+            return;
+        }
 		api.error = "Oh no, there was some error in geting data: " + status;
 	} // handleErrors
 
