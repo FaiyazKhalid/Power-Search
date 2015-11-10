@@ -27,7 +27,6 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-css-only": "~3.3.5",
-    "github-fork-ribbon-css": "http://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css"
+    "bootstrap-css-only": "~3.3.5"
   }
 }
