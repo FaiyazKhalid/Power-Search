@@ -3,7 +3,7 @@
 // TODO: dinamicaly populate list with available languages
 // https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
 
-function LanguageService($http, Params, utils) {
+function Languages($http, Params, utils) {
 
     var languages = this;
 	languages.all = [];
@@ -42,7 +42,7 @@ function LanguageService($http, Params, utils) {
 	}	// filterResults
 
 
-} // LanguageService
+} // Languages
 
 
-module.exports = LanguageService;
+module.exports = Languages;

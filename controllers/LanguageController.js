@@ -1,10 +1,10 @@
 'use strict';
 
-function LanguageController(LanguageService) {
+function LanguageController(Languages) {
 	var lang = this;
-	lang.languages = LanguageService;
+	lang.languages = Languages;
 
-	LanguageService.get();
+	Languages.get();
 
 } // LanguageController
 

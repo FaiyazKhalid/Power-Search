@@ -18,7 +18,7 @@ var LanguageController = require('./controllers/LanguageController');
 var autofocus = require('./directives/autofocus');
 var utils = require('./services/utils');
 var Projects = require('./services/Projects');
-var LanguageService = require('./services/LanguageService');
+var Languages = require('./services/Languages');
 var Params = require('./services/Params');
 var Api = require('./services/Api');
 
@@ -30,6 +30,6 @@ angular
 	.directive('autofocus', ['$timeout', autofocus])
     .factory('utils', utils)
     .factory('Projects', Projects)
-	.service('LanguageService', LanguageService)
+	.service('Languages', Languages)
 	.service('Params', Params)
 	.service('Api', Api);
