@@ -31,7 +31,7 @@ function Languages($http, Params, utils) {
                 filterResults(data);
 			})
             .error(function(){
-                console.log("The language you requesting does not exist for this wiki. Try search in different language.");
+                console.log("The language you requesting does not exist.");
                 Params.setLanguage('en');
             });
 	}; // search
