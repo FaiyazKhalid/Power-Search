@@ -8,7 +8,6 @@
 
 		var lang = this;
 		lang.languages = LanguageService;
-		lang.selected = 'en';
 
 		LanguageService.get();
 

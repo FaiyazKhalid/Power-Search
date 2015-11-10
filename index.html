@@ -27,10 +27,6 @@
 
     <header class="header">
 
-        <form ng-controller="LanguageController as lang">
-            <select ng-options="item.prefix as item.language for item in lang.languages.all" ng-model="lang.selected"></select>
-        </form>
-
         <section class="container">
             <div class="logo-wrap row">
                 <div class="col-md-6">
@@ -68,11 +64,9 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="form-group">
+                    <div class="form-group" ng-controller="LanguageController as lang">
                         <!-- lang -->
-                        <select ng-model="wiki.params.settings.lang" ng-change='wiki.search()' class="form-control input-sm" ng-disabled="wiki.isCommons()">
-                            <option ng-repeat="lang in wiki.languages" value="{{lang.id}}">{{lang.name}}</option>
-                        </select>
+                        <select ng-model="wiki.params.settings.lang" ng-options="item.prefix as item.language for item in lang.languages.all" ng-change='wiki.search()' class="form-control input-sm" ng-disabled="wiki.isCommons()"></select>
                     </div>
                     <label class="checkbox-inline">
                         <!-- remember -->
