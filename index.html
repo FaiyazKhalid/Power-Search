@@ -53,7 +53,7 @@
                 <div class="col-md-2">
                     <div class="form-group" ng-controller="LanguageController as lang">
                         <!-- languages -->
-                        <select ng-model="wiki.params.settings.lang" ng-options="item.code as item.name for item in lang.languages.all" ng-change='wiki.search()' class="form-control input-sm" ng-disabled="wiki.isCommons()"></select>
+                        <select ng-model="wiki.params.settings.lang" ng-options="item.prefix as item.language for item in lang.languages.all" ng-change='wiki.search()' class="form-control input-sm" ng-disabled="wiki.isCommons()"></select>
                     </div>
                     <label class="checkbox-inline">
                         <!-- remember -->
