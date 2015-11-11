@@ -20,7 +20,7 @@ function Api($http, utils, Params) {
 				api.exactMatch = null;
 				if (!data.query) return noResults();
 				api.results = data.query.pages;
-				angular.forEach(api.results, findImagePage);
+				angular.forEach(api.results, findImage);
 				api.exactMatch = findExactTerm();
 				if (!api.exactMatch) return;
 				api.params.setArticleTitle(api.exactMatch);
@@ -37,26 +37,31 @@ function Api($http, utils, Params) {
 				api.page = null;
 				if (!data.query) return;
 				api.page = data.query.pages[0];
-				findImagePage(api.page);
+				findImage(api.page);
 			})
 			.error(handleErrors);
 	}; // open
 
 
+    api.resetLeadImage = function(){
+        api.page.image = null;
+    };
+
     /*** HELPERS ***/
 
-	function findImagePage(thisResult) {
+	function findImage(thisResult) {
 		if(thisResult.pageimage) {
 			var imgSrc = thisResult.thumbnail.source;
-			var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
 			var imageName = thisResult.pageimage;
-			if(utils.startsWith(imgSrc, commonsUrl)) {
-				thisResult.imagePage = "https://commons.wikimedia.org/wiki/File:" + 	imageName;
+			var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
+
+			if (utils.startsWith(imgSrc, commonsUrl)) {
+				thisResult.image = "https://commons.wikimedia.org/wiki/File:" + imageName;
 			} else {
-				thisResult.imagePage = "https://" + api.params.settings.lang + "." + api.params.settings.domain + ".org/wiki/File:" + imageName;
+				thisResult.image = "https://" + api.params.settings.lang + "." + api.params.settings.domain + ".org/wiki/File:" + imageName;
 			}
 		}
-	} // findImagePage
+	} // findImage
 
     function createParamUrl(params) {
 		var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);

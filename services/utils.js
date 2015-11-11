@@ -8,9 +8,10 @@ function utils() {
 
 
     function scrollToTop(duration) {
-        var scrollStep = -window.scrollY / (duration / 15),
-            scrollInterval = setInterval(function() {
-                if (window.scrollY === 0) {
+        var top = document.getElementsByTagName("header")[0].clientHeight;
+        var scrollStep = -window.scrollY / (duration / 15);
+        var scrollInterval = setInterval(function() {
+                if (window.scrollY <= top) {
                     clearInterval(scrollInterval);
                     return;
                 }
