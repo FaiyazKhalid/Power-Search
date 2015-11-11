@@ -1,18 +1,18 @@
 'use strict';
 
-function Params() {
+function Params(utils) {
 
 	var params = this;
 	var leadImageSize = 250;
 	var thumbSize = 200;
-	var searchFilters = ['intitle:', '', 'prefix:'];
+	params.searchFilters = ['intitle:', '', 'prefix:'];
 
 	// default user settings
 	params.settings = {
 		lang: 'en',
 		domain: 'wikipedia',
 		searchTerm: '',
-		searchFilter: searchFilters[0],
+		searchFilter: params.searchFilters[0],
 		orderBy: '',
 		remember: false
 	};
@@ -87,6 +87,10 @@ function Params() {
 		params.settings.lang = lang;
 	};
 
+	params.isCommons = function() {
+		return params.settings.domain == 'commons';
+	};	// isCommons
+
 
 	/*** STORAGE ***/
 
@@ -114,10 +118,6 @@ function Params() {
 		}
 		params.deleteStorage();
 	}; // toggleSave
-
-	params.isCommons = function() {
-		return params.settings.domain == 'commons';
-	};	// isCommons
 
 
 	/*** HELPERS ***/

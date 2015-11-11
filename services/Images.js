@@ -27,7 +27,7 @@ function Images($http, utils) {
 	images.search = function() {
         images.noResults = "";
 		var paramUrl = 'http://commons.wikimedia.org/w/api.php?' + utils.serialize(images.params);
-		console.log(paramUrl);
+		//console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				if (!data.query) return noResults();

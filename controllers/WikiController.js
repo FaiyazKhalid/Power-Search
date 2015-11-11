@@ -1,15 +1,16 @@
-function WikiController(Api, $window, $location, utils, Projects, Params, Languages, Images) {
+function WikiController(Api, $window, $location, utils, Projects, Params, Languages, Images, Pages) {
 'use strict';
 
 	var wiki = this;
 
 	wiki.api = Api;
 	wiki.params = Params;
+	wiki.pages = Pages;
 	wiki.languages = Languages;
 	wiki.images = Images;
 	wiki.projects = Projects.getProjects();
 	wiki.leadLarge = false;
-
+	
 
 	/*** PUBLIC METHODS ***/
 
@@ -29,7 +30,8 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 
 		if(wiki.isCommons()) {
 			Images.search();
-		} else Api.search();
+		}
+		else Pages.search();
 	}; // search
 
 	wiki.open = function (title) {
