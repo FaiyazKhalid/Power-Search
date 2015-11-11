@@ -107,13 +107,15 @@
 
             <!-- search results-->
             <div ng-class="wiki.searchClass()">
-                <article ng-repeat="page in wiki.api.results | orderBy: wiki.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': wiki.isSelectedPage(page) }">
-                    <h2 class="text-info">
+                <article ng-repeat="page in wiki.api.results | orderBy: wiki.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': wiki.isSelectedPage(page), 'img-wrapper': wiki.isCommons() }">
+                    <h2 class="text-info" ng-hide="wiki.isCommons()">
                         <span class="pointer" title="Open this article" ng-click="wiki.open(page.title)">{{page.title}}</span>
                     </h2>
                     <a ng-href="{{page.image}}" target="_blank">
-                        <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
+                        <p ng-show="wiki.isCommons()">{{page.title}}</p>
+                        <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" ng-class="wiki.isCommons() ? 'img-responsive img-rounded' : 'img-thumbnail'" ng-show="page.thumbnail.source">
                     </a>
+                    <p ng-show="wiki.isCommons()" ng-bind-html="page.desc"></p>
                     <section ng-bind-html='page.extract' ng-hide="wiki.isCommons()" ng-dblclick="wiki.selectText()"></section>
                     <p class="read-more text-info pull-right" ng-hide="wiki.isCommons()"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.settings.domain}}</span> >> </a></p>
                 </article>

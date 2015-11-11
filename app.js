@@ -2,6 +2,7 @@
 /*
 	TODO:
 	// sloziti slike sa komonsa u thumbnail
+	// napraviti da se glavna slika prikazuje popup?
 	// wiki.refreshLanguages() ne sluzi nicemu. ako nema drugog nacina, proveriti redom i sastaviti statican spisak
 	// primer paramUrl u dokumentaciju
 

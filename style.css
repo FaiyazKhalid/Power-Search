@@ -36,6 +36,15 @@
     filter: drop-shadow(5px 5px 5px #222);
 }
 
+.inline-block {
+    display: inline-block;
+}
+
+.img-wrapper {
+    display: inline-block;
+    width: 25%;
+}
+
 
 /* HEADER */
 

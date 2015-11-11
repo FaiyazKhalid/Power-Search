@@ -3,7 +3,8 @@
 function Params() {
 
 	var params = this;
-	params.leadImageSize = 250;
+	var leadImageSize = 250;
+	var thumbSize = 200;
 	params.searchFilters = ['intitle:', '', 'prefix:'];
 
 	// default user settings
@@ -35,7 +36,7 @@ function Params() {
 	params.search = {
 		generator: 'search',
 		gsrsearch: '',  // searchTerm + searchFilter
-		gsrnamespace: 0, // 0 article, 6 file
+		gsrnamespace: 0, // 0: article, 6: file
 		gsrlimit: 20, // broj rezultata, max 50
 		pilimit: 'max', // thumb image for all articles
 		exlimit: 'max', // extract limit
@@ -49,7 +50,7 @@ function Params() {
 	/*** GETTERS ***/
 
 	params.getArticleParams = function() {
-		params.setLeadImageSize(params.leadImageSize);
+		params.setLeadImageSize(leadImageSize);
 		var fullParams = angular.extend(params.article, params.basic);
 		return fullParams;
 	};	// getArticleParams
@@ -117,13 +118,19 @@ function Params() {
 		params.deleteStorage();
 	}; // toggleSave
 
+	params.isCommons = function() {
+		return params.settings.domain == 'commons';
+	};	// isCommons
+
 
 	/*** HELPERS ***/
 
 	function adjustForCommons() {
 		if (params.settings.domain == 'commons') {
 			params.search.gsrnamespace = 6;
-			params.basic.pithumbsize = 200;
+			params.basic.pithumbsize = thumbSize;
+			params.basic.prop += "|imageinfo";
+			params.basic.iiprop = 'extmetadata';
 		}
 		else {
 			params.search.gsrnamespace = 0;

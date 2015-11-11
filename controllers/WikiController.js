@@ -71,7 +71,7 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 	};	// updateSearchTerm
 
 	wiki.isCommons = function() {
-		return wiki.params.settings.domain == 'commons';
+		return Params.isCommons();
 	};	// isCommons
 
 	wiki.isSelectedProject = function(project) {
@@ -87,10 +87,16 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 	};
 
 	wiki.searchClass = function () {
+		if(wiki.isCommons()) {
+			return 'col-md-12';
+		}
 		return wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6';
 	};
 
 	wiki.leadClass = function () {
+		if(wiki.isCommons()) {
+			return 'hidden';
+		}
 		return wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6';
 	};
 

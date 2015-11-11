@@ -14,7 +14,7 @@ function Api($http, utils, Params) {
 	api.search = function() {
         api.noResults = "";
 		var paramUrl = createParamUrl(Params.getSearchParams());
-		//console.log(paramUrl);
+		console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				api.exactMatch = null;
@@ -49,16 +49,23 @@ function Api($http, utils, Params) {
 
     /*** HELPERS ***/
 
-	function findImage(thisResult) {
-		if(thisResult.pageimage) {
-			var imgSrc = thisResult.thumbnail.source;
-			var imageName = thisResult.pageimage;
+	function findImage(thisPage) {
+        if(Params.isCommons()) {
+            thisPage.image = thisPage.fullurl;
+            console.log(thisPage.imageinfo[0].extmetadata.ImageDescription.value);
+            thisPage.desc = thisPage.imageinfo[0].extmetadata.ImageDescription.value;
+            return;
+        }
+		if(thisPage.pageimage) {
+            //if (thisPage.thumbnail)
+            var imgSrc = thisPage.thumbnail.source;
+			var imageName = thisPage.pageimage;
 			var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
 
 			if (utils.startsWith(imgSrc, commonsUrl)) {
-				thisResult.image = "https://commons.wikimedia.org/wiki/File:" + imageName;
+				thisPage.image = "https://commons.wikimedia.org/wiki/File:" + imageName;
 			} else {
-				thisResult.image = "https://" + api.params.settings.lang + "." + api.params.settings.domain + ".org/wiki/File:" + imageName;
+				thisPage.image = "https://" + api.params.settings.lang + "." + api.params.settings.domain + ".org/wiki/File:" + imageName;
 			}
 		}
 	} // findImage
