@@ -1,6 +1,8 @@
 'use strict';
 /*
 	TODO:
+	// sloziti slike sa komonsa u thumbnail
+	// wiki.refreshLanguages() ne sluzi nicemu. ako nema drugog nacina, proveriti redom i sastaviti statican spisak
 	// primer paramUrl u dokumentaciju
 
 	BAG:

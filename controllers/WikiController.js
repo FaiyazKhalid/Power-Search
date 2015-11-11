@@ -106,12 +106,13 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 		wiki.api.page = '';
 	}	// resetLeadArticle
 
-	function resetError() {
+	function resetErrors() {
 		wiki.api.error = "";
-	}	// resetError
+		wiki.languages.error = "";
+	}	// resetErrors
 
 	function resetResults() {
-		resetError();
+		resetErrors();
 		wiki.api.results = null;
 		resetLeadArticle();
 	} // resetResults

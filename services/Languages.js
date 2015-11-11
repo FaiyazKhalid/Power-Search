@@ -23,15 +23,14 @@ function Languages($http, Params, utils) {
 
 	languages.get = function() {
         var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
-        console.log(paramUrl);
+        //console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-                languages.error = "";
                 languages.all = [];
                 filterResults(data);
 			})
             .error(function(){
-                console.log("The language you requesting does not exist.");
+                languages.error = "The language you requesting does not exist for this domain.";
                 Params.setLanguage('en');
             });
 	}; // search

@@ -77,7 +77,10 @@
 
 
     <main class="container main" ng-cloak>
-        <p class="text-danger">{{wiki.api.error}}</p>
+        <p ng-show="wiki.api.error" class="text-danger">{{wiki.api.error}}</p>
+        <p ng-show="wiki.languages.error" class="text-danger">{{wiki.languages.error}}</p>
+        <p ng-hide="wiki.api.results.length" class="text-info">{{wiki.api.noResults}}</p>
+
         <div class="row">
 
             <!-- lead article -->

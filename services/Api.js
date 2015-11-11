@@ -12,12 +12,13 @@ function Api($http, utils, Params) {
     /*** HTTP ***/
 
 	api.search = function() {
+        api.noResults = "";
 		var paramUrl = createParamUrl(Params.getSearchParams());
 		//console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				api.exactMatch = null;
-				if (!data.query) return;
+				if (!data.query) return noResults();
 				api.results = data.query.pages;
 				angular.forEach(api.results, findImagePage);
 				api.exactMatch = findExactTerm();
@@ -79,11 +80,15 @@ function Api($http, utils, Params) {
 
 	function handleErrors(data, status) {
         if(status == 404) {
-            api.error = "The wiki page you requesting does not exist. Try again with different criteria.";
+            api.error = "The wiki domain you requesting does not exist. Try again with different criteria.";
             return;
         }
 		api.error = "Oh no, there was some error in geting data: " + status;
 	} // handleErrors
+
+    function noResults() {
+        api.noResults = "No results for the search term. Try again with different criteria.";
+    }
 
 } // Api
 
