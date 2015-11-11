@@ -82,7 +82,6 @@
         <p ng-hide="wiki.api.results.length" class="text-info">{{wiki.api.noResults}}</p>
 
         <div class="row">
-
             <!-- lead article -->
             <div ng-class="wiki.leadClass()">
                 <div ng-show="wiki.leadLarge">
@@ -121,6 +120,16 @@
                 </article>
             </div>
 
+            <div ng-controller="ImageController as ic">
+                <div ng-repeat="image in ic.images.results | orderBy: wiki.params.settings.orderBy" class="img-wrapper">
+
+                    <a ng-href="{{image.fullurl}}" target="_blank">
+                        <p>{{image.title}}</p>
+                        <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="img-responsive img-rounded">
+                    </a>
+                    <p ng-bind-html="image.desc"></p>
+                </div>
+            </div>
         </div>
 
     </main>

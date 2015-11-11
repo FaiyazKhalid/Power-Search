@@ -1,4 +1,4 @@
-function WikiController(Api, $window, $location, utils, Projects, Params, Languages) {
+function WikiController(Api, $window, $location, utils, Projects, Params, Languages, Images) {
 'use strict';
 
 	var wiki = this;
@@ -6,6 +6,7 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 	wiki.api = Api;
 	wiki.params = Params;
 	wiki.languages = Languages;
+	wiki.images = Images;
 	wiki.projects = Projects.getProjects();
 	wiki.leadLarge = false;
 
@@ -23,9 +24,12 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 	wiki.search = function () {
 		resetResults();
 		if(!searchTerm()) return;
-		wiki.updateSearchTerm();
-		Api.search();
+		updateSearchTerm();
 		Params.saveSettings();
+
+		if(wiki.isCommons()) {
+			Images.search();
+		} else Api.search();
 	}; // search
 
 	wiki.open = function (title) {
@@ -36,7 +40,7 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 	}; // open
 
 	wiki.searchForLeadTerm = function () {
-		wiki.updateSearchTerm(wiki.api.page.title);
+		updateSearchTerm(wiki.api.page.title);
 		wiki.search();
 		wiki.toggleLeadLarge();
 	}; // searchForLeadTerm
@@ -62,13 +66,6 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 	wiki.toggleSave = function() {
 		Params.toggleSave();
 	};	// toggleRemember
-
-	wiki.updateSearchTerm = function(newTerm) {
-		if(newTerm) setSearchTerm(newTerm);
-		setPathTerm();
-		Params.setFilteredTerm();
-		Params.setArticleTitle(searchTerm());
-	};	// updateSearchTerm
 
 	wiki.isCommons = function() {
 		return Params.isCommons();
@@ -111,6 +108,13 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 		wiki.params.settings.searchTerm = term;
 	}
 
+	function updateSearchTerm(newTerm) {
+		if(newTerm) setSearchTerm(newTerm);
+		setPathTerm();
+		Params.setFilterAndTerm();
+		Params.setArticleTitle(searchTerm());
+	}	// updateSearchTerm
+
 	function resetSearchTerm() {
 		setSearchTerm('');
 		resetPath();
@@ -129,6 +133,7 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 		resetErrors();
 		wiki.api.results = null;
 		resetLeadArticle();
+		wiki.images.clearResults();
 	} // resetResults
 
 	function getPathTerm() {

@@ -5,14 +5,14 @@ function Params() {
 	var params = this;
 	var leadImageSize = 250;
 	var thumbSize = 200;
-	params.searchFilters = ['intitle:', '', 'prefix:'];
+	var searchFilters = ['intitle:', '', 'prefix:'];
 
 	// default user settings
 	params.settings = {
 		lang: 'en',
 		domain: 'wikipedia',
 		searchTerm: '',
-		searchFilter: params.searchFilters[0],
+		searchFilter: searchFilters[0],
 		orderBy: '',
 		remember: false
 	};
@@ -20,9 +20,7 @@ function Params() {
 	// basic api params
 	params.basic = {
 		action: 'query',
-		prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
-		pithumbsize: 50,	// thumb height
-		inprop: 'url', // return article url
+		inprop: 'url', // return page url
 		redirects: '', // automatically resolve redirects
 		format: 'json',
 		formatversion: 2,
@@ -30,15 +28,19 @@ function Params() {
 	};
 
 	params.article = {
+		prop: 'extracts|pageimages|info', // |images| return all images from page
+		pithumbsize: leadImageSize,	// height
 		titles: ''
 	};
 
 	params.search = {
+		prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
 		generator: 'search',
 		gsrsearch: '',  // searchTerm + searchFilter
 		gsrnamespace: 0, // 0: article, 6: file
 		gsrlimit: 20, // broj rezultata, max 50
 		pilimit: 'max', // thumb image for all articles
+		pithumbsize: 50,	// thumb height
 		exlimit: 'max', // extract limit
 		rdlimit: 'max',	// redirects limit
 		// imlimit: 'max', // images limit, only if prop:images enabled
@@ -50,7 +52,6 @@ function Params() {
 	/*** GETTERS ***/
 
 	params.getArticleParams = function() {
-		params.setLeadImageSize(leadImageSize);
 		var fullParams = angular.extend(params.article, params.basic);
 		return fullParams;
 	};	// getArticleParams
@@ -70,21 +71,17 @@ function Params() {
 
 	/*** SETTERS ***/
 
-	params.setFilteredTerm = function() {
+	params.setFilterAndTerm = function() {
 		if (isPrefixOnCommons()) {
 			setPrefixedCommonsTerm();
 			return;
 		}
 		params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
-	};	// setFilteredTerm
+	};	// setFilterAndTerm
 
 	params.setArticleTitle = function(newName) {
 		params.article.titles = newName;
 	};	// setArticleTitle
-
-	params.setLeadImageSize = function (size) {
-		params.basic.pithumbsize = size;
-	};	// setLeadImageSize
 
 	params.setLanguage = function (lang) {
 		params.settings.lang = lang;
@@ -128,13 +125,13 @@ function Params() {
 	function adjustForCommons() {
 		if (params.settings.domain == 'commons') {
 			params.search.gsrnamespace = 6;
-			params.basic.pithumbsize = thumbSize;
-			params.basic.prop += "|imageinfo";
-			params.basic.iiprop = 'extmetadata';
+			params.search.pithumbsize = thumbSize;
+			params.search.prop += "|imageinfo";
+			params.search.iiprop = 'extmetadata';
 		}
 		else {
 			params.search.gsrnamespace = 0;
-			params.basic.pithumbsize = 50;
+			params.search.pithumbsize = 50;
 		}
 	}	// adjustForCommons
 

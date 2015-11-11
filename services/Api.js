@@ -14,7 +14,7 @@ function Api($http, utils, Params) {
 	api.search = function() {
         api.noResults = "";
 		var paramUrl = createParamUrl(Params.getSearchParams());
-		console.log(paramUrl);
+		//console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				api.exactMatch = null;
@@ -32,6 +32,7 @@ function Api($http, utils, Params) {
 
 	api.open = function() {
 		var paramUrl = createParamUrl(Params.getArticleParams());
+        //console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				api.page = null;
@@ -52,7 +53,6 @@ function Api($http, utils, Params) {
 	function findImage(thisPage) {
         if(Params.isCommons()) {
             thisPage.image = thisPage.fullurl;
-            console.log(thisPage.imageinfo[0].extmetadata.ImageDescription.value);
             thisPage.desc = thisPage.imageinfo[0].extmetadata.ImageDescription.value;
             return;
         }
