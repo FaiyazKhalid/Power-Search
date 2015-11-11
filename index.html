@@ -34,7 +34,8 @@
             <form class="search-form row" role="form">
                 <div class="col-md-6">
                     <div class="search-wrapper form-group">
-                        <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.search()'><span class="glyphicon glyphicon-search"></span>
+                        <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.search()'>
+                            <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <!-- search field -->
                         <input ng-model='wiki.params.settings.searchTerm' ng-change='wiki.search()' class="form-control input-lg" autofocus>
@@ -66,7 +67,8 @@
                     </div>
                     <label class="checkbox-inline">
                         <!-- alphabetical -->
-                        <input type="checkbox" ng-model="wiki.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''"> <small>alphabetical</small>
+                        <input type="checkbox" ng-model="wiki.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''">
+                        <small>alphabetical</small>
                     </label>
                 </div>
             </form>
@@ -82,11 +84,11 @@
         <div class="row">
 
             <!-- lead article -->
-            <div ng-class="wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'" >
+            <div ng-class="wiki.leadClass()">
                 <div ng-show="wiki.leadLarge">
-                    <button title="Back to serch results" class="btn btn-link"  ng-click="wiki.toggleLeadLarge()">« Back</button>
+                    <button title="Back to serch results" class="btn btn-link" ng-click="wiki.toggleLeadLarge()">« Back</button>
 
-                    <button title="Search for this term" class="btn btn-link pull-right"  ng-click="wiki.searchForLeadTerm()">Search for this term »</button>
+                    <button title="Search for this term" class="btn btn-link pull-right" ng-click="wiki.searchForLeadTerm()">Search for this term »</button>
                 </div>
                 <section class='choosen-article-wrapper' ng-show='wiki.api.page'>
                     <article class="choosen-article clearfix">
@@ -104,12 +106,14 @@
             </div>
 
             <!-- search results-->
-            <div ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
+            <div ng-class="wiki.searchClass()">
                 <article ng-repeat="page in wiki.api.results | orderBy: wiki.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': wiki.isSelectedPage(page) }">
                     <h2 class="text-info">
                         <span class="pointer" title="Open this article" ng-click="wiki.open(page.title)">{{page.title}}</span>
                     </h2>
-                    <a ng-href="{{page.image}}" target="_blank"><img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source"></a>
+                    <a ng-href="{{page.image}}" target="_blank">
+                        <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
+                    </a>
                     <section ng-bind-html='page.extract' ng-hide="wiki.isCommons()" ng-dblclick="wiki.selectText()"></section>
                     <p class="read-more text-info pull-right" ng-hide="wiki.isCommons()"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.settings.domain}}</span> >> </a></p>
                 </article>

@@ -86,6 +86,14 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 		Languages.get();
 	};
 
+	wiki.searchClass = function () {
+		return wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6';
+	};
+
+	wiki.leadClass = function () {
+		return wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6';
+	};
+
 
 	/*** PRIVATE FUNCTIONS ***/
 
