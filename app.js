@@ -26,7 +26,6 @@ var utils = require('./services/utils');
 var Projects = require('./services/Projects');
 var Languages = require('./services/Languages');
 var Params = require('./services/Params');
-var Api = require('./services/Api');
 var Images = require('./services/Images');
 var Pages = require('./services/Pages');
 var Lead = require('./services/Lead');
@@ -45,7 +44,6 @@ angular
     .factory('Projects', Projects)
 	.service('Languages', Languages)
 	.service('Params', Params)
-	.service('Api', Api)
 	.service('Pages', Pages)
 	.service('Lead', Lead)
 	.service('Images', Images);

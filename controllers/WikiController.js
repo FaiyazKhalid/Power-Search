@@ -1,9 +1,8 @@
-function WikiController(Api, $window, $location, utils, Projects, Params, Languages, Images, Pages, Lead) {
+function WikiController($window, $location, utils, Projects, Params, Languages, Images, Pages, Lead) {
 'use strict';
 
 	var wiki = this;
 
-	wiki.api = Api;
 	wiki.params = Params;
 	wiki.lead = Lead;
 	wiki.pages = Pages;
@@ -30,7 +29,7 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 		Params.saveSettings();
 		if(wiki.isCommons()) return Images.search();
 		Pages.search();
-		// TODO ubaciti if pages.exactMatch 
+		// TODO ubaciti if pages.exactMatch
 		Lead.open();
 	}; // search
 
@@ -42,7 +41,7 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 	}; // open
 
 	wiki.searchForLeadTerm = function () {
-		updateSearchTerm(wiki.api.page.title);
+		updateSearchTerm(wiki.lead.page.title);
 		wiki.search();
 		wiki.toggleLeadLarge();
 	}; // searchForLeadTerm
@@ -78,7 +77,7 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 	};	// isChosenProject
 
 	wiki.isSelectedPage = function(page) {
-		return page.title == wiki.api.page.title;
+		return page.title == wiki.lead.page.title;
 	};	// isSelectedPage
 
 	wiki.refreshLanguages = function() {
@@ -109,17 +108,17 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 	}
 
 	function resetLeadArticle(){
-		wiki.api.page = '';
+		wiki.lead.page = '';
 	}	// resetLeadArticle
 
 	function resetErrors() {
-		wiki.api.error = "";
+		wiki.pages.error = "";
 		wiki.languages.error = "";
 	}	// resetErrors
 
 	function resetResults() {
 		resetErrors();
-		wiki.api.results = null;
+		wiki.pages.results = null;
 		resetLeadArticle();
 		wiki.images.clearResults();
 	} // resetResults

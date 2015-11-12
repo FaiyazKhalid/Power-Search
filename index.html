@@ -106,8 +106,8 @@
             <!-- pages-->
             <div ng-controller="PagesController as pc" ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
 
-                <p ng-show="pc.pages.error" class="text-danger">{{pc.api.error}}</p>
-                <p ng-hide="pc.pages.results.length" class="text-info">{{pc.api.noResults}}</p>
+                <p ng-show="pc.pages.error" class="text-danger">{{pc.pages.error}}</p>
+                <p ng-hide="pc.pages.results.length" class="text-info">{{pc.pages.noResults}}</p>
 
                 <article ng-repeat="page in pc.pages.results | orderBy: wiki.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': wiki.isSelectedPage(page)}">
                     <h2 class="text-info">
