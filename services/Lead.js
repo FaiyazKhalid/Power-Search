@@ -10,6 +10,7 @@ function Lead($http, utils, Params) {
     /*** METHODS ***/
 
     lead.open = function() {
+        lead.resetLeadPage();
 		var paramUrl = createParamUrl(Params.getArticleParams());
         console.log(paramUrl);
 		$http.jsonp(paramUrl)
@@ -25,6 +26,10 @@ function Lead($http, utils, Params) {
 
     lead.resetLeadImage = function(){
         lead.page.image = null;
+    };
+
+    lead.resetLeadPage = function(){
+        lead.page = null;
     };
 
 

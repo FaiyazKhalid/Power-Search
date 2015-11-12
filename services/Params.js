@@ -75,13 +75,13 @@ function Params() {
 		params.settings.searchTerm = term;
 	};
 
-	params.setFilterAndTerm = function() {
+	params.updateFilterAndTerm = function() {
 		if (isPrefixOnCommons()) {
-			setPrefixedCommonsTerm();
+			adjustPrefixForCommons();
 			return;
 		}
 		params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
-	};	// setFilterAndTerm
+	};	// updateFilterAndTerm
 
 	params.setArticleTitle = function(newName) {
 		params.article.titles = newName;
@@ -90,6 +90,7 @@ function Params() {
 	params.setLanguage = function (lang) {
 		params.settings.lang = lang;
 	};
+
 
 	params.isCommons = function() {
 		return params.settings.domain == 'commons';
@@ -143,7 +144,7 @@ function Params() {
 		return (params.settings.domain == 'commons') && (params.settings.searchFilter == 'prefix:');
 	}
 
-	function setPrefixedCommonsTerm() {
+	function adjustPrefixForCommons() {
 		params.search.gsrsearch = params.settings.searchFilter + 'File:' + params.settings.searchTerm;
 	}
 

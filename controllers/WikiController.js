@@ -22,24 +22,27 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 
 	wiki.search = function () {
 		resetResults();
-		if(!searchTerm()) return;
-		updateSearchTerm();
+		setPathTerm();
 		Params.saveSettings();
-		if(Params.isCommons()) return Images.search();
-		Pages.search();
-		// TODO ubaciti if pages.exactMatch
-		Lead.open();
+
+		if (Params.isCommons()) {
+			Images.search();
+		} else {
+			Pages.search();
+			// TODO ubaciti if pages.exactMatch
+			Lead.open();
+		}
+
 	}; // search
 
 	wiki.open = function (title) {
-		resetLeadArticle();
-		utils.scrollToTop(300);
 		Params.setArticleTitle(title);
 		Lead.open();
+		utils.scrollToTop(300);
 	}; // open
 
 	wiki.searchForLeadTerm = function () {
-		updateSearchTerm(wiki.lead.page.title);
+		setSearchTerm(wiki.lead.page.title);
 		wiki.search();
 		wiki.toggleLeadLarge();
 	}; // searchForLeadTerm
@@ -54,7 +57,7 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 	}; // selectText
 
 	wiki.isSelectedPage = function(page) {
-		return page.title == wiki.lead.page.title;
+		if(wiki.lead.page) return page.title == wiki.lead.page.title;
 	};	// isSelectedPage
 
 
@@ -64,27 +67,14 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 		return wiki.params.settings.searchTerm;
 	}
 
-	function updateSearchTerm(newTerm) {
-		if(newTerm) Params.setSearchTerm(newTerm);
+	function setSearchTerm(newTerm) {
+		Params.setSearchTerm(newTerm);
 		setPathTerm();
-		Params.setFilterAndTerm();
-		Params.setArticleTitle(searchTerm());
-	}	// updateSearchTerm
-
-	function resetLeadArticle(){
-		wiki.lead.page = '';
-	}	// resetLeadArticle
-
-	function resetErrors() {
-		wiki.pages.error = "";
-		// wiki.languages.error = "";
-	}	// resetErrors
+	}	// setSearchTerm
 
 	function resetResults() {
-		resetErrors();
-		wiki.pages.results = null;
-		resetLeadArticle();
-		wiki.images.clearResults();
+		Lead.resetLeadPage();
+		Images.clearResults();
 	} // resetResults
 
 	function getPathTerm() {
