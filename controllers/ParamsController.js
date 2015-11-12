@@ -1,8 +1,10 @@
-function ParamsController(Params, $window, $location) {
+function ParamsController(Params, Projects, Languages, $window, $location) {
 'use strict';
 
 	var pc = this;
 	pc.params = Params;
+	pc.languages = Languages;
+    pc.projects = Projects.getProjects();
 
 
 	/*** PUBLIC METHODS ***/
@@ -24,9 +26,17 @@ function ParamsController(Params, $window, $location) {
 		$window.location.reload();
 	};	// resetAndReload
 
+    pc.refreshLanguages = function() {
+		Languages.get();
+	};
+
+    pc.isCommons = function() {
+      return Params.isCommons();
+  };
+  
 
 	/*** PRIVATE FUNCTIONS ***/
-    
+
     function resetSearchTerm() {
 		Params.setSearchTerm('');
 		resetPath();

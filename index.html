@@ -22,9 +22,9 @@
                 <form class="col-md-6" role="form">
                     <div class="wiki-logos">
                         <!-- projects -->
-                        <label ng-repeat="project in wiki.projects">
+                        <label ng-repeat="project in pc.projects">
                             <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': pc.isSelectedProject(project) }">
-                            <input type="radio" ng-model="wiki.params.settings.domain" value="{{project.name}}" ng-click="wiki.refreshLanguages(); wiki.search()">
+                            <input type="radio" ng-model="pc.params.settings.domain" value="{{project.name}}" ng-click="pc.refreshLanguages(); wiki.search()">
                         </label>
                         <span class="justify-helper"></span>
                     </div>
@@ -38,36 +38,36 @@
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <!-- search field -->
-                        <input ng-model='wiki.params.settings.searchTerm' ng-change='wiki.search()' class="form-control input-lg" autofocus>
+                        <input ng-model='pc.params.settings.searchTerm' ng-change='wiki.search()' class="form-control input-lg" autofocus>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center">
                         <!-- filters -->
-                        <label ng-repeat="filter in wiki.params.searchFilters" class="radio-inline">
-                            <input type="radio" ng-model="wiki.params.settings.searchFilter" value="{{filter}}" ng-change="wiki.search()"> {{filter || 'content'}}
+                        <label ng-repeat="filter in pc.params.searchFilters" class="radio-inline">
+                            <input type="radio" ng-model="pc.params.settings.searchFilter" value="{{filter}}" ng-change="wiki.search()"> {{filter || 'content'}}
                         </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         <!-- languages -->
-                        <select ng-model="wiki.params.settings.lang" ng-options="item.prefix as item.language for item in wiki.languages.all | orderBy:'prefix' " ng-change='wiki.search()' class="form-control input-sm" ng-disabled="wiki.isCommons()"></select>
+                        <select ng-model="pc.params.settings.lang" ng-options="item.prefix as item.language for item in pc.languages.all | orderBy:'prefix' " ng-change='wiki.search()' class="form-control input-sm" ng-disabled="pc.isCommons()"></select>
                     </div>
                     <label class="checkbox-inline">
                         <!-- remember -->
-                        <input type="checkbox" ng-model="wiki.params.settings.remember" ng-change="pc.toggleSave()">
+                        <input type="checkbox" ng-model="pc.params.settings.remember" ng-change="pc.toggleSave()">
                         <small>remember settings</small>
                     </label>
                 </div>
                 <div class="col-md-1">
                     <div class="form-group">
                         <!-- maxResults -->
-                        <input type="number" min="1" max="50" ng-model='wiki.params.search.gsrlimit' ng-change='pc.checkMaxResults(); wiki.search()' class="form-control input-sm">
+                        <input type="number" min="1" max="50" ng-model='pc.params.search.gsrlimit' ng-change='pc.checkMaxResults(); wiki.search()' class="form-control input-sm">
                     </div>
                     <label class="checkbox-inline">
                         <!-- alphabetical -->
-                        <input type="checkbox" ng-model="wiki.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''">
+                        <input type="checkbox" ng-model="pc.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''">
                         <small>alphabetical</small>
                     </label>
                 </div>

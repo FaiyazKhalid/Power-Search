@@ -59,10 +59,6 @@ function WikiController($window, $location, utils, Projects, Params, Languages, 
 		return page.title == wiki.lead.page.title;
 	};	// isSelectedPage
 
-	wiki.refreshLanguages = function() {
-		Languages.get();
-	};
-
 
 	/*** PRIVATE FUNCTIONS ***/
 
