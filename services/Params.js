@@ -1,6 +1,6 @@
 'use strict';
 
-function Params(utils) {
+function Params() {
 
 	var params = this;
 	var leadImageSize = 250;
@@ -70,6 +70,10 @@ function Params(utils) {
 
 
 	/*** SETTERS ***/
+
+	params.setSearchTerm = function(term) {
+		params.settings.searchTerm = term;
+	};
 
 	params.setFilterAndTerm = function() {
 		if (isPrefixOnCommons()) {

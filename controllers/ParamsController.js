@@ -1,4 +1,4 @@
-function ParamsController(Params) {
+function ParamsController(Params, $window, $location) {
 'use strict';
 
 	var pc = this;
@@ -18,6 +18,23 @@ function ParamsController(Params) {
     pc.toggleSave = function() {
 		Params.toggleSave();
 	};	// toggleRemember
+
+	pc.resetAndReload = function() {
+		resetSearchTerm();
+		$window.location.reload();
+	};	// resetAndReload
+
+
+	/*** PRIVATE FUNCTIONS ***/
+    
+    function resetSearchTerm() {
+		Params.setSearchTerm('');
+		resetPath();
+	}
+
+    function resetPath() {
+        $location.path("");
+    }
 
 
 } // ParamsController

@@ -52,13 +52,8 @@ function WikiController($window, $location, utils, Projects, Params, Languages, 
 
 	wiki.selectText = function () {
 		var text = $window.getSelection().toString();
-		setSearchTerm(text);
+		Params.setSearchTerm(text);
 	}; // selectText
-
-	wiki.resetAndReload = function() {
-		resetSearchTerm();
-		$window.location.reload();
-	};	// resetAndReload
 
 	wiki.isSelectedPage = function(page) {
 		return page.title == wiki.lead.page.title;
@@ -75,21 +70,12 @@ function WikiController($window, $location, utils, Projects, Params, Languages, 
 		return wiki.params.settings.searchTerm;
 	}
 
-	function setSearchTerm(term) {
-		wiki.params.settings.searchTerm = term;
-	}
-
 	function updateSearchTerm(newTerm) {
-		if(newTerm) setSearchTerm(newTerm);
+		if(newTerm) Params.setSearchTerm(newTerm);
 		setPathTerm();
 		Params.setFilterAndTerm();
 		Params.setArticleTitle(searchTerm());
 	}	// updateSearchTerm
-
-	function resetSearchTerm() {
-		setSearchTerm('');
-		resetPath();
-	}
 
 	function resetLeadArticle(){
 		wiki.lead.page = '';
@@ -115,9 +101,6 @@ function WikiController($window, $location, utils, Projects, Params, Languages, 
 		$location.path(searchTerm());
 	}
 
-	function resetPath() {
-		$location.path("");
-	}
 
 } // WikiController
 
