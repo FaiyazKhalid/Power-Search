@@ -1,16 +1,17 @@
-function WikiController(Api, $window, $location, utils, Projects, Params, Languages, Images, Pages) {
+function WikiController(Api, $window, $location, utils, Projects, Params, Languages, Images, Pages, Lead) {
 'use strict';
 
 	var wiki = this;
 
 	wiki.api = Api;
 	wiki.params = Params;
+	wiki.lead = Lead;
 	wiki.pages = Pages;
 	wiki.languages = Languages;
 	wiki.images = Images;
 	wiki.projects = Projects.getProjects();
 	wiki.leadLarge = false;
-	
+
 
 	/*** PUBLIC METHODS ***/
 
@@ -27,18 +28,17 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 		if(!searchTerm()) return;
 		updateSearchTerm();
 		Params.saveSettings();
-
-		if(wiki.isCommons()) {
-			Images.search();
-		}
-		else Pages.search();
+		if(wiki.isCommons()) return Images.search();
+		Pages.search();
+		// TODO ubaciti if pages.exactMatch 
+		Lead.open();
 	}; // search
 
 	wiki.open = function (title) {
 		resetLeadArticle();
 		utils.scrollToTop(300);
 		Params.setArticleTitle(title);
-		Api.open();
+		Lead.open();
 	}; // open
 
 	wiki.searchForLeadTerm = function () {
@@ -83,20 +83,6 @@ function WikiController(Api, $window, $location, utils, Projects, Params, Langua
 
 	wiki.refreshLanguages = function() {
 		Languages.get();
-	};
-
-	wiki.searchClass = function () {
-		if(wiki.isCommons()) {
-			return 'col-md-12';
-		}
-		return wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6';
-	};
-
-	wiki.leadClass = function () {
-		if(wiki.isCommons()) {
-			return 'hidden';
-		}
-		return wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6';
 	};
 
 

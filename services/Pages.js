@@ -3,8 +3,8 @@
 function Pages($http, utils, Params) {
 
     var pages = this;
+
 	pages.params = Params;
-	pages.page = null;
 	pages.results = null;
 	pages.exactMatch = null;
 

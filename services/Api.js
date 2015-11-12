@@ -51,11 +51,6 @@ function Api($http, utils, Params) {
     /*** HELPERS ***/
 
 	function findImage(thisPage) {
-        if(Params.isCommons()) {
-            thisPage.image = thisPage.fullurl;
-            thisPage.desc = thisPage.imageinfo[0].extmetadata.ImageDescription.value;
-            return;
-        }
 		if(thisPage.pageimage) {
             //if (thisPage.thumbnail)
             var imgSrc = thisPage.thumbnail.source;
