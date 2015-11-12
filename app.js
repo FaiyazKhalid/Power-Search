@@ -17,7 +17,7 @@ var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 
 var WikiController = require('./controllers/WikiController');
-var ImageController = require('./controllers/ImageController');
+var ImagesController = require('./controllers/ImagesController');
 var PagesController = require('./controllers/PagesController');
 var LeadController = require('./controllers/LeadController');
 var autofocus = require('./directives/autofocus');
@@ -35,7 +35,7 @@ angular
 	.module('wikiModul', [ngSanitize])
 
 	.controller('WikiController', WikiController)
-	.controller('ImageController', ImageController)
+	.controller('ImagesController', ImagesController)
 	.controller('PagesController', PagesController)
 	.controller('LeadController', LeadController)
 	.directive('autofocus', ['$timeout', autofocus])

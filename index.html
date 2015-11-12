@@ -122,7 +122,7 @@
             </div>
 
             <!-- images -->
-            <div ng-controller="ImageController as ic">
+            <div ng-controller="ImagesController as ic">
                 <div ng-repeat="image in ic.images.results | orderBy: wiki.params.settings.orderBy" class="img-wrapper">
 
                     <a ng-href="{{image.fullurl}}" target="_blank">
