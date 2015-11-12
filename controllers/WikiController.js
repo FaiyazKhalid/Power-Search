@@ -1,4 +1,4 @@
-function WikiController($window, $location, utils, Projects, Params, Languages, Images, Pages, Lead) {
+function WikiController($window, $location, utils, Projects, Params, Images, Pages, Lead) {
 'use strict';
 
 	var wiki = this;
@@ -6,7 +6,6 @@ function WikiController($window, $location, utils, Projects, Params, Languages, 
 	wiki.params = Params;
 	wiki.lead = Lead;
 	wiki.pages = Pages;
-	wiki.languages = Languages;
 	wiki.images = Images;
 	wiki.projects = Projects.getProjects();
 	wiki.leadLarge = false;
@@ -16,7 +15,6 @@ function WikiController($window, $location, utils, Projects, Params, Languages, 
 
 	wiki.init = function () {
 		Params.loadSettings();
-		Languages.get();
 		getPathTerm();
 		wiki.search();
 		$window.onhashchange = wiki.init;
@@ -79,7 +77,7 @@ function WikiController($window, $location, utils, Projects, Params, Languages, 
 
 	function resetErrors() {
 		wiki.pages.error = "";
-		wiki.languages.error = "";
+		// wiki.languages.error = "";
 	}	// resetErrors
 
 	function resetResults() {

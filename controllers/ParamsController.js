@@ -6,6 +6,8 @@ function ParamsController(Params, Projects, Languages, $window, $location) {
 	pc.languages = Languages;
     pc.projects = Projects.getProjects();
 
+    Languages.get();
+    
 
 	/*** PUBLIC METHODS ***/
 
@@ -33,7 +35,7 @@ function ParamsController(Params, Projects, Languages, $window, $location) {
     pc.isCommons = function() {
       return Params.isCommons();
   };
-  
+
 
 	/*** PRIVATE FUNCTIONS ***/
 
