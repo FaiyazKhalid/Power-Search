@@ -13,17 +13,17 @@
 <body ng-controller='WikiController as wiki' ng-init='wiki.init()'>
 
     <header class="header">
-        <section class="container">
+        <section ng-controller="ParamsController as pc" class="container">
             <div class="logo-wrap row">
                 <div class="col-md-6">
                     <h1><a href="index.html" ng-click="wiki.resetAndReload()">Wikipedia power search</a></h1>
                 </div>
-                <!-- search criteria -->
+                <!-- params -->
                 <form class="col-md-6" role="form">
                     <div class="wiki-logos">
-                        <!-- wiki projects -->
+                        <!-- projects -->
                         <label ng-repeat="project in wiki.projects">
-                            <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': wiki.isSelectedProject(project) }">
+                            <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': pc.isSelectedProject(project) }">
                             <input type="radio" ng-model="wiki.params.settings.domain" value="{{project.name}}" ng-click="wiki.refreshLanguages(); wiki.search()">
                         </label>
                         <span class="justify-helper"></span>
@@ -56,14 +56,14 @@
                     </div>
                     <label class="checkbox-inline">
                         <!-- remember -->
-                        <input type="checkbox" ng-model="wiki.params.settings.remember" ng-change="wiki.toggleSave()">
+                        <input type="checkbox" ng-model="wiki.params.settings.remember" ng-change="pc.toggleSave()">
                         <small>remember settings</small>
                     </label>
                 </div>
                 <div class="col-md-1">
                     <div class="form-group">
                         <!-- maxResults -->
-                        <input type="number" min="1" max="50" ng-model='wiki.params.search.gsrlimit' ng-change='wiki.checkMaxResults(); wiki.search()' class="form-control input-sm">
+                        <input type="number" min="1" max="50" ng-model='wiki.params.search.gsrlimit' ng-change='pc.checkMaxResults(); wiki.search()' class="form-control input-sm">
                     </div>
                     <label class="checkbox-inline">
                         <!-- alphabetical -->

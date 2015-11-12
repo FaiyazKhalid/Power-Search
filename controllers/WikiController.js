@@ -27,7 +27,7 @@ function WikiController($window, $location, utils, Projects, Params, Languages, 
 		if(!searchTerm()) return;
 		updateSearchTerm();
 		Params.saveSettings();
-		if(wiki.isCommons()) return Images.search();
+		if(Params.isCommons()) return Images.search();
 		Pages.search();
 		// TODO ubaciti if pages.exactMatch
 		Lead.open();
@@ -55,26 +55,10 @@ function WikiController($window, $location, utils, Projects, Params, Languages, 
 		setSearchTerm(text);
 	}; // selectText
 
-	wiki.checkMaxResults = function () {
-		if (wiki.params.search.gsrlimit > 50) wiki.params.search.gsrlimit = 50;
-	}; // checkMaxResults
-
 	wiki.resetAndReload = function() {
 		resetSearchTerm();
 		$window.location.reload();
 	};	// resetAndReload
-
-	wiki.toggleSave = function() {
-		Params.toggleSave();
-	};	// toggleRemember
-
-	wiki.isCommons = function() {
-		return Params.isCommons();
-	};	// isCommons
-
-	wiki.isSelectedProject = function(project) {
-		return wiki.params.settings.domain == project.name;
-	};	// isChosenProject
 
 	wiki.isSelectedPage = function(page) {
 		return page.title == wiki.lead.page.title;

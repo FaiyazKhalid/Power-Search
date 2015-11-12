@@ -20,6 +20,8 @@ var WikiController = require('./controllers/WikiController');
 var ImagesController = require('./controllers/ImagesController');
 var PagesController = require('./controllers/PagesController');
 var LeadController = require('./controllers/LeadController');
+var ParamsController = require('./controllers/ParamsController');
+
 var autofocus = require('./directives/autofocus');
 
 var utils = require('./services/utils');
@@ -38,6 +40,7 @@ angular
 	.controller('ImagesController', ImagesController)
 	.controller('PagesController', PagesController)
 	.controller('LeadController', LeadController)
+	.controller('ParamsController', ParamsController)
 	.directive('autofocus', ['$timeout', autofocus])
 
 	.factory('utils', utils)
