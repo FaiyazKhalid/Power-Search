@@ -1,6 +1,9 @@
 'use strict';
 /*
 	TODO:
+	// ne brise rezultate kada prebacim na komons
+	// komons ne azurira searchTerm
+
 	// odvojiti poseban html element za komons slike, fotogalerija
 	// odvojiti servise za Page, Pages, Images
 	// napraviti da se glavna slika prikazuje popup?

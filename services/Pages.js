@@ -12,9 +12,6 @@ function Pages($http, utils, Params) {
     /*** HTTP ***/
 
 	pages.search = function() {
-        pages.resetResults();
-		if(!searchTerm()) return;
-        updateSearchTerm();
 		var paramUrl = createParamUrl(Params.getSearchParams());
 		//console.log(paramUrl);
 		$http.jsonp(paramUrl)
@@ -31,24 +28,15 @@ function Pages($http, utils, Params) {
 			.error(handleErrors);
 	}; // search
 
-    pages.resetResults = function() {
+    pages.clearResults = function() {
         resetErrors();
         pages.results = null;
         pages.noResults = null;
-    }; // resetResults
+    }; // clearResults
 
 
 
     /*** HELPERS ***/
-
-    function updateSearchTerm() {
-		Params.updateFilterAndTerm();
-		Params.setArticleTitle(searchTerm());
-	}	// updateSearchTerm
-
-    function searchTerm() {
-		return pages.params.settings.searchTerm;
-	}	// searchTerm
 
     function createParamUrl(params) {
 		var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);

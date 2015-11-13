@@ -1,32 +1,15 @@
 'use strict';
 
-function Images($http, utils) {
+function Images($http, Params, utils) {
 
     var images = this;
 	images.results = null;
-
-    images.params = {
-        action: 'query',
-        prop: 'pageimages|info|imageinfo',
-		inprop: 'url', // return page url
-        iiprop: 'extmetadata',
-		format: 'json',
-		formatversion: 2,
-		callback: 'JSON_CALLBACK',
-        generator: 'search',
-        gsrsearch: 'dada',  // searchTerm + searchFilter
-        gsrnamespace: 6, // 0: article, 6: file
-        gsrlimit: 20, // broj rezultata, max 50
-        pilimit: 'max', // thumb image for all articles
-        pithumbsize: 200	// thumb height
-    };
-
 
     /*** HTTP ***/
 
 	images.search = function() {
         images.noResults = "";
-		var paramUrl = 'http://commons.wikimedia.org/w/api.php?' + utils.serialize(images.params);
+		var paramUrl = 'http://commons.wikimedia.org/w/api.php?' + utils.serialize(Params.getImageParams());
 		//console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {

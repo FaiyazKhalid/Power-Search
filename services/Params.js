@@ -2,152 +2,145 @@
 
 function Params() {
 
-	var params = this;
-	var leadImageSize = 250;
-	var thumbSize = 200;
-	params.searchFilters = ['intitle:', '', 'prefix:'];
+    var params = this;
+    var leadImageSize = 250;
+    var thumbSize = 200;
+    params.searchFilters = ['intitle:', '', 'prefix:'];
 
-	// default user settings
-	params.settings = {
-		lang: 'en',
-		domain: 'wikipedia',
-		searchTerm: '',
-		searchFilter: params.searchFilters[0],
-		orderBy: '',
-		remember: false
+    // default user settings
+    params.settings = {
+        lang: 'en',
+        domain: 'wikipedia',
+        searchTerm: '',
+        searchFilter: params.searchFilters[0],
+        orderBy: '',
+        remember: false
+    };
+
+    // basic api params
+    params.basic = {
+        action: 'query',
+        inprop: 'url', // return page url
+        redirects: '', // automatically resolve redirects
+        format: 'json',
+        formatversion: 2,
+        callback: 'JSON_CALLBACK'
+    };
+
+    params.article = {
+        prop: 'extracts|pageimages|info', // |images| return all images from page
+        pithumbsize: leadImageSize, // height
+        titles: ''
+    };
+
+    params.search = {
+        prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
+        generator: 'search',
+        gsrsearch: '', // searchTerm + searchFilter
+        gsrnamespace: 0, // 0: article, 6: file
+        gsrlimit: 20, // broj rezultata, max 50
+        pilimit: 'max', // thumb image for all articles
+        pithumbsize: 50, // thumb height
+        exlimit: 'max', // extract limit
+        rdlimit: 'max', // redirects limit
+        // imlimit: 'max', // images limit, only if prop:images enabled
+        exintro: '', // only intro
+        exchars: 1250 // character limit
+    };
+
+	params.images = {
+        prop: 'pageimages|info|imageinfo',
+        iiprop: 'extmetadata',
+        generator: 'search',
+        gsrsearch: '',  // searchTerm + searchFilter
+        gsrnamespace: 6, // 0: article, 6: file
+        gsrlimit: 20, // broj rezultata, max 50
+        pilimit: 'max', // thumb image for all articles
+        pithumbsize: thumbSize	// thumb height
+    };
+
+
+    /*** GETTERS ***/
+
+    params.getArticleParams = function() {
+		updateSearchTerm();
+        return angular.extend(params.article, params.basic);
+    }; // getArticleParams
+
+    params.getSearchParams = function() {
+		updateSearchTerm();
+        return angular.extend(params.search, params.basic);
+    }; // getSearchParams
+
+	params.getImageParams = function() {
+		updateSearchTerm();
+		return angular.extend(params.images, params.basic);
 	};
 
-	// basic api params
-	params.basic = {
-		action: 'query',
-		inprop: 'url', // return page url
-		redirects: '', // automatically resolve redirects
-		format: 'json',
-		formatversion: 2,
-		callback: 'JSON_CALLBACK'
-	};
+    params.getApiUrl = function() {
+        if (params.settings.domain == 'commons') {
+            return 'http://commons.wikimedia.org/w/api.php';
+        }
+        return 'http://' + params.settings.lang + '.' + params.settings.domain + '.org/w/api.php';
+    }; // getApiUrl
 
-	params.article = {
-		prop: 'extracts|pageimages|info', // |images| return all images from page
-		pithumbsize: leadImageSize,	// height
-		titles: ''
-	};
+    /*** SETTERS ***/
 
-	params.search = {
-		prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
-		generator: 'search',
-		gsrsearch: '',  // searchTerm + searchFilter
-		gsrnamespace: 0, // 0: article, 6: file
-		gsrlimit: 20, // broj rezultata, max 50
-		pilimit: 'max', // thumb image for all articles
-		pithumbsize: 50,	// thumb height
-		exlimit: 'max', // extract limit
-		rdlimit: 'max',	// redirects limit
-		// imlimit: 'max', // images limit, only if prop:images enabled
-		exintro: '', // only intro
-		exchars: 1250 // character limit
-	};
+    params.setSearchTerm = function(term) {
+        params.settings.searchTerm = term;
+    };
+
+    params.setArticleTitle = function(newName) {
+        params.article.titles = newName;
+    }; // setArticleTitle
+
+    params.setLanguage = function(lang) {
+        params.settings.lang = lang;
+    };
+
+    params.isCommons = function() {
+        return params.settings.domain == 'commons';
+    }; // isCommons
 
 
-	/*** GETTERS ***/
+    /*** STORAGE ***/
 
-	params.getArticleParams = function() {
-		var fullParams = angular.extend(params.article, params.basic);
-		return fullParams;
-	};	// getArticleParams
+    params.saveSettings = function() {
+        if (params.settings.remember) {
+            localStorage.wikiSettings = JSON.stringify(params.settings);
+            localStorage.searchParams = JSON.stringify(params.search);
+        }
+    }; // saveSettings
 
-	params.getSearchParams = function() {
-		adjustForCommons();
-		return angular.extend(params.search, params.basic);
-	};	// getSearchParams
+    params.loadSettings = function() {
+        if (localStorage.wikiSettings) params.settings = JSON.parse(localStorage.wikiSettings);
+        if (localStorage.searchParams) params.search = JSON.parse(localStorage.searchParams);
+    }; // loadSettings
 
-	params.getApiUrl = function() {
-		if (params.settings.domain == 'commons') {
-			return 'http://commons.wikimedia.org/w/api.php';
+    params.deleteStorage = function() {
+        localStorage.removeItem("wikiSettings");
+        localStorage.removeItem("searchParams");
+    }; // deleteSettings
+
+    params.toggleSave = function() {
+        if (params.settings.remember) {
+            params.saveSettings();
+            return;
+        }
+        params.deleteStorage();
+    }; // toggleSave
+
+
+    /*** HELPERS ***/
+
+	function updateSearchTerm() {
+        params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
+		params.article.titles = params.settings.searchTerm;
+		params.images.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
+		if (params.settings.searchFilter == 'prefix:') {
+			params.images.gsrsearch = params.settings.searchFilter + 'File:' + params.settings.searchTerm;
 		}
-		return 'http://' + params.settings.lang + '.' + params.settings.domain + '.org/w/api.php';
-	}; // getApiUrl
-
-
-	/*** SETTERS ***/
-
-	params.setSearchTerm = function(term) {
-		params.settings.searchTerm = term;
-	};
-
-	params.updateFilterAndTerm = function() {
-		if (isPrefixOnCommons()) {
-			adjustPrefixForCommons();
-			return;
-		}
-		params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
-	};	// updateFilterAndTerm
-
-	params.setArticleTitle = function(newName) {
-		params.article.titles = newName;
-	};	// setArticleTitle
-
-	params.setLanguage = function (lang) {
-		params.settings.lang = lang;
-	};
-
-
-	params.isCommons = function() {
-		return params.settings.domain == 'commons';
-	};	// isCommons
-
-
-	/*** STORAGE ***/
-
-	params.saveSettings = function() {
-		if(params.settings.remember) {
-			localStorage.wikiSettings = JSON.stringify(params.settings);
-			localStorage.searchParams = JSON.stringify(params.search);
-		}
-	}; // saveSettings
-
-	params.loadSettings = function() {
-		if(localStorage.wikiSettings) params.settings = JSON.parse(localStorage.wikiSettings);
-		if (localStorage.searchParams) params.search = JSON.parse(localStorage.searchParams);
-	}; // loadSettings
-
-	params.deleteStorage = function () {
-		localStorage.removeItem("wikiSettings");
-		localStorage.removeItem("searchParams");
-	}; // deleteSettings
-
-	params.toggleSave = function () {
-		if(params.settings.remember) {
-			params.saveSettings();
-			return;
-		}
-		params.deleteStorage();
-	}; // toggleSave
-
-
-	/*** HELPERS ***/
-
-	function adjustForCommons() {
-		if (params.settings.domain == 'commons') {
-			params.search.gsrnamespace = 6;
-			params.search.pithumbsize = thumbSize;
-			params.search.prop += "|imageinfo";
-			params.search.iiprop = 'extmetadata';
-		}
-		else {
-			params.search.gsrnamespace = 0;
-			params.search.pithumbsize = 50;
-		}
-	}	// adjustForCommons
-
-	function isPrefixOnCommons() {
-		return (params.settings.domain == 'commons') && (params.settings.searchFilter == 'prefix:');
-	}
-
-	function adjustPrefixForCommons() {
-		params.search.gsrsearch = params.settings.searchFilter + 'File:' + params.settings.searchTerm;
-	}
-
+    }	// adjustForCommons
 
 } // Params
 

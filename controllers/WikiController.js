@@ -21,7 +21,8 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 	}; // init
 
 	wiki.search = function () {
-		resetResults();
+		clearResults();
+		if(!searchTerm()) return;
 		setPathTerm();
 		Params.saveSettings();
 
@@ -72,10 +73,11 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 		setPathTerm();
 	}	// setSearchTerm
 
-	function resetResults() {
-		Lead.resetLeadPage();
+	function clearResults() {
+        Pages.clearResults();
+		Lead.clearResults();
 		Images.clearResults();
-	} // resetResults
+	} // clearResults
 
 	function getPathTerm() {
 		wiki.params.settings.searchTerm = $location.path().substr(1) || wiki.params.settings.searchTerm;
