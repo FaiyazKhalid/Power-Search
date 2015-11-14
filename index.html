@@ -14,17 +14,18 @@
 
     <header class="header">
         <!-- params -->
-        <section ng-controller="ParamsController as pc" class="container">
+        <!-- totalni haos, paramsControl je dupliran -->
+        <section ng-controller="ParamsController as paramsControl" class="container">
             <div class="logo-wrap row">
                 <div class="col-md-6">
-                    <h1><a href="index.html" ng-click="pc.resetAndReload()">Wikipedia power search</a></h1>
+                    <h1><a href="index.html" ng-click="paramsControl.resetAndReload()">Wikipedia power search</a></h1>
                 </div>
                 <form class="col-md-6" role="form">
                     <div class="wiki-logos">
                         <!-- projects -->
-                        <label ng-repeat="project in pc.projects">
-                            <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': pc.isSelectedProject(project) }">
-                            <input type="radio" ng-model="pc.params.settings.domain" value="{{project.name}}" ng-click="pc.refreshLanguages(); wiki.search()">
+                        <label ng-repeat="project in paramsControl.projects">
+                            <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': paramsControl.isSelectedProject(project) }">
+                            <input type="radio" ng-model="paramsControl.params.settings.domain" value="{{project.name}}" ng-click="paramsControl.refreshLanguages(); wiki.search()">
                         </label>
                         <span class="justify-helper"></span>
                     </div>
@@ -38,36 +39,36 @@
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <!-- search field -->
-                        <input ng-model='pc.params.settings.searchTerm' ng-change='wiki.search()' class="form-control input-lg" autofocus>
+                        <input ng-model='paramsControl.params.settings.searchTerm' ng-change='wiki.search()' class="form-control input-lg" autofocus>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center">
                         <!-- filters -->
-                        <label ng-repeat="filter in pc.params.searchFilters" class="radio-inline">
-                            <input type="radio" ng-model="pc.params.settings.searchFilter" value="{{filter}}" ng-change="wiki.search()"> {{filter || 'content'}}
+                        <label ng-repeat="filter in paramsControl.params.searchFilters" class="radio-inline">
+                            <input type="radio" ng-model="paramsControl.params.settings.searchFilter" value="{{filter}}" ng-change="wiki.search()"> {{filter || 'content'}}
                         </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         <!-- languages -->
-                        <select ng-model="pc.params.settings.lang" ng-options="item.prefix as item.language for item in pc.languages.all | orderBy:'prefix' " ng-change='wiki.search()' class="form-control input-sm" ng-disabled="pc.isCommons()"></select>
+                        <select ng-model="paramsControl.params.settings.lang" ng-options="item.prefix as item.language for item in paramsControl.languages.all | orderBy:'prefix' " ng-change='wiki.search()' class="form-control input-sm" ng-disabled="paramsControl.isCommons()"></select>
                     </div>
                     <label class="checkbox-inline">
                         <!-- remember -->
-                        <input type="checkbox" ng-model="pc.params.settings.remember" ng-change="pc.toggleSave()">
+                        <input type="checkbox" ng-model="paramsControl.params.settings.remember" ng-change="paramsControl.toggleSave()">
                         <small>remember settings</small>
                     </label>
                 </div>
                 <div class="col-md-1">
                     <div class="form-group">
                         <!-- maxResults -->
-                        <input type="number" min="1" max="50" ng-model='pc.params.search.gsrlimit' ng-change='pc.checkMaxResults(); wiki.search()' class="form-control input-sm">
+                        <input type="number" min="1" max="50" ng-model='paramsControl.params.search.gsrlimit' ng-change='paramsControl.checkMaxResults(); wiki.search()' class="form-control input-sm">
                     </div>
                     <label class="checkbox-inline">
                         <!-- alphabetical -->
-                        <input type="checkbox" ng-model="pc.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''">
+                        <input type="checkbox" ng-model="paramsControl.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''">
                         <small>alphabetical</small>
                     </label>
                 </div>
@@ -82,34 +83,34 @@
         <div class="row">
             <!-- lead -->
 
-            <div ng-controller="LeadController as lc" ng-class="wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
+            <div ng-controller="LeadController as leadControl" ng-class="wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
                 <nav ng-show="wiki.leadLarge">
                     <button title="Back to serch results" class="btn btn-link" ng-click="wiki.toggleLeadLarge()">« Back</button>
 
                     <button title="Search for this term" class="btn btn-link pull-right" ng-click="wiki.searchForLeadTerm()">Search for this term »</button>
                 </nav>
-                <section class='choosen-article-wrapper' ng-show='lc.lead.page'>
+                <section class='choosen-article-wrapper' ng-show='leadControl.lead.page'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
-                            <span title="Englarge this article" ng-click="wiki.toggleLeadLarge()" class="pointer">{{lc.lead.page.title}}</span>
+                            <span title="Englarge this article" ng-click="wiki.toggleLeadLarge()" class="pointer">{{leadControl.lead.page.title}}</span>
                         </h1>
-                        <a ng-href="{{lc.lead.page.image}}" ng-show="lc.lead.page.image" target="_blank">
-                            <img ng-src="{{lc.lead.page.thumbnail.source}}" alt="{{lc.lead.page.title}}" class="img-large img-thumbnail pull-right">
+                        <a ng-href="{{leadControl.lead.page.image}}" ng-show="leadControl.lead.page.image" target="_blank">
+                            <img ng-src="{{leadControl.lead.page.thumbnail.source}}" alt="{{leadControl.lead.page.title}}" class="img-large img-thumbnail pull-right">
                         </a>
-                        <section ng-bind-html='lc.lead.page.extract' ng-dblclick="wiki.selectText()"></section>
+                        <section ng-bind-html='leadControl.lead.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
 
-                    <p class="read-more text-info pull-right"><a ng-href="{{lc.lead.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.settings.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{leadControl.lead.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.settings.domain}}</span> >> </a></p>
                 </section>
             </div>
 
             <!-- pages-->
-            <div ng-controller="PagesController as pc" ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
+            <div ng-controller="PagesController as pagesControl" ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
 
-                <p ng-show="pc.pages.error" class="text-danger">{{pc.pages.error}}</p>
-                <p ng-hide="pc.pages.results.length" class="text-info">{{pc.pages.noResults}}</p>
+                <p ng-show="pagesControl.pages.error" class="text-danger">{{pagesControl.pages.error}}</p>
+                <p ng-hide="pagesControl.pages.results.length" class="text-info">{{pagesControl.pages.noResults}}</p>
 
-                <article ng-repeat="page in pc.pages.results | orderBy: wiki.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': wiki.isSelectedPage(page)}">
+                <article ng-repeat="page in pagesControl.pages.results | orderBy: wiki.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': wiki.isSelectedPage(page)}">
                     <h2 class="text-info">
                         <span title="Open this article" ng-click="wiki.open(page.title)" class="pointer" >{{page.title}}</span>
                     </h2>
@@ -122,8 +123,8 @@
             </div>
 
             <!-- images -->
-            <div ng-controller="ImagesController as ic">
-                <div ng-repeat="image in ic.images.results | orderBy: wiki.params.settings.orderBy" class="img-wrapper">
+            <div ng-controller="ImagesController as imagesControl">
+                <div ng-repeat="image in imagesControl.images.results | orderBy: wiki.params.settings.orderBy" class="img-wrapper">
 
                     <a ng-href="{{image.fullurl}}" target="_blank">
                         <p>{{image.title}}</p>

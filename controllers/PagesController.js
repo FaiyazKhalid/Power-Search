@@ -1,8 +1,8 @@
 function PagesController(Pages) {
 'use strict';
 
-	var pc = this;
-	pc.pages = Pages;
+	var pagesControl = this;
+	pagesControl.pages = Pages;
 
 
 } // PagesController
