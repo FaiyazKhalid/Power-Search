@@ -1,4 +1,4 @@
-function MainController($window, $location, utils, Params, Images, Pages, Page) {
+function MainController($window, $location, utils, Params, Images, Pages, Page, ImagePage) {
 'use strict';
 
 	var main = this;
@@ -21,19 +21,22 @@ function MainController($window, $location, utils, Params, Images, Pages, Page) 
 		clearResults();
 		if(!searchTerm()) return;
 		setPathTerm();
-		Params.saveSettings();
+		Params.updateSearchTerm();
 
 		if (Params.isCommons()) {
 			Images.search();
+			ImagePage.open();
 		} else {
 			Pages.search();
 			// TODO ubaciti if pages.exactMatch
 			Page.open();
 		}
+		Params.saveSettings();
 	}; // search
 
 	main.open = function (title) {
 		Params.setPageTitle(title);
+
 		Page.open();
 		utils.scrollToTop(300);
 	}; // open

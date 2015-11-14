@@ -53,11 +53,17 @@ function Params() {
     };
 
 	params.images = {
-        prop: 'pageimages|info|imageinfo',
+        prop: 'pageimages|imageinfo|info|redirects',
         gsrnamespace: 6, // 0: article, 6: file
         pilimit: 'max', // thumb image for all articles
         pithumbsize: thumbSize,	// thumb height
         iiprop: 'extmetadata'
+    };
+
+    params.imagepage = {
+        prop: 'pageimages|info|images',
+        pithumbsize: leadImageSize, // height
+        titles: ''
     };
 
 
@@ -71,22 +77,34 @@ function Params() {
     }; // getApiUrl
 
     params.getPageParams = function() {
-		updateSearchTerm();
         return angular.extend(params.page, params.basic);
     }; // getPageParams
 
     params.getPagesParams = function() {
-		updateSearchTerm();
         return angular.extend(params.pages, params.basic, params.basicSearch);
     }; // getPagesParams
 
-	params.getImageParams = function() {
-		updateSearchTerm();
+    params.getImageParams = function() {
 		return angular.extend(params.images, params.basic, params.basicSearch);
-	};
+	}; // getImageParams
+
+    params.getImagePageParams = function() {
+		return angular.extend(params.imagepage, params.basic);
+	}; // getImagePageParams
 
 
     /*** SETTERS ***/
+
+    params.updateSearchTerm = function () {
+        var filter = params.settings.searchFilter;
+        var term = params.settings.searchTerm;
+        params.basicSearch.gsrsearch = filter + term;
+        params.page.titles = term;
+        params.imagepage.titles = term;
+        if (params.isCommons() && filter == 'prefix:') {
+            params.basicSearch.gsrsearch = filter + 'File:' + term;
+        }
+    };  // updateSearchTerm
 
     params.setSearchTerm = function(term) {
         params.settings.searchTerm = term;
@@ -96,10 +114,12 @@ function Params() {
         params.page.titles = newName;
     }; // setPageTitle
 
-    // sluzi samo da u slucaju greske vrati na engleski
     params.setLanguage = function(lang) {
         params.settings.lang = lang;
-    };
+    };  // setLanguage
+
+
+    /*** HELPERS ***/
 
     params.isCommons = function() {
         return params.settings.domain == 'commons';
@@ -132,21 +152,6 @@ function Params() {
         }
         params.deleteStorage();
     }; // toggleSave
-
-
-    /*** HELPERS ***/
-
-	function updateSearchTerm() {
-        var filter = params.settings.searchFilter;
-        var term = params.settings.searchTerm;
-
-        params.basicSearch.gsrsearch = filter + term;
-		params.page.titles = term;
-
-		if (params.isCommons() && filter == 'prefix:') {
-			params.basicSearch.gsrsearch = filter + 'File:' + term;
-		}
-    }	// adjustForCommons
 
 } // Params
 

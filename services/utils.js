@@ -2,6 +2,8 @@
 
 function utils() {
 
+    var noResultsMessage = "No results for the search term. Try again with different criteria.";
+
     function replaceSpacesWithUnderscores(struna) {
         return struna.replace(/ /g, "_");
     } // replaceSpacesWithUnderscores
@@ -50,7 +52,8 @@ function utils() {
 		capitalize: capitalize,
 		capitalizeFirst: capitalizeFirst,
 		serialize: serialize,
-		startsWith: startsWith
+		startsWith: startsWith,
+        noResultsMessage: noResultsMessage
 	};
 
 } // utils

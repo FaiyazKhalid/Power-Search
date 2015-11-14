@@ -10,9 +10,8 @@ function Page($http, utils, Params) {
     /*** METHODS ***/
 
     page.open = function() {
-        // page.clearResults();
 		var paramUrl = createParamUrl(Params.getPageParams());
-        // console.log(paramUrl);
+        console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				page.page = null;
@@ -30,7 +29,8 @@ function Page($http, utils, Params) {
 
     /*** HELPERS ***/
 
-    // duplira se
+    // duplira se funkcija!
+    
     function findImage(thisPage) {
 		if(thisPage.pageimage) {
             //if (thisPage.thumbnail)

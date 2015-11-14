@@ -10,10 +10,13 @@ function Images($http, Params, utils) {
 	images.search = function() {
         //images.noResults = "";
 		var paramUrl = Params.getApiUrl() + '?' + utils.serialize(Params.getImageParams());
-		console.log(paramUrl);
+		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-				if (!data.query) return noResults();
+				if (!data.query) {
+                    images.noResults = utils.noResultsMessage;
+                    return;
+                }
 				images.results = data.query.pages;
 				angular.forEach(images.results, findDescription);
 			})
@@ -40,10 +43,6 @@ function Images($http, Params, utils) {
         }
 		images.error = "Oh no, there was some error in geting data: " + status;
 	} // handleErrors
-
-    function noResults() {
-        images.noResults = "No results for the search term. Try again with different criteria.";
-    }
 
 
 } // Images
