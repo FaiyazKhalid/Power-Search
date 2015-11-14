@@ -23,7 +23,7 @@ var ngSanitize = require('angular-sanitize');
 var WikiController = require('./controllers/WikiController');
 var ImagesController = require('./controllers/ImagesController');
 var PagesController = require('./controllers/PagesController');
-var LeadController = require('./controllers/LeadController');
+var PageController = require('./controllers/PageController');
 var ParamsController = require('./controllers/ParamsController');
 
 var autofocus = require('./directives/autofocus');
@@ -34,7 +34,7 @@ var Languages = require('./services/Languages');
 var Params = require('./services/Params');
 var Images = require('./services/Images');
 var Pages = require('./services/Pages');
-var Lead = require('./services/Lead');
+var Page = require('./services/Page');
 
 
 angular
@@ -43,7 +43,7 @@ angular
 	.controller('WikiController', WikiController)
 	.controller('ImagesController', ImagesController)
 	.controller('PagesController', PagesController)
-	.controller('LeadController', LeadController)
+	.controller('PageController', PageController)
 	.controller('ParamsController', ParamsController)
 	.directive('autofocus', ['$timeout', autofocus])
 
@@ -52,10 +52,10 @@ angular
 	.service('Languages', Languages)
 	.service('Params', Params)
 	.service('Pages', Pages)
-	.service('Lead', Lead)
+	.service('Page', Page)
 	.service('Images', Images);
 
-},{"./controllers/ImagesController":2,"./controllers/LeadController":3,"./controllers/PagesController":4,"./controllers/ParamsController":5,"./controllers/WikiController":6,"./directives/autofocus":7,"./services/Images":12,"./services/Languages":13,"./services/Lead":14,"./services/Pages":15,"./services/Params":16,"./services/Projects":17,"./services/utils":18,"angular":11,"angular-sanitize":9}],2:[function(require,module,exports){
+},{"./controllers/ImagesController":2,"./controllers/PageController":3,"./controllers/PagesController":4,"./controllers/ParamsController":5,"./controllers/WikiController":6,"./directives/autofocus":7,"./services/Images":12,"./services/Languages":13,"./services/Page":14,"./services/Pages":15,"./services/Params":16,"./services/Projects":17,"./services/utils":18,"angular":11,"angular-sanitize":9}],2:[function(require,module,exports){
 function ImageController(Images) {
 'use strict';
 
@@ -68,16 +68,16 @@ function ImageController(Images) {
 module.exports = ImageController;
 
 },{}],3:[function(require,module,exports){
-function LeadController(Lead) {
+function PageController(Page) {
 'use strict';
 
 	var leadControl = this;
-	leadControl.lead = Lead;
+	leadControl.page = Page;
 
 
-} // LeadController
+} // PageController
 
-module.exports = LeadController;
+module.exports = PageController;
 
 },{}],4:[function(require,module,exports){
 function PagesController(Pages) {
@@ -148,13 +148,13 @@ function ParamsController(Params, Projects, Languages, $window, $location) {
 module.exports = ParamsController;
 
 },{}],6:[function(require,module,exports){
-function WikiController($window, $location, utils, Projects, Params, Images, Pages, Lead) {
+function WikiController($window, $location, utils, Projects, Params, Images, Pages, Page) {
 'use strict';
 
 	var wiki = this;
 
 	wiki.params = Params;
-	wiki.lead = Lead;
+	wiki.page = Page;
 	wiki.pages = Pages;
 	wiki.images = Images;
 	wiki.projects = Projects.getProjects();
@@ -181,19 +181,19 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 		} else {
 			Pages.search();
 			// TODO ubaciti if pages.exactMatch
-			Lead.open();
+			Page.open();
 		}
 
 	}; // search
 
 	wiki.open = function (title) {
 		Params.setPageTitle(title);
-		Lead.open();
+		Page.open();
 		utils.scrollToTop(300);
 	}; // open
 
 	wiki.searchForLeadTerm = function () {
-		setSearchTerm(wiki.lead.page.title);
+		setSearchTerm(wiki.page.page.title);
 		wiki.search();
 		wiki.toggleLeadLarge();
 	}; // searchForLeadTerm
@@ -208,7 +208,7 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 	}; // selectText
 
 	wiki.isSelectedPage = function(page) {
-		if(wiki.lead.page) return page.title == wiki.lead.page.title;
+		if(wiki.page.page) return page.title == wiki.page.page.title;
 	};	// isSelectedPage
 
 
@@ -225,7 +225,7 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 
 	function clearResults() {
         Pages.clearResults();
-		Lead.clearResults();
+		Page.clearResults();
 		Images.clearResults();
 	} // clearResults
 
@@ -11981,7 +11981,7 @@ function $InterpolateProvider() {
       }
 
       // Concatenating expressions makes it hard to reason about whether some combination of
-      // concatenated values are unsafe to use and could easily lead to XSS.  By requiring that a
+      // concatenated values are unsafe to use and could easily page to XSS.  By requiring that a
       // single expression be used for iframe[src], object[src], etc., we ensure that the value
       // that's used is assigned or constructed by some JS code somewhere that is more testable or
       // make it obvious that you bound the value to some user controlled value.  This helps reduce
@@ -20711,7 +20711,7 @@ var htmlAnchorDirective = valueFn({
  * Sets the `checked` attribute on the element, if the expression inside `ngChecked` is truthy.
  *
  * Note that this directive should not be used together with {@link ngModel `ngModel`},
- * as this can lead to unexpected behavior.
+ * as this can page to unexpected behavior.
  *
  * ### Why do we need `ngChecked`?
  *
@@ -29966,31 +29966,31 @@ module.exports = Languages;
 },{}],14:[function(require,module,exports){
 'use strict';
 
-function Lead($http, utils, Params) {
+function Page($http, utils, Params) {
 
-    var lead = this;
-	lead.params = Params;
-	lead.page = null;
+    var page = this;
+	page.params = Params;
+	page.page = null;
 
 
     /*** METHODS ***/
 
-    lead.open = function() {
-        lead.clearResults();
+    page.open = function() {
+        page.clearResults();
 		var paramUrl = createParamUrl(Params.getPageParams());
         console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-				lead.page = null;
+				page.page = null;
 				if (!data.query) return;
-				lead.page = data.query.pages[0];
-				findImage(lead.page);
+				page.page = data.query.pages[0];
+				findImage(page.page);
 			})
 			.error(handleErrors);
 	}; // open
 
-    lead.clearResults = function(){
-        lead.page = null;
+    page.clearResults = function(){
+        page.page = null;
     };
 
 
@@ -30007,7 +30007,7 @@ function Lead($http, utils, Params) {
 			if (utils.startsWith(imgSrc, commonsUrl)) {
 				thisPage.image = "https://commons.wikimedia.org/wiki/File:" + imageName;
 			} else {
-				thisPage.image = "https://" + lead.params.settings.lang + "." + lead.params.settings.domain + ".org/wiki/File:" + imageName;
+				thisPage.image = "https://" + page.params.settings.lang + "." + page.params.settings.domain + ".org/wiki/File:" + imageName;
 			}
 		}
 	} // findImage
@@ -30021,18 +30021,18 @@ function Lead($http, utils, Params) {
 
     function handleErrors(data, status) {
         if(status == 404) {
-            lead.error = "The wiki domain you requesting does not exist. Try again with different criteria.";
+            page.error = "The wiki domain you requesting does not exist. Try again with different criteria.";
             return;
         }
-		lead.error = "Oh no, there was some error in geting data: " + status;
+		page.error = "Oh no, there was some error in geting data: " + status;
 	} // handleErrors
 
 
 
-} // Lead
+} // Page
 
 
-module.exports = Lead;
+module.exports = Page;
 
 },{}],15:[function(require,module,exports){
 'use strict';

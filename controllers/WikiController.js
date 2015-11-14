@@ -1,10 +1,10 @@
-function WikiController($window, $location, utils, Projects, Params, Images, Pages, Lead) {
+function WikiController($window, $location, utils, Projects, Params, Images, Pages, Page) {
 'use strict';
 
 	var wiki = this;
 
 	wiki.params = Params;
-	wiki.lead = Lead;
+	wiki.page = Page;
 	wiki.pages = Pages;
 	wiki.images = Images;
 	wiki.projects = Projects.getProjects();
@@ -31,19 +31,19 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 		} else {
 			Pages.search();
 			// TODO ubaciti if pages.exactMatch
-			Lead.open();
+			Page.open();
 		}
 
 	}; // search
 
 	wiki.open = function (title) {
 		Params.setPageTitle(title);
-		Lead.open();
+		Page.open();
 		utils.scrollToTop(300);
 	}; // open
 
 	wiki.searchForLeadTerm = function () {
-		setSearchTerm(wiki.lead.page.title);
+		setSearchTerm(wiki.page.page.title);
 		wiki.search();
 		wiki.toggleLeadLarge();
 	}; // searchForLeadTerm
@@ -58,7 +58,7 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 	}; // selectText
 
 	wiki.isSelectedPage = function(page) {
-		if(wiki.lead.page) return page.title == wiki.lead.page.title;
+		if(wiki.page.page) return page.title == wiki.page.page.title;
 	};	// isSelectedPage
 
 
@@ -75,7 +75,7 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 
 	function clearResults() {
         Pages.clearResults();
-		Lead.clearResults();
+		Page.clearResults();
 		Images.clearResults();
 	} // clearResults
 

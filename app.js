@@ -22,7 +22,7 @@ var ngSanitize = require('angular-sanitize');
 var WikiController = require('./controllers/WikiController');
 var ImagesController = require('./controllers/ImagesController');
 var PagesController = require('./controllers/PagesController');
-var LeadController = require('./controllers/LeadController');
+var PageController = require('./controllers/PageController');
 var ParamsController = require('./controllers/ParamsController');
 
 var autofocus = require('./directives/autofocus');
@@ -33,7 +33,7 @@ var Languages = require('./services/Languages');
 var Params = require('./services/Params');
 var Images = require('./services/Images');
 var Pages = require('./services/Pages');
-var Lead = require('./services/Lead');
+var Page = require('./services/Page');
 
 
 angular
@@ -42,7 +42,7 @@ angular
 	.controller('WikiController', WikiController)
 	.controller('ImagesController', ImagesController)
 	.controller('PagesController', PagesController)
-	.controller('LeadController', LeadController)
+	.controller('PageController', PageController)
 	.controller('ParamsController', ParamsController)
 	.directive('autofocus', ['$timeout', autofocus])
 
@@ -51,5 +51,5 @@ angular
 	.service('Languages', Languages)
 	.service('Params', Params)
 	.service('Pages', Pages)
-	.service('Lead', Lead)
+	.service('Page', Page)
 	.service('Images', Images);

@@ -14,7 +14,6 @@
 
     <header class="header">
         <!-- params -->
-        <!-- totalni haos, paramsControl je dupliran -->
         <section ng-controller="ParamsController as paramsControl" class="container">
             <div class="logo-wrap row">
                 <div class="col-md-6">
@@ -81,26 +80,25 @@
         <p ng-show="wiki.languages.error" class="text-danger">{{wiki.languages.error}}</p>
 
         <div class="row">
-            <!-- lead -->
-
-            <div ng-controller="LeadController as leadControl" ng-class="wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
+            <!-- page -->
+            <div ng-controller="PageController as pageControl" ng-class="wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
                 <nav ng-show="wiki.leadLarge">
                     <button title="Back to serch results" class="btn btn-link" ng-click="wiki.toggleLeadLarge()">« Back</button>
 
                     <button title="Search for this term" class="btn btn-link pull-right" ng-click="wiki.searchForLeadTerm()">Search for this term »</button>
                 </nav>
-                <section class='choosen-article-wrapper' ng-show='leadControl.lead.page'>
+                <section class='choosen-article-wrapper' ng-show='pageControl.page.page'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
-                            <span title="Englarge this article" ng-click="wiki.toggleLeadLarge()" class="pointer">{{leadControl.lead.page.title}}</span>
+                            <span title="Englarge this article" ng-click="wiki.toggleLeadLarge()" class="pointer">{{pageControl.page.page.title}}</span>
                         </h1>
-                        <a ng-href="{{leadControl.lead.page.image}}" ng-show="leadControl.lead.page.image" target="_blank">
-                            <img ng-src="{{leadControl.lead.page.thumbnail.source}}" alt="{{leadControl.lead.page.title}}" class="img-large img-thumbnail pull-right">
+                        <a ng-href="{{pageControl.page.page.image}}" ng-show="pageControl.page.page.image" target="_blank">
+                            <img ng-src="{{pageControl.page.page.thumbnail.source}}" alt="{{pageControl.page.page.title}}" class="img-large img-thumbnail pull-right">
                         </a>
-                        <section ng-bind-html='leadControl.lead.page.extract' ng-dblclick="wiki.selectText()"></section>
+                        <section ng-bind-html='pageControl.page.page.extract' ng-dblclick="wiki.selectText()"></section>
                     </article>
 
-                    <p class="read-more text-info pull-right"><a ng-href="{{leadControl.lead.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.settings.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{pageControl.page.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.settings.domain}}</span> >> </a></p>
                 </section>
             </div>
 

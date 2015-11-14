@@ -1,30 +1,30 @@
 'use strict';
 
-function Lead($http, utils, Params) {
+function Page($http, utils, Params) {
 
-    var lead = this;
-	lead.params = Params;
-	lead.page = null;
+    var page = this;
+	page.params = Params;
+	page.page = null;
 
 
     /*** METHODS ***/
 
-    lead.open = function() {
-        lead.clearResults();
+    page.open = function() {
+        page.clearResults();
 		var paramUrl = createParamUrl(Params.getPageParams());
         console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-				lead.page = null;
+				page.page = null;
 				if (!data.query) return;
-				lead.page = data.query.pages[0];
-				findImage(lead.page);
+				page.page = data.query.pages[0];
+				findImage(page.page);
 			})
 			.error(handleErrors);
 	}; // open
 
-    lead.clearResults = function(){
-        lead.page = null;
+    page.clearResults = function(){
+        page.page = null;
     };
 
 
@@ -41,7 +41,7 @@ function Lead($http, utils, Params) {
 			if (utils.startsWith(imgSrc, commonsUrl)) {
 				thisPage.image = "https://commons.wikimedia.org/wiki/File:" + imageName;
 			} else {
-				thisPage.image = "https://" + lead.params.settings.lang + "." + lead.params.settings.domain + ".org/wiki/File:" + imageName;
+				thisPage.image = "https://" + page.params.settings.lang + "." + page.params.settings.domain + ".org/wiki/File:" + imageName;
 			}
 		}
 	} // findImage
@@ -55,15 +55,15 @@ function Lead($http, utils, Params) {
 
     function handleErrors(data, status) {
         if(status == 404) {
-            lead.error = "The wiki domain you requesting does not exist. Try again with different criteria.";
+            page.error = "The wiki domain you requesting does not exist. Try again with different criteria.";
             return;
         }
-		lead.error = "Oh no, there was some error in geting data: " + status;
+		page.error = "Oh no, there was some error in geting data: " + status;
 	} // handleErrors
 
 
 
-} // Lead
+} // Page
 
 
-module.exports = Lead;
+module.exports = Page;
