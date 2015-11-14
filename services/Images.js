@@ -8,9 +8,9 @@ function Images($http, Params, utils) {
     /*** HTTP ***/
 
 	images.search = function() {
-        images.noResults = "";
-		var paramUrl = 'http://commons.wikimedia.org/w/api.php?' + utils.serialize(Params.getImageParams());
-		//console.log(paramUrl);
+        //images.noResults = "";
+		var paramUrl = Params.getApiUrl() + '?' + utils.serialize(Params.getImageParams());
+		console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				if (!data.query) return noResults();
@@ -28,7 +28,9 @@ function Images($http, Params, utils) {
     /*** HELPERS ***/
 
     function findDescription(thisImage) {
-        thisImage.desc = thisImage.imageinfo[0].extmetadata.ImageDescription.value;
+        if(thisImage.imageinfo && thisImage.imageinfo[0].extmetadata.ImageDescription) {
+            thisImage.desc = thisImage.imageinfo[0].extmetadata.ImageDescription.value;
+        }
 	} // findDescription
 
 	function handleErrors(data, status) {

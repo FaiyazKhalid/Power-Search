@@ -17,7 +17,7 @@ function Params() {
         remember: false
     };
 
-    // basic api params
+    // basic api params for all
     params.basic = {
         action: 'query',
         inprop: 'url', // return page url
@@ -27,16 +27,17 @@ function Params() {
         callback: 'JSON_CALLBACK'
     };
 
-    params.page = {
-        prop: 'extracts|pageimages|info', // |images| return all images from page
-        pithumbsize: leadImageSize, // height
-        titles: ''
-    };
-
+    // basic params for pages and images
     params.basicSearch = {
         generator: 'search',
         gsrlimit: 20, // broj rezultata, max 50
         gsrsearch: '' // searchTerm + searchFilter
+    };
+
+    params.page = {
+        prop: 'extracts|pageimages|info', // |images| return all images from page
+        pithumbsize: leadImageSize, // height
+        titles: ''
     };
 
     params.pages = {
@@ -62,21 +63,6 @@ function Params() {
 
     /*** GETTERS ***/
 
-    params.getArticleParams = function() {
-		updateSearchTerm();
-        return angular.extend(params.page, params.basic);
-    }; // getArticleParams
-
-    params.getSearchParams = function() {
-		updateSearchTerm();
-        return angular.extend(params.pages, params.basic, params.basicSearch);
-    }; // getSearchParams
-
-	params.getImageParams = function() {
-		updateSearchTerm();
-		return angular.extend(params.images, params.basic, params.basicSearch);
-	};
-
     params.getApiUrl = function() {
         if (params.settings.domain == 'commons') {
             return 'http://commons.wikimedia.org/w/api.php';
@@ -84,16 +70,33 @@ function Params() {
         return 'http://' + params.settings.lang + '.' + params.settings.domain + '.org/w/api.php';
     }; // getApiUrl
 
+    params.getPageParams = function() {
+		updateSearchTerm();
+        return angular.extend(params.page, params.basic);
+    }; // getPageParams
+
+    params.getPagesParams = function() {
+		updateSearchTerm();
+        return angular.extend(params.pages, params.basic, params.basicSearch);
+    }; // getPagesParams
+
+	params.getImageParams = function() {
+		updateSearchTerm();
+		return angular.extend(params.images, params.basic, params.basicSearch);
+	};
+
+
     /*** SETTERS ***/
 
     params.setSearchTerm = function(term) {
         params.settings.searchTerm = term;
     };
 
-    params.setArticleTitle = function(newName) {
+    params.setPageTitle = function(newName) {
         params.page.titles = newName;
-    }; // setArticleTitle
+    }; // setPageTitle
 
+    // sluzi samo da u slucaju greske vrati na engleski
     params.setLanguage = function(lang) {
         params.settings.lang = lang;
     };
@@ -134,10 +137,14 @@ function Params() {
     /*** HELPERS ***/
 
 	function updateSearchTerm() {
-        params.basicSearch.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
-		params.page.titles = params.settings.searchTerm;
-		if (params.isCommons() && params.settings.searchFilter == 'prefix:') {
-			params.basicSearch.gsrsearch = params.settings.searchFilter + 'File:' + params.settings.searchTerm;
+        var filter = params.settings.searchFilter;
+        var term = params.settings.searchTerm;
+
+        params.basicSearch.gsrsearch = filter + term;
+		params.page.titles = term;
+
+		if (params.isCommons() && filter == 'prefix:') {
+			params.basicSearch.gsrsearch = filter + 'File:' + term;
 		}
     }	// adjustForCommons
 

@@ -11,7 +11,7 @@ function Lead($http, utils, Params) {
 
     lead.open = function() {
         lead.clearResults();
-		var paramUrl = createParamUrl(Params.getArticleParams());
+		var paramUrl = createParamUrl(Params.getPageParams());
         console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {

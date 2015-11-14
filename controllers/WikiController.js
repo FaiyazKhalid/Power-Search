@@ -37,7 +37,7 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 	}; // search
 
 	wiki.open = function (title) {
-		Params.setArticleTitle(title);
+		Params.setPageTitle(title);
 		Lead.open();
 		utils.scrollToTop(300);
 	}; // open
