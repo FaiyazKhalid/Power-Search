@@ -3,8 +3,8 @@
 function Params() {
 
     var params = this;
-    var leadImageSize = 250;
     var thumbSize = 200;
+    var leadImageSize = 250;
     params.searchFilters = ['intitle:', '', 'prefix:'];
 
     // default user settings
@@ -35,9 +35,14 @@ function Params() {
     };
 
     params.page = {
+        titles: '',
         prop: 'extracts|pageimages|info', // |images| return all images from page
-        pithumbsize: leadImageSize, // height
-        titles: ''
+        pithumbsize: leadImageSize // height
+    };
+
+    params.imagepage = {
+        exintro: '', // only intro
+        exchars: 250 // character limit
     };
 
     params.pages = {
@@ -47,7 +52,7 @@ function Params() {
         pithumbsize: 50, // thumb height
         exlimit: 'max', // extract limit
         rdlimit: 'max', // redirects limit
-        // imlimit: 'max', // images limit, only if prop:images enabled
+        // imlimit: 'max', // images limit, if prop:images enabled
         exintro: '', // only intro
         exchars: 1250 // character limit
     };
@@ -58,12 +63,6 @@ function Params() {
         pilimit: 'max', // thumb image for all articles
         pithumbsize: thumbSize,	// thumb height
         iiprop: 'extmetadata'
-    };
-
-    params.imagepage = {
-        prop: 'pageimages|info|images',
-        pithumbsize: leadImageSize, // height
-        titles: ''
     };
 
 
@@ -89,7 +88,7 @@ function Params() {
 	}; // getImageParams
 
     params.getImagePageParams = function() {
-		return angular.extend(params.imagepage, params.basic);
+		return angular.extend(params.imagepage, params.page, params.basic);
 	}; // getImagePageParams
 
 

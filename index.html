@@ -87,18 +87,18 @@
 
                     <button title="Search for this term" class="btn btn-link pull-right" ng-click="main.searchForLeadTerm()">Search for this term »</button>
                 </nav>
-                <section class='choosen-article-wrapper' ng-show='pageControl.page.page'>
+                <section class='choosen-article-wrapper' ng-show='pageControl.page.result'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
-                            <span title="Englarge this article" ng-click="main.toggleLeadLarge()" class="pointer">{{pageControl.page.page.title}}</span>
+                            <span title="Englarge this article" ng-click="main.toggleLeadLarge()" class="pointer">{{pageControl.page.result.title}}</span>
                         </h1>
-                        <a ng-href="{{pageControl.page.page.image}}" ng-show="pageControl.page.page.image" target="_blank">
-                            <img ng-src="{{pageControl.page.page.thumbnail.source}}" alt="{{pageControl.page.page.title}}" class="img-large img-thumbnail pull-right">
+                        <a ng-href="{{pageControl.page.result.image}}" ng-show="pageControl.page.result.image" target="_blank">
+                            <img ng-src="{{pageControl.page.result.thumbnail.source}}" alt="{{pageControl.page.result.title}}" class="img-large img-thumbnail pull-right">
                         </a>
-                        <section ng-bind-html='pageControl.page.page.extract' ng-dblclick="main.selectText()"></section>
+                        <section ng-bind-html='pageControl.page.result.extract' ng-dblclick="main.selectText()"></section>
                     </article>
 
-                    <p class="read-more text-info pull-right"><a ng-href="{{pageControl.page.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{main.params.settings.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{pageControl.page.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{main.params.settings.domain}}</span> >> </a></p>
                 </section>
             </div>
 
@@ -118,6 +118,15 @@
                     <section ng-bind-html='page.extract' ng-dblclick="main.selectText()"></section>
                     <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{main.params.settings.domain}}</span> >> </a></p>
                 </article>
+            </div>
+
+            <!-- imagepage -->
+            <div ng-controller="ImagePageController as imagepageControl" class="pull-right">
+                <a ng-href="{{imagepageControl.imagepage.result.fullurl}}" target="_blank">
+                    <h1>{{imagepageControl.imagepage.result.title}} gallery</h1>
+                    <img ng-src="{{imagepageControl.imagepage.result.thumbnail.source}}" alt="{{imagepageControl.imagepage.result.title}}" class="img-responsive img-rounded">
+                </a>
+                <p ng-bind-html="imagepageControl.imagepage.result.extract"></p>
             </div>
 
             <!-- images -->

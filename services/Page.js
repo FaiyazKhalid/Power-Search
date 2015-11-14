@@ -4,7 +4,7 @@ function Page($http, utils, Params) {
 
     var page = this;
 	page.params = Params;
-	page.page = null;
+	page.result = null;
 
 
     /*** METHODS ***/
@@ -14,23 +14,23 @@ function Page($http, utils, Params) {
         console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-				page.page = null;
+				page.result = null;
 				if (!data.query) return;
-				page.page = data.query.pages[0];
-				findImage(page.page);
+				page.result = data.query.pages[0];
+				findImage(page.result);
 			})
 			.error(handleErrors);
 	}; // open
 
     page.clearResults = function(){
-        page.page = null;
+        page.result = null;
     };
 
 
     /*** HELPERS ***/
 
     // duplira se funkcija!
-    
+
     function findImage(thisPage) {
 		if(thisPage.pageimage) {
             //if (thisPage.thumbnail)
