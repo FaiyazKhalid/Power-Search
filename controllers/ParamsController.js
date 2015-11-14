@@ -1,38 +1,38 @@
 function ParamsController(Params, Projects, Languages, $window, $location) {
 'use strict';
 
-	var pc = this;
-	pc.params = Params;
-	pc.languages = Languages;
-    pc.projects = Projects.getProjects();
+	var paramsControl = this;
+	paramsControl.params = Params;
+	paramsControl.languages = Languages;
+    paramsControl.projects = Projects.getProjects();
 
     Languages.get();
-    
+
 
 	/*** PUBLIC METHODS ***/
 
-    pc.checkMaxResults = function () {
-		if (pc.params.search.gsrlimit > 50) pc.params.search.gsrlimit = 50;
+    paramsControl.checkMaxResults = function () {
+		if (paramsControl.params.search.gsrlimit > 50) paramsControl.params.search.gsrlimit = 50;
 	}; // checkMaxResults
 
-    pc.isSelectedProject = function(project) {
-		return pc.params.settings.domain == project.name;
+    paramsControl.isSelectedProject = function(project) {
+		return paramsControl.params.settings.domain == project.name;
 	};	// isChosenProject
 
-    pc.toggleSave = function() {
+    paramsControl.toggleSave = function() {
 		Params.toggleSave();
 	};	// toggleRemember
 
-	pc.resetAndReload = function() {
+	paramsControl.resetAndReload = function() {
 		resetSearchTerm();
 		$window.location.reload();
 	};	// resetAndReload
 
-    pc.refreshLanguages = function() {
+    paramsControl.refreshLanguages = function() {
 		Languages.get();
 	};
 
-    pc.isCommons = function() {
+    paramsControl.isCommons = function() {
       return Params.isCommons();
   };
 

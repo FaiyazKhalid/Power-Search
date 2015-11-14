@@ -1,8 +1,8 @@
 function LeadController(Lead) {
 'use strict';
 
-	var lc = this;
-	lc.lead = Lead;
+	var leadControl = this;
+	leadControl.lead = Lead;
 
 
 } // LeadController

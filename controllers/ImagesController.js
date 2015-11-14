@@ -1,8 +1,8 @@
 function ImageController(Images) {
 'use strict';
 
-	var image = this;
-	image.images = Images;
+	var imagesControl = this;
+	imagesControl.images = Images;
 
 
 } // ImageController
