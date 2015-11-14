@@ -62,7 +62,8 @@ function Params() {
         gsrnamespace: 6, // 0: article, 6: file
         pilimit: 'max', // thumb image for all articles
         pithumbsize: thumbSize,	// thumb height
-        iiprop: 'extmetadata'
+        iiprop: 'extmetadata',
+        iiextmetadatafilter: 'ImageDescription' // if empty return all extmetadata (author, licence...)
     };
 
 

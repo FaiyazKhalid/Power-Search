@@ -1,8 +1,10 @@
 'use strict';
 
-function Images($http, Params, utils) {
+function Images($http, Params, utils, $filter) {
 
     var images = this;
+    var descLimit = 100;
+
 	images.results = null;
 
     /*** HTTP ***/
@@ -10,7 +12,7 @@ function Images($http, Params, utils) {
 	images.search = function() {
         //images.noResults = "";
 		var paramUrl = Params.getApiUrl() + '?' + utils.serialize(Params.getImageParams());
-		// console.log(paramUrl);
+		console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				if (!data.query) {
@@ -33,6 +35,11 @@ function Images($http, Params, utils) {
     function findDescription(thisImage) {
         if(thisImage.imageinfo && thisImage.imageinfo[0].extmetadata.ImageDescription) {
             thisImage.desc = thisImage.imageinfo[0].extmetadata.ImageDescription.value;
+            thisImage.desc = utils.htmlToPlaintext(thisImage.desc);
+            var originLength = thisImage.desc.length;
+            thisImage.desc = $filter('limitTo')(thisImage.desc, descLimit);
+            var limitLength = thisImage.desc.length;
+            if (limitLength < originLength) thisImage.desc += "...";
         }
 	} // findDescription
 

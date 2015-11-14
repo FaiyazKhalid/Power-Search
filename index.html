@@ -120,10 +120,10 @@
                 </article>
             </div>
 
-            <!-- imagepage -->
-            <div ng-controller="ImagePageController as imagepageControl" class="pull-right">
+            <!-- image page -->
+            <div ng-controller="ImagePageController as imagepageControl" class="imagepage choosen-article-wrapper pull-right">
                 <a ng-href="{{imagepageControl.imagepage.result.fullurl}}" target="_blank">
-                    <h1>{{imagepageControl.imagepage.result.title}} gallery</h1>
+                    <h1>{{imagepageControl.imagepage.result.title}}</h1>
                     <img ng-src="{{imagepageControl.imagepage.result.thumbnail.source}}" alt="{{imagepageControl.imagepage.result.title}}" class="img-responsive img-rounded">
                 </a>
                 <p ng-bind-html="imagepageControl.imagepage.result.extract"></p>

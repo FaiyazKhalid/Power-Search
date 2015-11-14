@@ -13,12 +13,12 @@ function utils() {
         var top = document.getElementsByTagName("header")[0].clientHeight;
         var scrollStep = -window.scrollY / (duration / 15);
         var scrollInterval = setInterval(function() {
-                if (window.scrollY <= top) {
-                    clearInterval(scrollInterval);
-                    return;
-                }
-                window.scrollBy(0, scrollStep);
-            }, 15);
+            if (window.scrollY <= top) {
+                clearInterval(scrollInterval);
+                return;
+            }
+            window.scrollBy(0, scrollStep);
+        }, 15);
     } // scrollToTop
 
 
@@ -43,18 +43,23 @@ function utils() {
 
     function startsWith(string, prefix) {
         return string.slice(0, prefix.length) == prefix;
-    }	// startsWith
+    } // startsWith
+
+    function htmlToPlaintext(text) {
+        return text ? String(text).replace(/<[^>]+>/gm, '') : '';
+    }
 
 
     return {
-		replaceSpacesWithUnderscores: replaceSpacesWithUnderscores,
-		scrollToTop: scrollToTop,
-		capitalize: capitalize,
-		capitalizeFirst: capitalizeFirst,
-		serialize: serialize,
-		startsWith: startsWith,
-        noResultsMessage: noResultsMessage
-	};
+        noResultsMessage: noResultsMessage,
+        replaceSpacesWithUnderscores: replaceSpacesWithUnderscores,
+        scrollToTop: scrollToTop,
+        capitalize: capitalize,
+        capitalizeFirst: capitalizeFirst,
+        serialize: serialize,
+        startsWith: startsWith,
+        htmlToPlaintext: htmlToPlaintext
+    };
 
 } // utils
 

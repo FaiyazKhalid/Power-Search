@@ -114,6 +114,10 @@
     margin-top: 10px;
 }
 
+.imagepage {
+    width: 300px;
+    padding: 0 20px;
+}
 
 /* https://github.com/simonwhitaker/github-fork-ribbon-css */
 
