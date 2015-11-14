@@ -12,7 +12,7 @@ function ParamsController(Params, Projects, Languages, $window, $location) {
 	/*** PUBLIC METHODS ***/
 
     paramsControl.checkMaxResults = function () {
-		if (paramsControl.params.search.gsrlimit > 50) paramsControl.params.search.gsrlimit = 50;
+		if (paramsControl.params.pages.gsrlimit > 50) paramsControl.params.pages.gsrlimit = 50;
 	}; // checkMaxResults
 
     paramsControl.isSelectedProject = function(project) {

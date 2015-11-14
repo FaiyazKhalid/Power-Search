@@ -27,18 +27,21 @@ function Params() {
         callback: 'JSON_CALLBACK'
     };
 
-    params.article = {
+    params.page = {
         prop: 'extracts|pageimages|info', // |images| return all images from page
         pithumbsize: leadImageSize, // height
         titles: ''
     };
 
-    params.search = {
-        prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
+    params.basicSearch = {
         generator: 'search',
-        gsrsearch: '', // searchTerm + searchFilter
-        gsrnamespace: 0, // 0: article, 6: file
         gsrlimit: 20, // broj rezultata, max 50
+        gsrsearch: '' // searchTerm + searchFilter
+    };
+
+    params.pages = {
+        prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
+        gsrnamespace: 0, // 0: article, 6: file
         pilimit: 'max', // thumb image for all articles
         pithumbsize: 50, // thumb height
         exlimit: 'max', // extract limit
@@ -50,13 +53,10 @@ function Params() {
 
 	params.images = {
         prop: 'pageimages|info|imageinfo',
-        iiprop: 'extmetadata',
-        generator: 'search',
-        gsrsearch: '',  // searchTerm + searchFilter
         gsrnamespace: 6, // 0: article, 6: file
-        gsrlimit: 20, // broj rezultata, max 50
         pilimit: 'max', // thumb image for all articles
-        pithumbsize: thumbSize	// thumb height
+        pithumbsize: thumbSize,	// thumb height
+        iiprop: 'extmetadata'
     };
 
 
@@ -64,17 +64,17 @@ function Params() {
 
     params.getArticleParams = function() {
 		updateSearchTerm();
-        return angular.extend(params.article, params.basic);
+        return angular.extend(params.page, params.basic);
     }; // getArticleParams
 
     params.getSearchParams = function() {
 		updateSearchTerm();
-        return angular.extend(params.search, params.basic);
+        return angular.extend(params.pages, params.basic, params.basicSearch);
     }; // getSearchParams
 
 	params.getImageParams = function() {
 		updateSearchTerm();
-		return angular.extend(params.images, params.basic);
+		return angular.extend(params.images, params.basic, params.basicSearch);
 	};
 
     params.getApiUrl = function() {
@@ -91,7 +91,7 @@ function Params() {
     };
 
     params.setArticleTitle = function(newName) {
-        params.article.titles = newName;
+        params.page.titles = newName;
     }; // setArticleTitle
 
     params.setLanguage = function(lang) {
@@ -108,13 +108,13 @@ function Params() {
     params.saveSettings = function() {
         if (params.settings.remember) {
             localStorage.wikiSettings = JSON.stringify(params.settings);
-            localStorage.searchParams = JSON.stringify(params.search);
+            localStorage.searchParams = JSON.stringify(params.pages);
         }
     }; // saveSettings
 
     params.loadSettings = function() {
         if (localStorage.wikiSettings) params.settings = JSON.parse(localStorage.wikiSettings);
-        if (localStorage.searchParams) params.search = JSON.parse(localStorage.searchParams);
+        if (localStorage.searchParams) params.pages = JSON.parse(localStorage.searchParams);
     }; // loadSettings
 
     params.deleteStorage = function() {
@@ -134,11 +134,10 @@ function Params() {
     /*** HELPERS ***/
 
 	function updateSearchTerm() {
-        params.search.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
-		params.article.titles = params.settings.searchTerm;
-		params.images.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
-		if (params.settings.searchFilter == 'prefix:') {
-			params.images.gsrsearch = params.settings.searchFilter + 'File:' + params.settings.searchTerm;
+        params.basicSearch.gsrsearch = params.settings.searchFilter + params.settings.searchTerm;
+		params.page.titles = params.settings.searchTerm;
+		if (params.isCommons() && params.settings.searchFilter == 'prefix:') {
+			params.basicSearch.gsrsearch = params.settings.searchFilter + 'File:' + params.settings.searchTerm;
 		}
     }	// adjustForCommons
 
