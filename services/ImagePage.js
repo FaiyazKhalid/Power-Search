@@ -8,7 +8,7 @@ function ImagePage($http, utils, Params) {
     /*** HTTP ***/
     imagepage.open = function () {
         var paramUrl = Params.getApiUrl() + '?' + utils.serialize(Params.getImagePageParams());
-        console.log(paramUrl);
+        //console.log(paramUrl);
         $http.jsonp(paramUrl)
             .success(function (data) {
                 if (data.query.pages[0].missing) return;

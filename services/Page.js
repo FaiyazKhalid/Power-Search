@@ -11,7 +11,7 @@ function Page($http, utils, Params) {
 
     page.open = function() {
 		var paramUrl = createParamUrl(Params.getPageParams());
-        console.log(paramUrl);
+        //console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				page.result = null;

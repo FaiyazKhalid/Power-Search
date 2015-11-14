@@ -9,9 +9,8 @@ function Images($http, Params, utils, $filter) {
     /*** HTTP ***/
 
 	images.search = function() {
-        //images.noResults = "";
 		var paramUrl = Params.getApiUrl() + '?' + utils.serialize(Params.getImageParams());
-		console.log(paramUrl);
+		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				if (!data.query) {

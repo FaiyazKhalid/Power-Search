@@ -13,7 +13,7 @@ function Pages($http, utils, Params) {
 
 	pages.search = function() {
 		var paramUrl = createParamUrl(Params.getPagesParams());
-		//console.log(paramUrl);
+		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				pages.exactMatch = null;

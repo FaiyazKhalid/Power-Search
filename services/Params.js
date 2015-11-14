@@ -30,8 +30,10 @@ function Params(utils) {
     // basic params for pages and images
     params.basicSearch = {
         generator: 'search',
+        gsrsearch: '', // searchTerm + searchFilter
         gsrlimit: 20, // broj rezultata, max 50
-        gsrsearch: '' // searchTerm + searchFilter
+        gsroffset: 0,   // starts from the first result (for pagination)
+        continue: "gsroffset||" // continue the query
     };
 
     params.page = {
