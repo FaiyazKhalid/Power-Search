@@ -1,14 +1,11 @@
-function MainController($window, $location, utils, Projects, Params, Images, Pages, Page) {
+function MainController($window, $location, utils, Params, Images, Pages, Page) {
 'use strict';
 
 	var main = this;
 
 	main.params = Params;
 	main.page = Page;
-	main.pages = Pages;
-	main.images = Images;
-	main.projects = Projects.getProjects();
-	main.leadLarge = false;
+	main.pageLarge = false;
 
 
 	/*** PUBLIC METHODS ***/
@@ -33,7 +30,6 @@ function MainController($window, $location, utils, Projects, Params, Images, Pag
 			// TODO ubaciti if pages.exactMatch
 			Page.open();
 		}
-
 	}; // search
 
 	main.open = function (title) {
@@ -49,7 +45,7 @@ function MainController($window, $location, utils, Projects, Params, Images, Pag
 	}; // searchForLeadTerm
 
 	main.toggleLeadLarge = function () {
-		main.leadLarge = !main.leadLarge;
+		main.pageLarge = !main.pageLarge;
 	}; // toggleLeadLarge
 
 	main.selectText = function () {
@@ -74,8 +70,8 @@ function MainController($window, $location, utils, Projects, Params, Images, Pag
 	}	// setSearchTerm
 
 	function clearResults() {
-        Pages.clearResults();
 		Page.clearResults();
+        Pages.clearResults();
 		Images.clearResults();
 	} // clearResults
 
