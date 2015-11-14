@@ -87,7 +87,7 @@
 
                     <button title="Search for this term" class="btn btn-link pull-right" ng-click="main.searchForLeadTerm()">Search for this term »</button>
                 </nav>
-                <section class='choosen-article-wrapper' ng-show='pageControl.page.result'>
+                <section class='lead-wrapper' ng-show='pageControl.page.result'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
                             <span title="Englarge this article" ng-click="main.toggleLeadLarge()" class="pointer">{{pageControl.page.result.title}}</span>
@@ -121,20 +121,21 @@
             </div>
 
             <!-- image page -->
-            <div ng-controller="ImagePageController as imagepageControl" class="imagepage choosen-article-wrapper pull-right">
+            <div ng-controller="ImagePageController as imagepageControl" class="imagepage lead-wrapper pull-right">
                 <a ng-href="{{imagepageControl.imagepage.result.fullurl}}" target="_blank">
                     <h1>{{imagepageControl.imagepage.result.title}}</h1>
                     <img ng-src="{{imagepageControl.imagepage.result.thumbnail.source}}" alt="{{imagepageControl.imagepage.result.title}}" class="img-responsive img-rounded">
                 </a>
                 <p ng-bind-html="imagepageControl.imagepage.result.extract"></p>
+
+                <p class="read-more text-info pull-right"><a ng-href="{{imagepageControl.imagepage.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{main.params.settings.domain}}</span> >> </a></p>
             </div>
 
             <!-- images -->
             <div ng-controller="ImagesController as imagesControl">
                 <div ng-repeat="image in imagesControl.images.results | orderBy: main.params.settings.orderBy" class="img-wrapper">
-
                     <a ng-href="{{image.fullurl}}" target="_blank">
-                        <p>{{image.title}}</p>
+                        <!-- p>{{image.title}}</p -->
                         <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="img-responsive img-rounded">
                     </a>
                     <p ng-bind-html="image.desc"></p>

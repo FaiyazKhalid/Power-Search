@@ -3,7 +3,7 @@
 function Images($http, Params, utils, $filter) {
 
     var images = this;
-    var descLimit = 100;
+    var descLimit = 60;
 
 	images.results = null;
 
