@@ -58,20 +58,20 @@
     margin-bottom: 20px;
 }
 
-.main-logos {
+.wiki-logos {
     text-align: justify;
 }
 
-.main-logos label {
+.wiki-logos label {
     display: inline;
     /* becouse of justify */
 }
 
-.main-logos input {
+.wiki-logos input {
     display: none;
 }
 
-.main-logos img {
+.wiki-logos img {
     cursor: pointer;
 }
 

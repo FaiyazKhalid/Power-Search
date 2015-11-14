@@ -5,7 +5,6 @@ function MainController($window, $location, utils, Params, Images, Pages, Page, 
 
 	main.params = Params;
 	main.page = Page;
-	main.pageLarge = false;
 
 
 	/*** PUBLIC METHODS ***/
@@ -46,10 +45,6 @@ function MainController($window, $location, utils, Params, Images, Pages, Page, 
 		main.search();
 		main.toggleLeadLarge();
 	}; // searchForLeadTerm
-
-	main.toggleLeadLarge = function () {
-		main.pageLarge = !main.pageLarge;
-	}; // toggleLeadLarge
 
 	main.selectText = function () {
 		var text = $window.getSelection().toString();

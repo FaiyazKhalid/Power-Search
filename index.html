@@ -20,7 +20,7 @@
                     <h1><a href="index.html" ng-click="paramsControl.resetAndReload()">Wikipedia power search</a></h1>
                 </div>
                 <form class="col-md-6" role="form" ng-cloak>
-                    <div class="main-logos">
+                    <div class="wiki-logos">
                         <!-- projects -->
                         <label ng-repeat="project in paramsControl.projects">
                             <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': paramsControl.isSelectedProject(project) }">
@@ -77,20 +77,20 @@
 
 
     <main class="container main" ng-cloak>
-        <p ng-show="main.languages.error" class="text-danger">{{main.languages.error}}</p>
+        <p ng-show="paramsControl.languages.error" class="text-danger">{{paramsControl.languages.error}}</p>
 
         <div class="row">
             <!-- page -->
-            <div ng-controller="PageController as pageControl" ng-class="main.pageLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
-                <nav ng-show="main.pageLarge">
-                    <button title="Back to serch results" class="btn btn-link" ng-click="main.toggleLeadLarge()">« Back</button>
+            <div ng-controller="PageController as pageControl" ng-class="pageControl.pageLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
+                <nav ng-show="pageControl.pageLarge">
+                    <button title="Back to serch results" class="btn btn-link" ng-click="pageControl.toggleLeadLarge()">« Back</button>
 
                     <button title="Search for this term" class="btn btn-link pull-right" ng-click="main.searchForLeadTerm()">Search for this term »</button>
                 </nav>
                 <section class='lead-wrapper' ng-show='pageControl.page.result'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
-                            <span title="Englarge this article" ng-click="main.toggleLeadLarge()" class="pointer">{{pageControl.page.result.title}}</span>
+                            <span title="Englarge this article" ng-click="pageControl.toggleLeadLarge()" class="pointer">{{pageControl.page.result.title}}</span>
                         </h1>
                         <a ng-href="{{pageControl.page.result.image}}" ng-show="pageControl.page.result.image" target="_blank">
                             <img ng-src="{{pageControl.page.result.thumbnail.source}}" alt="{{pageControl.page.result.title}}" class="img-large img-thumbnail pull-right">
@@ -103,7 +103,7 @@
             </div>
 
             <!-- pages-->
-            <div ng-controller="PagesController as pagesControl" ng-class="main.pageLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
+            <div ng-controller="PagesController as pagesControl" ng-class="pageControl.pageLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
 
                 <p ng-show="pagesControl.pages.error" class="text-danger">{{pagesControl.pages.error}}</p>
                 <p ng-hide="pagesControl.pages.results.length" class="text-info">{{pagesControl.pages.noResults}}</p>
