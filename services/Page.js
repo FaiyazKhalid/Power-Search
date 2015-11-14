@@ -10,9 +10,9 @@ function Page($http, utils, Params) {
     /*** METHODS ***/
 
     page.open = function() {
-        page.clearResults();
+        // page.clearResults();
 		var paramUrl = createParamUrl(Params.getPageParams());
-        console.log(paramUrl);
+        // console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				page.page = null;
@@ -39,9 +39,9 @@ function Page($http, utils, Params) {
 			var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
 
 			if (utils.startsWith(imgSrc, commonsUrl)) {
-				thisPage.image = "https://commons.wikimedia.org/wiki/File:" + imageName;
+				thisPage.image = "https://commons.wikimedia.org/main/File:" + imageName;
 			} else {
-				thisPage.image = "https://" + page.params.settings.lang + "." + page.params.settings.domain + ".org/wiki/File:" + imageName;
+				thisPage.image = "https://" + page.params.settings.lang + "." + page.params.settings.domain + ".org/main/File:" + imageName;
 			}
 		}
 	} // findImage
@@ -55,7 +55,7 @@ function Page($http, utils, Params) {
 
     function handleErrors(data, status) {
         if(status == 404) {
-            page.error = "The wiki domain you requesting does not exist. Try again with different criteria.";
+            page.error = "The main domain you requesting does not exist. Try again with different criteria.";
             return;
         }
 		page.error = "Oh no, there was some error in geting data: " + status;

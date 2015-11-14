@@ -51,9 +51,9 @@ function Pages($http, utils, Params) {
 			var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
 
 			if (utils.startsWith(imgSrc, commonsUrl)) {
-				thisPage.image = "https://commons.wikimedia.org/wiki/File:" + imageName;
+				thisPage.image = "https://commons.wikimedia.org/main/File:" + imageName;
 			} else {
-				thisPage.image = "https://" + pages.params.settings.lang + "." + pages.params.settings.domain + ".org/wiki/File:" + imageName;
+				thisPage.image = "https://" + pages.params.settings.lang + "." + pages.params.settings.domain + ".org/main/File:" + imageName;
 			}
 		}
 	} // findImage
@@ -76,7 +76,7 @@ function Pages($http, utils, Params) {
 
     function handleErrors(data, status) {
         if(status == 404) {
-            pages.error = "The wiki domain you requesting does not exist. Try again with different criteria.";
+            pages.error = "The main domain you requesting does not exist. Try again with different criteria.";
             return;
         }
 		pages.error = "Oh no, there was some error in geting data: " + status;

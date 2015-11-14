@@ -1,5 +1,5 @@
 {
-  "name": "angular-wiki-search",
+  "name": "angular-main-search",
   "version": "1.0.0",
   "description": "AngularJS module for consuming Wikipedia API",
   "main": "app.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mudroljub/angular-wiki-search.git"
+    "url": "git+https://github.com/mudroljub/angular-main-search.git"
   },
   "keywords": [
     "JS",
@@ -25,9 +25,9 @@
   "author": "mudroljub",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mudroljub/angular-wiki-search/issues"
+    "url": "https://github.com/mudroljub/angular-main-search/issues"
   },
-  "homepage": "https://github.com/mudroljub/angular-wiki-search#readme",
+  "homepage": "https://github.com/mudroljub/angular-main-search#readme",
   "dependencies": {
     "angular": "^1.4.7",
     "angular-sanitize": "^1.4.7"

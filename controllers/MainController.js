@@ -1,26 +1,26 @@
-function WikiController($window, $location, utils, Projects, Params, Images, Pages, Page) {
+function MainController($window, $location, utils, Projects, Params, Images, Pages, Page) {
 'use strict';
 
-	var wiki = this;
+	var main = this;
 
-	wiki.params = Params;
-	wiki.page = Page;
-	wiki.pages = Pages;
-	wiki.images = Images;
-	wiki.projects = Projects.getProjects();
-	wiki.leadLarge = false;
+	main.params = Params;
+	main.page = Page;
+	main.pages = Pages;
+	main.images = Images;
+	main.projects = Projects.getProjects();
+	main.leadLarge = false;
 
 
 	/*** PUBLIC METHODS ***/
 
-	wiki.init = function () {
+	main.init = function () {
 		Params.loadSettings();
 		getPathTerm();
-		wiki.search();
-		$window.onhashchange = wiki.init;
+		main.search();
+		$window.onhashchange = main.init;
 	}; // init
 
-	wiki.search = function () {
+	main.search = function () {
 		clearResults();
 		if(!searchTerm()) return;
 		setPathTerm();
@@ -36,36 +36,36 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 
 	}; // search
 
-	wiki.open = function (title) {
+	main.open = function (title) {
 		Params.setPageTitle(title);
 		Page.open();
 		utils.scrollToTop(300);
 	}; // open
 
-	wiki.searchForLeadTerm = function () {
-		setSearchTerm(wiki.page.page.title);
-		wiki.search();
-		wiki.toggleLeadLarge();
+	main.searchForLeadTerm = function () {
+		setSearchTerm(main.page.page.title);
+		main.search();
+		main.toggleLeadLarge();
 	}; // searchForLeadTerm
 
-	wiki.toggleLeadLarge = function () {
-		wiki.leadLarge = !wiki.leadLarge;
+	main.toggleLeadLarge = function () {
+		main.leadLarge = !main.leadLarge;
 	}; // toggleLeadLarge
 
-	wiki.selectText = function () {
+	main.selectText = function () {
 		var text = $window.getSelection().toString();
 		Params.setSearchTerm(text);
 	}; // selectText
 
-	wiki.isSelectedPage = function(page) {
-		if(wiki.page.page) return page.title == wiki.page.page.title;
+	main.isSelectedPage = function(page) {
+		if(main.page.page) return page.title == main.page.page.title;
 	};	// isSelectedPage
 
 
 	/*** PRIVATE FUNCTIONS ***/
 
 	function searchTerm() {
-		return wiki.params.settings.searchTerm;
+		return main.params.settings.searchTerm;
 	}
 
 	function setSearchTerm(newTerm) {
@@ -80,7 +80,7 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 	} // clearResults
 
 	function getPathTerm() {
-		wiki.params.settings.searchTerm = $location.path().substr(1) || wiki.params.settings.searchTerm;
+		main.params.settings.searchTerm = $location.path().substr(1) || main.params.settings.searchTerm;
 	}
 
 	function setPathTerm() {
@@ -88,6 +88,6 @@ function WikiController($window, $location, utils, Projects, Params, Images, Pag
 	}
 
 
-} // WikiController
+} // MainController
 
-module.exports = WikiController;
+module.exports = MainController;

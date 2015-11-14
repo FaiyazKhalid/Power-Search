@@ -10,7 +10,7 @@
     <script src="dist.js"></script>
 </head>
 
-<body ng-controller='WikiController as wiki' ng-init='wiki.init()'>
+<body ng-controller='MainController as main' ng-init='main.init()'>
 
     <header class="header">
         <!-- params -->
@@ -20,11 +20,11 @@
                     <h1><a href="index.html" ng-click="paramsControl.resetAndReload()">Wikipedia power search</a></h1>
                 </div>
                 <form class="col-md-6" role="form">
-                    <div class="wiki-logos">
+                    <div class="main-logos">
                         <!-- projects -->
                         <label ng-repeat="project in paramsControl.projects">
                             <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': paramsControl.isSelectedProject(project) }">
-                            <input type="radio" ng-model="paramsControl.params.settings.domain" value="{{project.name}}" ng-click="paramsControl.refreshLanguages(); wiki.search()">
+                            <input type="radio" ng-model="paramsControl.params.settings.domain" value="{{project.name}}" ng-click="paramsControl.refreshLanguages(); main.search()">
                         </label>
                         <span class="justify-helper"></span>
                     </div>
@@ -34,25 +34,25 @@
             <form class="search-form row" role="form">
                 <div class="col-md-6">
                     <div class="search-wrapper form-group">
-                        <button class="btn btn-success search-button input-lg" type="submit" ng-click='wiki.search()'>
+                        <button class="btn btn-success search-button input-lg" type="submit" ng-click='main.search()'>
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                         <!-- search field -->
-                        <input ng-model='paramsControl.params.settings.searchTerm' ng-change='wiki.search()' class="form-control input-lg" autofocus>
+                        <input ng-model='paramsControl.params.settings.searchTerm' ng-change='main.search()' class="form-control input-lg" autofocus>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center">
                         <!-- filters -->
                         <label ng-repeat="filter in paramsControl.params.searchFilters" class="radio-inline">
-                            <input type="radio" ng-model="paramsControl.params.settings.searchFilter" value="{{filter}}" ng-change="wiki.search()"> {{filter || 'content'}}
+                            <input type="radio" ng-model="paramsControl.params.settings.searchFilter" value="{{filter}}" ng-change="main.search()"> {{filter || 'content'}}
                         </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         <!-- languages -->
-                        <select ng-model="paramsControl.params.settings.lang" ng-options="item.prefix as item.language for item in paramsControl.languages.all | orderBy:'prefix' " ng-change='wiki.search()' class="form-control input-sm" ng-disabled="paramsControl.isCommons()"></select>
+                        <select ng-model="paramsControl.params.settings.lang" ng-options="item.prefix as item.language for item in paramsControl.languages.all | orderBy:'prefix' " ng-change='main.search()' class="form-control input-sm" ng-disabled="paramsControl.isCommons()"></select>
                     </div>
                     <label class="checkbox-inline">
                         <!-- remember -->
@@ -63,7 +63,7 @@
                 <div class="col-md-1">
                     <div class="form-group">
                         <!-- maxResults -->
-                        <input type="number" min="1" max="50" ng-model='paramsControl.params.basicSearch.gsrlimit' ng-change='paramsControl.checkMaxResults(); wiki.search()' class="form-control input-sm">
+                        <input type="number" min="1" max="50" ng-model='paramsControl.params.basicSearch.gsrlimit' ng-change='paramsControl.checkMaxResults(); main.search()' class="form-control input-sm">
                     </div>
                     <label class="checkbox-inline">
                         <!-- alphabetical -->
@@ -77,52 +77,52 @@
 
 
     <main class="container main" ng-cloak>
-        <p ng-show="wiki.languages.error" class="text-danger">{{wiki.languages.error}}</p>
+        <p ng-show="main.languages.error" class="text-danger">{{main.languages.error}}</p>
 
         <div class="row">
             <!-- page -->
-            <div ng-controller="PageController as pageControl" ng-class="wiki.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
-                <nav ng-show="wiki.leadLarge">
-                    <button title="Back to serch results" class="btn btn-link" ng-click="wiki.toggleLeadLarge()">« Back</button>
+            <div ng-controller="PageController as pageControl" ng-class="main.leadLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
+                <nav ng-show="main.leadLarge">
+                    <button title="Back to serch results" class="btn btn-link" ng-click="main.toggleLeadLarge()">« Back</button>
 
-                    <button title="Search for this term" class="btn btn-link pull-right" ng-click="wiki.searchForLeadTerm()">Search for this term »</button>
+                    <button title="Search for this term" class="btn btn-link pull-right" ng-click="main.searchForLeadTerm()">Search for this term »</button>
                 </nav>
                 <section class='choosen-article-wrapper' ng-show='pageControl.page.page'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
-                            <span title="Englarge this article" ng-click="wiki.toggleLeadLarge()" class="pointer">{{pageControl.page.page.title}}</span>
+                            <span title="Englarge this article" ng-click="main.toggleLeadLarge()" class="pointer">{{pageControl.page.page.title}}</span>
                         </h1>
                         <a ng-href="{{pageControl.page.page.image}}" ng-show="pageControl.page.page.image" target="_blank">
                             <img ng-src="{{pageControl.page.page.thumbnail.source}}" alt="{{pageControl.page.page.title}}" class="img-large img-thumbnail pull-right">
                         </a>
-                        <section ng-bind-html='pageControl.page.page.extract' ng-dblclick="wiki.selectText()"></section>
+                        <section ng-bind-html='pageControl.page.page.extract' ng-dblclick="main.selectText()"></section>
                     </article>
 
-                    <p class="read-more text-info pull-right"><a ng-href="{{pageControl.page.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.settings.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{pageControl.page.page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{main.params.settings.domain}}</span> >> </a></p>
                 </section>
             </div>
 
             <!-- pages-->
-            <div ng-controller="PagesController as pagesControl" ng-class="wiki.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
+            <div ng-controller="PagesController as pagesControl" ng-class="main.leadLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
 
                 <p ng-show="pagesControl.pages.error" class="text-danger">{{pagesControl.pages.error}}</p>
                 <p ng-hide="pagesControl.pages.results.length" class="text-info">{{pagesControl.pages.noResults}}</p>
 
-                <article ng-repeat="page in pagesControl.pages.results | orderBy: wiki.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': wiki.isSelectedPage(page)}">
+                <article ng-repeat="page in pagesControl.pages.results | orderBy: main.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': main.isSelectedPage(page)}">
                     <h2 class="text-info">
-                        <span title="Open this article" ng-click="wiki.open(page.title)" class="pointer" >{{page.title}}</span>
+                        <span title="Open this article" ng-click="main.open(page.title)" class="pointer" >{{page.title}}</span>
                     </h2>
                     <a ng-href="{{page.image}}" target="_blank">
                         <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
                     </a>
-                    <section ng-bind-html='page.extract' ng-dblclick="wiki.selectText()"></section>
-                    <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{wiki.params.settings.domain}}</span> >> </a></p>
+                    <section ng-bind-html='page.extract' ng-dblclick="main.selectText()"></section>
+                    <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{main.params.settings.domain}}</span> >> </a></p>
                 </article>
             </div>
 
             <!-- images -->
             <div ng-controller="ImagesController as imagesControl">
-                <div ng-repeat="image in imagesControl.images.results | orderBy: wiki.params.settings.orderBy" class="img-wrapper">
+                <div ng-repeat="image in imagesControl.images.results | orderBy: main.params.settings.orderBy" class="img-wrapper">
 
                     <a ng-href="{{image.fullurl}}" target="_blank">
                         <p>{{image.title}}</p>
@@ -137,7 +137,7 @@
 
     <div class="github-fork-ribbon-wrapper right-bottom">
         <div class="github-fork-ribbon">
-            <a href="https://github.com/mudroljub/angular-wiki-search">Fork me on GitHub</a>
+            <a href="https://github.com/mudroljub/angular-main-search">Fork me on GitHub</a>
         </div>
     </div>
 

@@ -1,13 +1,13 @@
 # Angular Wiki Search
 AngularJS module for consuming Wikipedia API.
 
-See it in action: [http://mudroljub.github.io/angular-wiki-search/](http://mudroljub.github.io/angular-wiki-search/)
+See it in action: [http://mudroljub.github.io/angular-main-search/](http://mudroljub.github.io/angular-main-search/)
 
 ## Install
 Just download the directory and open index.html file. You can also do it developer way:
 
 ```sh
-$ git clone https://github.com/mudroljub/angular-wiki-module.git
+$ git clone https://github.com/mudroljub/angular-main-module.git
 $ bower install
 $ open index.html
 ```
@@ -19,11 +19,11 @@ Enjoy power searching Wikipedia!
 ## Documentation
 (be aware that this project is under active development, and the code is constantly evolving)
 
-The main `WikiController` consists of two main public methods:
-- `wiki.openArticle(title)`
-- `wiki.searchWikipedia(term)`
+The main `MainController` consists of two main public methods:
+- `main.openArticle(title)`
+- `main.searchWikipedia(term)`
 
-Those methods getting data from [Wikipedia API](http://en.wikipedia.org/w/api.php) in JSONP format (see [API documentation](https://www.mediawiki.org/wiki/API:Main_page)).
+Those methods getting data from [Wikipedia API](http://en.wikipedia.org/w/api.php) in JSONP format (see [API documentation](https://www.mediawiki.org/main/API:Main_page)).
 
 Both methods have those common URL params:
 ```js
