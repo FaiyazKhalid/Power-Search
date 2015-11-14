@@ -1,10 +1,10 @@
 'use strict';
 
-function Params() {
+function Params(utils) {
 
     var params = this;
     var thumbSize = 200;
-    var leadImageSize = 250;
+    var leadImageSize = 400;
     params.searchFilters = ['intitle:', '', 'prefix:'];
 
     // default user settings
@@ -36,7 +36,7 @@ function Params() {
 
     params.page = {
         titles: '',
-        prop: 'extracts|pageimages|info', // |images| return all images from page
+        prop: 'extracts|pageimages|info',
         pithumbsize: leadImageSize // height
     };
 
@@ -46,7 +46,7 @@ function Params() {
     };
 
     params.pages = {
-        prop: 'extracts|pageimages|info|redirects', // |images| return all images from page
+        prop: 'extracts|pageimages|info|redirects',
         gsrnamespace: 0, // 0: article, 6: file
         pilimit: 'max', // thumb image for all articles
         pithumbsize: 50, // thumb height
@@ -97,7 +97,7 @@ function Params() {
 
     params.updateSearchTerm = function () {
         var filter = params.settings.searchFilter;
-        var term = params.settings.searchTerm;
+        var term = utils.capitalize(params.settings.searchTerm);
         params.basicSearch.gsrsearch = filter + term;
         params.page.titles = term;
         params.imagepage.titles = term;

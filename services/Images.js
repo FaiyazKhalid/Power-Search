@@ -3,8 +3,7 @@
 function Images($http, Params, utils, $filter) {
 
     var images = this;
-    var descLimit = 60;
-
+    var descriptionLength = 60;
 	images.results = null;
 
     /*** HTTP ***/
@@ -37,7 +36,7 @@ function Images($http, Params, utils, $filter) {
             thisImage.desc = thisImage.imageinfo[0].extmetadata.ImageDescription.value;
             thisImage.desc = utils.htmlToPlaintext(thisImage.desc);
             var originLength = thisImage.desc.length;
-            thisImage.desc = $filter('limitTo')(thisImage.desc, descLimit);
+            thisImage.desc = $filter('limitTo')(thisImage.desc, descriptionLength);
             var limitLength = thisImage.desc.length;
             if (limitLength < originLength) thisImage.desc += "...";
         }

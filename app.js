@@ -1,11 +1,8 @@
 'use strict';
 /*
 	TODO:
-	// napraviti da otvara glavnu komons stranu ako postoji termin
-	// moze ili namespace 0, ili 6 bez prefixa
+	// ada bojana opet ne radi zbog exactMatch
 
-	// odvojiti poseban html element za komons slike, fotogalerija
-	// odvojiti servise za Page, Pages, Images
 	// napraviti da se glavna slika prikazuje popup?
 	// srediti galeriju https://blueimp.github.io/Bootstrap-Image-Gallery/
 	// srediti opis http://stackoverflow.com/questions/26010257/bootstrap-3-css-image-caption-overlay

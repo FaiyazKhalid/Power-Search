@@ -76,6 +76,7 @@ function MainController($window, $location, utils, Params, Images, Pages, Page, 
 		Page.clearResults();
         Pages.clearResults();
 		Images.clearResults();
+		ImagePage.clearResults();
 	} // clearResults
 
 	function getPathTerm() {
