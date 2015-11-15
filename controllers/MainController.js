@@ -1,22 +1,21 @@
 function MainController($window, utils, Params, Page, Pages, Images, ImagePage) {
 'use strict';
 
-	var main = this;
-
-	main.params = Params;
-	main.page = Page;
+	var mainControl = this;
+	mainControl.params = Params;
+	mainControl.page = Page;
 
 
 	/*** PUBLIC METHODS ***/
 
-	main.init = function () {
+	mainControl.init = function () {
 		Params.loadSettings();
 		if (utils.getPath()) Params.setSearchTerm(utils.getPath());
-		main.search();
-		$window.onhashchange = main.init;
+		mainControl.search();
+		$window.onhashchange = mainControl.init;
 	}; // init
 
-	main.search = function () {
+	mainControl.search = function () {
 		clearResults();
 		if(!Params.getSearchTerm()) return;
 		updateSearchTerm();
@@ -32,13 +31,13 @@ function MainController($window, utils, Params, Page, Pages, Images, ImagePage) 
 		Params.saveSettings();
 	}; // search
 
-	main.open = function (title) {
+	mainControl.open = function (title) {
 		Params.setPageTitle(title);
 		Page.open();
 		utils.scrollToTop(300);
 	}; // open
 
-	main.selectText = function () {
+	mainControl.selectText = function () {
 		var text = $window.getSelection().toString();
 		Params.setSearchTerm(text);
 	}; // selectText
