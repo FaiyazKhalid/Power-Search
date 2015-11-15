@@ -27,11 +27,11 @@ function Page($http, utils, Params) {
     };
 
     page.isExist = function () {
-        return page.result === null;
-    };
+        return page.result !== null;
+    };  // isExist
 
     page.getTitle = function () {
-        return page.result.title;
+        if(page.result) return page.result.title;
     };
 
 
