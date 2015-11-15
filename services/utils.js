@@ -1,8 +1,16 @@
 'use strict';
 
-function utils() {
+function utils($window, $location) {
 
     var noResultsMessage = "No results for the search term. Try again with different criteria.";
+
+    function setPathTerm(term) {
+		$location.path(term);
+	}  // setPathTerm
+
+    function getPathTerm() {
+		return $location.path().substr(1);
+	}  // setPathTerm
 
     function replaceSpacesWithUnderscores(struna) {
         return struna.replace(/ /g, "_");
@@ -11,13 +19,13 @@ function utils() {
 
     function scrollToTop(duration) {
         var top = document.getElementsByTagName("header")[0].clientHeight;
-        var scrollStep = -window.scrollY / (duration / 15);
+        var scrollStep = -$window.scrollY / (duration / 15);
         var scrollInterval = setInterval(function() {
-            if (window.scrollY <= top) {
+            if ($window.scrollY <= top) {
                 clearInterval(scrollInterval);
                 return;
             }
-            window.scrollBy(0, scrollStep);
+            $window.scrollBy(0, scrollStep);
         }, 15);
     } // scrollToTop
 
@@ -58,7 +66,9 @@ function utils() {
         capitalizeFirst: capitalizeFirst,
         serialize: serialize,
         startsWith: startsWith,
-        htmlToPlaintext: htmlToPlaintext
+        htmlToPlaintext: htmlToPlaintext,
+        setPathTerm: setPathTerm,
+        getPathTerm: getPathTerm
     };
 
 } // utils

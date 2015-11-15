@@ -85,7 +85,7 @@
                 <nav ng-show="pageControl.pageLarge">
                     <button title="Back to serch results" class="btn btn-link" ng-click="pageControl.toggleLeadLarge()">« Back</button>
 
-                    <button title="Search for this term" class="btn btn-link pull-right" ng-click="main.searchForLeadTerm()">Search for this term »</button>
+                    <button title="Search for this term" class="btn btn-link pull-right" ng-click="pageControl.searchForThisTerm(pageControl.page.result.title)">Search for this term »</button>
                 </nav>
                 <section class='lead-wrapper' ng-show='pageControl.page.result'>
                     <article class="choosen-article clearfix">

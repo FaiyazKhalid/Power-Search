@@ -11,16 +11,15 @@ function MainController($window, $location, utils, Params, Images, Pages, Page, 
 
 	main.init = function () {
 		Params.loadSettings();
-		getPathTerm();
+		if (utils.getPathTerm()) Params.setSearchTerm(utils.getPathTerm());
 		main.search();
 		$window.onhashchange = main.init;
 	}; // init
 
 	main.search = function () {
 		clearResults();
-		if(!searchTerm()) return;
-		setPathTerm();
-		Params.updateSearchTerm();
+		if(!Params.getSearchTerm()) return;
+		updateSearchTerm();
 
 		if (Params.isCommons()) {
 			Images.search();
@@ -35,16 +34,9 @@ function MainController($window, $location, utils, Params, Images, Pages, Page, 
 
 	main.open = function (title) {
 		Params.setPageTitle(title);
-
 		Page.open();
 		utils.scrollToTop(300);
 	}; // open
-
-	main.searchForLeadTerm = function () {
-		setSearchTerm(main.page.page.title);
-		main.search();
-		main.toggleLeadLarge();
-	}; // searchForLeadTerm
 
 	main.selectText = function () {
 		var text = $window.getSelection().toString();
@@ -58,14 +50,10 @@ function MainController($window, $location, utils, Params, Images, Pages, Page, 
 
 	/*** PRIVATE FUNCTIONS ***/
 
-	function searchTerm() {
-		return main.params.settings.searchTerm;
-	}
-
-	function setSearchTerm(newTerm) {
-		Params.setSearchTerm(newTerm);
-		setPathTerm();
-	}	// setSearchTerm
+	function updateSearchTerm() {
+		Params.updateSearchTerm();
+		utils.setPathTerm(Params.getSearchTerm());
+	}	// updateSearchTerm
 
 	function clearResults() {
 		Page.clearResults();
@@ -73,15 +61,6 @@ function MainController($window, $location, utils, Params, Images, Pages, Page, 
 		Images.clearResults();
 		ImagePage.clearResults();
 	} // clearResults
-
-	function getPathTerm() {
-		main.params.settings.searchTerm = $location.path().substr(1) || main.params.settings.searchTerm;
-	}
-
-	function setPathTerm() {
-		$location.path(searchTerm());
-	}
-
 
 } // MainController
 

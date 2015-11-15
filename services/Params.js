@@ -71,6 +71,10 @@ function Params(utils) {
 
     /*** GETTERS ***/
 
+    params.getSearchTerm = function() {
+        return params.settings.searchTerm;
+    };
+
     params.getApiUrl = function() {
         if (params.settings.domain == 'commons') {
             return 'http://commons.wikimedia.org/w/api.php';
