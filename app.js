@@ -22,7 +22,7 @@ var ImagesController = require('./controllers/ImagesController');
 var ImagePageController = require('./controllers/ImagePageController');
 var ParamsController = require('./controllers/ParamsController');
 
-var autofocus = require('./directives/autofocus');
+var autofocus = require('./components/autofocus');
 
 var utils = require('./services/utils');
 var Projects = require('./services/Projects');
