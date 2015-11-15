@@ -12,7 +12,7 @@ function Pages($http, utils, Params) {
     /*** HTTP ***/
 
 	pages.search = function() {
-		var paramUrl = createParamUrl(Params.getPagesParams());
+		var paramUrl = Params.createParamUrl(Params.getPagesParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
@@ -34,14 +34,7 @@ function Pages($http, utils, Params) {
     }; // clearResults
 
 
-
     /*** HELPERS ***/
-
-    function createParamUrl(params) {
-		var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
-		return paramUrl;
-	} // createParamUrl
-
 
     function findExactTerm(){
 		var capitalizedTerm = utils.capitalize(pages.params.settings.searchTerm);

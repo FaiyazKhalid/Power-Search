@@ -90,6 +90,11 @@ function Params(utils) {
         return 'http://' + params.settings.lang + '.' + params.settings.domain + '.org/w/api.php';
     }; // getApiUrl
 
+    params.createParamUrl = function(chosenParams) {
+		var paramUrl = params.getApiUrl() + '?' + utils.serialize(chosenParams);
+		return paramUrl;
+	}; // createParamUrl
+
     params.getPageParams = function() {
         return angular.extend(params.page, params.basic);
     }; // getPageParams

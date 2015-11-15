@@ -10,7 +10,7 @@ function Page($http, utils, Params) {
     /*** METHODS ***/
 
     page.open = function() {
-		var paramUrl = createParamUrl(Params.getPageParams());
+		var paramUrl = Params.createParamUrl(Params.getPageParams());
         //console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
@@ -50,12 +50,6 @@ function Page($http, utils, Params) {
 			thisPage.image = "https://" + Params.getLang() + "." + Params.getDomain() + ".org/main/File:" + imageName;
 		}
 	} // findImage
-
-
-    function createParamUrl(params) {
-		var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
-		return paramUrl;
-	} // createParamUrl
 
 
     function handleErrors(data, status) {
