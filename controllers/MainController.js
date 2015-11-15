@@ -1,9 +1,7 @@
-function MainController($window, utils, Params, Page, Pages, Images, ImagePage) {
 'use strict';
+function MainController($window, utils, Params, Page, Pages, Images, ImagePage) {
 
 	var mainControl = this;
-	mainControl.params = Params;
-	mainControl.page = Page;
 
 
 	/*** PUBLIC METHODS ***/

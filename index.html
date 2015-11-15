@@ -100,7 +100,7 @@
                         <section ng-bind-html='pageControl.page.result.extract' ng-dblclick="mainControl.selectText()"></section>
                     </article>
 
-                    <p class="read-more text-info pull-right"><a ng-href="{{pageControl.page.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{mainControl.params.settings.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{pageControl.page.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{pageControl.params.settings.domain}}</span> >> </a></p>
                 </section>
             </div>
 
@@ -110,7 +110,7 @@
                 <p ng-show="pagesControl.pages.error" class="text-danger">{{pagesControl.pages.error}}</p>
                 <p ng-hide="pagesControl.pages.results.length" class="text-info">{{pagesControl.pages.noResults}}</p>
 
-                <article ng-repeat="page in pagesControl.pages.results | orderBy: mainControl.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': pagesControl.isSelectedPage(page)}">
+                <article ng-repeat="page in pagesControl.pages.results | orderBy: pagesControl.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': pagesControl.isSelectedPage(page)}">
                     <h2 class="text-info">
                         <span title="Open this article" ng-click="mainControl.open(page.title)" class="pointer" >{{page.title}}</span>
                     </h2>
@@ -118,7 +118,7 @@
                         <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
                     </a>
                     <section ng-bind-html='page.extract' ng-dblclick="mainControl.selectText()"></section>
-                    <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{mainControl.params.settings.domain}}</span> >> </a></p>
+                    <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{pagesControl.params.settings.domain}}</span> >> </a></p>
                 </article>
             </div>
 
@@ -130,12 +130,12 @@
                 </a>
                 <p ng-bind-html="imagepageControl.imagepage.result.extract"></p>
 
-                <p class="read-more text-info pull-right"><a ng-href="{{imagepageControl.imagepage.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{mainControl.params.settings.domain}}</span> >> </a></p>
+                <p class="read-more text-info pull-right"><a ng-href="{{imagepageControl.imagepage.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{imagepageControl.params.settings.domain}}</span> >> </a></p>
             </div>
 
             <!-- images -->
             <div ng-controller="ImagesController as imagesControl">
-                <div ng-repeat="image in imagesControl.images.results | orderBy: mainControl.params.settings.orderBy" class="img-wrapper">
+                <div ng-repeat="image in imagesControl.images.results | orderBy: imagesControl.params.settings.orderBy" class="img-wrapper">
                     <a ng-href="{{image.fullurl}}" target="_blank">
                         <!-- p>{{image.title}}</p -->
                         <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="img-responsive img-rounded">
