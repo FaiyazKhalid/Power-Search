@@ -18,7 +18,7 @@ function PageController(Page, Params, Pages, utils) {
 
 	function setSearchTerm(newTerm) {
 		Params.setSearchTerm(newTerm);
-		utils.setPathTerm(newTerm);
+		utils.setPath(newTerm);
 	}	// setSearchTerm
 
 

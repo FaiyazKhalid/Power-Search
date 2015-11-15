@@ -4,13 +4,13 @@ function utils($window, $location) {
 
     var noResultsMessage = "No results for the search term. Try again with different criteria.";
 
-    function setPathTerm(term) {
+    function setPath(term) {
 		$location.path(term);
-	}  // setPathTerm
+	}  // setPath
 
-    function getPathTerm() {
+    function getPath() {
 		return $location.path().substr(1);
-	}  // setPathTerm
+	}  // setPath
 
     function replaceSpacesWithUnderscores(struna) {
         return struna.replace(/ /g, "_");
@@ -67,8 +67,8 @@ function utils($window, $location) {
         serialize: serialize,
         startsWith: startsWith,
         htmlToPlaintext: htmlToPlaintext,
-        setPathTerm: setPathTerm,
-        getPathTerm: getPathTerm
+        setPath: setPath,
+        getPath: getPath
     };
 
 } // utils

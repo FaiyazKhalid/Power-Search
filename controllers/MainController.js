@@ -11,7 +11,7 @@ function MainController($window, $location, utils, Params, Images, Pages, Page, 
 
 	main.init = function () {
 		Params.loadSettings();
-		if (utils.getPathTerm()) Params.setSearchTerm(utils.getPathTerm());
+		if (utils.getPath()) Params.setSearchTerm(utils.getPath());
 		main.search();
 		$window.onhashchange = main.init;
 	}; // init
@@ -52,7 +52,7 @@ function MainController($window, $location, utils, Params, Images, Pages, Page, 
 
 	function updateSearchTerm() {
 		Params.updateSearchTerm();
-		utils.setPathTerm(Params.getSearchTerm());
+		utils.setPath(Params.getSearchTerm());
 	}	// updateSearchTerm
 
 	function clearResults() {
