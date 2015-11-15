@@ -75,6 +75,14 @@ function Params(utils) {
         return params.settings.searchTerm;
     };
 
+    params.getLang = function () {
+        return params.settings.lang;
+    };
+
+    params.getDomain = function () {
+        return params.settings.domain;
+    };
+
     params.getApiUrl = function() {
         if (params.settings.domain == 'commons') {
             return 'http://commons.wikimedia.org/w/api.php';

@@ -37,20 +37,17 @@ function Page($http, utils, Params) {
 
     /*** HELPERS ***/
 
-    // duplira se funkcija!
+    // dupliraju se funkcije!
 
     function findImage(thisPage) {
-		if(thisPage.pageimage) {
-            //if (thisPage.thumbnail)
-            var imgSrc = thisPage.thumbnail.source;
-			var imageName = thisPage.pageimage;
-			var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
-
-			if (utils.startsWith(imgSrc, commonsUrl)) {
-				thisPage.image = "https://commons.wikimedia.org/main/File:" + imageName;
-			} else {
-				thisPage.image = "https://" + page.params.settings.lang + "." + page.params.settings.domain + ".org/main/File:" + imageName;
-			}
+        if(!thisPage.pageimage) return;
+        var imageSource = thisPage.thumbnail.source;
+		var imageName = thisPage.pageimage;
+		var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
+		if (utils.startsWith(imageSource, commonsUrl)) {
+			thisPage.image = "https://commons.wikimedia.org/main/File:" + imageName;
+		} else {
+			thisPage.image = "https://" + Params.getLang() + "." + Params.getDomain() + ".org/main/File:" + imageName;
 		}
 	} // findImage
 

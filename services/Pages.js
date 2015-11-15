@@ -19,7 +19,6 @@ function Pages($http, utils, Params) {
 				pages.exactMatch = null;
 				if (!data.query) return noResults();
 				pages.results = data.query.pages;
-				angular.forEach(pages.results, findImage);
 				pages.exactMatch = findExactTerm();
 				if (!pages.exactMatch) return;
 				Params.setPageTitle(pages.exactMatch);
@@ -42,21 +41,6 @@ function Pages($http, utils, Params) {
 		var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
 		return paramUrl;
 	} // createParamUrl
-
-    function findImage(thisPage) {
-    	if(thisPage.pageimage) {
-            //if (thisPage.thumbnail)
-            var imgSrc = thisPage.thumbnail.source;
-			var imageName = thisPage.pageimage;
-			var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
-
-			if (utils.startsWith(imgSrc, commonsUrl)) {
-				thisPage.image = "https://commons.wikimedia.org/main/File:" + imageName;
-			} else {
-				thisPage.image = "https://" + pages.params.settings.lang + "." + pages.params.settings.domain + ".org/main/File:" + imageName;
-			}
-		}
-	} // findImage
 
 
     function findExactTerm(){
