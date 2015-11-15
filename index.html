@@ -108,7 +108,7 @@
                 <p ng-show="pagesControl.pages.error" class="text-danger">{{pagesControl.pages.error}}</p>
                 <p ng-hide="pagesControl.pages.results.length" class="text-info">{{pagesControl.pages.noResults}}</p>
 
-                <article ng-repeat="page in pagesControl.pages.results | orderBy: main.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': main.isSelectedPage(page)}">
+                <article ng-repeat="page in pagesControl.pages.results | orderBy: main.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': pagesControl.isSelectedPage(page)}">
                     <h2 class="text-info">
                         <span title="Open this article" ng-click="main.open(page.title)" class="pointer" >{{page.title}}</span>
                     </h2>

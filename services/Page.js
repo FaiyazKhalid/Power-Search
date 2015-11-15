@@ -26,6 +26,14 @@ function Page($http, utils, Params) {
         page.result = null;
     };
 
+    page.isExist = function () {
+        return page.result === null;
+    };
+
+    page.getTitle = function () {
+        return page.result.title;
+    };
+
 
     /*** HELPERS ***/
 

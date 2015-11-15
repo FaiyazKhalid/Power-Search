@@ -43,10 +43,6 @@ function MainController($window, $location, utils, Params, Images, Pages, Page, 
 		Params.setSearchTerm(text);
 	}; // selectText
 
-	main.isSelectedPage = function(page) {
-		if(main.page.page) return page.title == main.page.page.title;
-	};	// isSelectedPage
-
 
 	/*** PRIVATE FUNCTIONS ***/
 
