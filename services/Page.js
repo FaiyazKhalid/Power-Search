@@ -37,17 +37,14 @@ function Page($http, utils, Params) {
 
     /*** HELPERS ***/
 
-    // dupliraju se funkcije!
-
     function findImage(thisPage) {
         if(!thisPage.pageimage) return;
-        var imageSource = thisPage.thumbnail.source;
-		var imageName = thisPage.pageimage;
-		var commonsUrl = "https://upload.wikimedia.org/wikipedia/commons/";
-		if (utils.startsWith(imageSource, commonsUrl)) {
-			thisPage.image = "https://commons.wikimedia.org/main/File:" + imageName;
+        var imgSource = thisPage.thumbnail.source;
+		var fileName = thisPage.pageimage;
+		if (utils.startsWith(imgSource, "https://upload.wikimedia.org/wikipedia/commons/")) {
+			thisPage.image = "https://commons.wikimedia.org/main/File:" + fileName;
 		} else {
-			thisPage.image = "https://" + Params.getLang() + "." + Params.getDomain() + ".org/main/File:" + imageName;
+			thisPage.image = "https://" + Params.getLang() + "." + Params.getDomain() + ".org/main/File:" + fileName;
 		}
 	} // findImage
 
@@ -59,7 +56,6 @@ function Page($http, utils, Params) {
         }
 		page.error = "Oh no, there was some error in geting data: " + status;
 	} // handleErrors
-
 
 
 } // Page

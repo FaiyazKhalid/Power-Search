@@ -1,4 +1,4 @@
-function MainController($window, $location, utils, Params, Images, Pages, Page, ImagePage) {
+function MainController($window, utils, Params, Page, Pages, Images, ImagePage) {
 'use strict';
 
 	var main = this;

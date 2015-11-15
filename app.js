@@ -2,8 +2,8 @@
 /*
 	TODO:
 	// ada bojana opet ne radi zbog exactMatch
+	// odvojiti localStorage
 
-	// napraviti da se glavna slika prikazuje popup?
 	// srediti galeriju https://blueimp.github.io/Bootstrap-Image-Gallery/
 	// srediti opis http://stackoverflow.com/questions/26010257/bootstrap-3-css-image-caption-overlay
 	// main.refreshLanguages() ne sluzi nicemu. ako nema drugog nacina, proveriti redom i sastaviti statican spisak
