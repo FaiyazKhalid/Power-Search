@@ -36,8 +36,7 @@ function MainController($window, utils, Params, Page, Pages, Images, ImagePage) 
 	}; // open
 
 	mainControl.selectText = function () {
-		var text = $window.getSelection().toString();
-		Params.setSearchTerm(text);
+		Params.setSearchTerm(utils.getSelection());
 	}; // selectText
 
 

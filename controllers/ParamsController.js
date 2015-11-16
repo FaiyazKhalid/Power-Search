@@ -1,4 +1,4 @@
-function ParamsController(Params, Projects, Languages, $window, $location) {
+function ParamsController(Params, Projects, Languages, utils) {
 'use strict';
 
 	var paramsControl = this;
@@ -25,7 +25,7 @@ function ParamsController(Params, Projects, Languages, $window, $location) {
 
 	paramsControl.resetAndReload = function() {
 		resetSearchTerm();
-		$window.location.reload();
+		utils.reload();
 	};	// resetAndReload
 
     paramsControl.refreshLanguages = function() {
@@ -41,12 +41,8 @@ function ParamsController(Params, Projects, Languages, $window, $location) {
 
     function resetSearchTerm() {
 		Params.setSearchTerm('');
-		resetPath();
+		utils.resetPath();
 	}
-
-    function resetPath() {
-        $location.path("");
-    }
 
 
 } // ParamsController

@@ -2,74 +2,89 @@
 
 function utils($window, $location) {
 
-    var noResultsMessage = "No results for the search term. Try again with different criteria.";
+	var noResultsMessage = "No results for the search term. Try again with different criteria.";
 
-    function setPath(term) {
+	function setPath(term) {
 		$location.path(term);
-	}  // setPath
+	} // setPath
 
-    function getPath() {
+	function getPath() {
 		return $location.path().substr(1);
-	}  // setPath
+	} // setPath
 
-    function replaceSpacesWithUnderscores(struna) {
-        return struna.replace(/ /g, "_");
-    } // replaceSpacesWithUnderscores
+	function resetPath() {
+		$location.path("");
+	}  // resetPath
 
+	function reload() {
+		$window.location.reload();
+	}  // reload
 
-    function scrollToTop(duration) {
-        var top = document.getElementsByTagName("header")[0].clientHeight;
-        var scrollStep = -$window.scrollY / (duration / 15);
-        var scrollInterval = setInterval(function() {
-            if ($window.scrollY <= top) {
-                clearInterval(scrollInterval);
-                return;
-            }
-            $window.scrollBy(0, scrollStep);
-        }, 15);
-    } // scrollToTop
+    function getSelection() {
+      return $window.getSelection().toString();
+  }   // getSelection
 
-
-    function capitalize(words) {
-        return words.replace(/(?:^|\s)\S/g, function(word) {
-            return word.toUpperCase();
-        });
-    } // capitalize
+	function replaceSpacesWithUnderscores(struna) {
+		return struna.replace(/ /g, "_");
+	} // replaceSpacesWithUnderscores
 
 
-    function capitalizeFirst(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    } // capitalizeFirst
+	function scrollToTop(duration) {
+		var top = document.getElementsByTagName("header")[0].clientHeight;
+		var scrollStep = -$window.scrollY / (duration / 15);
+		var scrollInterval = setInterval(function () {
+			if ($window.scrollY <= top) {
+				clearInterval(scrollInterval);
+				return;
+			}
+			$window.scrollBy(0, scrollStep);
+		}, 15);
+	} // scrollToTop
 
 
-    function serialize(params) {
-        var paramString = Object.keys(params).map(function(key) {
-            return key + '=' + encodeURIComponent(params[key]);
-        }).join('&');
-        return (paramString);
-    } // serialize
-
-    function startsWith(string, prefix) {
-        return string.slice(0, prefix.length) == prefix;
-    } // startsWith
-
-    function htmlToPlaintext(text) {
-        return text ? String(text).replace(/<[^>]+>/gm, '') : '';
-    }
+	function capitalize(words) {
+		return words.replace(/(?:^|\s)\S/g, function (word) {
+			return word.toUpperCase();
+		});
+	} // capitalize
 
 
-    return {
-        noResultsMessage: noResultsMessage,
-        replaceSpacesWithUnderscores: replaceSpacesWithUnderscores,
-        scrollToTop: scrollToTop,
-        capitalize: capitalize,
-        capitalizeFirst: capitalizeFirst,
-        serialize: serialize,
-        startsWith: startsWith,
-        htmlToPlaintext: htmlToPlaintext,
-        setPath: setPath,
-        getPath: getPath
-    };
+	function capitalizeFirst(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	} // capitalizeFirst
+
+
+	function serialize(params) {
+		var paramString = Object.keys(params).map(function (key) {
+			return key + '=' + encodeURIComponent(params[key]);
+		}).join('&');
+		return (paramString);
+	} // serialize
+
+	function startsWith(string, prefix) {
+		return string.slice(0, prefix.length) == prefix;
+	} // startsWith
+
+	function htmlToPlaintext(text) {
+		return text ? String(text).replace(/<[^>]+>/gm, '') : '';
+	}
+
+
+	return {
+		noResultsMessage: noResultsMessage,
+		replaceSpacesWithUnderscores: replaceSpacesWithUnderscores,
+		scrollToTop: scrollToTop,
+		capitalize: capitalize,
+		capitalizeFirst: capitalizeFirst,
+		serialize: serialize,
+		startsWith: startsWith,
+		htmlToPlaintext: htmlToPlaintext,
+		setPath: setPath,
+		getPath: getPath,
+		resetPath: resetPath,
+        reload: reload,
+        getSelection: getSelection
+	};
 
 } // utils
 
