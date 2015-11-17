@@ -16,33 +16,41 @@ var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 
 var MainController = require('./controllers/MainController');
-var PageController = require('./controllers/PageController');
-var PagesController = require('./controllers/PagesController');
-var ImagesController = require('./controllers/ImagesController');
-var ImagePageController = require('./controllers/ImagePageController');
-var ParamsController = require('./controllers/ParamsController');
-
+var utils = require('./services/utils');
 var autofocus = require('./components/autofocus');
 
-var utils = require('./services/utils');
+var Page = require('./services/Page');
+var PageController = require('./controllers/PageController');
+
+var Pages = require('./services/Pages');
+var PagesController = require('./controllers/PagesController');
+
+var Images = require('./services/Images');
+var ImagesController = require('./controllers/ImagesController');
+var images = require('./components/images/images');
+
+var ImagePage = require('./services/ImagePage');
+var ImagePageController = require('./controllers/ImagePageController');
+
+var Params = require('./services/Params');
+var ParamsController = require('./controllers/ParamsController');
+
 var Projects = require('./services/Projects');
 var Languages = require('./services/Languages');
-var Params = require('./services/Params');
-var Images = require('./services/Images');
-var Pages = require('./services/Pages');
-var Page = require('./services/Page');
-var ImagePage = require('./services/ImagePage');
 
 
 angular
 	.module('wikiModul', [ngSanitize])
+
 	.controller('MainController', MainController)
 	.controller('ImagesController', ImagesController)
 	.controller('ImagePageController', ImagePageController)
 	.controller('PagesController', PagesController)
 	.controller('PageController', PageController)
 	.controller('ParamsController', ParamsController)
+
 	.directive('autofocus', ['$timeout', autofocus])
+	.directive('images', images)
 
 	.factory('utils', utils)
     .factory('Projects', Projects)
