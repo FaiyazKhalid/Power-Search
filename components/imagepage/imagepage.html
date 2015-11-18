@@ -1,0 +1,10 @@
+<!-- imagepage -->
+<div class="imagepage lead-wrapper pull-right" ng-show="imagepageControl.imagepage.result">
+    <a ng-href="{{imagepageControl.imagepage.result.fullurl}}" target="_blank">
+        <h1>{{imagepageControl.imagepage.result.title}}</h1>
+        <img ng-src="{{imagepageControl.imagepage.result.thumbnail.source}}" alt="{{imagepageControl.imagepage.result.title}}" class="img-responsive img-rounded image-full">
+    </a>
+    <p ng-bind-html="imagepageControl.imagepage.result.extract"></p>
+
+    <p class="read-more text-info pull-right"><a ng-href="{{imagepageControl.imagepage.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{imagepageControl.params.settings.domain}}</span> >> </a></p>
+</div>

@@ -1,4 +1,4 @@
-function ImagePageController(ImagePage, Params) {
+function ImageController(ImagePage, Params) {
 'use strict';
 
 	var imagepageControl = this;
@@ -6,6 +6,6 @@ function ImagePageController(ImagePage, Params) {
 	imagepageControl.params = Params;
 
 
-} // ImagePageController
+} // ImageController
 
-module.exports = ImagePageController;
+module.exports = ImageController;

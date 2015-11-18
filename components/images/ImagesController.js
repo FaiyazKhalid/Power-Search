@@ -1,10 +1,10 @@
-function ImageController(Images, Params) {
+function ImagesController(Images, Params) {
 'use strict';
 
 	var imagesControl = this;
 	imagesControl.images = Images;
 	imagesControl.params = Params;
 
-} // ImageController
+} // ImagesController
 
-module.exports = ImageController;
+module.exports = ImagesController;
