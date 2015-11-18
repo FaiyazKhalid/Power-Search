@@ -42,7 +42,7 @@ function Params(utils) {
         pithumbsize: leadImageSize // height
     };
 
-    params.imagepage = {
+    params.mainImage = {
         exintro: '', // only intro
         exchars: 250 // character limit
     };
@@ -108,7 +108,7 @@ function Params(utils) {
 	}; // getImageParams
 
     params.getImagePageParams = function() {
-		return angular.extend(params.imagepage, params.page, params.basic);
+		return angular.extend(params.mainImage, params.page, params.basic);
 	}; // getImagePageParams
 
 
@@ -119,7 +119,7 @@ function Params(utils) {
         var term = utils.capitalize(params.settings.searchTerm);
         params.basicSearch.gsrsearch = filter + term;
         params.page.titles = term;
-        params.imagepage.titles = term;
+        params.mainImage.titles = term;
         if (params.isCommons() && filter == 'prefix:') {
             params.basicSearch.gsrsearch = filter + 'File:' + term;
         }

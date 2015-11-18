@@ -2,23 +2,23 @@
 
 function MainImage($http, utils, Params) {
 
-    var imagepage = this;
-	imagepage.result = null;
+    var mainImage = this;
+	mainImage.result = null;
 
     /*** HTTP ***/
-    imagepage.open = function () {
+    mainImage.open = function () {
         var paramUrl = Params.getApiUrl() + '?' + utils.serialize(Params.getImagePageParams());
         //console.log(paramUrl);
         $http.jsonp(paramUrl)
             .success(function (data) {
                 if (data.query.pages[0].missing) return;
-                imagepage.result = data.query.pages[0];
+                mainImage.result = data.query.pages[0];
             });
     };
 
 
-    imagepage.clearResults =  function () {
-        imagepage.result = "";
+    mainImage.clearResults =  function () {
+        mainImage.result = "";
     };
 
 } // MainImage
