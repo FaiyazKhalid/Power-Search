@@ -24,8 +24,8 @@ var PagesController = require('./controllers/PagesController');
 var images = require('./components/images/images');
 var ImagesController = require('./components/images/ImagesController');
 
-var imagepage = require('./components/imagepage/imagepage');
-var ImageController = require('./components/imagepage/ImageController');
+var imagepage = require('./components/main-image/imagepage');
+var ImageController = require('./components/main-image/ImageController');
 
 var ParamsController = require('./controllers/ParamsController');
 
