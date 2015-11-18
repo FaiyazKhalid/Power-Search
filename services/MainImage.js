@@ -1,6 +1,6 @@
 'use strict';
 
-function ImagePage($http, utils, Params) {
+function MainImage($http, utils, Params) {
 
     var imagepage = this;
 	imagepage.result = null;
@@ -21,7 +21,7 @@ function ImagePage($http, utils, Params) {
         imagepage.result = "";
     };
 
-} // ImagePage
+} // MainImage
 
 
-module.exports = ImagePage;
+module.exports = MainImage;

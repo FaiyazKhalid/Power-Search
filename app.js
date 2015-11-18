@@ -32,7 +32,7 @@ var ParamsController = require('./controllers/ParamsController');
 var Params = require('./services/Params');
 var Page = require('./services/Page');
 var Pages = require('./services/Pages');
-var ImagePage = require('./services/ImagePage');
+var MainImage = require('./services/MainImage');
 var Images = require('./services/Images');
 var Projects = require('./services/Projects');
 var Languages = require('./services/Languages');
@@ -60,4 +60,4 @@ angular
 	.service('Pages', Pages)
 	.service('Page', Page)
 	.service('Images', Images)
-	.service('ImagePage', ImagePage);
+	.service('MainImage', MainImage);

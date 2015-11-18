@@ -1,5 +1,5 @@
 'use strict';
-function MainController($window, utils, Params, Page, Pages, Images, ImagePage) {
+function MainController($window, utils, Params, Page, Pages, Images, MainImage) {
 
 	var mainControl = this;
 
@@ -20,7 +20,7 @@ function MainController($window, utils, Params, Page, Pages, Images, ImagePage) 
 
 		if (Params.isCommons()) {
 			Images.search();
-			ImagePage.open();
+			MainImage.open();
 		} else {
 			Pages.search();
 			// TODO ubaciti if pages.exactMatch
@@ -51,7 +51,7 @@ function MainController($window, utils, Params, Page, Pages, Images, ImagePage) 
 		Page.clearResults();
         Pages.clearResults();
 		Images.clearResults();
-		ImagePage.clearResults();
+		MainImage.clearResults();
 	} // clearResults
 
 } // MainController

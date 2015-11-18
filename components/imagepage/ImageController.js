@@ -1,8 +1,8 @@
-function ImageController(ImagePage, Params) {
+function ImageController(MainImage, Params) {
 'use strict';
 
 	var imagepageControl = this;
-	imagepageControl.imagepage = ImagePage;
+	imagepageControl.imagepage = MainImage;
 	imagepageControl.params = Params;
 
 
