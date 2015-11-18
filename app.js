@@ -24,8 +24,8 @@ var PagesController = require('./controllers/PagesController');
 var images = require('./components/images/images');
 var ImagesController = require('./components/images/ImagesController');
 
-var imagepage = require('./components/main-image/imagepage');
-var ImageController = require('./components/main-image/ImageController');
+var mainImage = require('./components/main-image/mainImage');
+var MainImageController = require('./components/main-image/MainImageController');
 
 var ParamsController = require('./controllers/ParamsController');
 
@@ -44,14 +44,14 @@ angular
 
 	.controller('MainController', MainController)
 	.controller('ImagesController', ImagesController)
-	.controller('ImageController', ImageController)
+	.controller('MainImageController', MainImageController)
 	.controller('PagesController', PagesController)
 	.controller('PageController', PageController)
 	.controller('ParamsController', ParamsController)
 
 	.directive('autofocus', ['$timeout', autofocus])
 	.directive('images', images)
-	.directive('imagepage', imagepage)
+	.directive('mainImage', mainImage)
 
 	.factory('utils', utils)
     .factory('Projects', Projects)
