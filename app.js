@@ -15,28 +15,28 @@
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 
-var autofocus = require('./components/autofocus');
+var PageController = require('./components/page/PageController');
+var PageService = require('./components/page/PageService');
 
-var MainController = require('./controllers/MainController');
-var PageController = require('./controllers/PageController');
-var PagesController = require('./controllers/PagesController');
+var PagesController = require('./components/pages/PagesController');
+var PagesService = require('./components/pages/PagesService');
 
 var images = require('./components/images/images');
 var ImagesController = require('./components/images/ImagesController');
+var ImagesService = require('./components/images/ImagesService');
 
 var mainImage = require('./components/main-image/mainImage');
 var MainImageController = require('./components/main-image/MainImageController');
+var MainImageService = require('./components/main-image/MainImageService');
 
-var ParamsController = require('./controllers/ParamsController');
+var ParamsController = require('./components/params/ParamsController');
+var ParamsService = require('./components/params/ParamsService');
+var LanguagesService = require('./components/params/LanguagesService');
+var ProjectsService = require('./components/params/ProjectsService');
 
-var Params = require('./services/Params');
-var Page = require('./services/Page');
-var Pages = require('./services/Pages');
-var MainImage = require('./services/MainImage');
-var Images = require('./services/Images');
-var Projects = require('./services/Projects');
-var Languages = require('./services/Languages');
-var utils = require('./services/utils');
+var MainController = require('./components/shared/MainController');
+var autofocus = require('./components/shared/autofocus');
+var utils = require('./components/shared/utils');
 
 
 angular
@@ -54,10 +54,10 @@ angular
 	.directive('mainImage', mainImage)
 
 	.factory('utils', utils)
-    .factory('Projects', Projects)
-	.service('Languages', Languages)
-	.service('Params', Params)
-	.service('Pages', Pages)
-	.service('Page', Page)
-	.service('Images', Images)
-	.service('MainImage', MainImage);
+    .factory('ProjectsService', ProjectsService)
+	.service('LanguagesService', LanguagesService)
+	.service('ParamsService', ParamsService)
+	.service('PagesService', PagesService)
+	.service('PageService', PageService)
+	.service('ImagesService', ImagesService)
+	.service('MainImageService', MainImageService);

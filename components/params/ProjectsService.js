@@ -1,7 +1,7 @@
 'use strict';
 
 
-function Projects() {
+function ProjectsService() {
 
 	var wikiProjects = [{
 		name: 'wikipedia',
@@ -39,6 +39,6 @@ function Projects() {
 		getProjects: getProjects
 	};
 
-} // Projects
+} // ProjectsService
 
-module.exports = Projects;
+module.exports = ProjectsService;

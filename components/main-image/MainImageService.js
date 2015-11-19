@@ -1,13 +1,13 @@
 'use strict';
 
-function MainImage($http, utils, Params) {
+function MainImageService($http, utils, ParamsService) {
 
     var mainImage = this;
 	mainImage.result = null;
 
     /*** HTTP ***/
     mainImage.open = function () {
-        var paramUrl = Params.getApiUrl() + '?' + utils.serialize(Params.getImagePageParams());
+        var paramUrl = ParamsService.getApiUrl() + '?' + utils.serialize(ParamsService.getImagePageParams());
         //console.log(paramUrl);
         $http.jsonp(paramUrl)
             .success(function (data) {
@@ -21,7 +21,7 @@ function MainImage($http, utils, Params) {
         mainImage.result = "";
     };
 
-} // MainImage
+} // MainImageService
 
 
-module.exports = MainImage;
+module.exports = MainImageService;

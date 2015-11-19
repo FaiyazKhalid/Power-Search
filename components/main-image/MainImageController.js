@@ -1,9 +1,9 @@
-function MainImageController(MainImage, Params) {
+function MainImageController(MainImageService, ParamsService) {
 'use strict';
 
 	var mainImgControl = this;
-	mainImgControl.mainImage = MainImage;
-	mainImgControl.params = Params;
+	mainImgControl.mainImage = MainImageService;
+	mainImgControl.params = ParamsService;
 
 
 } // MainImageController

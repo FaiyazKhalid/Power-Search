@@ -1,6 +1,6 @@
 'use strict';
 
-function Params(utils) {
+function ParamsService(utils) {
 
     var params = this;
     var thumbSize = 200;
@@ -172,7 +172,7 @@ function Params(utils) {
         params.deleteStorage();
     }; // toggleSave
 
-} // Params
+} // ParamsService
 
 
-module.exports = Params;
+module.exports = ParamsService;

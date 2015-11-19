@@ -1,9 +1,9 @@
-function PageController(Page, Params, Pages, utils) {
+function PageController(PageService, ParamsService, PagesService, utils) {
 'use strict';
 
 	var pageControl = this;
-	pageControl.page = Page;
-	pageControl.params = Params;
+	pageControl.page = PageService;
+	pageControl.params = ParamsService;
 	pageControl.pageLarge = false;
 
 	pageControl.toggleLeadLarge = function () {
@@ -12,12 +12,12 @@ function PageController(Page, Params, Pages, utils) {
 
 	pageControl.searchForThisTerm = function (title) {
 		setSearchTerm(title);
-		Pages.search();
+		PagesService.search();
 		pageControl.toggleLeadLarge();
 	}; // searchForThisTerm
 
 	function setSearchTerm(newTerm) {
-		Params.setSearchTerm(newTerm);
+		ParamsService.setSearchTerm(newTerm);
 		utils.setPath(newTerm);
 	}	// setSearchTerm
 

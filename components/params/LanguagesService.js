@@ -3,7 +3,7 @@
 // TODO: dinamicaly populate list with available languages
 // https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
 
-function Languages($http, Params, utils) {
+function LanguagesService($http, ParamsService, utils) {
 
     var languages = this;
 	languages.all = [];
@@ -22,7 +22,7 @@ function Languages($http, Params, utils) {
     /*** HTTP ***/
 
 	languages.get = function() {
-        var paramUrl = Params.getApiUrl() + '?' + utils.serialize(params);
+        var paramUrl = ParamsService.getApiUrl() + '?' + utils.serialize(params);
         //console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
@@ -31,7 +31,7 @@ function Languages($http, Params, utils) {
 			})
             .error(function(){
                 languages.error = "The language you requesting does not exist for this domain.";
-                Params.setLanguage('en');
+                ParamsService.setLanguage('en');
             });
 	}; // search
 
@@ -45,7 +45,7 @@ function Languages($http, Params, utils) {
 	}	// filterResults
 
 
-} // Languages
+} // LanguagesService
 
 
-module.exports = Languages;
+module.exports = LanguagesService;
