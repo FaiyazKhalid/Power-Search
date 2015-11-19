@@ -4,17 +4,26 @@ function PageController(PageService, ParamsService, PagesService, utils) {
 	var pageControl = this;
 	pageControl.page = PageService;
 	pageControl.params = ParamsService;
-	pageControl.pageLarge = false;
 
-	pageControl.toggleLeadLarge = function () {
-		pageControl.pageLarge = !pageControl.pageLarge;
-	}; // toggleLeadLarge
+
+	/* METHODS */
 
 	pageControl.searchForThisTerm = function (title) {
 		setSearchTerm(title);
 		PagesService.search();
 		pageControl.toggleLeadLarge();
 	}; // searchForThisTerm
+
+	pageControl.toggleFullWidth = function () {
+		return ParamsService.pageLarge ? 'col-md-12' : 'col-md-6 col-md-push-6';
+	}; // selectText
+
+	pageControl.toggleLeadLarge = function () {
+		ParamsService.pageLarge = !ParamsService.pageLarge;
+	}; // toggleLeadLarge
+
+
+	/* HELPERS */
 
 	function setSearchTerm(newTerm) {
 		ParamsService.setSearchTerm(newTerm);

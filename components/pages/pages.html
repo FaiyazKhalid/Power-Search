@@ -1,0 +1,17 @@
+<!-- pages-->
+<div ng-class="pagesControl.toggleHide()">
+
+    <p ng-show="pagesControl.pages.error" class="text-danger">{{pagesControl.pages.error}}</p>
+    <p ng-hide="pagesControl.pages.results.length" class="text-info">{{pagesControl.pages.noResults}}</p>
+
+    <article ng-repeat="page in pagesControl.pages.results | orderBy: pagesControl.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': pagesControl.isSelectedPage(page)}">
+        <h2 class="text-info">
+            <span title="Open this article" ng-click="mainControl.open(page.title)" class="pointer" >{{page.title}}</span>
+        </h2>
+        <a ng-href="{{page.image}}" target="_blank">
+            <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
+        </a>
+        <section ng-bind-html='page.extract' ng-dblclick="pagesControl.selectText()"></section>
+        <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{pagesControl.params.settings.domain}}</span> >> </a></p>
+    </article>
+</div>

@@ -78,13 +78,14 @@
 
     <main class="container main" ng-cloak>
 
-        <!-- TODO: ovo je izvan opsega! -->
+        <!-- TODO: languages.error je izvan opsega!
+        -->
         <p ng-show="pageControl.languages.error" class="text-danger">{{pageControl.languages.error}}</p>
 
         <div class="row">
             <!-- page -->
-            <div ng-controller="PageController as pageControl" ng-class="pageControl.pageLarge ? 'col-md-12' : 'col-md-6 col-md-push-6'">
-                <nav ng-show="pageControl.pageLarge">
+            <div ng-controller="PageController as pageControl" ng-class="pageControl.toggleFullWidth()">
+                <nav ng-show="mainControl.pageLarge">
                     <button title="Back to serch results" class="btn btn-link" ng-click="pageControl.toggleLeadLarge()">« Back</button>
 
                     <button title="Search for this term" class="btn btn-link pull-right" ng-click="pageControl.searchForThisTerm(pageControl.page.result.title)">Search for this term »</button>
@@ -104,23 +105,7 @@
                 </section>
             </div>
 
-            <!-- pages-->
-            <div ng-controller="PagesController as pagesControl" ng-class="pageControl.pageLarge ? 'hidden' : 'col-md-6 col-md-pull-6'">
-
-                <p ng-show="pagesControl.pages.error" class="text-danger">{{pagesControl.pages.error}}</p>
-                <p ng-hide="pagesControl.pages.results.length" class="text-info">{{pagesControl.pages.noResults}}</p>
-
-                <article ng-repeat="page in pagesControl.pages.results | orderBy: pagesControl.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': pagesControl.isSelectedPage(page)}">
-                    <h2 class="text-info">
-                        <span title="Open this article" ng-click="mainControl.open(page.title)" class="pointer" >{{page.title}}</span>
-                    </h2>
-                    <a ng-href="{{page.image}}" target="_blank">
-                        <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
-                    </a>
-                    <section ng-bind-html='page.extract' ng-dblclick="mainControl.selectText()"></section>
-                    <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{pagesControl.params.settings.domain}}</span> >> </a></p>
-                </article>
-            </div>
+            <pages></pages>
 
             <main-image></main-image>
 

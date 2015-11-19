@@ -6,6 +6,7 @@ function ParamsService(utils) {
     var thumbSize = 200;
     var leadImageSize = 400;
     params.searchFilters = ['intitle:', '', 'prefix:'];
+    params.pageLarge = false;
 
     // default user settings
     params.settings = {

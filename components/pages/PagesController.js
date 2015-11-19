@@ -1,4 +1,4 @@
-function PagesController(PagesService, PageService, ParamsService) {
+function PagesController(PagesService, PageService, ParamsService, utils) {
 'use strict';
 
 	var pagesControl = this;
@@ -9,6 +9,15 @@ function PagesController(PagesService, PageService, ParamsService) {
 	pagesControl.isSelectedPage = function(page) {
 		if(PageService.isExist()) return (page.title == PageService.getTitle());
 	};	// isSelectedPage
+
+	pagesControl.selectText = function () {
+		ParamsService.setSearchTerm(utils.getSelection());
+	}; // selectText
+
+	pagesControl.toggleHide = function () {
+		return ParamsService.pageLarge ? 'hidden' : 'col-md-6 col-md-pull-6';
+	}; // selectText
+
 
 
 } // PagesController
