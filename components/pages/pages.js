@@ -4,7 +4,10 @@ function pages() {
 	return {
 		controller: 'PagesController',
 		controllerAs: 'pagesControl',
-        templateUrl: 'components/pages/pages.html'
+		bindToController: {
+			open: '='
+		},
+		templateUrl: 'components/pages/pages.html'
 	};
 } // pages
 

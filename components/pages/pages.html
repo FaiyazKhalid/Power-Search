@@ -6,7 +6,7 @@
 
     <article ng-repeat="page in pagesControl.pages.results | orderBy: pagesControl.params.settings.orderBy" class="articles clearfix" ng-class="{'hidden': pagesControl.isSelectedPage(page)}">
         <h2 class="text-info">
-            <span title="Open this article" ng-click="mainControl.open(page.title)" class="pointer" >{{page.title}}</span>
+            <span title="Open this article" ng-click="pagesControl.open(page.title)" class="pointer" >{{page.title}}</span>
         </h2>
         <a ng-href="{{page.image}}" target="_blank">
             <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
