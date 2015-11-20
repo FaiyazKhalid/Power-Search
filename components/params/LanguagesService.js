@@ -22,6 +22,7 @@ function LanguagesService($http, ParamsService, utils) {
     /*** HTTP ***/
 
 	languages.get = function() {
+        languages.resetErrors();
         var paramUrl = ParamsService.getApiUrl() + '?' + utils.serialize(params);
         //console.log(paramUrl);
 		$http.jsonp(paramUrl)
@@ -35,6 +36,10 @@ function LanguagesService($http, ParamsService, utils) {
             });
 	}; // search
 
+
+    languages.resetErrors = function () {
+        languages.error = null;
+    };
 
 	function filterResults(data) {
         angular.forEach(data.query.interwikimap, function(map) {

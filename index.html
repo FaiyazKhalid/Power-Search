@@ -78,18 +78,19 @@
 
     <main class="container main" ng-cloak>
 
-        <!-- TODO: languages.error je izvan opsega!
-        -->
-        <p ng-show="pageControl.languages.error" class="text-danger">{{pageControl.languages.error}}</p>
 
         <div class="row">
             <!-- page -->
             <div ng-controller="PageController as pageControl" ng-class="pageControl.toggleFullWidth()">
+
+                <p ng-show="pageControl.languages.error" class="text-danger">{{pageControl.languages.error}}</p>
+
                 <nav ng-show="mainControl.pageLarge">
                     <button title="Back to serch results" class="btn btn-link" ng-click="pageControl.toggleLeadLarge()">« Back</button>
 
                     <button title="Search for this term" class="btn btn-link pull-right" ng-click="pageControl.searchForThisTerm(pageControl.page.result.title)">Search for this term »</button>
                 </nav>
+
                 <section class='lead-wrapper' ng-show='pageControl.page.result'>
                     <article class="choosen-article clearfix">
                         <h1 class="text-info">
@@ -106,7 +107,7 @@
             </div>
 
             <pages open='mainControl.open()'></pages>
-            
+
             <main-image></main-image>
 
             <images></images>

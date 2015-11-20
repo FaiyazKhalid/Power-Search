@@ -53,7 +53,7 @@ function PagesService($http, utils, ParamsService) {
 
     function handleErrors(data, status) {
         if(status == 404) {
-            pages.error = "The main domain you requesting does not exist. Try again with different criteria.";
+            pages.error = "The domain you requesting does not exist. Try again with different criteria.";
             return;
         }
 		pages.error = "Oh no, there was some error in geting data: " + status;

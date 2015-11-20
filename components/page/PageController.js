@@ -1,10 +1,10 @@
-function PageController(PageService, ParamsService, PagesService, utils) {
+function PageController(PageService, ParamsService, PagesService, LanguagesService, utils) {
 'use strict';
 
 	var pageControl = this;
 	pageControl.page = PageService;
 	pageControl.params = ParamsService;
-
+	pageControl.languages = LanguagesService;
 
 	/* METHODS */
 

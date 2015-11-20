@@ -43,7 +43,7 @@ function ImagesService($http, ParamsService, utils, $filter) {
 
 	function handleErrors(data, status) {
         if(status == 404) {
-            images.error = "The main domain you requesting does not exist. Try again with different criteria.";
+            images.error = "The domain you requesting does not exist. Try again with different criteria.";
             return;
         }
 		images.error = "Oh no, there was some error in geting data: " + status;
