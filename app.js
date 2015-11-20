@@ -15,6 +15,7 @@
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 
+var page = require('./components/page/page');
 var PageController = require('./components/page/PageController');
 var PageService = require('./components/page/PageService');
 
@@ -52,6 +53,7 @@ angular
 
 	.directive('autofocus', ['$timeout', autofocus])
 	.directive('images', images)
+	.directive('page', page)
 	.directive('pages', pages)
 	.directive('mainImage', mainImage)
 
