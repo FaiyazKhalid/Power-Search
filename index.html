@@ -13,80 +13,15 @@
 <body ng-controller='MainController as mainControl' ng-init='mainControl.init()'>
 
     <header class="header">
-        <!-- params -->
-        <section ng-controller="ParamsController as paramsControl" class="container">
-            <div class="logo-wrap row">
-                <div class="col-md-6">
-                    <h1><a href="index.html" ng-click="paramsControl.resetAndReload()">Wikipedia power search</a></h1>
-                </div>
-                <form class="col-md-6" role="form" ng-cloak>
-                    <div class="wiki-logos">
-                        <!-- projects -->
-                        <label ng-repeat="project in paramsControl.projects">
-                            <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': paramsControl.isSelectedProject(project) }">
-                            <input type="radio" ng-model="paramsControl.params.settings.domain" value="{{project.name}}" ng-click="paramsControl.refreshLanguages(); mainControl.search()">
-                        </label>
-                        <span class="justify-helper"></span>
-                    </div>
-                </form>
-            </div>
-
-            <form class="search-form row" role="form" ng-cloak>
-                <div class="col-md-6">
-                    <div class="search-wrapper form-group">
-                        <button class="btn btn-success search-button input-lg" type="submit" ng-click='mainControl.search()'>
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                        <!-- search field -->
-                        <input ng-model='paramsControl.params.settings.searchTerm' ng-change='mainControl.search()' class="form-control input-lg" autofocus>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group text-center">
-                        <!-- filters -->
-                        <label ng-repeat="filter in paramsControl.params.searchFilters" class="radio-inline">
-                            <input type="radio" ng-model="paramsControl.params.settings.searchFilter" value="{{filter}}" ng-change="mainControl.search()"> {{filter || 'content'}}
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <!-- languages -->
-                        <select ng-model="paramsControl.params.settings.lang" ng-options="item.prefix as item.language for item in paramsControl.languages.all | orderBy:'prefix' " ng-change='mainControl.search()' class="form-control input-sm" ng-disabled="paramsControl.isCommons()"></select>
-                    </div>
-                    <label class="checkbox-inline">
-                        <!-- remember -->
-                        <input type="checkbox" ng-model="paramsControl.params.settings.remember" ng-change="paramsControl.toggleSave()">
-                        <small>remember settings</small>
-                    </label>
-                </div>
-                <div class="col-md-1">
-                    <div class="form-group">
-                        <!-- maxResults -->
-                        <input type="number" min="1" max="50" ng-model='paramsControl.params.basicSearch.gsrlimit' ng-change='paramsControl.checkMaxResults(); mainControl.search()' class="form-control input-sm">
-                    </div>
-                    <label class="checkbox-inline">
-                        <!-- alphabetical -->
-                        <input type="checkbox" ng-model="paramsControl.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''">
-                        <small>alphabetical</small>
-                    </label>
-                </div>
-            </form>
-        </section>
+        <params></params>
     </header>
-
 
     <main class="container main" ng-cloak>
         <div class="row">
-
             <page large="mainControl.pageLarge"></page>
-
             <pages open='mainControl.open()'></pages>
-
             <main-image></main-image>
-
             <images></images>
-
         </div>
     </main>
 

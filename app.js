@@ -32,6 +32,7 @@ var mainImage = require('./components/main-image/mainImage');
 var MainImageController = require('./components/main-image/MainImageController');
 var MainImageService = require('./components/main-image/MainImageService');
 
+var params = require('./components/params/params');
 var ParamsController = require('./components/params/ParamsController');
 var ParamService = require('./components/params/ParamService');
 var LanguagesService = require('./components/params/LanguagesService');
@@ -56,6 +57,7 @@ angular
 	.directive('images', images)
 	.directive('page', page)
 	.directive('pages', pages)
+	.directive('params', params)
 	.directive('mainImage', mainImage)
 
 	.factory('utils', utils)

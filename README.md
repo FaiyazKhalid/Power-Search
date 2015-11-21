@@ -57,9 +57,17 @@ Specific params for `searchWikipedia` method are:
 }
 ```
 
+## Development
+
+While developing, use task runner to watch and compile your files:
+
+```
+npm run watch
+```
+
 ## To-do list
 - error handling
-- maybe $http.jsonp to separate services
+
 
 ## Licence
 MIT
