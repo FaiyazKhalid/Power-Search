@@ -16,7 +16,7 @@ function PagesController(PagesService, PageService, ParamsService, utils) {
 
 	pagesControl.toggleHide = function () {
 		return ParamsService.pageLarge ? 'hidden' : 'col-md-6 col-md-pull-6';
-	}; // selectText
+	}; // toggleHide
 
 
 

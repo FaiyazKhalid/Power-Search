@@ -1,9 +1,9 @@
-<!-- page -->
+<!-- page: izbaciti mainControl.selectText -->
 <div ng-class="pageControl.toggleFullWidth()">
 
     <p ng-show="pageControl.languages.error" class="text-danger">{{pageControl.languages.error}}</p>
 
-    <nav ng-show="mainControl.pageLarge">
+    <nav ng-show="pageControl.large">
         <button title="Back to serch results" class="btn btn-link" ng-click="pageControl.toggleLeadLarge()">« Back</button>
 
         <button title="Search for this term" class="btn btn-link pull-right" ng-click="pageControl.searchForThisTerm(pageControl.page.result.title)">Search for this term »</button>

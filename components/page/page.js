@@ -5,7 +5,8 @@ function page() {
 		controller: 'PageController',
 		controllerAs: 'pageControl',
 		bindToController: {
-			open: '='
+			open: '=',
+			large: '='
 		},
 		templateUrl: 'components/page/page.html'
 	};
