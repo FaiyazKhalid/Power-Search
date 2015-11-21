@@ -40,6 +40,7 @@ var ProjectsService = require('./components/params/ProjectsService');
 var MainController = require('./components/shared/MainController');
 var autofocus = require('./components/shared/autofocus');
 var utils = require('./components/shared/utils');
+var forkme = require('./components/forkme/forkme');
 
 
 angular
@@ -57,6 +58,7 @@ angular
 	.directive('page', page)
 	.directive('pages', pages)
 	.directive('params', params)
+	.directive('forkme', forkme)
 	.directive('mainImage', mainImage)
 
 	.factory('utils', utils)

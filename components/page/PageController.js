@@ -14,7 +14,7 @@ function PageController(PageService, ParamService, PagesService, LanguagesServic
 		pageControl.toggleLeadLarge();
 	}; // searchForThisTerm
 
-	pageControl.toggleFullWidth = function () {
+	pageControl.toggleFullWidthClass = function () {
 		return ParamService.pageLarge ? 'col-md-12' : 'col-md-6 col-md-push-6';
 	}; // selectText
 
