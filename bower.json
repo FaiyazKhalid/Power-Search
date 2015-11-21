@@ -18,7 +18,7 @@
     "mediawiki-api"
   ],
   "license": "MIT",
-  "homepage": "http://mudroljub.github.io/angular-main-search/",
+  "homepage": "http://mudroljub.github.io/angular-wiki-search/",
   "ignore": [
     "**/.*",
     "node_modules",
