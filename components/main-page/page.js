@@ -8,7 +8,7 @@ function page() {
 			open: '=',
 			large: '='
 		},
-		templateUrl: 'components/page/page.html'
+		templateUrl: 'components/main-page/page.html'
 	};
 } // page
 

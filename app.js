@@ -15,9 +15,9 @@
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 
-var page = require('./components/page/page');
-var PageController = require('./components/page/PageController');
-var PageService = require('./components/page/PageService');
+var page = require('./components/main-page/page');
+var PageController = require('./components/main-page/PageController');
+var PageService = require('./components/main-page/PageService');
 
 var pages = require('./components/pages/pages');
 var PagesController = require('./components/pages/PagesController');
