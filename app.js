@@ -8,10 +8,9 @@
 	// srediti opis http://stackoverflow.com/questions/26010257/bootstrap-3-css-image-caption-overlay
 	// main.refreshLanguages() ne sluzi nicemu. ako nema drugog nacina, proveriti redom i sastaviti statican spisak
 	// primer paramUrl u dokumentaciju
-	// izbaciti mainControl.selectText iz page.html
 
 	BAG:
-	dolazi do greske kada pretrazuje projekte na kojima nema jezik
+	// bindToController ne radi, izbaciti mainControl iz page.html i params.html
 */
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
