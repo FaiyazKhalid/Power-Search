@@ -1,5 +1,5 @@
 'use strict';
-function MainController($window, utils, ParamsService, PageService, PagesService, ImagesService, MainImageService) {
+function MainController($window, utils, ParamService, PageService, PagesService, ImagesService, MainImageService) {
 
 	var mainControl = this;
 
@@ -7,18 +7,18 @@ function MainController($window, utils, ParamsService, PageService, PagesService
 	/*** PUBLIC METHODS ***/
 
 	mainControl.init = function () {
-		ParamsService.loadSettings();
-		if (utils.getPath()) ParamsService.setSearchTerm(utils.getPath());
+		ParamService.loadSettings();
+		if (utils.getPath()) ParamService.setSearchTerm(utils.getPath());
 		mainControl.search();
 		$window.onhashchange = mainControl.init;
 	}; // init
 
 	mainControl.search = function () {
 		clearResults();
-		if(!ParamsService.getSearchTerm()) return;
+		if(!ParamService.getSearchTerm()) return;
 		updateSearchTerm();
 
-		if (ParamsService.isCommons()) {
+		if (ParamService.isCommons()) {
 			ImagesService.search();
 			MainImageService.open();
 		} else {
@@ -26,25 +26,25 @@ function MainController($window, utils, ParamsService, PageService, PagesService
 			// TODO ubaciti if pages.exactMatch
 			PageService.open();
 		}
-		ParamsService.saveSettings();
+		ParamService.saveSettings();
 	}; // search
 
 	mainControl.open = function (title) {
-		ParamsService.setPageTitle(title);
+		ParamService.setPageTitle(title);
 		PageService.open();
 		utils.scrollToTop(300);
 	}; // open
 
 	mainControl.selectText = function () {
-		ParamsService.setSearchTerm(utils.getSelection());
+		ParamService.setSearchTerm(utils.getSelection());
 	}; // selectText
 
 
 	/*** PRIVATE FUNCTIONS ***/
 
 	function updateSearchTerm() {
-		ParamsService.updateSearchTerm();
-		utils.setPath(ParamsService.getSearchTerm());
+		ParamService.updateSearchTerm();
+		utils.setPath(ParamService.getSearchTerm());
 	}	// updateSearchTerm
 
 	function clearResults() {

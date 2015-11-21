@@ -1,8 +1,8 @@
-function ParamsController(ParamsService, ProjectsService, LanguagesService, utils) {
+function ParamsController(ParamService, ProjectsService, LanguagesService, utils) {
 'use strict';
 
 	var paramsControl = this;
-	paramsControl.params = ParamsService;
+	paramsControl.params = ParamService;
 	paramsControl.languages = LanguagesService;
     paramsControl.projects = ProjectsService.getProjects();
 
@@ -20,7 +20,7 @@ function ParamsController(ParamsService, ProjectsService, LanguagesService, util
 	};	// isChosenProject
 
     paramsControl.toggleSave = function() {
-		ParamsService.toggleSave();
+		ParamService.toggleSave();
 	};	// toggleRemember
 
 	paramsControl.resetAndReload = function() {
@@ -33,14 +33,14 @@ function ParamsController(ParamsService, ProjectsService, LanguagesService, util
 	};
 
     paramsControl.isCommons = function() {
-      return ParamsService.isCommons();
+      return ParamService.isCommons();
   };
 
 
 	/*** PRIVATE FUNCTIONS ***/
 
     function resetSearchTerm() {
-		ParamsService.setSearchTerm('');
+		ParamService.setSearchTerm('');
 		utils.resetPath();
 	}
 

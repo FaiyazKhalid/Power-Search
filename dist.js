@@ -33,7 +33,7 @@ var MainImageController = require('./components/main-image/MainImageController')
 var MainImageService = require('./components/main-image/MainImageService');
 
 var ParamsController = require('./components/params/ParamsController');
-var ParamsService = require('./components/params/ParamsService');
+var ParamService = require('./components/params/ParamService');
 var LanguagesService = require('./components/params/LanguagesService');
 var ProjectsService = require('./components/params/ProjectsService');
 
@@ -61,19 +61,19 @@ angular
 	.factory('utils', utils)
     .factory('ProjectsService', ProjectsService)
 	.service('LanguagesService', LanguagesService)
-	.service('ParamsService', ParamsService)
+	.service('ParamService', ParamService)
 	.service('PagesService', PagesService)
 	.service('PageService', PageService)
 	.service('ImagesService', ImagesService)
 	.service('MainImageService', MainImageService);
 
-},{"./components/images/ImagesController":2,"./components/images/ImagesService":3,"./components/images/images":4,"./components/main-image/MainImageController":5,"./components/main-image/MainImageService":6,"./components/main-image/mainImage":7,"./components/page/PageController":8,"./components/page/PageService":9,"./components/page/page":10,"./components/pages/PagesController":11,"./components/pages/PagesService":12,"./components/pages/pages":13,"./components/params/LanguagesService":14,"./components/params/ParamsController":15,"./components/params/ParamsService":16,"./components/params/ProjectsService":17,"./components/shared/MainController":18,"./components/shared/autofocus":19,"./components/shared/utils":20,"angular":24,"angular-sanitize":22}],2:[function(require,module,exports){
-function ImagesController(ImagesService, ParamsService) {
+},{"./components/images/ImagesController":2,"./components/images/ImagesService":3,"./components/images/images":4,"./components/main-image/MainImageController":5,"./components/main-image/MainImageService":6,"./components/main-image/mainImage":7,"./components/page/PageController":8,"./components/page/PageService":9,"./components/page/page":10,"./components/pages/PagesController":11,"./components/pages/PagesService":12,"./components/pages/pages":13,"./components/params/LanguagesService":14,"./components/params/ParamsController":15,"./components/params/ParamService":16,"./components/params/ProjectsService":17,"./components/shared/MainController":18,"./components/shared/autofocus":19,"./components/shared/utils":20,"angular":24,"angular-sanitize":22}],2:[function(require,module,exports){
+function ImagesController(ImagesService, ParamService) {
 'use strict';
 
 	var imagesControl = this;
 	imagesControl.images = ImagesService;
-	imagesControl.params = ParamsService;
+	imagesControl.params = ParamService;
 
 } // ImagesController
 
@@ -82,7 +82,7 @@ module.exports = ImagesController;
 },{}],3:[function(require,module,exports){
 'use strict';
 
-function ImagesService($http, ParamsService, utils, $filter) {
+function ImagesService($http, ParamService, utils, $filter) {
 
     var images = this;
     var descriptionLength = 60;
@@ -91,7 +91,7 @@ function ImagesService($http, ParamsService, utils, $filter) {
     /*** HTTP ***/
 
 	images.search = function() {
-		var paramUrl = ParamsService.getApiUrl() + '?' + utils.serialize(ParamsService.getImageParams());
+		var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImageParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
@@ -151,12 +151,12 @@ function images() {
 module.exports = images;
 
 },{}],5:[function(require,module,exports){
-function MainImageController(MainImageService, ParamsService) {
+function MainImageController(MainImageService, ParamService) {
 'use strict';
 
 	var mainImgControl = this;
 	mainImgControl.mainImage = MainImageService;
-	mainImgControl.params = ParamsService;
+	mainImgControl.params = ParamService;
 
 
 } // MainImageController
@@ -166,14 +166,14 @@ module.exports = MainImageController;
 },{}],6:[function(require,module,exports){
 'use strict';
 
-function MainImageService($http, utils, ParamsService) {
+function MainImageService($http, utils, ParamService) {
 
     var mainImage = this;
 	mainImage.result = null;
 
     /*** HTTP ***/
     mainImage.open = function () {
-        var paramUrl = ParamsService.getApiUrl() + '?' + utils.serialize(ParamsService.getImagePageParams());
+        var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImagePageParams());
         //console.log(paramUrl);
         $http.jsonp(paramUrl)
             .success(function (data) {
@@ -206,12 +206,12 @@ function mainImage() {
 module.exports = mainImage;
 
 },{}],8:[function(require,module,exports){
-function PageController(PageService, ParamsService, PagesService, LanguagesService, utils) {
+function PageController(PageService, ParamService, PagesService, LanguagesService, utils) {
 'use strict';
 
 	var pageControl = this;
 	pageControl.page = PageService;
-	pageControl.params = ParamsService;
+	pageControl.params = ParamService;
 	pageControl.languages = LanguagesService;
 
 	/* METHODS */
@@ -223,18 +223,18 @@ function PageController(PageService, ParamsService, PagesService, LanguagesServi
 	}; // searchForThisTerm
 
 	pageControl.toggleFullWidth = function () {
-		return ParamsService.pageLarge ? 'col-md-12' : 'col-md-6 col-md-push-6';
+		return ParamService.pageLarge ? 'col-md-12' : 'col-md-6 col-md-push-6';
 	}; // selectText
 
 	pageControl.toggleLeadLarge = function () {
-		ParamsService.pageLarge = !ParamsService.pageLarge;
+		ParamService.pageLarge = !ParamService.pageLarge;
 	}; // toggleLeadLarge
 
 
 	/* HELPERS */
 
 	function setSearchTerm(newTerm) {
-		ParamsService.setSearchTerm(newTerm);
+		ParamService.setSearchTerm(newTerm);
 		utils.setPath(newTerm);
 	}	// setSearchTerm
 
@@ -246,17 +246,17 @@ module.exports = PageController;
 },{}],9:[function(require,module,exports){
 'use strict';
 
-function PageService($http, utils, ParamsService) {
+function PageService($http, utils, ParamService) {
 
     var page = this;
-	page.params = ParamsService;
+	page.params = ParamService;
 	page.result = null;
 
 
     /*** METHODS ***/
 
     page.open = function() {
-		var paramUrl = ParamsService.createParamUrl(ParamsService.getPageParams());
+		var paramUrl = ParamService.createParamUrl(ParamService.getPageParams());
         //console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
@@ -290,7 +290,7 @@ function PageService($http, utils, ParamsService) {
 		if (utils.startsWith(imgSource, "https://upload.wikimedia.org/wikipedia/commons/")) {
 			thisPage.image = "https://commons.wikimedia.org/main/File:" + fileName;
 		} else {
-			thisPage.image = "https://" + ParamsService.getLang() + "." + ParamsService.getDomain() + ".org/main/File:" + fileName;
+			thisPage.image = "https://" + ParamService.getLang() + "." + ParamService.getDomain() + ".org/main/File:" + fileName;
 		}
 	} // findImage
 
@@ -326,24 +326,24 @@ function page() {
 module.exports = page;
 
 },{}],11:[function(require,module,exports){
-function PagesController(PagesService, PageService, ParamsService, utils) {
+function PagesController(PagesService, PageService, ParamService, utils) {
 'use strict';
 
 	var pagesControl = this;
 	pagesControl.pages = PagesService;
 	pagesControl.page = PageService;
-	pagesControl.params = ParamsService;
+	pagesControl.params = ParamService;
 
 	pagesControl.isSelectedPage = function(page) {
 		if(PageService.isExist()) return (page.title == PageService.getTitle());
 	};	// isSelectedPage
 
 	pagesControl.selectText = function () {
-		ParamsService.setSearchTerm(utils.getSelection());
+		ParamService.setSearchTerm(utils.getSelection());
 	}; // selectText
 
 	pagesControl.toggleHide = function () {
-		return ParamsService.pageLarge ? 'hidden' : 'col-md-6 col-md-pull-6';
+		return ParamService.pageLarge ? 'hidden' : 'col-md-6 col-md-pull-6';
 	}; // selectText
 
 
@@ -355,11 +355,11 @@ module.exports = PagesController;
 },{}],12:[function(require,module,exports){
 'use strict';
 
-function PagesService($http, utils, ParamsService) {
+function PagesService($http, utils, ParamService) {
 
     var pages = this;
 
-	pages.params = ParamsService;
+	pages.params = ParamService;
 	pages.results = null;
 	pages.exactMatch = null;
 
@@ -367,7 +367,7 @@ function PagesService($http, utils, ParamsService) {
     /*** HTTP ***/
 
 	pages.search = function() {
-		var paramUrl = ParamsService.createParamUrl(ParamsService.getPagesParams());
+		var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
@@ -376,8 +376,8 @@ function PagesService($http, utils, ParamsService) {
 				pages.results = data.query.pages;
 				pages.exactMatch = findExactTerm();
 				if (!pages.exactMatch) return;
-				ParamsService.setPageTitle(pages.exactMatch);
-				// pages.open(ParamsService.getPageParams());
+				ParamService.setPageTitle(pages.exactMatch);
+				// pages.open(ParamService.getPageParams());
 			})
 			.error(handleErrors);
 	}; // search
@@ -449,7 +449,7 @@ module.exports = pages;
 // TODO: dinamicaly populate list with available languages
 // https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
 
-function LanguagesService($http, ParamsService, utils) {
+function LanguagesService($http, ParamService, utils) {
 
     var languages = this;
 	languages.all = [];
@@ -469,7 +469,7 @@ function LanguagesService($http, ParamsService, utils) {
 
 	languages.get = function() {
         languages.resetErrors();
-        var paramUrl = ParamsService.getApiUrl() + '?' + utils.serialize(params);
+        var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(params);
         //console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
@@ -478,7 +478,7 @@ function LanguagesService($http, ParamsService, utils) {
 			})
             .error(function(){
                 languages.error = "The language you requesting does not exist for this domain.";
-                ParamsService.setLanguage('en');
+                ParamService.setLanguage('en');
             });
 	}; // search
 
@@ -502,11 +502,11 @@ function LanguagesService($http, ParamsService, utils) {
 module.exports = LanguagesService;
 
 },{}],15:[function(require,module,exports){
-function ParamsController(ParamsService, ProjectsService, LanguagesService, utils) {
+function ParamsController(ParamService, ProjectsService, LanguagesService, utils) {
 'use strict';
 
 	var paramsControl = this;
-	paramsControl.params = ParamsService;
+	paramsControl.params = ParamService;
 	paramsControl.languages = LanguagesService;
     paramsControl.projects = ProjectsService.getProjects();
 
@@ -524,7 +524,7 @@ function ParamsController(ParamsService, ProjectsService, LanguagesService, util
 	};	// isChosenProject
 
     paramsControl.toggleSave = function() {
-		ParamsService.toggleSave();
+		ParamService.toggleSave();
 	};	// toggleRemember
 
 	paramsControl.resetAndReload = function() {
@@ -537,14 +537,14 @@ function ParamsController(ParamsService, ProjectsService, LanguagesService, util
 	};
 
     paramsControl.isCommons = function() {
-      return ParamsService.isCommons();
+      return ParamService.isCommons();
   };
 
 
 	/*** PRIVATE FUNCTIONS ***/
 
     function resetSearchTerm() {
-		ParamsService.setSearchTerm('');
+		ParamService.setSearchTerm('');
 		utils.resetPath();
 	}
 
@@ -556,7 +556,7 @@ module.exports = ParamsController;
 },{}],16:[function(require,module,exports){
 'use strict';
 
-function ParamsService(utils) {
+function ParamService(utils) {
 
     var params = this;
     var thumbSize = 200;
@@ -729,10 +729,10 @@ function ParamsService(utils) {
         params.deleteStorage();
     }; // toggleSave
 
-} // ParamsService
+} // ParamService
 
 
-module.exports = ParamsService;
+module.exports = ParamService;
 
 },{}],17:[function(require,module,exports){
 'use strict';
@@ -782,7 +782,7 @@ module.exports = ProjectsService;
 
 },{}],18:[function(require,module,exports){
 'use strict';
-function MainController($window, utils, ParamsService, PageService, PagesService, ImagesService, MainImageService) {
+function MainController($window, utils, ParamService, PageService, PagesService, ImagesService, MainImageService) {
 
 	var mainControl = this;
 
@@ -790,18 +790,18 @@ function MainController($window, utils, ParamsService, PageService, PagesService
 	/*** PUBLIC METHODS ***/
 
 	mainControl.init = function () {
-		ParamsService.loadSettings();
-		if (utils.getPath()) ParamsService.setSearchTerm(utils.getPath());
+		ParamService.loadSettings();
+		if (utils.getPath()) ParamService.setSearchTerm(utils.getPath());
 		mainControl.search();
 		$window.onhashchange = mainControl.init;
 	}; // init
 
 	mainControl.search = function () {
 		clearResults();
-		if(!ParamsService.getSearchTerm()) return;
+		if(!ParamService.getSearchTerm()) return;
 		updateSearchTerm();
 
-		if (ParamsService.isCommons()) {
+		if (ParamService.isCommons()) {
 			ImagesService.search();
 			MainImageService.open();
 		} else {
@@ -809,25 +809,25 @@ function MainController($window, utils, ParamsService, PageService, PagesService
 			// TODO ubaciti if pages.exactMatch
 			PageService.open();
 		}
-		ParamsService.saveSettings();
+		ParamService.saveSettings();
 	}; // search
 
 	mainControl.open = function (title) {
-		ParamsService.setPageTitle(title);
+		ParamService.setPageTitle(title);
 		PageService.open();
 		utils.scrollToTop(300);
 	}; // open
 
 	mainControl.selectText = function () {
-		ParamsService.setSearchTerm(utils.getSelection());
+		ParamService.setSearchTerm(utils.getSelection());
 	}; // selectText
 
 
 	/*** PRIVATE FUNCTIONS ***/
 
 	function updateSearchTerm() {
-		ParamsService.updateSearchTerm();
-		utils.setPath(ParamsService.getSearchTerm());
+		ParamService.updateSearchTerm();
+		utils.setPath(ParamService.getSearchTerm());
 	}	// updateSearchTerm
 
 	function clearResults() {

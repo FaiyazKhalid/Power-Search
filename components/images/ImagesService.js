@@ -1,6 +1,6 @@
 'use strict';
 
-function ImagesService($http, ParamsService, utils, $filter) {
+function ImagesService($http, ParamService, utils, $filter) {
 
     var images = this;
     var descriptionLength = 60;
@@ -9,7 +9,7 @@ function ImagesService($http, ParamsService, utils, $filter) {
     /*** HTTP ***/
 
 	images.search = function() {
-		var paramUrl = ParamsService.getApiUrl() + '?' + utils.serialize(ParamsService.getImageParams());
+		var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImageParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {

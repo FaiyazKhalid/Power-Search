@@ -1,16 +1,16 @@
 'use strict';
 
-function PageService($http, utils, ParamsService) {
+function PageService($http, utils, ParamService) {
 
     var page = this;
-	page.params = ParamsService;
+	page.params = ParamService;
 	page.result = null;
 
 
     /*** METHODS ***/
 
     page.open = function() {
-		var paramUrl = ParamsService.createParamUrl(ParamsService.getPageParams());
+		var paramUrl = ParamService.createParamUrl(ParamService.getPageParams());
         //console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
@@ -44,7 +44,7 @@ function PageService($http, utils, ParamsService) {
 		if (utils.startsWith(imgSource, "https://upload.wikimedia.org/wikipedia/commons/")) {
 			thisPage.image = "https://commons.wikimedia.org/main/File:" + fileName;
 		} else {
-			thisPage.image = "https://" + ParamsService.getLang() + "." + ParamsService.getDomain() + ".org/main/File:" + fileName;
+			thisPage.image = "https://" + ParamService.getLang() + "." + ParamService.getDomain() + ".org/main/File:" + fileName;
 		}
 	} // findImage
 

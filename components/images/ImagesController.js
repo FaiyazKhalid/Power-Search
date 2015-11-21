@@ -1,9 +1,9 @@
-function ImagesController(ImagesService, ParamsService) {
+function ImagesController(ImagesService, ParamService) {
 'use strict';
 
 	var imagesControl = this;
 	imagesControl.images = ImagesService;
-	imagesControl.params = ParamsService;
+	imagesControl.params = ParamService;
 
 } // ImagesController
 

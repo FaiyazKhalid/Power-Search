@@ -1,10 +1,10 @@
 'use strict';
 
-function PagesService($http, utils, ParamsService) {
+function PagesService($http, utils, ParamService) {
 
     var pages = this;
 
-	pages.params = ParamsService;
+	pages.params = ParamService;
 	pages.results = null;
 	pages.exactMatch = null;
 
@@ -12,7 +12,7 @@ function PagesService($http, utils, ParamsService) {
     /*** HTTP ***/
 
 	pages.search = function() {
-		var paramUrl = ParamsService.createParamUrl(ParamsService.getPagesParams());
+		var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
@@ -21,8 +21,8 @@ function PagesService($http, utils, ParamsService) {
 				pages.results = data.query.pages;
 				pages.exactMatch = findExactTerm();
 				if (!pages.exactMatch) return;
-				ParamsService.setPageTitle(pages.exactMatch);
-				// pages.open(ParamsService.getPageParams());
+				ParamService.setPageTitle(pages.exactMatch);
+				// pages.open(ParamService.getPageParams());
 			})
 			.error(handleErrors);
 	}; // search

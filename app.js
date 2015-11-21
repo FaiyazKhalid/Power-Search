@@ -33,7 +33,7 @@ var MainImageController = require('./components/main-image/MainImageController')
 var MainImageService = require('./components/main-image/MainImageService');
 
 var ParamsController = require('./components/params/ParamsController');
-var ParamsService = require('./components/params/ParamsService');
+var ParamService = require('./components/params/ParamService');
 var LanguagesService = require('./components/params/LanguagesService');
 var ProjectsService = require('./components/params/ProjectsService');
 
@@ -61,7 +61,7 @@ angular
 	.factory('utils', utils)
     .factory('ProjectsService', ProjectsService)
 	.service('LanguagesService', LanguagesService)
-	.service('ParamsService', ParamsService)
+	.service('ParamService', ParamService)
 	.service('PagesService', PagesService)
 	.service('PageService', PageService)
 	.service('ImagesService', ImagesService)
