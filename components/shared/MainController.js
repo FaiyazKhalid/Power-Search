@@ -21,15 +21,9 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 		if (ParamService.isCommons()) {
 			ImagesService.search();
 			MainImageService.open();
-		} else PagesService.search(openThePage);
+		} else PagesService.search(openExactPage);
 		ParamService.saveSettings();
 	}; // search
-
-
-	function openThePage() {
-	  PageService.open(ParamService.getPageTitle());
-  	}	// openThePage
-
 
 	mainControl.open = function (title) {
 		ParamService.setPageTitle(title);
@@ -43,6 +37,10 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 
 
 	/*** PRIVATE FUNCTIONS ***/
+
+	function openExactPage() {
+	  PageService.open(ParamService.getPageTitle());
+  	}	// openExactPage
 
 	function updateSearchTerm() {
 		ParamService.updateSearchTerm();
