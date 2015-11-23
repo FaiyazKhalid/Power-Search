@@ -11,7 +11,7 @@ function PagesService($http, utils, ParamService) {
 
     /*** HTTP ***/
 
-	pages.search = function() {
+	pages.search = function(callback) {
 		var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
@@ -22,7 +22,7 @@ function PagesService($http, utils, ParamService) {
 				pages.exactMatch = findExactTerm();
 				if (!pages.exactMatch) return;
 				ParamService.setPageTitle(pages.exactMatch);
-				// pages.open(ParamService.getPageParams());
+                callback(); // openThePage
 			})
 			.error(handleErrors);
 	}; // search

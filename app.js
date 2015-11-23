@@ -1,7 +1,7 @@
 'use strict';
 /*
 	TODO:
-	// ada bojana opet ne radi zbog exactMatch
+	// dodati exactMatch za slike
 	// odvojiti localStorage
 
 	// srediti galeriju https://blueimp.github.io/Bootstrap-Image-Gallery/

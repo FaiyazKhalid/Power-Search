@@ -21,13 +21,15 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 		if (ParamService.isCommons()) {
 			ImagesService.search();
 			MainImageService.open();
-		} else {
-			PagesService.search();
-			// TODO ubaciti if pages.exactMatch
-			PageService.open();
-		}
+		} else PagesService.search(openThePage);
 		ParamService.saveSettings();
 	}; // search
+
+
+	function openThePage() {
+	  PageService.open(ParamService.getPageTitle());
+  	}	// openThePage
+
 
 	mainControl.open = function (title) {
 		ParamService.setPageTitle(title);

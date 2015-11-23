@@ -76,6 +76,10 @@ function ParamService(utils) {
         return params.settings.searchTerm;
     };
 
+    params.getPageTitle = function() {
+        return params.page.titles;
+    }; // getPageTitle
+
     params.getLang = function () {
         return params.settings.lang;
     };
