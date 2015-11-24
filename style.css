@@ -40,11 +40,6 @@
     display: inline-block;
 }
 
-.img-wrapper {
-    display: inline-block;
-    width: 25%;
-}
-
 
 /* HEADER */
 
@@ -119,8 +114,31 @@
     padding: 0 20px;
 }
 
+/* IMAGES */
+
+.img-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 5px;
+}
+
+.images {
+    height: 150px;
+    height: 200px;
+}
+
 .image-full {
     width:100%;
+}
+
+.desc {
+    background-color: #000;
+    bottom: 0;
+    color: #fff;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    width: 100%;
 }
 
 /* FORK-RIBBON */
