@@ -1,9 +1,10 @@
 'use strict';
 /*
 	TODO:
-	// srediti opis slika: http://stackoverflow.com/questions/26010257/bootstrap-3-css-image-caption-overlay
+	// filtrirati samo slike, ne ogg i ostale fajlove
+	// http://stackoverflow.com/questions/26010257/bootstrap-3-css-image-caption-overlay
 	// dinamicki slati zahtev za sirinom thumb slika, zavisno od sirine ekrana
-	// ubaciti loadmore
+	// ubaciti loadmore, paginaciju, continue query
 	// srediti jezike
 	// primer paramUrl u dokumentaciju
 	// izbaciti mainControl iz page.html i params.html

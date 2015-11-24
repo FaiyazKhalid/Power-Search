@@ -1,15 +1,9 @@
 <!-- images -->
 <div ng-repeat="image in imagesControl.images.results | orderBy: imagesControl.params.settings.orderBy" class="img-wrapper">
-    <a ng-href="{{image.fullurl}}" target="_blank">
-        <!-- p>{{image.title}}</p -->
-        <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="images img-responsive img-rounded">
-    </a>
-    <p ng-bind-html="image.desc" class="desc"></p>
-</div>
-
-<!-- <a ng-href="{{image.fullurl}}" target="_blank">
-    <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="img-responsive img-rounded">
-    <div class="desc">
-        <p ng-bind-html="image.desc" class="desc_content"></p>
+    <div class="inner-img-wrapper">
+        <a ng-href="{{image.fullurl}}" target="_blank">
+            <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="images">
+        </a>
+        <p ng-bind-html="image.desc" class="desc"></p>
     </div>
-</a> -->
+</div>

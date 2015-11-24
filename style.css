@@ -109,36 +109,37 @@
     margin-top: 10px;
 }
 
+/* MAIN IMAGE */
+
 .main-image {
     width: 25%;
     padding: 0 20px;
-}
-
-/* IMAGES */
-
-.img-wrapper {
-    position: relative;
-    display: inline-block;
-    padding: 5px;
-}
-
-.images {
-    height: 150px;
-    height: 200px;
 }
 
 .image-full {
     width:100%;
 }
 
+/* IMAGES */
+
+.img-wrapper {
+    display: inline-block;
+    padding: 5px;
+}
+
+.inner-img-wrapper {
+    position: relative;
+}
+
 .desc {
-    background-color: #000;
-    bottom: 0;
-    color: #fff;
-    left: 0;
-    opacity: 0.5;
     position: absolute;
+    bottom: 0;
     width: 100%;
+    background-color: #000;
+    color: #fff;
+    opacity: 0.5;
+    padding: 5px 10px;
+    margin-bottom: 0;
 }
 
 /* FORK-RIBBON */

@@ -3,7 +3,7 @@
 function ParamService(utils) {
 
     var params = this;
-    var thumbSize = 200;
+    var thumbSize = 250;
     var leadImageSize = 400;
     params.searchFilters = ['intitle:', '', 'prefix:'];
     params.pageLarge = false;
@@ -64,7 +64,7 @@ function ParamService(utils) {
         prop: 'pageimages|imageinfo|info|redirects',
         gsrnamespace: 6, // 0: article, 6: file
         pilimit: 'max', // thumb image for all articles
-        pithumbsize: thumbSize,	// thumb height
+        pithumbsize: thumbSize,
         iiprop: 'extmetadata',
         iiextmetadatafilter: 'ImageDescription' // if empty return all extmetadata (author, licence...)
     };
