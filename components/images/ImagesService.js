@@ -5,16 +5,20 @@ function ImagesService($http, ParamService, utils, $filter) {
     var images = this;
     var descriptionLength = 60;
 	images.results = null;
+    images.exactMatch = null;
+
 
     /*** HTTP ***/
-    
+
 	images.search = function() {
 		var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImageParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
+                images.exactMatch = null;
 				if (!data.query) return noResults();
 				images.results = data.query.pages;
+
 				angular.forEach(images.results, findDescription);
 			})
 			.error(handleErrors);
@@ -27,14 +31,14 @@ function ImagesService($http, ParamService, utils, $filter) {
 
     /*** HELPERS ***/
 
-    function findDescription(thisImage) {
-        if(thisImage.imageinfo && thisImage.imageinfo[0].extmetadata.ImageDescription) {
-            thisImage.desc = thisImage.imageinfo[0].extmetadata.ImageDescription.value;
-            thisImage.desc = utils.htmlToPlaintext(thisImage.desc);
-            var originLength = thisImage.desc.length;
-            thisImage.desc = $filter('limitTo')(thisImage.desc, descriptionLength);
-            var limitLength = thisImage.desc.length;
-            if (limitLength < originLength) thisImage.desc += "...";
+    function findDescription(item) {
+        if(item.imageinfo && item.imageinfo[0].extmetadata.ImageDescription) {
+            item.desc = item.imageinfo[0].extmetadata.ImageDescription.value;
+            item.desc = utils.htmlToPlaintext(item.desc);
+            var originLength = item.desc.length;
+            item.desc = $filter('limitTo')(item.desc, descriptionLength);
+            var limitLength = item.desc.length;
+            if (limitLength < originLength) item.desc += "...";
         }
 	} // findDescription
 

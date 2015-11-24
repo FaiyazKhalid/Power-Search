@@ -19,6 +19,7 @@ function PagesService($http, utils, ParamService) {
 				pages.exactMatch = null;
 				if (!data.query) return noResults();
 				pages.results = data.query.pages;
+
 				pages.exactMatch = findExactTerm();
 				if (!pages.exactMatch) return;
 				ParamService.setPageTitle(pages.exactMatch);
@@ -37,6 +38,7 @@ function PagesService($http, utils, ParamService) {
     /*** HELPERS ***/
 
     function findExactTerm(){
+        console.log(pages.params.settings.searchTerm);
 		var capitalizedTerm = utils.capitalize(pages.params.settings.searchTerm);
 		var results = pages.results;
 		var found = null;
