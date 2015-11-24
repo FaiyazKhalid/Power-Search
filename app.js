@@ -2,7 +2,6 @@
 /*
 	TODO:
 	// filtrirati samo slike, ne ogg i ostale fajlove
-	// http://stackoverflow.com/questions/26010257/bootstrap-3-css-image-caption-overlay
 	// dinamicki slati zahtev za sirinom thumb slika, zavisno od sirine ekrana
 	// ubaciti loadmore, paginaciju, continue query
 	// srediti jezike
