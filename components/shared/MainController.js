@@ -15,13 +15,15 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 
 	mainControl.search = function () {
 		clearResults();
-		if(!ParamService.getSearchTerm()) return;
-		updateSearchTerm();
+		ParamService.updateSearchTerm();
+		utils.setPath(ParamService.getSearchTerm());
 
 		if (ParamService.isCommons()) {
 			ImagesService.search();
 			MainImageService.open();
-		} else PagesService.search(openExactPage);
+		} else {
+			PagesService.search(openExactPage);
+		}
 		ParamService.saveSettings();
 	}; // search
 
@@ -41,11 +43,6 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 	function openExactPage() {
 	  PageService.open(ParamService.getPageTitle());
   	}	// openExactPage
-
-	function updateSearchTerm() {
-		ParamService.updateSearchTerm();
-		utils.setPath(ParamService.getSearchTerm());
-	}	// updateSearchTerm
 
 	function clearResults() {
 		PageService.clearResults();

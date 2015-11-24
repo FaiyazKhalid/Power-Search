@@ -2,6 +2,7 @@
 /*
 	TODO:
 	// dodati exactMatch za slike
+	// da params upisuje i uzima prazan searchTerm (sa remember seting ne dozvoljava da se isprazni pretraga)
 	// odvojiti localStorage
 
 	// srediti galeriju https://blueimp.github.io/Bootstrap-Image-Gallery/

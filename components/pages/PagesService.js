@@ -60,7 +60,7 @@ function PagesService($http, utils, ParamService) {
 	} // handleErrors
 
     function noResults() {
-        pages.noResults = "No results for the search term. Try again with different criteria.";
+        pages.noResults = utils.noResultsMessage;
     }
 
     function resetErrors() {

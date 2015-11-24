@@ -7,16 +7,13 @@ function ImagesService($http, ParamService, utils, $filter) {
 	images.results = null;
 
     /*** HTTP ***/
-
+    
 	images.search = function() {
 		var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImageParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-				if (!data.query) {
-                    images.noResults = utils.noResultsMessage;
-                    return;
-                }
+				if (!data.query) return noResults();
 				images.results = data.query.pages;
 				angular.forEach(images.results, findDescription);
 			})
@@ -40,6 +37,10 @@ function ImagesService($http, ParamService, utils, $filter) {
             if (limitLength < originLength) thisImage.desc += "...";
         }
 	} // findDescription
+
+    function noResults() {
+        images.noResults = utils.noResultsMessage;
+    }   // noResults
 
 	function handleErrors(data, status) {
         if(status == 404) {
