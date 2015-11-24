@@ -19,8 +19,7 @@ function PagesService($http, utils, ParamService) {
 				pages.exactMatch = null;
 				if (!data.query) return noResults();
 				pages.results = data.query.pages;
-
-				pages.exactMatch = findExactTerm();
+				pages.exactMatch = findExactTerm(pages.results);
 				if (!pages.exactMatch) return;
 				ParamService.setPageTitle(pages.exactMatch);
                 callback(); // openThePage
@@ -37,10 +36,8 @@ function PagesService($http, utils, ParamService) {
 
     /*** HELPERS ***/
 
-    function findExactTerm(){
-        console.log(pages.params.settings.searchTerm);
-		var capitalizedTerm = utils.capitalize(pages.params.settings.searchTerm);
-		var results = pages.results;
+    function findExactTerm(results){
+		var capitalizedTerm = utils.capitalize(ParamService.getSearchTerm());
 		var found = null;
 		angular.forEach(results, function(result) {
 			if (capitalizedTerm == utils.capitalize(result.title)) found = result.title;

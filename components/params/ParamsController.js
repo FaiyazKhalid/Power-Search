@@ -41,7 +41,7 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, utils
 
     function resetSearchTerm() {
 		ParamService.setSearchTerm('');
-		utils.resetPath();
+		utils.reupdatePath();
 	}
 
 

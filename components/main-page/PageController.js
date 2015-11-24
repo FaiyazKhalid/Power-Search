@@ -27,7 +27,7 @@ function PageController(PageService, ParamService, PagesService, LanguagesServic
 
 	function setSearchTerm(newTerm) {
 		ParamService.setSearchTerm(newTerm);
-		utils.setPath(newTerm);
+		utils.updatePath(newTerm);
 	}	// setSearchTerm
 
 

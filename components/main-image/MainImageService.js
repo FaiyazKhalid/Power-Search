@@ -18,7 +18,7 @@ function MainImageService($http, utils, ParamService) {
 
 
     mainImage.clearResults =  function () {
-        mainImage.result = "";
+        mainImage.result = null;
     };
 
 } // MainImageService

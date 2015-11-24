@@ -4,17 +4,17 @@ function utils($window, $location) {
 
 	var noResultsMessage = "No results for the search term. Try again with different criteria.";
 
-	function setPath(term) {
+	function updatePath(term) {
 		$location.path(term);
-	} // setPath
+	} // updatePath
 
 	function getPath() {
 		return $location.path().substr(1);
-	} // setPath
+	} // updatePath
 
-	function resetPath() {
+	function reupdatePath() {
 		$location.path("");
-	}  // resetPath
+	}  // reupdatePath
 
 	function reload() {
 		$window.location.reload();
@@ -79,9 +79,9 @@ function utils($window, $location) {
 		serialize: serialize,
 		startsWith: startsWith,
 		htmlToPlaintext: htmlToPlaintext,
-		setPath: setPath,
+		updatePath: updatePath,
 		getPath: getPath,
-		resetPath: resetPath,
+		reupdatePath: reupdatePath,
         reload: reload,
         getSelection: getSelection
 	};

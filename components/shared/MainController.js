@@ -16,7 +16,7 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 	mainControl.search = function () {
 		clearResults();
 		ParamService.updateSearchTerm();
-		utils.setPath(ParamService.getSearchTerm());
+		utils.updatePath(ParamService.getSearchTerm());
 
 		if (ParamService.isCommons()) {
 			ImagesService.search();
