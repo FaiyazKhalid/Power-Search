@@ -142,59 +142,31 @@
     margin-bottom: 0;
 }
 
-/* FORK-RIBBON */
-/* https://github.com/simonwhitaker/github-fork-ribbon-css */
+/* FORK-ME */
 
-.github-fork-ribbon {
-    position: absolute;
-    padding: 2px 0;
-    background-color: #a00;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .15));
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .5);
-    font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
-    z-index: 9999;
-    pointer-events: auto
+.forkme-wrapper {
+    width: 150px;
+    height: 150px;
+    position: fixed;
+    bottom: 0;
+    right: 0
 }
 
-.github-fork-ribbon a,
-.github-fork-ribbon a:hover {
+.forkme {
+    position: absolute;
+    top: 80px;
+    transform: rotate(-45deg);
+    background-color: #666;
+    padding: 2px 0;
+    z-index: 999;
+}
+
+.forkme a {
     color: #fff;
     text-decoration: none;
     text-shadow: 0 -1px rgba(0, 0, 0, .5);
     text-align: center;
     width: 200px;
-    line-height: 20px;
     display: inline-block;
     padding: 2px 0;
-    border-width: 1px 0;
-    border-style: dotted;
-    border-color: #fff;
-    border-color: rgba(255, 255, 255, .7)
-}
-
-.github-fork-ribbon-wrapper {
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    overflow: hidden;
-    top: 0;
-    z-index: 9999;
-    pointer-events: none
-}
-
-.github-fork-ribbon-wrapper.right-bottom {
-    position: fixed;
-    top: inherit;
-    bottom: 0;
-    right: 0
-}
-
-.github-fork-ribbon-wrapper.right-bottom .github-fork-ribbon {
-    top: 80px;
-    right: -43px;
-    transform: rotate(-45deg)
-}
-
-.right-bottom .github-fork-ribbon {
-    background-color: #090;
 }
