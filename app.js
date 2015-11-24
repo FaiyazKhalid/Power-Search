@@ -1,17 +1,10 @@
 'use strict';
 /*
 	TODO:
-	// dodati exactMatch za slike
-	// da params upisuje i uzima prazan searchTerm (sa remember seting ne dozvoljava da se isprazni pretraga)
-	// odvojiti localStorage
-
-	// srediti galeriju https://blueimp.github.io/Bootstrap-Image-Gallery/
-	// srediti opis http://stackoverflow.com/questions/26010257/bootstrap-3-css-image-caption-overlay
-	// main.refreshLanguages() ne sluzi nicemu. ako nema drugog nacina, proveriti redom i sastaviti statican spisak
+	// srediti jezike
+	// srediti opis slika: http://stackoverflow.com/questions/26010257/bootstrap-3-css-image-caption-overlay
 	// primer paramUrl u dokumentaciju
-
-	BAG:
-	// bindToController ne radi, izbaciti mainControl iz page.html i params.html
+	// izbaciti mainControl iz page.html i params.html
 */
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
