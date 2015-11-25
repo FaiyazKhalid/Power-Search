@@ -1,4 +1,8 @@
 <!-- images -->
+
+<p ng-show="imagesControl.images.error" class="text-danger">{{imagesControl.images.error}}</p>
+<p ng-hide="imagesControl.images.results.length" class="text-info">{{imagesControl.images.noResultsMessage}}</p>
+
 <div ng-repeat="image in imagesControl.images.results | orderBy: imagesControl.params.settings.orderBy" class="img-wrapper">
     <div class="inner-img-wrapper" ng-show="image.loaded" >
         <a ng-href="{{image.fullurl}}" target="_blank">

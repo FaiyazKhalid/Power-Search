@@ -8,9 +8,9 @@ function ImagesService($http, $filter, ParamService, utils) {
     images.exactMatch = null;
 
 
-    /*** HTTP ***/
+    /*** METHODS ***/
 
-	images.search = function() {
+    	images.search = function() {
         images.clearResults();
         if(!ParamService.getSearchTerm()) return;
 		var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImageParams());
@@ -24,10 +24,12 @@ function ImagesService($http, $filter, ParamService, utils) {
 			.error(handleErrors);
 	}; // search
 
+
     images.clearResults = function(){
+        images.error = null;
         images.results = null;
         images.exactMatch = null;
-    };
+    };  // clearResults
 
 
     /*** HELPERS ***/
@@ -44,7 +46,7 @@ function ImagesService($http, $filter, ParamService, utils) {
 	} // addDescription
 
     function noResults() {
-        images.noResults = utils.noResultsMessage;
+        images.noResultsMessage = utils.noResultsMessage;
     }   // noResults
 
 	function handleErrors(data, status) {

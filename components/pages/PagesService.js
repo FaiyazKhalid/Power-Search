@@ -31,7 +31,7 @@ function PagesService($http, utils, ParamService) {
     pages.clearResults = function() {
         resetErrors();
         pages.results = null;
-        pages.noResults = null;
+        pages.noResultsMessage = null;
         pages.exactMatch = null;
     }; // clearResults
 
@@ -61,7 +61,7 @@ function PagesService($http, utils, ParamService) {
 	} // handleErrors
 
     function noResults() {
-        pages.noResults = utils.noResultsMessage;
+        pages.noResultsMessage = utils.noResultsMessage;
     }
 
     function resetErrors() {
