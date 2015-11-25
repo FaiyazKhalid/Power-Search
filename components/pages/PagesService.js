@@ -12,11 +12,12 @@ function PagesService($http, utils, ParamService) {
     /*** HTTP ***/
 
 	pages.search = function(callback) {
+        pages.clearResults();
+        if(!ParamService.getSearchTerm()) return;
 		var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-				pages.exactMatch = null;
 				if (!data.query) return noResults();
 				pages.results = data.query.pages;
 				pages.exactMatch = findExactTerm(pages.results);
@@ -31,6 +32,7 @@ function PagesService($http, utils, ParamService) {
         resetErrors();
         pages.results = null;
         pages.noResults = null;
+        pages.exactMatch = null;
     }; // clearResults
 
 

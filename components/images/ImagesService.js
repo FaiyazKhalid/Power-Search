@@ -11,11 +11,12 @@ function ImagesService($http, $filter, ParamService, utils) {
     /*** HTTP ***/
 
 	images.search = function() {
+        images.clearResults();
+        if(!ParamService.getSearchTerm()) return;
 		var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImageParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-                images.exactMatch = null;
 				if (!data.query) return noResults();
 				images.results = data.query.pages;
 				angular.forEach(images.results, addDescription);
@@ -25,6 +26,7 @@ function ImagesService($http, $filter, ParamService, utils) {
 
     images.clearResults = function(){
         images.results = null;
+        images.exactMatch = null;
     };
 
 

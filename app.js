@@ -1,7 +1,6 @@
 'use strict';
 /*
 	TODO:
-	// prelomiti Category:Dada nakon navodnika
 	// filtrirati samo slike, ne ogg i ostale fajlove
 	// dinamicki slati zahtev za sirinom thumb slika, zavisno od sirine ekrana
 	// ubaciti loadmore, paginaciju, continue query
@@ -11,6 +10,7 @@
 
 	BAG:
 	// za praznu pretragu slika izbacuje gresku
+	// srediti preticanje rezultata i kucanja
 */
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');

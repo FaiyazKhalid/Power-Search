@@ -13,6 +13,8 @@ function MainImageService($http, utils, ParamService) {
         // console.log(paramUrl);
         $http.jsonp(paramUrl)
             .success(function (data) {
+                mainImage.clearResults();
+				if (!data.query) return;
                 if (data.query.pages[0].missing) return;
                 mainImage.result = data.query.pages[0];
                 addSpaceInTitle();

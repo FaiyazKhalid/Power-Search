@@ -10,11 +10,13 @@ function PageService($http, utils, ParamService) {
     /*** METHODS ***/
 
     page.open = function() {
+        page.clearResults();
+        if(!ParamService.getSearchTerm()) return;
 		var paramUrl = ParamService.createParamUrl(ParamService.getPageParams());
         //console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-				page.result = null;
+				page.clearResults();
 				if (!data.query) return;
 				page.result = data.query.pages[0];
 				findImage(page.result);
