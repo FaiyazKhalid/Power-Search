@@ -8,6 +8,9 @@
 	// srediti jezike
 	// primer paramUrl u dokumentaciju
 	// izbaciti mainControl iz page.html i params.html
+
+	BAG:
+	// za praznu pretragu slika izbacuje gresku
 */
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
