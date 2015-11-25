@@ -1,6 +1,7 @@
 'use strict';
 /*
 	TODO:
+	// prelomiti Category:Dada nakon navodnika
 	// filtrirati samo slike, ne ogg i ostale fajlove
 	// dinamicki slati zahtev za sirinom thumb slika, zavisno od sirine ekrana
 	// ubaciti loadmore, paginaciju, continue query

@@ -8,7 +8,7 @@ function MainImageService($http, utils, ParamService) {
     /*** HTTP ***/
     mainImage.open = function () {
         var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImagePageParams());
-        //console.log(paramUrl);
+        // console.log(paramUrl);
         $http.jsonp(paramUrl)
             .success(function (data) {
                 if (data.query.pages[0].missing) return;
