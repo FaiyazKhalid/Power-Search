@@ -13,7 +13,6 @@ function MainImageService($http, utils, ParamService) {
             .success(function (data) {
                 if (data.query.pages[0].missing) return;
                 mainImage.result = data.query.pages[0];
-                console.log(mainImage.result);
             });
     };
 

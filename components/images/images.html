@@ -2,7 +2,7 @@
 <div ng-repeat="image in imagesControl.images.results | orderBy: imagesControl.params.settings.orderBy" class="img-wrapper">
     <div class="inner-img-wrapper">
         <a ng-href="{{image.fullurl}}" target="_blank">
-            <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="images">
+            <img imageonload ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="images">
         </a>
         <p ng-bind-html="image.desc" class="desc"></p>
     </div>
