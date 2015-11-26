@@ -4,9 +4,9 @@
 <p ng-hide="imagesControl.images.results.length" class="text-info">{{imagesControl.images.noResultsMessage}}</p>
 
 <div ng-repeat="image in imagesControl.images.results | orderBy: imagesControl.params.settings.orderBy" class="img-wrapper">
-    <div class="inner-img-wrapper" ng-show="image.loaded" >
+    <div class="inner-img-wrapper" >
         <a ng-href="{{image.fullurl}}" target="_blank">
-            <img ng-onload="{{image.loaded = true}}" ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="images">
+            <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="images">
         </a>
         <p ng-show="image.desc" ng-bind-html="image.desc" class="desc"></p>
     </div>
