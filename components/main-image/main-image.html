@@ -5,7 +5,7 @@
 
         <img ng-show="mainImgControl.mainImage.result.thumbnail" ng-src="{{mainImgControl.mainImage.result.thumbnail.source}}" alt="{{mainImgControl.mainImage.result.title}}" class="img-responsive img-rounded image-full">
     </a>
-    <p ng-bind-html="mainImgControl.mainImage.result.extract"></p>
+    <p ng-bind-html="mainImgControl.mainImage.result.extract" ng-hide="mainImgControl.noExtract()"></p>
 
     <p class="read-more text-info pull-right"><a ng-href="{{mainImgControl.mainImage.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{mainImgControl.params.settings.domain}}</span> >> </a></p>
 </div>

@@ -5,6 +5,10 @@ function MainImageController(MainImageService, ParamService) {
 	mainImgControl.mainImage = MainImageService;
 	mainImgControl.params = ParamService;
 
+	mainImgControl.noExtract = function() {
+		if (!mainImgControl.mainImage.result) return true;
+		return mainImgControl.mainImage.result.extract === "...";
+	};
 
 } // MainImageController
 
