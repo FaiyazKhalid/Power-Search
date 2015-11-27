@@ -15,11 +15,12 @@ function PagesService($http, utils, ParamService) {
         pages.clearResults();
         if(!ParamService.getSearchTerm()) return;
 		var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
-		// console.log(paramUrl);
+		console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				if (!data.query) return noResults();
 				pages.results = data.query.pages;
+                pages.offset = data.continue.gsroffset;
 				pages.exactMatch = findExactTerm(pages.results);
 				if (!pages.exactMatch) return;
 				ParamService.setPageTitle(pages.exactMatch);
@@ -33,8 +34,15 @@ function PagesService($http, utils, ParamService) {
         pages.results = null;
         pages.noResultsMessage = null;
         pages.exactMatch = null;
+        pages.offset = null;
     }; // clearResults
 
+    pages.loadMore = function () {
+		console.log("loadMore");
+        console.log("pages.offset", pages.offset);
+        // procitati continue.gsroffset iz odgovora
+        // postaviti novi params.basicSearch.gsroffset
+    };
 
     /*** HELPERS ***/
 

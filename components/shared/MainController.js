@@ -37,6 +37,10 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 		ParamService.setSearchTerm(utils.getSelection());
 	}; // selectText
 
+	mainControl.loadMore = function () {
+		PagesService.loadMore();
+	};	// loadMore
+
 
 	/*** PRIVATE FUNCTIONS ***/
 
