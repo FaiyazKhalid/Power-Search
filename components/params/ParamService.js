@@ -116,6 +116,10 @@ function ParamService(utils) {
 		return angular.extend(params.mainImage, params.page, params.basic);
 	}; // getImagePageParams
 
+    params.getOffset = function () {
+        return params.basicSearch.gsroffset;
+    };  // getOffset
+
 
     /*** SETTERS ***/
 
@@ -141,6 +145,10 @@ function ParamService(utils) {
     params.setLanguage = function(lang) {
         params.settings.lang = lang;
     };  // setLanguage
+
+    params.setOffset = function (x) {
+        params.basicSearch.gsroffset = x;
+    };  // setOffset
 
 
     /*** HELPERS ***/

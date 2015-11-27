@@ -123,6 +123,7 @@
 /* IMAGES */
 
 .img-wrapper {
+    position: relative;
     display: inline-block;
     padding: 5px;
 }
@@ -130,6 +131,7 @@
 .inner-img-wrapper {
     position: relative;
 }
+
 
 .desc {
     position: absolute;

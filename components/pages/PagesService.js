@@ -15,12 +15,12 @@ function PagesService($http, utils, ParamService) {
         pages.clearResults();
         if(!ParamService.getSearchTerm()) return;
 		var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
-		console.log(paramUrl);
+		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				if (!data.query) return noResults();
+                if (data.continue) pages.offset = data.continue.gsroffset;
 				pages.results = data.query.pages;
-                pages.offset = data.continue.gsroffset;
 				pages.exactMatch = findExactTerm(pages.results);
 				if (!pages.exactMatch) return;
 				ParamService.setPageTitle(pages.exactMatch);
@@ -37,12 +37,19 @@ function PagesService($http, utils, ParamService) {
         pages.offset = null;
     }; // clearResults
 
+
     pages.loadMore = function () {
-		console.log("loadMore");
-        console.log("pages.offset", pages.offset);
-        // procitati continue.gsroffset iz odgovora
-        // postaviti novi params.basicSearch.gsroffset
+        ParamService.setOffset(pages.offset);
+        var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
+        console.log(paramUrl);
+
+		$http.jsonp(paramUrl)
+			.success(function (data) {
+                if (data.continue) pages.offset = data.continue.gsroffset;
+                pages.results = pages.results.concat(data.query.pages);
+			});
     };
+
 
     /*** HELPERS ***/
 
