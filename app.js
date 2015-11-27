@@ -1,7 +1,6 @@
 'use strict';
 /*
 	TODO:
-	// filtrirati samo slike, ne ogg i ostale fajlove
 	// dinamicki slati zahtev za sirinom thumb slika, zavisno od sirine ekrana
 	// ubaciti loadmore, paginaciju, continue query
 	// srediti jezike

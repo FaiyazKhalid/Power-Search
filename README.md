@@ -67,7 +67,7 @@ npm run watch
 
 ## To-do list
 - error handling
-
+- filter files from commons (get only images)
 
 ## Licence
 MIT

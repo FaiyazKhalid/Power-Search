@@ -66,7 +66,7 @@ function ParamService(utils) {
         pilimit: 'max', // thumb image for all articles
         pithumbsize: thumbSize,
         iiprop: 'extmetadata',
-        iiextmetadatafilter: 'ImageDescription' // if empty return all extmetadata (author, licence...)
+        iiextmetadatafilter: 'ImageDescription' // filter extmetadata (author, licence...)
     };
 
 
