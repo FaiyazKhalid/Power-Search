@@ -116,10 +116,6 @@ function ParamService(utils) {
 		return angular.extend(params.mainImage, params.page, params.basic);
 	}; // getImagePageParams
 
-    params.getOffset = function () {
-        return params.basicSearch.gsroffset;
-    };  // getOffset
-
 
     /*** SETTERS ***/
 

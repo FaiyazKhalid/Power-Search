@@ -37,9 +37,24 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 		ParamService.setSearchTerm(utils.getSelection());
 	}; // selectText
 
+
+	// razdvojiti dva dugmeta, za pages i images, da ne bude dupla logika
+
 	mainControl.loadMore = function () {
-		PagesService.loadMore();
+		if (ParamService.isCommons()) {
+			//
+		} else {
+			PagesService.loadMore();
+		}
 	};	// loadMore
+
+	mainControl.showLoadMore = function () {
+		if (ParamService.isCommons()) {
+			//
+		} else {
+			return PagesService.showingLoadMore;
+		}
+	};
 
 
 	/*** PRIVATE FUNCTIONS ***/

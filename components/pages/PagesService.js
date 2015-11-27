@@ -1,5 +1,8 @@
 'use strict';
 
+// kada povecam broj rezultata ne radi load more (ponavlja isto)
+// ne pojavljuje se ponovo dugme kad se sakrije
+
 function PagesService($http, utils, ParamService) {
 
     var pages = this;
@@ -7,6 +10,7 @@ function PagesService($http, utils, ParamService) {
 	pages.params = ParamService;
 	pages.results = null;
 	pages.exactMatch = null;
+    pages.showingLoadMore = true;
 
 
     /*** HTTP ***/
@@ -17,10 +21,11 @@ function PagesService($http, utils, ParamService) {
 		var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
-			.success(function (data) {
+			.success(function handleSearchResponse(data) {
 				if (!data.query) return noResults();
-                if (data.continue) pages.offset = data.continue.gsroffset;
 				pages.results = data.query.pages;
+                pages.showLoadMore(Boolean(data.continue));
+                if (data.continue) pages.offset = data.continue.gsroffset;
 				pages.exactMatch = findExactTerm(pages.results);
 				if (!pages.exactMatch) return;
 				ParamService.setPageTitle(pages.exactMatch);
@@ -28,6 +33,21 @@ function PagesService($http, utils, ParamService) {
 			})
 			.error(handleErrors);
 	}; // search
+
+
+    pages.loadMore = function () {
+        ParamService.setOffset(pages.offset);
+        var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
+        // console.log(paramUrl);
+		$http.jsonp(paramUrl)
+			.success(function (data) {
+                pages.showLoadMore(Boolean(data.continue));
+                if (data.continue) pages.offset = data.continue.gsroffset;
+                if (!data.query) return;
+                pages.results = pages.results.concat(data.query.pages);
+			});
+    };  // loadMore
+
 
     pages.clearResults = function() {
         resetErrors();
@@ -38,16 +58,8 @@ function PagesService($http, utils, ParamService) {
     }; // clearResults
 
 
-    pages.loadMore = function () {
-        ParamService.setOffset(pages.offset);
-        var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
-        console.log(paramUrl);
-
-		$http.jsonp(paramUrl)
-			.success(function (data) {
-                if (data.continue) pages.offset = data.continue.gsroffset;
-                pages.results = pages.results.concat(data.query.pages);
-			});
+    pages.showLoadMore = function(bool) {
+        pages.showingLoadMore = bool;
     };
 
 
