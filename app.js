@@ -1,13 +1,14 @@
 'use strict';
 /*
 	TODO:
-	// ubaciti loadmore, paginaciju, continue query
+	// ukloniti grid, resiti pretragu kao slike
 	// srediti jezike
 	// srediti responsive css
 	// primer paramUrl u dokumentaciju
 	// izbaciti mainControl iz page.html i params.html
 
 	BAG:
+	// kada povecam broj rezultata ne radi load more (ponavlja isto)
 	// za praznu pretragu slika izbacuje gresku
 	// srediti preticanje rezultata i kucanja
 */

@@ -1,8 +1,5 @@
 'use strict';
 
-// kada povecam broj rezultata ne radi load more (ponavlja isto)
-// ne pojavljuje se ponovo dugme kad se sakrije
-
 function PagesService($http, utils, ParamService) {
 
     var pages = this;
