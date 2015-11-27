@@ -3,7 +3,7 @@
 function ImagesService($http, $filter, ParamService, utils) {
 
     var images = this;
-    var descriptionLength = 60;
+    var descriptionLength = utils.isDesktop() ? 60 : 30;
 	images.results = null;
     images.exactMatch = null;
 
@@ -19,7 +19,7 @@ function ImagesService($http, $filter, ParamService, utils) {
 			.success(function (data) {
 				if (!data.query) return noResults();
 				images.results = data.query.pages;
-				angular.forEach(images.results, addDescription);
+				angular.forEach(images.results, handleDescription);
 			})
 			.error(handleErrors);
 	}; // search
@@ -34,7 +34,7 @@ function ImagesService($http, $filter, ParamService, utils) {
 
     /*** HELPERS ***/
 
-    function addDescription(item) {
+    function handleDescription(item) {
         if(item.imageinfo && item.imageinfo[0].extmetadata.ImageDescription) {
             item.desc = item.imageinfo[0].extmetadata.ImageDescription.value;
             item.desc = utils.htmlToPlaintext(item.desc);
@@ -43,7 +43,7 @@ function ImagesService($http, $filter, ParamService, utils) {
             var limitLength = item.desc.length;
             if (limitLength < originLength) item.desc += "...";
         }
-	} // addDescription
+	} // handleDescription
 
     function noResults() {
         images.noResultsMessage = utils.noResultsMessage;

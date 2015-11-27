@@ -3,7 +3,7 @@
 function ParamService(utils) {
 
     var params = this;
-    var thumbSize = 250;
+    var thumbSize = utils.isDesktop() ? 250 : 150;
     var leadImageSize = 400;
     params.searchFilters = ['intitle:', '', 'prefix:'];
     params.pageLarge = false;

@@ -1,9 +1,9 @@
 'use strict';
 /*
 	TODO:
-	// dinamicki slati zahtev za sirinom thumb slika, zavisno od sirine ekrana
 	// ubaciti loadmore, paginaciju, continue query
 	// srediti jezike
+	// srediti responsive css
 	// primer paramUrl u dokumentaciju
 	// izbaciti mainControl iz page.html i params.html
 

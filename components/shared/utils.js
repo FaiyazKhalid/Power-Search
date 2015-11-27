@@ -22,12 +22,11 @@ function utils($window, $location) {
 
     function getSelection() {
       return $window.getSelection().toString();
-  }   // getSelection
+  	}   // getSelection
 
 	function replaceSpacesWithUnderscores(struna) {
 		return struna.replace(/ /g, "_");
 	} // replaceSpacesWithUnderscores
-
 
 	function scrollToTop(duration) {
 		var top = document.getElementsByTagName("header")[0].clientHeight;
@@ -41,18 +40,15 @@ function utils($window, $location) {
 		}, 15);
 	} // scrollToTop
 
-
 	function capitalize(words) {
 		return words.replace(/(?:^|\s)\S/g, function (word) {
 			return word.toUpperCase();
 		});
 	} // capitalize
 
-
 	function capitalizeFirst(string) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	} // capitalizeFirst
-
 
 	function serialize(params) {
 		var paramString = Object.keys(params).map(function (key) {
@@ -69,9 +65,15 @@ function utils($window, $location) {
 		return text ? String(text).replace(/<[^>]+>/gm, '') : '';
 	}
 
+	function isDesktop() {
+        return window.innerWidth > 992;
+    } // isDesktop
+
 
 	return {
 		noResultsMessage: noResultsMessage,
+
+		isDesktop: isDesktop,
 		replaceSpacesWithUnderscores: replaceSpacesWithUnderscores,
 		scrollToTop: scrollToTop,
 		capitalize: capitalize,
