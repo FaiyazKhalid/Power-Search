@@ -1,7 +1,7 @@
 'use strict';
 /*
 	TODO:
-	// ubaciti dva odvojena load more dugmeta
+	// ubaciti load more na slike
 	// ukloniti grid, resiti pretragu kao slike
 	// srediti jezike
 	// srediti responsive css
