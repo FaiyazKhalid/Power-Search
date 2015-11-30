@@ -15,7 +15,7 @@ function PagesController(PagesService, PageService, ParamService, utils) {
 	}; // selectText
 
 	pagesControl.toggleHide = function () {
-		return ParamService.pageLarge ? 'hidden' : 'half-width';
+		return ParamService.pageLarge ? 'hidden' : '';
 	}; // toggleHide
 
 	pagesControl.showLoadMore = function () {
