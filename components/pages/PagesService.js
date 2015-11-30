@@ -7,7 +7,7 @@ function PagesService($http, utils, ParamService) {
 	pages.params = ParamService;
 	pages.results = null;
 	pages.exactMatch = null;
-    pages.showingLoadMore = true;
+    pages.showLoadMore = true;
 
 
     /*** HTTP ***/
@@ -21,7 +21,7 @@ function PagesService($http, utils, ParamService) {
 			.success(function handleSearchResponse(data) {
 				if (!data.query) return noResults();
 				pages.results = data.query.pages;
-                pages.showLoadMore(Boolean(data.continue));
+                pages.toggleLoadMore(Boolean(data.continue));
                 if (data.continue) pages.offset = data.continue.gsroffset;
 				pages.exactMatch = findExactTerm(pages.results);
 				if (!pages.exactMatch) return;
@@ -38,7 +38,7 @@ function PagesService($http, utils, ParamService) {
         // console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-                pages.showLoadMore(Boolean(data.continue));
+                pages.toggleLoadMore(Boolean(data.continue));
                 if (data.continue) pages.offset = data.continue.gsroffset;
                 if (!data.query) return;
                 pages.results = pages.results.concat(data.query.pages);
@@ -55,8 +55,8 @@ function PagesService($http, utils, ParamService) {
     }; // clearResults
 
 
-    pages.showLoadMore = function(bool) {
-        pages.showingLoadMore = bool;
+    pages.toggleLoadMore = function(bool) {
+        pages.showLoadMore = bool;
     };
 
 

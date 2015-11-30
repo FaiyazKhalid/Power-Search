@@ -14,4 +14,8 @@
         <section ng-bind-html='page.extract' ng-dblclick="pagesControl.selectText()"></section>
         <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{pagesControl.params.settings.domain}}</span> >> </a></p>
     </article>
+
+    <div>
+        <button type="button" class="btn btn-default" ng-show="pagesControl.showLoadMore()" ng-click="pagesControl.loadMore()">Load more</button>
+    </div>
 </div>

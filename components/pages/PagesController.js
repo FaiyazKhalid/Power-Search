@@ -18,6 +18,13 @@ function PagesController(PagesService, PageService, ParamService, utils) {
 		return ParamService.pageLarge ? 'hidden' : 'col-md-6 col-md-pull-6';
 	}; // toggleHide
 
+	pagesControl.showLoadMore = function () {
+		return PagesService.showLoadMore;
+	};
+
+	pagesControl.loadMore = function () {
+		PagesService.loadMore();
+	};	// loadMore
 
 
 } // PagesController
