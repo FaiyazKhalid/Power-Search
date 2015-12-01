@@ -2,8 +2,6 @@
 
 function ParamService(utils) {
 
-    // ne snima broj rezultata
-
     var self = this;
     var thumbSize = utils.isDesktop() ? 250 : 150;
     var leadImageSize = 400;
