@@ -1,9 +1,9 @@
 'use strict';
 
-// odvojiti lang controller
-// izbaciti LanguagesService.get() iz params controllera
-
 // trenutno ucitava sve postojece jezike
+// proveriti na kom se domenu nalazimo
+// prikazati samo jezike za taj domen (site)
+// https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK
 // http://stackoverflow.com/questions/33608751/retrieve-a-list-of-all-wikipedia-languages-programmatically
 
 function LanguagesService($http, ParamService, utils) {
@@ -12,10 +12,8 @@ function LanguagesService($http, ParamService, utils) {
 	self.all = [];
 
     var langParams = {
-        action: 'query',
-        meta: 'siteinfo',
-        siprop: 'interwikimap',
-        sifilteriw: 'local',
+        action: 'sitematrix',
+        smtype: 'language',
         format: 'json',
         formatversion: 2,
         callback: 'JSON_CALLBACK'
@@ -44,11 +42,12 @@ function LanguagesService($http, ParamService, utils) {
         self.error = null;
     };
 
+
+    /*** HELPERS ***/
+
 	function filterResults(data) {
-        angular.forEach(data.query.interwikimap, function(map) {
-            if (map.language) {
-                self.all.push(map);
-            }
+        angular.forEach(data.sitematrix, function(map) {
+            self.all.push(map);
         });
 	}	// filterResults
 

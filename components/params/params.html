@@ -37,7 +37,7 @@
         <div class="col-md-2">
             <div class="form-group">
                 <!-- languages -->
-                <select ng-model="paramsControl.params.settings.lang" ng-options="item.prefix as item.language for item in paramsControl.languages.all | orderBy:'prefix' " ng-change='mainControl.search()' class="form-control input-sm" ng-disabled="paramsControl.isCommons()"></select>
+                <select ng-model="paramsControl.params.settings.lang" ng-options="lang.code as lang.name for lang in paramsControl.languages.all | orderBy:'prefix' " ng-change='mainControl.search()' class="form-control input-sm" ng-disabled="paramsControl.isCommons()"></select>
             </div>
             <label class="checkbox-inline">
                 <!-- remember -->

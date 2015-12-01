@@ -1,13 +1,13 @@
 function ParamsController(ParamService, ProjectsService, LanguagesService, utils) {
 'use strict';
 
+	// TODO: should remove
+    LanguagesService.get();
+
 	var self = this;
 	self.params = ParamService;
 	self.languages = LanguagesService;
     self.projects = ProjectsService.getProjects();
-
-
-    LanguagesService.get();
 
 
 	/*** PUBLIC METHODS ***/

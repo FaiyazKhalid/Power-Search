@@ -3,6 +3,7 @@
 TODO:
 - srediti jezike
 - srediti responsive css
+- final refactor naziva servisa, direktiva i sl
 - primer paramUrl u dokumentaciju
 - izbaciti mainControl iz page.html i params.html
 
