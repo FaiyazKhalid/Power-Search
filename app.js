@@ -1,7 +1,6 @@
 'use strict';
 /*
 	TODO:
-	// ukloniti grid, resiti pretragu kao slike
 	// srediti jezike
 	// srediti responsive css
 	// primer paramUrl u dokumentaciju

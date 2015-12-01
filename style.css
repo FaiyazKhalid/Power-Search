@@ -96,7 +96,7 @@
 
 /* MAIN PAGE */
 
-.main-page-wrapper {
+page {
     float: right;
 }
 
@@ -125,9 +125,6 @@
 
 /* PAGES */
 
-.pages-wrapper {
-    float: left;
-}
 
 /* MAIN IMAGE */
 
