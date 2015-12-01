@@ -130,6 +130,7 @@ page {
 
 .main-image {
     width: 25%;
+    float: right;
     padding: 0 20px;
 }
 
