@@ -11,3 +11,7 @@
         <span ng-show="image.desc" ng-bind-html="image.desc" class="desc"></span>
     </div>
 </div>
+
+<div>
+    <button type="button" class="btn btn-default" ng-show="imagesControl.showLoadMore()" ng-click="imagesControl.loadMore()">Load more</button>
+</div>

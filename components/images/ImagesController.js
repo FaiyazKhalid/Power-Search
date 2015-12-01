@@ -5,6 +5,14 @@ function ImagesController(ImagesService, ParamService) {
 	imagesControl.images = ImagesService;
 	imagesControl.params = ParamService;
 
+	imagesControl.showLoadMore = function () {
+		return imagesControl.images.results && ImagesService.showLoadMore;
+	};
+
+	imagesControl.loadMore = function () {
+		ImagesService.loadMore();
+	};	// loadMore
+
 } // ImagesController
 
 module.exports = ImagesController;

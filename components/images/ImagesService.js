@@ -6,11 +6,12 @@ function ImagesService($http, $filter, ParamService, utils) {
     var descriptionLength = utils.isDesktop() ? 60 : 30;
 	images.results = null;
     images.exactMatch = null;
+    images.showLoadMore = true;
 
 
     /*** METHODS ***/
 
-    	images.search = function() {
+    images.search = function() {
         images.clearResults();
         if(!ParamService.getSearchTerm()) return;
 		var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImageParams());
@@ -19,6 +20,8 @@ function ImagesService($http, $filter, ParamService, utils) {
 			.success(function (data) {
 				if (!data.query) return noResults();
 				images.results = data.query.pages;
+                images.toggleLoadMore(Boolean(data.continue));
+                if (data.continue) images.offset = data.continue.gsroffset;
 				angular.forEach(images.results, handleDescription);
 			})
 			.error(handleErrors);
@@ -30,6 +33,25 @@ function ImagesService($http, $filter, ParamService, utils) {
         images.results = null;
         images.exactMatch = null;
     };  // clearResults
+
+
+    images.loadMore = function () {
+        ParamService.setOffset(images.offset);
+        var paramUrl = ParamService.createParamUrl(ParamService.getImageParams());
+        console.log(paramUrl);
+		$http.jsonp(paramUrl)
+			.success(function (data) {
+                images.toggleLoadMore(Boolean(data.continue));
+                if (data.continue) images.offset = data.continue.gsroffset;
+                if (!data.query) return;
+                images.results = images.results.concat(data.query.pages);
+			});
+    };  // loadMore
+
+
+    images.toggleLoadMore = function(bool) {
+        images.showLoadMore = bool;
+    };
 
 
     /*** HELPERS ***/
