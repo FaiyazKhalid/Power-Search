@@ -35,7 +35,7 @@ function PagesService($http, utils, ParamService) {
     pages.loadMore = function () {
         ParamService.setOffset(pages.offset);
         var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
-        // console.log(paramUrl);
+        console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
                 pages.toggleLoadMore(Boolean(data.continue));

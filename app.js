@@ -8,7 +8,6 @@
 
 	BAG:
 	// kada povecam broj rezultata ne radi load more (ponavlja isto)
-	// za praznu pretragu slika izbacuje gresku
 	// srediti preticanje rezultata i kucanja
 */
 var angular = require('angular');
