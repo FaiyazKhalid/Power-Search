@@ -6,6 +6,7 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, utils
 	self.languages = LanguagesService;
     self.projects = ProjectsService.getProjects();
 
+
     LanguagesService.get();
 
 

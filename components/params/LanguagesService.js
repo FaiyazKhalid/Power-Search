@@ -1,14 +1,17 @@
 'use strict';
 
-// TODO: dinamicaly populate list with available languages
-// https://phabricator.wikimedia.org/diffusion/MW/browse/master/languages/Names.php
+// odvojiti lang controller
+// izbaciti LanguagesService.get() iz params controllera
+
+// trenutno ucitava sve postojece jezike
+// http://stackoverflow.com/questions/33608751/retrieve-a-list-of-all-wikipedia-languages-programmatically
 
 function LanguagesService($http, ParamService, utils) {
 
-    var languages = this;
-	languages.all = [];
+    var self = this;
+	self.all = [];
 
-    var params = {
+    var langParams = {
         action: 'query',
         meta: 'siteinfo',
         siprop: 'interwikimap',
@@ -21,30 +24,30 @@ function LanguagesService($http, ParamService, utils) {
 
     /*** HTTP ***/
 
-	languages.get = function() {
-        languages.resetErrors();
-        var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(params);
-        //console.log(paramUrl);
+	self.get = function() {
+        self.resetErrors();
+        var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(langParams);
+        console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-                languages.all = [];
+                self.all = [];
                 filterResults(data);
 			})
             .error(function(){
-                languages.error = "The language you requesting does not exist for this domain.";
+                self.error = "The language you requesting does not exist for this domain.";
                 ParamService.setLanguage('en');
             });
 	}; // search
 
 
-    languages.resetErrors = function () {
-        languages.error = null;
+    self.resetErrors = function () {
+        self.error = null;
     };
 
 	function filterResults(data) {
         angular.forEach(data.query.interwikimap, function(map) {
             if (map.language) {
-                languages.all.push(map);
+                self.all.push(map);
             }
         });
 	}	// filterResults
