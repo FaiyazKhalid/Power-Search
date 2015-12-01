@@ -17,6 +17,7 @@ function ParamService(utils) {
         searchTerm: '',
         searchFilter: self.searchFilters[0],
         orderBy: '',
+        numResults: 20,
         remember: false
     };
 
@@ -161,18 +162,21 @@ function ParamService(utils) {
     self.saveSettings = function() {
         if (self.settings.remember) {
             localStorage.wikiSettings = JSON.stringify(self.settings);
-            localStorage.searchParams = JSON.stringify(self.pages);
+            localStorage.pagesParams = JSON.stringify(self.pages);
+            localStorage.basicSearch = JSON.stringify(self.basicSearch);
         }
     }; // saveSettings
 
     self.loadSettings = function() {
         if (localStorage.wikiSettings) self.settings = JSON.parse(localStorage.wikiSettings);
-        if (localStorage.searchParams) self.pages = JSON.parse(localStorage.searchParams);
+        if (localStorage.pagesParams) self.pages = JSON.parse(localStorage.pagesParams);
+        if (localStorage.basicSearch) self.basicSearch = JSON.parse(localStorage.basicSearch);
     }; // loadSettings
 
     self.deleteStorage = function() {
         localStorage.removeItem("wikiSettings");
-        localStorage.removeItem("searchParams");
+        localStorage.removeItem("pagesParams");
+        localStorage.removeItem("basicSearch");
     }; // deleteSettings
 
     self.toggleSave = function() {

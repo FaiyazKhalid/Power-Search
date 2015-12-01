@@ -1,15 +1,13 @@
 'use strict';
 /*
-BAG:
-- ne pamti broj rezultata
-- kada povecam broj rezultata ne radi load more (ponavlja isto)
-- srediti preticanje rezultata i kucanja
-
 TODO:
 - srediti jezike
 - srediti responsive css
 - primer paramUrl u dokumentaciju
 - izbaciti mainControl iz page.html i params.html
+
+BAG:
+- srediti preticanje rezultata i kucanja
 */
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
