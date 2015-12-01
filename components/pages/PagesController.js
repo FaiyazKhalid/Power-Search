@@ -19,7 +19,7 @@ function PagesController(PagesService, PageService, ParamService, utils) {
 	}; // toggleHide
 
 	pagesControl.showLoadMore = function () {
-		return PagesService.showLoadMore;
+		return pagesControl.pages.results && PagesService.showLoadMore;
 	};
 
 	pagesControl.loadMore = function () {
