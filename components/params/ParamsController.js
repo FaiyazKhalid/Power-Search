@@ -1,38 +1,38 @@
 function ParamsController(ParamService, ProjectsService, LanguagesService, utils) {
 'use strict';
 
-	var paramsControl = this;
-	paramsControl.params = ParamService;
-	paramsControl.languages = LanguagesService;
-    paramsControl.projects = ProjectsService.getProjects();
+	var self = this;
+	self.params = ParamService;
+	self.languages = LanguagesService;
+    self.projects = ProjectsService.getProjects();
 
     LanguagesService.get();
 
 
 	/*** PUBLIC METHODS ***/
 
-    paramsControl.checkMaxResults = function () {
-		if (paramsControl.params.pages.gsrlimit > 50) paramsControl.params.pages.gsrlimit = 50;
+    self.checkMaxResults = function () {
+		if (self.params.pages.gsrlimit > 50) self.params.pages.gsrlimit = 50;
 	}; // checkMaxResults
 
-    paramsControl.isSelectedProject = function(project) {
-		return paramsControl.params.settings.domain == project.name;
+    self.isSelectedProject = function(project) {
+		return self.params.settings.domain == project.name;
 	};	// isChosenProject
 
-    paramsControl.toggleSave = function() {
+    self.toggleSave = function() {
 		ParamService.toggleSave();
 	};	// toggleRemember
 
-	paramsControl.resetAndReload = function() {
+	self.resetAndReload = function() {
 		resetSearchTerm();
 		utils.reload();
 	};	// resetAndReload
 
-    paramsControl.refreshLanguages = function() {
+    self.refreshLanguages = function() {
 		LanguagesService.get();
 	};
 
-    paramsControl.isCommons = function() {
+    self.isCommons = function() {
       return ParamService.isCommons();
   };
 

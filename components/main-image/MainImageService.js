@@ -2,39 +2,39 @@
 
 function MainImageService($http, utils, ParamService) {
 
-    var mainImage = this;
-	mainImage.result = null;
+    var self = this;
+	self.result = null;
 
 
     /*** METHODS ***/
 
-    mainImage.open = function () {
+    self.open = function () {
         var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImagePageParams());
         // console.log(paramUrl);
         $http.jsonp(paramUrl)
             .success(function (data) {
-                mainImage.clearResults();
+                self.clearResults();
 				if (!data.query) return;
                 if (data.query.pages[0].missing) return;
-                mainImage.result = data.query.pages[0];
+                self.result = data.query.pages[0];
                 addSpaceInTitle();
             });
     };  // open
 
 
-    mainImage.clearResults =  function () {
-        mainImage.result = null;
+    self.clearResults =  function () {
+        self.result = null;
     };  // clearResults
 
 
     /* HELPERS */
 
     function addSpaceInTitle() {
-        var title = mainImage.result.title;
+        var title = self.result.title;
         var phraseStart = title.indexOf("Category:");
         if(phraseStart >= 0) {
             var phraseEnd = phraseStart + "Category:".length;
-            mainImage.result.title = title.slice(phraseStart, phraseEnd) + " " + title.slice(phraseEnd);
+            self.result.title = title.slice(phraseStart, phraseEnd) + " " + title.slice(phraseEnd);
         }
     }   // addSpaceInTitle
 

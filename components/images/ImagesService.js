@@ -2,55 +2,55 @@
 
 function ImagesService($http, $filter, ParamService, utils) {
 
-    var images = this;
+    var self = this;
     var descriptionLength = utils.isDesktop() ? 60 : 30;
-	images.results = null;
-    images.exactMatch = null;
-    images.showLoadMore = true;
+	self.results = null;
+    self.exactMatch = null;
+    self.showLoadMore = true;
 
 
     /*** METHODS ***/
 
-    images.search = function() {
-        images.clearResults();
+    self.search = function() {
+        self.clearResults();
         if(!ParamService.getSearchTerm()) return;
 		var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(ParamService.getImageParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
 				if (!data.query) return noResults();
-				images.results = data.query.pages;
-                images.toggleLoadMore(Boolean(data.continue));
-                if (data.continue) images.offset = data.continue.gsroffset;
-				angular.forEach(images.results, handleDescription);
+				self.results = data.query.pages;
+                self.toggleLoadMore(Boolean(data.continue));
+                if (data.continue) self.offset = data.continue.gsroffset;
+				angular.forEach(self.results, handleDescription);
 			})
 			.error(handleErrors);
 	}; // search
 
 
-    images.clearResults = function(){
-        images.error = null;
-        images.results = null;
-        images.exactMatch = null;
+    self.clearResults = function(){
+        self.error = null;
+        self.results = null;
+        self.exactMatch = null;
     };  // clearResults
 
 
-    images.loadMore = function () {
-        ParamService.setOffset(images.offset);
+    self.loadMore = function () {
+        ParamService.setOffset(self.offset);
         var paramUrl = ParamService.createParamUrl(ParamService.getImageParams());
         console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-                images.toggleLoadMore(Boolean(data.continue));
-                if (data.continue) images.offset = data.continue.gsroffset;
+                self.toggleLoadMore(Boolean(data.continue));
+                if (data.continue) self.offset = data.continue.gsroffset;
                 if (!data.query) return;
-                images.results = images.results.concat(data.query.pages);
+                self.results = self.results.concat(data.query.pages);
 			});
     };  // loadMore
 
 
-    images.toggleLoadMore = function(bool) {
-        images.showLoadMore = bool;
+    self.toggleLoadMore = function(bool) {
+        self.showLoadMore = bool;
     };
 
 
@@ -68,15 +68,15 @@ function ImagesService($http, $filter, ParamService, utils) {
 	} // handleDescription
 
     function noResults() {
-        images.noResultsMessage = utils.noResultsMessage;
+        self.noResultsMessage = utils.noResultsMessage;
     }   // noResults
 
 	function handleErrors(data, status) {
         if(status == 404) {
-            images.error = "The domain you requesting does not exist. Try again with different criteria.";
+            self.error = "The domain you requesting does not exist. Try again with different criteria.";
             return;
         }
-		images.error = "Oh no, there was some error in geting data: " + status;
+		self.error = "Oh no, there was some error in geting data: " + status;
 	} // handleErrors
 
 

@@ -2,38 +2,38 @@
 
 function PageService($http, utils, ParamService) {
 
-    var page = this;
-	page.params = ParamService;
-	page.result = null;
+    var self = this;
+	self.params = ParamService;
+	self.result = null;
 
 
     /*** METHODS ***/
 
-    page.open = function() {
-        page.clearResults();
+    self.open = function() {
+        self.clearResults();
         if(!ParamService.getSearchTerm()) return;
 		var paramUrl = ParamService.createParamUrl(ParamService.getPageParams());
         //console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-				page.clearResults();
+				self.clearResults();
 				if (!data.query) return;
-				page.result = data.query.pages[0];
-				findImage(page.result);
+				self.result = data.query.pages[0];
+				findImage(self.result);
 			})
 			.error(handleErrors);
 	}; // open
 
-    page.clearResults = function(){
-        page.result = null;
+    self.clearResults = function(){
+        self.result = null;
     };
 
-    page.isExist = function () {
-        return page.result !== null;
+    self.isExist = function () {
+        return self.result !== null;
     };  // isExist
 
-    page.getTitle = function () {
-        if(page.result) return page.result.title;
+    self.getTitle = function () {
+        if(self.result) return self.result.title;
     };
 
 
@@ -53,10 +53,10 @@ function PageService($http, utils, ParamService) {
 
     function handleErrors(data, status) {
         if(status == 404) {
-            page.error = "The domain you requesting does not exist. Try again with different criteria.";
+            self.error = "The domain you requesting does not exist. Try again with different criteria.";
             return;
         }
-		page.error = "Oh no, there was some error in geting data: " + status;
+		self.error = "Oh no, there was some error in geting data: " + status;
 	} // handleErrors
 
 

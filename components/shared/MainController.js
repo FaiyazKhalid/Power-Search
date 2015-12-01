@@ -1,19 +1,19 @@
 'use strict';
 function MainController($window, utils, ParamService, PageService, PagesService, ImagesService, MainImageService) {
 
-	var mainControl = this;
+	var self = this;
 
 
 	/*** PUBLIC METHODS ***/
 
-	mainControl.init = function () {
+	self.init = function () {
 		ParamService.loadSettings();
 		if (utils.getPath()) ParamService.setSearchTerm(utils.getPath());
-		mainControl.search();
-		$window.onhashchange = mainControl.init;
+		self.search();
+		$window.onhashchange = self.init;
 	}; // init
 
-	mainControl.search = function () {
+	self.search = function () {
 		clearResults();
 		ParamService.updateSearchTerm();
 		utils.updatePath(ParamService.getSearchTerm());
@@ -27,13 +27,13 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 		ParamService.saveSettings();
 	}; // search
 
-	mainControl.open = function (title) {
+	self.open = function (title) {
 		ParamService.setPageTitle(title);
 		PageService.open();
 		utils.scrollToTop(300);
 	}; // open
 
-	mainControl.selectText = function () {
+	self.selectText = function () {
 		ParamService.setSearchTerm(utils.getSelection());
 	}; // selectText
 

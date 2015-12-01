@@ -1,15 +1,15 @@
 function ImagesController(ImagesService, ParamService) {
 'use strict';
 
-	var imagesControl = this;
-	imagesControl.images = ImagesService;
-	imagesControl.params = ParamService;
+	var self = this;
+	self.images = ImagesService;
+	self.params = ParamService;
 
-	imagesControl.showLoadMore = function () {
-		return imagesControl.images.results && ImagesService.showLoadMore;
+	self.showLoadMore = function () {
+		return self.images.results && ImagesService.showLoadMore;
 	};
 
-	imagesControl.loadMore = function () {
+	self.loadMore = function () {
 		ImagesService.loadMore();
 	};	// loadMore
 

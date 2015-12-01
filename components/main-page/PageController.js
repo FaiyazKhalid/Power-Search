@@ -1,24 +1,24 @@
 function PageController(PageService, ParamService, PagesService, LanguagesService, utils) {
 'use strict';
 
-	var pageControl = this;
-	pageControl.page = PageService;
-	pageControl.params = ParamService;
-	pageControl.languages = LanguagesService;
+	var self = this;
+	self.page = PageService;
+	self.params = ParamService;
+	self.languages = LanguagesService;
 
 	/* METHODS */
 
-	pageControl.searchForThisTerm = function (title) {
+	self.searchForThisTerm = function (title) {
 		setSearchTerm(title);
 		PagesService.search();
-		pageControl.toggleLeadLarge();
+		self.toggleLeadLarge();
 	}; // searchForThisTerm
 
-	pageControl.toggleFullWidthClass = function () {
+	self.toggleFullWidthClass = function () {
 		return ParamService.pageLarge ? 'full-width' : 'half-width';
 	}; // selectText
 
-	pageControl.toggleLeadLarge = function () {
+	self.toggleLeadLarge = function () {
 		ParamService.pageLarge = !ParamService.pageLarge;
 	}; // toggleLeadLarge
 

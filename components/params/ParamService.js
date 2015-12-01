@@ -2,24 +2,26 @@
 
 function ParamService(utils) {
 
-    var params = this;
+    // ne snima broj rezultata
+
+    var self = this;
     var thumbSize = utils.isDesktop() ? 250 : 150;
     var leadImageSize = 400;
-    params.searchFilters = ['intitle:', '', 'prefix:'];
-    params.pageLarge = false;
+    self.searchFilters = ['intitle:', '', 'prefix:'];
+    self.pageLarge = false;
 
     // default user settings
-    params.settings = {
+    self.settings = {
         lang: 'en',
         domain: 'wikipedia',
         searchTerm: '',
-        searchFilter: params.searchFilters[0],
+        searchFilter: self.searchFilters[0],
         orderBy: '',
         remember: false
     };
 
-    // basic api params for all
-    params.basic = {
+    // basic api self for all
+    self.basic = {
         action: 'query',
         inprop: 'url', // return page url
         redirects: '', // automatically resolve redirects
@@ -28,8 +30,8 @@ function ParamService(utils) {
         callback: 'JSON_CALLBACK'
     };
 
-    // basic params for pages and images
-    params.basicSearch = {
+    // basic self for pages and images
+    self.basicSearch = {
         generator: 'search',
         gsrsearch: '', // searchTerm + searchFilter
         gsrlimit: 20, // broj rezultata, max 50
@@ -37,18 +39,18 @@ function ParamService(utils) {
         continue: "gsroffset||" // continue the query
     };
 
-    params.page = {
+    self.page = {
         titles: '',
         prop: 'extracts|pageimages|info',
         pithumbsize: leadImageSize // height
     };
 
-    params.mainImage = {
+    self.mainImage = {
         exintro: '', // only intro
         exchars: 250 // character limit
     };
 
-    params.pages = {
+    self.pages = {
         prop: 'extracts|pageimages|info|redirects',
         gsrnamespace: 0, // 0: article, 6: file
         pilimit: 'max', // thumb image for all articles
@@ -60,7 +62,7 @@ function ParamService(utils) {
         exchars: 1250 // character limit
     };
 
-	params.images = {
+	self.images = {
         prop: 'pageimages|imageinfo|info|redirects',
         gsrnamespace: 6, // 0: article, 6: file
         pilimit: 'max', // thumb image for all articles
@@ -72,113 +74,113 @@ function ParamService(utils) {
 
     /*** GETTERS ***/
 
-    params.getSearchTerm = function() {
-        return params.settings.searchTerm;
+    self.getSearchTerm = function() {
+        return self.settings.searchTerm;
     };
 
-    params.getPageTitle = function() {
-        return params.page.titles;
+    self.getPageTitle = function() {
+        return self.page.titles;
     }; // getPageTitle
 
-    params.getLang = function () {
-        return params.settings.lang;
+    self.getLang = function () {
+        return self.settings.lang;
     };
 
-    params.getDomain = function () {
-        return params.settings.domain;
+    self.getDomain = function () {
+        return self.settings.domain;
     };
 
-    params.getApiUrl = function() {
-        if (params.settings.domain == 'commons') {
+    self.getApiUrl = function() {
+        if (self.settings.domain == 'commons') {
             return 'http://commons.wikimedia.org/w/api.php';
         }
-        return 'http://' + params.settings.lang + '.' + params.settings.domain + '.org/w/api.php';
+        return 'http://' + self.settings.lang + '.' + self.settings.domain + '.org/w/api.php';
     }; // getApiUrl
 
-    params.createParamUrl = function(chosenParams) {
-		var paramUrl = params.getApiUrl() + '?' + utils.serialize(chosenParams);
+    self.createParamUrl = function(chosenParams) {
+		var paramUrl = self.getApiUrl() + '?' + utils.serialize(chosenParams);
 		return paramUrl;
 	}; // createParamUrl
 
-    params.getPageParams = function() {
-        return angular.extend(params.page, params.basic);
+    self.getPageParams = function() {
+        return angular.extend(self.page, self.basic);
     }; // getPageParams
 
-    params.getPagesParams = function() {
-        return angular.extend(params.pages, params.basic, params.basicSearch);
+    self.getPagesParams = function() {
+        return angular.extend(self.pages, self.basic, self.basicSearch);
     }; // getPagesParams
 
-    params.getImageParams = function() {
-		return angular.extend(params.images, params.basic, params.basicSearch);
+    self.getImageParams = function() {
+		return angular.extend(self.images, self.basic, self.basicSearch);
 	}; // getImageParams
 
-    params.getImagePageParams = function() {
-		return angular.extend(params.mainImage, params.page, params.basic);
+    self.getImagePageParams = function() {
+		return angular.extend(self.mainImage, self.page, self.basic);
 	}; // getImagePageParams
 
 
     /*** SETTERS ***/
 
-    params.updateSearchTerm = function () {
-        var filter = params.settings.searchFilter;
-        var term = utils.capitalize(params.settings.searchTerm);
-        params.basicSearch.gsrsearch = filter + term;
-        params.page.titles = term;
-        params.mainImage.titles = term;
-        if (params.isCommons() && filter == 'prefix:') {
-            params.basicSearch.gsrsearch = filter + 'File:' + term;
+    self.updateSearchTerm = function () {
+        var filter = self.settings.searchFilter;
+        var term = utils.capitalize(self.settings.searchTerm);
+        self.basicSearch.gsrsearch = filter + term;
+        self.page.titles = term;
+        self.mainImage.titles = term;
+        if (self.isCommons() && filter == 'prefix:') {
+            self.basicSearch.gsrsearch = filter + 'File:' + term;
         }
     };  // updateSearchTerm
 
-    params.setSearchTerm = function(term) {
-        params.settings.searchTerm = term;
+    self.setSearchTerm = function(term) {
+        self.settings.searchTerm = term;
     };
 
-    params.setPageTitle = function(newName) {
-        params.page.titles = newName;
+    self.setPageTitle = function(newName) {
+        self.page.titles = newName;
     }; // setPageTitle
 
-    params.setLanguage = function(lang) {
-        params.settings.lang = lang;
+    self.setLanguage = function(lang) {
+        self.settings.lang = lang;
     };  // setLanguage
 
-    params.setOffset = function (x) {
-        params.basicSearch.gsroffset = x;
+    self.setOffset = function (x) {
+        self.basicSearch.gsroffset = x;
     };  // setOffset
 
 
     /*** HELPERS ***/
 
-    params.isCommons = function() {
-        return params.settings.domain == 'commons';
+    self.isCommons = function() {
+        return self.settings.domain == 'commons';
     }; // isCommons
 
 
     /*** STORAGE ***/
 
-    params.saveSettings = function() {
-        if (params.settings.remember) {
-            localStorage.wikiSettings = JSON.stringify(params.settings);
-            localStorage.searchParams = JSON.stringify(params.pages);
+    self.saveSettings = function() {
+        if (self.settings.remember) {
+            localStorage.wikiSettings = JSON.stringify(self.settings);
+            localStorage.searchParams = JSON.stringify(self.pages);
         }
     }; // saveSettings
 
-    params.loadSettings = function() {
-        if (localStorage.wikiSettings) params.settings = JSON.parse(localStorage.wikiSettings);
-        if (localStorage.searchParams) params.pages = JSON.parse(localStorage.searchParams);
+    self.loadSettings = function() {
+        if (localStorage.wikiSettings) self.settings = JSON.parse(localStorage.wikiSettings);
+        if (localStorage.searchParams) self.pages = JSON.parse(localStorage.searchParams);
     }; // loadSettings
 
-    params.deleteStorage = function() {
+    self.deleteStorage = function() {
         localStorage.removeItem("wikiSettings");
         localStorage.removeItem("searchParams");
     }; // deleteSettings
 
-    params.toggleSave = function() {
-        if (params.settings.remember) {
-            params.saveSettings();
+    self.toggleSave = function() {
+        if (self.settings.remember) {
+            self.saveSettings();
             return;
         }
-        params.deleteStorage();
+        self.deleteStorage();
     }; // toggleSave
 
 } // ParamService
