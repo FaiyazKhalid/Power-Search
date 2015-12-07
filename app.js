@@ -8,7 +8,7 @@ TODO:
 - izbaciti mainControl iz page.html i params.html
 
 BAG:
-- kad sa komonsa prebacim na wikirečnik, dodje do greske jer je jezik null
+- kad sa komonsa prebacim na wikirečnik, dodje do greske jer je jezik null (izgleda da u storage moze da pamti null, to je bug!)
 - srediti preticanje rezultata i kucanja
 */
 var angular = require('angular');

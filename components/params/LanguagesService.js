@@ -3,28 +3,18 @@
 // samo jednom treba da ucita sve (mozda na init)
 // proveriti na kom se domenu nalazimo
 // prikazati samo jezike za taj domen (site)
-// https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK
-// http://stackoverflow.com/questions/33608751/retrieve-a-list-of-all-wikipedia-languages-programmatically
 
-function LanguagesService($http, ParamService, utils) {
+function LanguagesService($http, ParamService) {
 
     var self = this;
 	self.all = [];
 
-    var langParams = {
-        action: 'sitematrix',
-        smtype: 'language',
-        format: 'json',
-        formatversion: 2,
-        callback: 'JSON_CALLBACK'
-    };
 
-
-    /*** HTTP ***/
+    /*** METHODS ***/
 
 	self.get = function() {
         self.resetErrors();
-        var paramUrl = ParamService.getApiUrl() + '?' + utils.serialize(langParams);
+        var paramUrl = "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK";
         console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
@@ -58,6 +48,5 @@ function LanguagesService($http, ParamService, utils) {
 
 
 } // LanguagesService
-
 
 module.exports = LanguagesService;
