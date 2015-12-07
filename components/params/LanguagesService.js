@@ -1,6 +1,6 @@
 'use strict';
 
-// trenutno ucitava sve postojece jezike
+// samo jednom treba da ucita sve (mozda na init)
 // proveriti na kom se domenu nalazimo
 // prikazati samo jezike za taj domen (site)
 // https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK
@@ -46,8 +46,13 @@ function LanguagesService($http, ParamService, utils) {
     /*** HELPERS ***/
 
 	function filterResults(data) {
-        angular.forEach(data.sitematrix, function(map) {
-            self.all.push(map);
+        var domain = ParamService.getDomain();
+        angular.forEach(data.sitematrix, function(item) {
+            if(item.site) {
+                for(var i = 0; i < item.site.length; i++) {
+                    if(domain === item.site[i].code) self.all.push(item);
+                }
+            }
         });
 	}	// filterResults
 
