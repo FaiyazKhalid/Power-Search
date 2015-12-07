@@ -6,6 +6,7 @@ TODO:
 - final refactor naziva servisa, direktiva i sl
 - primer paramUrl u dokumentaciju
 - izbaciti mainControl iz page.html i params.html
+- ubaciti dugme reset settings
 
 BAG:
 - kad sa komonsa prebacim na wikirečnik, dodje do greske jer je jezik null (izgleda da u storage moze da pamti null, to je bug!)

@@ -37,6 +37,7 @@ function LanguagesService($http, ParamService) {
 
 	function filterResults(data) {
         var domain = ParamService.getDomain();
+        if(domain === "wikipedia") domain = "wiki";        
         angular.forEach(data.sitematrix, function(item) {
             if(item.site) {
                 for(var i = 0; i < item.site.length; i++) {
