@@ -8,7 +8,7 @@ function ParamService(utils) {
     self.searchFilters = ['intitle:', '', 'prefix:'];
     self.pageLarge = false;
 
-    // default user settings
+    // default interface settings
     self.settings = {
         lang: 'en',
         domain: 'wikipedia',
@@ -19,7 +19,7 @@ function ParamService(utils) {
         remember: false
     };
 
-    // basic api self for all
+    // basic wiki api settings for all
     self.basic = {
         action: 'query',
         inprop: 'url', // return page url
@@ -29,7 +29,7 @@ function ParamService(utils) {
         callback: 'JSON_CALLBACK'
     };
 
-    // basic self for pages and images
+    // basic wiki api settings for pages and images
     self.basicSearch = {
         generator: 'search',
         gsrsearch: '', // searchTerm + searchFilter

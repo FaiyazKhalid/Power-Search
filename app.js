@@ -1,15 +1,14 @@
 'use strict';
 /*
 TODO:
-- srediti jezike
-- srediti responsive css
+- napraviti da ne chuva vrednosti null
 - final refactor naziva servisa, direktiva i sl
+- srediti responsive css (posebno bug za slike)
 - primer paramUrl u dokumentaciju
 - izbaciti mainControl iz page.html i params.html
 - ubaciti dugme reset settings
 
 BAG:
-- kad sa komonsa prebacim na wikirečnik, dodje do greske jer je jezik null (izgleda da u storage moze da pamti null, to je bug!)
 - srediti preticanje rezultata i kucanja
 */
 var angular = require('angular');

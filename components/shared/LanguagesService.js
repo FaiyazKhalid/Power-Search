@@ -14,7 +14,7 @@ function LanguagesService($http, ParamService) {
 		self.resetErrors();
 		if (ParamService.getDomain() === "commons") return;
 		var paramUrl = "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK";
-		console.log(paramUrl);
+		// console.log(paramUrl);
 
 		$http.jsonp(paramUrl)
 			.success(function (data) {
