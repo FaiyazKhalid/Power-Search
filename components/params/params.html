@@ -1,15 +1,15 @@
 <!-- params -->
-<section ng-controller="ParamsController as paramsControl" class="container">
+<section ng-controller="ParamsController as ctrl" class="container">
     <div class="logo-wrap row">
         <div class="col-md-6">
-            <h1><a href="index.html" ng-click="paramsControl.resetAndReload()">Wikipedia power search</a></h1>
+            <h1><a href="index.html" ng-click="ctrl.resetAndReload()">Wikipedia power search</a></h1>
         </div>
         <form class="col-md-6" role="form" ng-cloak>
             <div class="wiki-logos">
                 <!-- projects -->
-                <label ng-repeat="project in paramsControl.projects">
-                    <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': paramsControl.isSelectedProject(project) }">
-                    <input type="radio" ng-model="paramsControl.params.settings.domain" value="{{project.name}}" ng-click="paramsControl.refreshLanguages(); mainControl.search()">
+                <label ng-repeat="project in ctrl.projects">
+                    <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': ctrl.isSelectedProject(project) }">
+                    <input type="radio" ng-model="ctrl.params.settings.domain" value="{{project.name}}" ng-click="ctrl.refreshLanguages(); mainControl.search()">
                 </label>
                 <span class="justify-helper"></span>
             </div>
@@ -23,36 +23,36 @@
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
                 <!-- search field -->
-                <input ng-model='paramsControl.params.settings.searchTerm' ng-change='mainControl.search()' class="form-control input-lg" autofocus>
+                <input ng-model='ctrl.params.settings.searchTerm' ng-change='mainControl.search()' class="form-control input-lg" autofocus>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group text-center">
                 <!-- filters -->
-                <label ng-repeat="filter in paramsControl.params.searchFilters" class="radio-inline">
-                    <input type="radio" ng-model="paramsControl.params.settings.searchFilter" value="{{filter}}" ng-change="mainControl.search()"> {{filter || 'content'}}
+                <label ng-repeat="filter in ctrl.params.searchFilters" class="radio-inline">
+                    <input type="radio" ng-model="ctrl.params.settings.searchFilter" value="{{filter}}" ng-change="mainControl.search()"> {{filter || 'content'}}
                 </label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group">
                 <!-- languages -->
-                <select ng-model="paramsControl.params.settings.lang" ng-options="lang.code as lang.name for lang in paramsControl.languages.all | orderBy:'prefix' " ng-change='mainControl.search()' class="form-control input-sm" ng-disabled="paramsControl.isCommons()"></select>
+                <select ng-model="ctrl.params.settings.lang" ng-options="lang.code as lang.name for lang in ctrl.languages.all | orderBy:'prefix' " ng-change='mainControl.search()' class="form-control input-sm" ng-disabled="ctrl.isCommons()"></select>
             </div>
             <label class="checkbox-inline">
                 <!-- remember -->
-                <input type="checkbox" ng-model="paramsControl.params.settings.remember" ng-change="paramsControl.toggleSave()">
+                <input type="checkbox" ng-model="ctrl.params.settings.remember" ng-change="ctrl.toggleSave()">
                 <small>remember settings</small>
             </label>
         </div>
         <div class="col-md-1">
             <div class="form-group">
                 <!-- maxResults -->
-                <input type="number" min="1" max="50" ng-model='paramsControl.params.basicSearch.gsrlimit' ng-change='paramsControl.checkMaxResults(); mainControl.search()' class="form-control input-sm">
+                <input type="number" min="1" max="50" ng-model='ctrl.params.basicSearch.gsrlimit' ng-change='ctrl.checkMaxResults(); mainControl.search()' class="form-control input-sm">
             </div>
             <label class="checkbox-inline">
                 <!-- alphabetical -->
-                <input type="checkbox" ng-model="paramsControl.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''">
+                <input type="checkbox" ng-model="ctrl.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''">
                 <small>alphabetical</small>
             </label>
         </div>
