@@ -5,6 +5,8 @@ function LanguagesService($http, ParamService) {
     var self = this;
 	self.all = [];
 
+    var chosenLang = ParamService.getLang();
+    var defaultLang = 'en';
 
     /*** METHODS ***/
 
@@ -17,7 +19,7 @@ function LanguagesService($http, ParamService) {
 		$http.jsonp(paramUrl)
 			.success(function (data) {
                 self.all = [];
-                filterResults(data);
+                filterLanguages(data);
 			});
 	}; // search
 
@@ -29,17 +31,23 @@ function LanguagesService($http, ParamService) {
 
     /*** HELPERS ***/
 
-	function filterResults(data) {
+	function filterLanguages(data) {
+        var foundChosenLang = false;
         var domain = ParamService.getDomain();
         if(domain === "wikipedia") domain = "wiki";
+
         angular.forEach(data.sitematrix, function(item) {
-            if(item.site) {
-                for(var i = 0; i < item.site.length; i++) {
-                    if(domain === item.site[i].code) self.all.push(item);
+            if(!item.site) return;
+            for(var i = 0; i < item.site.length; i++) {
+                if(domain === item.site[i].code) {
+                    self.all.push(item);
+                    if(item.code === chosenLang) foundChosenLang = true;
                 }
-            }
-        });
-	}	// filterResults
+            }   // end for
+        }); // angular.forEach
+
+        if(!foundChosenLang) ParamService.setLanguage(defaultLang);
+	}	// filterLanguages
 
 
 } // LanguagesService
