@@ -34,10 +34,10 @@ var MainImageService = require('./components/main-image/MainImageService');
 var params = require('./components/params/params');
 var ParamsController = require('./components/params/ParamsController');
 var ParamService = require('./components/params/ParamService');
-var LanguagesService = require('./components/params/LanguagesService');
-var ProjectsService = require('./components/params/ProjectsService');
 
 var MainController = require('./components/shared/MainController');
+var LanguagesService = require('./components/shared/LanguagesService');
+var ProjectsService = require('./components/shared/ProjectsService');
 var autofocus = require('./components/shared/autofocus');
 var utils = require('./components/shared/utils');
 var forkme = require('./components/forkme/forkme');
