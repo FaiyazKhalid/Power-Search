@@ -18,6 +18,9 @@ function LanguagesService($http, ParamService) {
 			.success(function (data) {
 				self.resetLanguages();
 				filterLanguages(data);
+			})
+			.error(function (err) {
+				console.log("Lang error: ", err);
 			});
 	}; // search
 

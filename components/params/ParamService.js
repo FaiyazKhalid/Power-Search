@@ -5,12 +5,13 @@ function ParamService(utils) {
     var self = this;
     var thumbSize = utils.isDesktop() ? 250 : 150;
     var leadImageSize = 400;
+	var defaultLang = 'en';
     self.searchFilters = ['intitle:', '', 'prefix:'];
     self.pageLarge = false;
 
     // default interface settings
     self.settings = {
-        lang: 'en',
+        lang: defaultLang,
         domain: 'wikipedia',
         searchTerm: '',
         searchFilter: self.searchFilters[0],
@@ -90,9 +91,8 @@ function ParamService(utils) {
     };
 
     self.getApiUrl = function() {
-        if (self.settings.domain == 'commons') {
-            return 'http://commons.wikimedia.org/w/api.php';
-        }
+        if (self.settings.domain == 'commons') return 'http://commons.wikimedia.org/w/api.php';
+        if (!self.settings.lang) self.settings.lang = defaultLang;
         return 'http://' + self.settings.lang + '.' + self.settings.domain + '.org/w/api.php';
     }; // getApiUrl
 
