@@ -58,17 +58,12 @@ function LanguagesService($http, ParamService) {
 		angular.forEach(data.sitematrix, function (thisLang) {
 			if (!thisLang.site) return;
 			for (var i = 0; i < thisLang.site.length; i++) {
-				if (langDomainExists(thisLang.site[i])) self.all.push(thisLang);
-				if (langDomainExists(thisLang.site[i]) && isChosenLang(thisLang)) chosenLangFound = true;
+				if (isLangDomainExists(thisLang.site[i])) self.all.push(thisLang);
+				if (isLangDomainExists(thisLang.site[i]) && isChosenLang(thisLang)) chosenLangFound = true;
 			} // end for
 		}); // angular.forEach
 
 		if (!chosenLangFound) ParamService.setLanguage(defaultLang);
-
-        function langDomainExists(thisSite) {
-            return (chosenDomain === thisSite.code);
-        }
-
 	} // filterLanguages
 
 
@@ -84,16 +79,20 @@ function LanguagesService($http, ParamService) {
 	}	// filterDomains
 
 
+	/*** LITTLE HELPERS ***/
+
 	function updateChosenDomain () {
 		chosenDomain = ParamService.getDomain();
 		if (chosenDomain === "wikipedia") chosenDomain = "wiki";
 	}	// updateChosenDomain
 
+	function isLangDomainExists(thisSite) {
+		return (chosenDomain === thisSite.code);
+	}	// isLangDomainExists
 
 	function isChosenLang(thisLang) {
 		return thisLang.code === chosenLang;
 	}	// isChosenLang
-
 
 } // LanguagesService
 
