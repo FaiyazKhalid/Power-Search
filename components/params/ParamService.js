@@ -6,10 +6,12 @@ function ParamService(utils) {
     var thumbSize = utils.isDesktop() ? 250 : 150;
     var leadImageSize = 400;
 	var defaultLang = 'en';
+
     self.searchFilters = ['intitle:', '', 'prefix:'];
     self.pageLarge = false;
+    self.languagesUrl = "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK";
 
-    // default interface settings
+    // interface settings
     self.settings = {
         lang: defaultLang,
         domain: 'wikipedia',
@@ -39,6 +41,7 @@ function ParamService(utils) {
         continue: "gsroffset||" // continue the query
     };
 
+    // specific settings
     self.page = {
         titles: '',
         prop: 'extracts|pageimages|info',

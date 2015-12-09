@@ -1,7 +1,6 @@
 function ParamsController(ParamService, ProjectsService, LanguagesService, utils) {
 'use strict';
 
-	// TODO: should remove
     LanguagesService.get();
 
 	var self = this;

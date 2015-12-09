@@ -10,7 +10,7 @@ function PagesService($http, utils, ParamService) {
     self.showLoadMore = true;
 
 
-    /*** HTTP ***/
+    /*** METHODS ***/
 
 	self.search = function(callback) {
         self.clearResults();
