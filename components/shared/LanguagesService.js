@@ -7,6 +7,7 @@ function LanguagesService($http, ParamService) {
 	self.projects = [];
 	var defaultLang = 'en';
 	var chosenLang = ParamService.getLang();
+	var chosenDomain = ParamService.getDomain();
 
 
 	/*** METHODS ***/
@@ -51,9 +52,8 @@ function LanguagesService($http, ParamService) {
 	/*** HELPERS ***/
 
 	function filterLanguages(data) {
+		updateChosenDomain();
 		var chosenLangFound = false;
-		var domain = ParamService.getDomain();
-		if (domain === "wikipedia") domain = "wiki";
 
 		angular.forEach(data.sitematrix, function (thisLang) {
 			if (!thisLang.site) return;
@@ -66,7 +66,7 @@ function LanguagesService($http, ParamService) {
 		if (!chosenLangFound) ParamService.setLanguage(defaultLang);
 
         function langDomainExists(thisSite) {
-            return (domain === thisSite.code);
+            return (chosenDomain === thisSite.code);
         }
 
 	} // filterLanguages
@@ -84,9 +84,16 @@ function LanguagesService($http, ParamService) {
 	}	// filterDomains
 
 
+	function updateChosenDomain () {
+		chosenDomain = ParamService.getDomain();
+		if (chosenDomain === "wikipedia") chosenDomain = "wiki";
+	}	// updateChosenDomain
+
+
 	function isChosenLang(thisLang) {
 		return thisLang.code === chosenLang;
 	}	// isChosenLang
+
 
 } // LanguagesService
 
