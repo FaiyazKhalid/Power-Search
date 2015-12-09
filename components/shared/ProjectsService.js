@@ -4,6 +4,7 @@
 function ProjectsService($http, ParamService) {
 
 	var self = this;
+	self.projects = [];
 
 	self.availableProjects = [{
 		name: 'wikipedia',
@@ -51,20 +52,24 @@ function ProjectsService($http, ParamService) {
 		angular.forEach(data.sitematrix, function (thisLang) {
 			if (!isChosenLang(thisLang)) return;
 			for (var i = 0; i < thisLang.site.length; i++) {
-
-				checkIfAvailable(thisLang.site[i]);
-				self.projects.push(thisLang.site[i]);
-
+				if (isAvailable(thisLang.site[i])) {
+					console.log(thisLang.site[i].code);
+					self.projects.push(thisLang.site[i]);
+				}
 			} // end for
 		}); // angular.forEach
 
-		// raspolozivi projekti koji postoje za ovaj jezik mogu da ostanu
-		// console.log(self.projects);
-		// console.log(self.availableProjects);
-		
-		function checkIfAvailable (thisSite) {
-			console.log(thisSite.code);
-		}
+		function isAvailable (thisSite) {
+			if (thisSite.code === 'wiki') thisSite.code = 'wikipedia';
+			for(var i = 0; i < self.availableProjects.length; i++) {
+				if(thisSite.code === self.availableProjects[i].name) {
+					return true;
+				}
+			}
+			//angular.forEach(self.availableProjects, function (thisProject) {
+
+			//});
+		}	// isAvailable
 
 	}	// filterProjects
 

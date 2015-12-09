@@ -4,7 +4,6 @@ function LanguagesService($http, ParamService) {
 
 	var self = this;
 	self.all = [];
-	self.projects = [];
 
 	var defaultLang = 'en';
 	var chosenDomain = ParamService.getDomain();

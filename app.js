@@ -1,7 +1,6 @@
 'use strict';
 /*
 TODO:
-- pokusati da ne lupujem kroz jezike, nego potrazim po kljucu
 - domeni da se dinamicki menjaju za jezik
 - napraviti da ne chuva vrednosti null
 - final refactor naziva servisa, direktiva i sl
