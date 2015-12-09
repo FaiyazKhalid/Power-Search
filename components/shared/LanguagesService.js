@@ -4,6 +4,7 @@ function LanguagesService($http, ParamService) {
 
 	var self = this;
 	self.all = [];
+	self.projects = [];
 	var defaultLang = 'en';
 	var chosenLang = ParamService.getLang();
 
@@ -25,12 +26,25 @@ function LanguagesService($http, ParamService) {
 	}; // search
 
 
+	self.getProjects = function () {
+		$http.jsonp(ParamService.languagesUrl)
+			.success(function (data) {
+				self.resetProjects();
+				filterDomains(data);
+			});
+	};	// getProjects
+
+
 	self.resetErrors = function () {
 		self.error = null;
 	};
 
 	self.resetLanguages = function () {
 		self.all = [];
+	};
+
+	self.resetProjects = function () {
+		self.projects = [];
 	};
 
 
@@ -55,11 +69,24 @@ function LanguagesService($http, ParamService) {
             return (domain === thisSite.code);
         }
 
-        function isChosenLang(thisLang) {
-            return thisLang.code === chosenLang;
-        }
 	} // filterLanguages
 
+
+	function filterDomains (data) {
+		angular.forEach(data.sitematrix, function (thisLang) {
+			if (!isChosenLang(thisLang)) return;
+			for (var i = 0; i < thisLang.site.length; i++) {
+				self.projects.push(thisLang.site[i]);
+			} // end for
+		}); // angular.forEach
+
+		console.log(self.projects);
+	}	// filterDomains
+
+
+	function isChosenLang(thisLang) {
+		return thisLang.code === chosenLang;
+	}	// isChosenLang
 
 } // LanguagesService
 

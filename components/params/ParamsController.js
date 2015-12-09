@@ -2,6 +2,8 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, utils
 'use strict';
 
     LanguagesService.get();
+    LanguagesService.getProjects();
+    
 
 	var self = this;
 	self.params = ParamService;
