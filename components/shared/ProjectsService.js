@@ -52,15 +52,19 @@ function ProjectsService($http, ParamService) {
 			if (!isChosenLang(thisLang)) return;
 			for (var i = 0; i < thisLang.site.length; i++) {
 
+				checkIfAvailable(thisLang.site[i]);
 				self.projects.push(thisLang.site[i]);
-				// checkIfAvailable()
 
 			} // end for
 		}); // angular.forEach
 
-		// svi raspolozivi projekti koji postoje za ovaj jezik mogu da ostanu
-		console.log(self.projects);
-		console.log(self.availableProjects);
+		// raspolozivi projekti koji postoje za ovaj jezik mogu da ostanu
+		// console.log(self.projects);
+		// console.log(self.availableProjects);
+		
+		function checkIfAvailable (thisSite) {
+			console.log(thisSite.code);
+		}
 
 	}	// filterProjects
 
