@@ -4,21 +4,19 @@ function LanguagesService($http, ParamService) {
 
 	var self = this;
 	self.all = [];
-
-	var chosenLang = ParamService.getLang();
 	var defaultLang = 'en';
+	var chosenLang = ParamService.getLang();
+
 
 	/*** METHODS ***/
 
 	self.get = function () {
 		self.resetErrors();
 		if (ParamService.getDomain() === "commons") return;
-		var paramUrl = "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK";
-		// console.log(paramUrl);
 
-		$http.jsonp(paramUrl)
+		$http.jsonp("https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK")
 			.success(function (data) {
-				self.all = [];
+				self.resetLanguages();
 				filterLanguages(data);
 			});
 	}; // search
@@ -26,6 +24,10 @@ function LanguagesService($http, ParamService) {
 
 	self.resetErrors = function () {
 		self.error = null;
+	};
+
+	self.resetLanguages = function () {
+		self.all = [];
 	};
 
 
