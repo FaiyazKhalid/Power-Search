@@ -63,7 +63,7 @@ angular
 	.directive('mainImage', mainImage)
 
 	.factory('utils', utils)
-    .factory('ProjectsService', ProjectsService)
+    .service('ProjectsService', ProjectsService)
 	.service('LanguagesService', LanguagesService)
 	.service('ParamService', ParamService)
 	.service('PagesService', PagesService)

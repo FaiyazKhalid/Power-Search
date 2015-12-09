@@ -1,9 +1,11 @@
 'use strict';
 
 
-function ProjectsService() {
+function ProjectsService($http, ParamService) {
 
-	var wikiProjects = [{
+	var self = this;
+
+	self.availableProjects = [{
 		name: 'wikipedia',
 		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png'
     }, {
@@ -27,14 +29,50 @@ function ProjectsService() {
     }]; // projects
 
 
-	function getProjects() {
-		return wikiProjects;
-	}
+	/*** METHODS ***/
 
-
-	return {
-		getProjects: getProjects
+	self.getProjects = function() {
+		return self.availableProjects;
 	};
+
+
+	self.get = function () {
+		$http.jsonp(ParamService.languagesUrl)
+			.success(function (data) {
+				resetProjects();
+				filterProjects(data);
+			});
+	};	// get
+
+
+	/*** HELPERS ***/
+
+	function filterProjects (data) {
+		angular.forEach(data.sitematrix, function (thisLang) {
+			if (!isChosenLang(thisLang)) return;
+			for (var i = 0; i < thisLang.site.length; i++) {
+
+				self.projects.push(thisLang.site[i]);
+				// checkIfAvailable()
+
+			} // end for
+		}); // angular.forEach
+
+		// svi raspolozivi projekti koji postoje za ovaj jezik mogu da ostanu
+		console.log(self.projects);
+		console.log(self.availableProjects);
+
+	}	// filterProjects
+
+
+	function resetProjects() {
+		self.projects = [];
+	}	// resetProjects
+
+	function isChosenLang(thisLang) {
+		return thisLang.code === ParamService.getLang();
+	}	// isChosenLang
+
 
 } // ProjectsService
 

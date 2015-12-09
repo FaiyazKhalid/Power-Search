@@ -5,8 +5,8 @@ function LanguagesService($http, ParamService) {
 	var self = this;
 	self.all = [];
 	self.projects = [];
+
 	var defaultLang = 'en';
-	var chosenLang = ParamService.getLang();
 	var chosenDomain = ParamService.getDomain();
 
 
@@ -27,25 +27,12 @@ function LanguagesService($http, ParamService) {
 	}; // search
 
 
-	self.getProjects = function () {
-		$http.jsonp(ParamService.languagesUrl)
-			.success(function (data) {
-				self.resetProjects();
-				filterDomains(data);
-			});
-	};	// getProjects
-
-
 	self.resetErrors = function () {
 		self.error = null;
 	};
 
 	self.resetLanguages = function () {
 		self.all = [];
-	};
-
-	self.resetProjects = function () {
-		self.projects = [];
 	};
 
 
@@ -58,8 +45,8 @@ function LanguagesService($http, ParamService) {
 		angular.forEach(data.sitematrix, function (thisLang) {
 			if (!thisLang.site) return;
 			for (var i = 0; i < thisLang.site.length; i++) {
-				if (isLangDomainExists(thisLang.site[i])) self.all.push(thisLang);
-				if (isLangDomainExists(thisLang.site[i]) && isChosenLang(thisLang)) chosenLangFound = true;
+				if (langDomainExists(thisLang.site[i])) self.all.push(thisLang);
+				if (langDomainExists(thisLang.site[i]) && isChosenLang(thisLang)) chosenLangFound = true;
 			} // end for
 		}); // angular.forEach
 
@@ -67,33 +54,20 @@ function LanguagesService($http, ParamService) {
 	} // filterLanguages
 
 
-	function filterDomains (data) {
-		angular.forEach(data.sitematrix, function (thisLang) {
-			if (!isChosenLang(thisLang)) return;
-			for (var i = 0; i < thisLang.site.length; i++) {
-				self.projects.push(thisLang.site[i]);
-			} // end for
-		}); // angular.forEach
-
-		console.log(self.projects);
-	}	// filterDomains
-
-
-	/*** LITTLE HELPERS ***/
-
 	function updateChosenDomain () {
 		chosenDomain = ParamService.getDomain();
 		if (chosenDomain === "wikipedia") chosenDomain = "wiki";
 	}	// updateChosenDomain
 
-	function isLangDomainExists(thisSite) {
+	function langDomainExists(thisSite) {
 		return (chosenDomain === thisSite.code);
-	}	// isLangDomainExists
+	}	// langDomainExists
 
 	function isChosenLang(thisLang) {
-		return thisLang.code === chosenLang;
+		return thisLang.code === ParamService.getLang();
 	}	// isChosenLang
 
 } // LanguagesService
+
 
 module.exports = LanguagesService;
