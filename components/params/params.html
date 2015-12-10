@@ -7,7 +7,7 @@
         <form class="col-md-6" role="form" ng-cloak>
             <div class="wiki-logos">
                 <!-- projects -->
-                <label ng-repeat="project in ctrl.projects">
+                <label ng-repeat="project in ctrl.availableProjects">
                     <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': ctrl.isSelectedProject(project) }">
                     <input type="radio" ng-model="ctrl.params.settings.domain" value="{{project.name}}" ng-click="ctrl.refreshLanguages(); mainControl.search()">
                 </label>

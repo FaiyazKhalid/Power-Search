@@ -8,7 +8,7 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, utils
 	var self = this;
 	self.params = ParamService;
 	self.languages = LanguagesService;
-    self.projects = ProjectsService.getProjects();
+    self.availableProjects = ProjectsService.getProjects();
 
 
 	/*** PUBLIC METHODS ***/
