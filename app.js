@@ -1,7 +1,6 @@
 'use strict';
 /*
 TODO:
-- domeni da se dinamicki menjaju za jezik
 - napraviti da ne chuva vrednosti null
 - final refactor naziva servisa, direktiva i sl
 - srediti responsive css (posebno bug za slike)
