@@ -13,11 +13,11 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, utils
 	/*** PUBLIC METHODS ***/
 
     ctrl.checkMaxResults = function () {
-		if (ctrl.paramService.pages.gsrlimit > 50) ctrl.paramService.pages.gsrlimit = 50;
+		if (ParamService.pages.gsrlimit > 50) ParamService.pages.gsrlimit = 50;
 	}; // checkMaxResults
 
     ctrl.isSelectedProject = function(project) {
-		return ctrl.paramService.settings.domain == project.name;
+		return ParamService.settings.domain == project.name;
 	};	// isChosenProject
 
     ctrl.toggleSave = function() {
