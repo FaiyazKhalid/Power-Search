@@ -1,7 +1,6 @@
 'use strict';
 /*
 TODO:
-- da commons uvek stoji
 - final refactor naziva servisa, direktiva i sl
 - srediti responsive css (posebno bug za slike)
 - primer paramUrl u dokumentaciju

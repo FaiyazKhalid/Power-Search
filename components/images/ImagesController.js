@@ -2,12 +2,12 @@ function ImagesController(ImagesService, ParamService) {
 'use strict';
 
 	var ctrl = this;
-	ctrl.images = ImagesService;
-	ctrl.params = ParamService;
+	ctrl.imagesService = ImagesService;
+	ctrl.paramService = ParamService;
 
 	ctrl.showLoadMore = function () {
-		return ctrl.images.results && ImagesService.showLoadMore;
-	};
+		return ctrl.imagesService.results && ImagesService.showLoadMore;
+	};	// showLoadMore
 
 	ctrl.loadMore = function () {
 		ImagesService.loadMore();
