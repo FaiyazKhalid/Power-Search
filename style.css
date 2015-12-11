@@ -148,8 +148,8 @@
 
 .inner-img-wrapper {
     position: relative;
+    display: block;
 }
-
 
 .desc {
     position: absolute;

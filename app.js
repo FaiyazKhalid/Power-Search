@@ -1,7 +1,8 @@
 'use strict';
 /*
 TODO:
-- srediti responsive css (posebno bug za slike)
+- da se opis slike pojavi tek kad se slika učita
+- srediti responsive header
 - povecati load more dugme
 - primer paramUrl u dokumentaciju
 - ubaciti dugme reset settings
