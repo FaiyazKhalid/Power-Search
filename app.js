@@ -13,7 +13,7 @@ BAG:
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 
-var mainPage = require('./components/main-page/pageDirective');
+var mainPage = require('./components/main-page/mainPageDirective');
 var mainPageController = require('./components/main-page/mainPageController');
 var PageService = require('./components/main-page/PageService');
 
