@@ -37,7 +37,7 @@ var ProjectsService = require('./components/shared/ProjectsService');
 
 var MainController = require('./components/shared/MainController');
 var autofocus = require('./components/shared/autofocusDirective');
-var forkme = require('./components/forkme/forkmeDirective');
+var forkme = require('./components/shared/forkmeDirective');
 var utils = require('./components/shared/utils');
 
 
