@@ -3,7 +3,7 @@
 function pages() {
 	return {
 		controller: 'PagesController',
-		controllerAs: 'pagesControl',
+		controllerAs: 'pagesCtrl',
 		bindToController: {
 			open: '='
 		},
