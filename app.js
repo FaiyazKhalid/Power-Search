@@ -6,7 +6,6 @@ TODO:
 - primer paramUrl u dokumentaciju
 - izbaciti mainControl iz page.html i params.html
 - ubaciti dugme reset settings
-- obrisati forkme wrapper, smeta za selektovanje na manjim ekranima
 
 BAG:
 - srediti preticanje rezultata i kucanja
@@ -14,32 +13,32 @@ BAG:
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 
-var page = require('./components/main-page/page');
+var page = require('./components/main-page/pageDirective');
 var PageController = require('./components/main-page/PageController');
 var PageService = require('./components/main-page/PageService');
 
-var pages = require('./components/pages/pages');
+var pages = require('./components/pages/pagesDirective');
 var PagesController = require('./components/pages/PagesController');
 var PagesService = require('./components/pages/PagesService');
 
-var images = require('./components/images/images');
+var images = require('./components/images/imagesDirective');
 var ImagesController = require('./components/images/ImagesController');
 var ImagesService = require('./components/images/ImagesService');
 
-var mainImage = require('./components/main-image/mainImage');
+var mainImage = require('./components/main-image/mainImageDirective');
 var MainImageController = require('./components/main-image/MainImageController');
 var MainImageService = require('./components/main-image/MainImageService');
 
-var params = require('./components/params/params');
+var params = require('./components/params/paramsDirective');
 var ParamsController = require('./components/params/ParamsController');
 var ParamService = require('./components/params/ParamService');
-
-var MainController = require('./components/shared/MainController');
 var LanguagesService = require('./components/shared/LanguagesService');
 var ProjectsService = require('./components/shared/ProjectsService');
-var autofocus = require('./components/shared/autofocus');
+
+var MainController = require('./components/shared/MainController');
+var autofocus = require('./components/shared/autofocusDirective');
+var forkme = require('./components/forkme/forkmeDirective');
 var utils = require('./components/shared/utils');
-var forkme = require('./components/forkme/forkme');
 
 
 angular
