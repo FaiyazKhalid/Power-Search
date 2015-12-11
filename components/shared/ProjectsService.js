@@ -52,12 +52,12 @@ function ProjectsService($http, ParamService) {
 				pushAvailableProjects(thisLang.site[i]);
 			} // end for
 		}); // angular.forEach
+		self.all.push(availableProjects[availableProjects.length-1]);	// always show commons
 	} // filterProjects
 
 	function pushAvailableProjects(thisSite) {
 		for (var i = 0; i < availableProjects.length; i++) {
-			if (thisSite.code === availableProjects[i].name)
-				self.all.push(availableProjects[i]);
+			if (thisSite.code === availableProjects[i].name) self.all.push(availableProjects[i]);
 		}
 	} // pushAvailableProjects
 

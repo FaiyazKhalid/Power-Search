@@ -3,7 +3,7 @@
 function images() {
 	return {
 		controller: 'ImagesController',
-		controllerAs: 'imagesControl',
+		controllerAs: 'ctrl',
         templateUrl: 'components/images/images.html'
 	};
 } // images

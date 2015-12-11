@@ -1,9 +1,9 @@
 <!-- images -->
 
-<p ng-show="imagesControl.images.error" class="text-danger">{{imagesControl.images.error}}</p>
-<p ng-hide="imagesControl.images.results.length" class="text-info">{{imagesControl.images.noResultsMessage}}</p>
+<p ng-show="ctrl.images.error" class="text-danger">{{ctrl.images.error}}</p>
+<p ng-hide="ctrl.images.results.length" class="text-info">{{ctrl.images.noResultsMessage}}</p>
 
-<div ng-repeat="image in imagesControl.images.results | orderBy: imagesControl.params.settings.orderBy" class="img-wrapper">
+<div ng-repeat="image in ctrl.images.results | orderBy: ctrl.params.settings.orderBy" class="img-wrapper">
     <div class="inner-img-wrapper" >
         <a ng-href="{{image.fullurl}}" target="_blank">
             <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="images">
@@ -13,5 +13,5 @@
 </div>
 
 <div>
-    <button type="button" class="btn btn-default" ng-show="imagesControl.showLoadMore()" ng-click="imagesControl.loadMore()">Load more</button>
+    <button type="button" class="btn btn-default" ng-show="ctrl.showLoadMore()" ng-click="ctrl.loadMore()">Load more</button>
 </div>
