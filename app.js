@@ -1,10 +1,8 @@
 'use strict';
 /*
 TODO:
-- final refactor naziva servisa, direktiva i sl
 - srediti responsive css (posebno bug za slike)
 - primer paramUrl u dokumentaciju
-- izbaciti mainControl iz page.html i params.html
 - ubaciti dugme reset settings
 
 BAG:

@@ -68,6 +68,7 @@ npm run watch
 ## To-do list
 - error handling
 - filter files from commons (get only images)
+- maybe remove MainController from main-page.html and params.html
 
 ## Licence
 MIT
