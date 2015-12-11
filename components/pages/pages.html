@@ -1,10 +1,10 @@
 <!-- pages-->
 <div class="pages-wrapper" ng-class="pagesCtrl.toggleHide()">
 
-    <p ng-show="pagesCtrl.pages.error" class="text-danger">{{pagesCtrl.pages.error}}</p>
-    <p ng-hide="pagesCtrl.pages.results.length" class="text-info">{{pagesCtrl.pages.noResultsMessage}}</p>
+    <p ng-show="pagesCtrl.pagesService.error" class="text-danger">{{pagesCtrl.pagesService.error}}</p>
+    <p ng-hide="pagesCtrl.pagesService.results.length" class="text-info">{{pagesCtrl.pagesService.noResultsMessage}}</p>
 
-    <article ng-repeat="page in pagesCtrl.pages.results | orderBy: pagesCtrl.params.settings.orderBy" class="articles" ng-class="{'hidden': pagesCtrl.isSelectedPage(page)}">
+    <article ng-repeat="page in pagesCtrl.pagesService.results | orderBy: pagesCtrl.params.settings.orderBy" class="articles" ng-class="{'hidden': pagesCtrl.isSelectedPage(page)}">
         <h2 class="text-info">
             <span title="Open this article" ng-click="pagesCtrl.open(page.title)" class="pointer" >{{page.title}}</span>
         </h2>

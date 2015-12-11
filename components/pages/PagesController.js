@@ -1,28 +1,31 @@
 function PagesController(PagesService, MainPageService, ParamService, utils) {
 'use strict';
 
-	var self = this;
-	self.pages = PagesService;
-	self.page = MainPageService;
-	self.params = ParamService;
+	var ctrl = this;
+	ctrl.page = MainPageService;
+	ctrl.params = ParamService;
 
-	self.isSelectedPage = function(page) {
+	ctrl.pagesService = PagesService;
+	ctrl.mainPageService = MainPageService;
+	ctrl.paramService = ParamService;
+
+	ctrl.isSelectedPage = function(page) {
 		if(MainPageService.isExist()) return (page.title == MainPageService.getTitle());
 	};	// isSelectedPage
 
-	self.selectText = function () {
+	ctrl.selectText = function () {
 		ParamService.setSearchTerm(utils.getSelection());
 	}; // selectText
 
-	self.toggleHide = function () {
+	ctrl.toggleHide = function () {
 		return ParamService.pageLarge ? 'hidden' : '';
 	}; // toggleHide
 
-	self.showLoadMore = function () {
-		return self.pages.results && PagesService.showLoadMore;
+	ctrl.showLoadMore = function () {
+		return ctrl.pagesService.results && PagesService.showLoadMore;
 	};
 
-	self.loadMore = function () {
+	ctrl.loadMore = function () {
 		PagesService.loadMore();
 	};	// loadMore
 
