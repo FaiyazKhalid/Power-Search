@@ -1,12 +1,12 @@
 'use strict';
 /*
 TODO:
-- napraviti da ne chuva vrednosti null
 - final refactor naziva servisa, direktiva i sl
 - srediti responsive css (posebno bug za slike)
 - primer paramUrl u dokumentaciju
 - izbaciti mainControl iz page.html i params.html
 - ubaciti dugme reset settings
+- obrisati forkme wrapper, smeta za selektovanje na manjim ekranima
 
 BAG:
 - srediti preticanje rezultata i kucanja

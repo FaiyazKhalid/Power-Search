@@ -9,6 +9,7 @@ function ParamService(utils) {
 
     self.searchFilters = ['intitle:', '', 'prefix:'];
     self.pageLarge = false;
+
     self.languagesUrl = "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK";
 
     // interface settings
@@ -163,20 +164,17 @@ function ParamService(utils) {
     self.saveSettings = function() {
         if (self.settings.remember) {
             localStorage.wikiSettings = JSON.stringify(self.settings);
-            localStorage.pagesParams = JSON.stringify(self.pages);
             localStorage.basicSearch = JSON.stringify(self.basicSearch);
         }
     }; // saveSettings
 
     self.loadSettings = function() {
         if (localStorage.wikiSettings) self.settings = JSON.parse(localStorage.wikiSettings);
-        if (localStorage.pagesParams) self.pages = JSON.parse(localStorage.pagesParams);
         if (localStorage.basicSearch) self.basicSearch = JSON.parse(localStorage.basicSearch);
     }; // loadSettings
 
     self.deleteStorage = function() {
         localStorage.removeItem("wikiSettings");
-        localStorage.removeItem("pagesParams");
         localStorage.removeItem("basicSearch");
     }; // deleteSettings
 
