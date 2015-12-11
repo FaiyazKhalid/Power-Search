@@ -1,13 +1,13 @@
 function MainImageController(MainImageService, ParamService) {
 'use strict';
 
-	var self = this;
-	self.mainImage = MainImageService;
-	self.params = ParamService;
+	var ctrl = this;
+	ctrl.mainImage = MainImageService;
+	ctrl.params = ParamService;
 
-	self.noExtract = function() {
-		if (!self.mainImage.result) return true;
-		return self.mainImage.result.extract === "...";
+	ctrl.noExtract = function() {
+		if (!ctrl.mainImage.result) return true;
+		return ctrl.mainImage.result.extract === "...";
 	};
 
 } // MainImageController
