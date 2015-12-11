@@ -1,13 +1,13 @@
-function PagesController(PagesService, PageService, ParamService, utils) {
+function PagesController(PagesService, MainPageService, ParamService, utils) {
 'use strict';
 
 	var self = this;
 	self.pages = PagesService;
-	self.page = PageService;
+	self.page = MainPageService;
 	self.params = ParamService;
 
 	self.isSelectedPage = function(page) {
-		if(PageService.isExist()) return (page.title == PageService.getTitle());
+		if(MainPageService.isExist()) return (page.title == MainPageService.getTitle());
 	};	// isSelectedPage
 
 	self.selectText = function () {

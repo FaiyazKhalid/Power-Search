@@ -15,7 +15,7 @@ var ngSanitize = require('angular-sanitize');
 
 var mainPage = require('./components/main-page/mainPageDirective');
 var mainPageController = require('./components/main-page/mainPageController');
-var PageService = require('./components/main-page/PageService');
+var MainPageService = require('./components/main-page/MainPageService');
 
 var pages = require('./components/pages/pagesDirective');
 var PagesController = require('./components/pages/PagesController');
@@ -64,6 +64,6 @@ angular
 	.service('LanguagesService', LanguagesService)
 	.service('ParamService', ParamService)
 	.service('PagesService', PagesService)
-	.service('PageService', PageService)
+	.service('MainPageService', MainPageService)
 	.service('ImagesService', ImagesService)
 	.service('MainImageService', MainImageService);

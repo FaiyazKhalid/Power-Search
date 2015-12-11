@@ -1,5 +1,5 @@
 'use strict';
-function MainController($window, utils, ParamService, PageService, PagesService, ImagesService, MainImageService) {
+function MainController($window, utils, ParamService, MainPageService, PagesService, ImagesService, MainImageService) {
 
 	var self = this;
 
@@ -29,7 +29,7 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 
 	self.open = function (title) {
 		ParamService.setPageTitle(title);
-		PageService.open();
+		MainPageService.open();
 		utils.scrollToTop(300);
 	}; // open
 
@@ -41,11 +41,11 @@ function MainController($window, utils, ParamService, PageService, PagesService,
 	/*** PRIVATE FUNCTIONS ***/
 
 	function openExactPage() {
-	  PageService.open(ParamService.getPageTitle());
+	  MainPageService.open(ParamService.getPageTitle());
   	}	// openExactPage
 
 	function clearResults() {
-		PageService.clearResults();
+		MainPageService.clearResults();
         PagesService.clearResults();
 		ImagesService.clearResults();
 		MainImageService.clearResults();

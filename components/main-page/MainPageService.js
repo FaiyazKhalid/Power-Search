@@ -1,6 +1,6 @@
 'use strict';
 
-function PageService($http, utils, ParamService) {
+function MainPageService($http, utils, ParamService) {
 
     var self = this;
 	self.params = ParamService;
@@ -60,7 +60,7 @@ function PageService($http, utils, ParamService) {
 	} // handleErrors
 
 
-} // PageService
+} // MainPageService
 
 
-module.exports = PageService;
+module.exports = MainPageService;

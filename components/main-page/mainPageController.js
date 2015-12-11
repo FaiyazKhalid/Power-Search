@@ -1,8 +1,8 @@
-function mainPageController(PageService, ParamService, PagesService, LanguagesService, utils) {
+function mainPageController(MainPageService, ParamService, PagesService, LanguagesService, utils) {
 'use strict';
 
 	var ctrl = this;
-	ctrl.page = PageService;
+	ctrl.page = MainPageService;
 	ctrl.params = ParamService;
 	ctrl.languages = LanguagesService;
 
