@@ -6,7 +6,9 @@ function ProjectsService($http, ParamService) {
 	var self = this;
 	self.all = [];
 
-	self.availableProjects = [{
+	/*** DATA ***/
+
+	var availableProjects = [{
 		name: 'wikipedia',
 		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/53px-Wikipedia-logo-v2.svg.png'
     }, {
@@ -29,7 +31,6 @@ function ProjectsService($http, ParamService) {
 		logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/36px-Commons-logo.svg.png'
     }]; // availableProjects
 
-
 	/*** METHODS ***/
 
 	self.get = function () {
@@ -40,7 +41,6 @@ function ProjectsService($http, ParamService) {
 				filterProjects(data);
 			});
 	}; // get
-
 
 	/*** HELPERS ***/
 
@@ -55,9 +55,9 @@ function ProjectsService($http, ParamService) {
 	} // filterProjects
 
 	function pushAvailableProjects(thisSite) {
-		for (var i = 0; i < self.availableProjects.length; i++) {
-			if (thisSite.code === self.availableProjects[i].name)
-				self.all.push(self.availableProjects[i]);
+		for (var i = 0; i < availableProjects.length; i++) {
+			if (thisSite.code === availableProjects[i].name)
+				self.all.push(availableProjects[i]);
 		}
 	} // pushAvailableProjects
 
