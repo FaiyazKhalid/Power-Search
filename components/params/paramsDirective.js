@@ -3,7 +3,7 @@
 function params() {
 	return {
 		controller: 'ParamsController',
-		controllerAs: 'paramsControl',
+		controllerAs: 'ctrl',
 		bindToController: {
 			search: '='
 		},
