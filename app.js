@@ -13,7 +13,7 @@ BAG:
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 
-var page = require('./components/main-page/pageDirective');
+var mainPage = require('./components/main-page/pageDirective');
 var PageController = require('./components/main-page/PageController');
 var PageService = require('./components/main-page/PageService');
 
@@ -53,7 +53,7 @@ angular
 
 	.directive('autofocus', ['$timeout', autofocus])
 	.directive('images', images)
-	.directive('page', page)
+	.directive('mainPage', mainPage)
 	.directive('pages', pages)
 	.directive('params', params)
 	.directive('forkme', forkme)

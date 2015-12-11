@@ -1,6 +1,6 @@
 'use strict';
 
-function page() {
+function mainPage() {
 	return {
 		controller: 'PageController',
 		controllerAs: 'pageControl',
@@ -10,6 +10,6 @@ function page() {
 		},
 		templateUrl: 'components/main-page/page.html'
 	};
-} // page
+} // mainPage
 
-module.exports = page;
+module.exports = mainPage;
