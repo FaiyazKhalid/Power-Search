@@ -2,12 +2,10 @@ function PagesController(PagesService, MainPageService, ParamService, utils) {
 'use strict';
 
 	var ctrl = this;
-	ctrl.page = MainPageService;
-	ctrl.params = ParamService;
-
 	ctrl.pagesService = PagesService;
-	ctrl.mainPageService = MainPageService;
 	ctrl.paramService = ParamService;
+
+	/* METHODS */
 
 	ctrl.isSelectedPage = function(page) {
 		if(MainPageService.isExist()) return (page.title == MainPageService.getTitle());

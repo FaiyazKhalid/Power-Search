@@ -4,7 +4,7 @@
     <p ng-show="pagesCtrl.pagesService.error" class="text-danger">{{pagesCtrl.pagesService.error}}</p>
     <p ng-hide="pagesCtrl.pagesService.results.length" class="text-info">{{pagesCtrl.pagesService.noResultsMessage}}</p>
 
-    <article ng-repeat="page in pagesCtrl.pagesService.results | orderBy: pagesCtrl.params.settings.orderBy" class="articles" ng-class="{'hidden': pagesCtrl.isSelectedPage(page)}">
+    <article ng-repeat="page in pagesCtrl.pagesService.results | orderBy: pagesCtrl.paramService.settings.orderBy" class="articles" ng-class="{'hidden': pagesCtrl.isSelectedPage(page)}">
         <h2 class="text-info">
             <span title="Open this article" ng-click="pagesCtrl.open(page.title)" class="pointer" >{{page.title}}</span>
         </h2>
@@ -12,7 +12,7 @@
             <img ng-src="{{page.thumbnail.source}}" alt="{{page.title}}" class="img-thumbnail" ng-show="page.thumbnail.source">
         </a>
         <section ng-bind-html='page.extract' ng-dblclick="pagesCtrl.selectText()"></section>
-        <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{pagesCtrl.params.settings.domain}}</span> >> </a></p>
+        <p class="read-more text-info pull-right"><a ng-href="{{page.fullurl}}" target="_blank">See on <span class="text-capitalize">{{pagesCtrl.paramService.settings.domain}}</span> >> </a></p>
     </article>
 
     <div>
