@@ -4,10 +4,12 @@
 <p ng-hide="ctrl.imagesService.results.length" class="text-info">{{ctrl.imagesService.noResultsMessage}}</p>
 
 <div ng-repeat="image in ctrl.imagesService.results | orderBy: ctrl.paramService.settings.orderBy" class="img-wrapper">
-    <a ng-href="{{image.fullurl}}" class="inner-img-wrapper" target="_blank">
-        <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="images">
+    <div class="inner-img-wrapper" >
+        <a ng-href="{{image.fullurl}}" target="_blank">
+            <img ng-src="{{image.thumbnail.source}}" alt="{{image.title}}" class="images">
+        </a><br>
         <span ng-show="image.desc" ng-bind-html="image.desc" class="desc"></span>
-    </a>
+    </div>
 </div>
 
 <div>
