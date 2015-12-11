@@ -54,7 +54,6 @@ function ProjectsService($http, ParamService) {
 		}); // angular.forEach
 	} // filterProjects
 
-
 	function pushAvailableProjects(thisSite) {
 		for (var i = 0; i < self.availableProjects.length; i++) {
 			if (thisSite.code === self.availableProjects[i].name)

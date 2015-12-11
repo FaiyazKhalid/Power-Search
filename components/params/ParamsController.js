@@ -5,36 +5,40 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, utils
     ProjectsService.get();
 
 
-	var self = this;
-	self.params = ParamService;
-	self.languages = LanguagesService;
-    self.projects = ProjectsService;
+	var ctrl = this;
+    ctrl.paramService = ParamService;
+	ctrl.languageService = LanguagesService;
+    ctrl.projectService = ProjectsService;
 
 
 	/*** PUBLIC METHODS ***/
 
-    self.checkMaxResults = function () {
-		if (self.params.pages.gsrlimit > 50) self.params.pages.gsrlimit = 50;
+    ctrl.checkMaxResults = function () {
+		if (ctrl.paramService.pages.gsrlimit > 50) ctrl.paramService.pages.gsrlimit = 50;
 	}; // checkMaxResults
 
-    self.isSelectedProject = function(project) {
-		return self.params.settings.domain == project.name;
+    ctrl.isSelectedProject = function(project) {
+		return ctrl.paramService.settings.domain == project.name;
 	};	// isChosenProject
 
-    self.toggleSave = function() {
+    ctrl.toggleSave = function() {
 		ParamService.toggleSave();
 	};	// toggleRemember
 
-	self.resetAndReload = function() {
+	ctrl.resetAndReload = function() {
 		resetSearchTerm();
 		utils.reload();
 	};	// resetAndReload
 
-    self.refreshLanguages = function() {
+    ctrl.refreshLanguages = function() {
 		LanguagesService.get();
 	};
 
-    self.isCommons = function() {
+    ctrl.refreshProjects = function() {
+        ProjectsService.get();
+    };
+
+    ctrl.isCommons = function() {
       return ParamService.isCommons();
   };
 

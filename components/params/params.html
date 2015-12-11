@@ -7,9 +7,9 @@
         <form class="col-md-6" role="form" ng-cloak>
             <div class="wiki-logos">
                 <!-- projects -->
-                <label ng-repeat="project in ctrl.projects.all">
+                <label ng-repeat="project in ctrl.projectService.all">
                     <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': ctrl.isSelectedProject(project) }">
-                    <input type="radio" ng-model="ctrl.params.settings.domain" value="{{project.name}}" ng-click="ctrl.refreshLanguages(); mainControl.search()">
+                    <input type="radio" ng-model="ctrl.paramService.settings.domain" value="{{project.name}}" ng-click="ctrl.refreshLanguages(); mainControl.search()">
                 </label>
                 <span class="justify-helper"></span>
             </div>
@@ -23,36 +23,37 @@
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
                 <!-- search field -->
-                <input ng-model='ctrl.params.settings.searchTerm' ng-change='mainControl.search()' class="form-control input-lg" autofocus>
+                <input ng-model='ctrl.paramService.settings.searchTerm' ng-change='mainControl.search()' class="form-control input-lg" autofocus>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group text-center">
                 <!-- filters -->
-                <label ng-repeat="filter in ctrl.params.searchFilters" class="radio-inline">
-                    <input type="radio" ng-model="ctrl.params.settings.searchFilter" value="{{filter}}" ng-change="mainControl.search()"> {{filter || 'content'}}
+                <label ng-repeat="filter in ctrl.paramService.searchFilters" class="radio-inline">
+                    <input type="radio" ng-model="ctrl.paramService.settings.searchFilter" value="{{filter}}" ng-change="mainControl.search()"> {{filter || 'content'}}
                 </label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group">
                 <!-- languages -->
-                <select ng-model="ctrl.params.settings.lang" ng-options="lang.code as lang.name for lang in ctrl.languages.all | orderBy:'prefix' " ng-change='mainControl.search()' class="form-control input-sm" ng-disabled="ctrl.isCommons()"></select>
+                <!-- kada promenim jezik osveziProjekte -->
+                <select ng-model="ctrl.paramService.settings.lang" ng-options="lang.code as lang.name for lang in ctrl.languageService.all | orderBy:'prefix' " ng-change='mainControl.search()' class="form-control input-sm" ng-disabled="ctrl.isCommons()"></select>
             </div>
             <label class="checkbox-inline">
                 <!-- remember -->
-                <input type="checkbox" ng-model="ctrl.params.settings.remember" ng-change="ctrl.toggleSave()">
+                <input type="checkbox" ng-model="ctrl.paramService.settings.remember" ng-change="ctrl.toggleSave()">
                 <small>remember settings</small>
             </label>
         </div>
         <div class="col-md-1">
             <div class="form-group">
                 <!-- maxResults -->
-                <input type="number" min="1" max="50" ng-model='ctrl.params.basicSearch.gsrlimit' ng-change='ctrl.checkMaxResults(); mainControl.search()' class="form-control input-sm">
+                <input type="number" min="1" max="50" ng-model='ctrl.paramService.basicSearch.gsrlimit' ng-change='ctrl.checkMaxResults(); mainControl.search()' class="form-control input-sm">
             </div>
             <label class="checkbox-inline">
                 <!-- alphabetical -->
-                <input type="checkbox" ng-model="ctrl.params.settings.orderBy" ng-true-value="'title'" ng-false-value="''">
+                <input type="checkbox" ng-model="ctrl.paramService.settings.orderBy" ng-true-value="'title'" ng-false-value="''">
                 <small>alphabetical</small>
             </label>
         </div>
