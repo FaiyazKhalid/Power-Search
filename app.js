@@ -37,6 +37,7 @@ var ProjectsService = require('./components/shared/ProjectsService');
 
 var MainController = require('./components/shared/MainController');
 var autofocus = require('./components/shared/autofocusDirective');
+var imageOnload = require('./components/shared/imageOnloadDirective');
 var forkme = require('./components/shared/forkmeDirective');
 var utils = require('./components/shared/utils');
 
@@ -52,6 +53,7 @@ angular
 	.controller('ParamsController', ParamsController)
 
 	.directive('autofocus', ['$timeout', autofocus])
+	.directive('imageOnload', imageOnload)
 	.directive('images', images)
 	.directive('mainPage', mainPage)
 	.directive('pages', pages)
