@@ -1,25 +1,25 @@
 <!-- page: izbaciti mainControl.selectText -->
 <div class="main-page-wrapper" ng-class="pageControl.toggleFullWidthClass()">
 
-    <p ng-show="pageControl.languages.error" class="text-danger">{{pageControl.languages.error}}</p>
+    <p ng-show="pageControl.languageService.error" class="text-danger">{{pageControl.languageService.error}}</p>
 
-    <nav ng-show="pageControl.params.pageLarge">
+    <nav ng-show="pageControl.paramService.pageLarge">
         <button title="Back to serch results" class="btn btn-link" ng-click="pageControl.toggleLeadLarge()">« Back</button>
 
-        <button title="Search for this term" class="btn btn-link pull-right" ng-click="pageControl.searchForThisTerm(pageControl.page.result.title)">Search for this term »</button>
+        <button title="Search for this term" class="btn btn-link pull-right" ng-click="pageControl.searchForThisTerm(pageControl.mainPageService.result.title)">Search for this term »</button>
     </nav>
 
-    <section class='lead-wrapper' ng-show='pageControl.page.result'>
+    <section class='lead-wrapper' ng-show='pageControl.mainPageService.result'>
         <article class="choosen-article clearfix">
             <h1 class="text-info">
-                <span title="Englarge this article" ng-click="pageControl.toggleLeadLarge()" class="pointer">{{pageControl.page.result.title}}</span>
+                <span title="Englarge this article" ng-click="pageControl.toggleLeadLarge()" class="pointer">{{pageControl.mainPageService.result.title}}</span>
             </h1>
-            <a ng-href="{{pageControl.page.result.image}}" ng-show="pageControl.page.result.image" target="_blank">
-                <img ng-src="{{pageControl.page.result.thumbnail.source}}" alt="{{pageControl.page.result.title}}" class="img-large img-thumbnail pull-right">
+            <a ng-href="{{pageControl.mainPageService.result.image}}" ng-show="pageControl.mainPageService.result.image" target="_blank">
+                <img ng-src="{{pageControl.mainPageService.result.thumbnail.source}}" alt="{{pageControl.mainPageService.result.title}}" class="img-large img-thumbnail pull-right">
             </a>
-            <section ng-bind-html='pageControl.page.result.extract' ng-dblclick="mainControl.selectText()"></section>
+            <section ng-bind-html='pageControl.mainPageService.result.extract' ng-dblclick="mainControl.selectText()"></section>
         </article>
 
-        <p class="read-more text-info pull-right"><a ng-href="{{pageControl.page.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{pageControl.params.settings.domain}}</span> >> </a></p>
+        <p class="read-more text-info pull-right"><a ng-href="{{pageControl.mainPageService.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{pageControl.paramService.settings.domain}}</span> >> </a></p>
     </section>
 </div>
