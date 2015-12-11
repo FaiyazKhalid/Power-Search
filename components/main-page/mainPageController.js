@@ -5,7 +5,7 @@ function mainPageController(MainPageService, ParamService, PagesService, Languag
 	ctrl.mainPageService = MainPageService;
 	ctrl.paramService = ParamService;
 	ctrl.languageService = LanguagesService;
-
+	
 
 	/* METHODS */
 
