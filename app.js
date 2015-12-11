@@ -2,6 +2,7 @@
 /*
 TODO:
 - srediti responsive css (posebno bug za slike)
+- povecati load more dugme
 - primer paramUrl u dokumentaciju
 - ubaciti dugme reset settings
 
@@ -12,7 +13,7 @@ var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 
 var mainPage = require('./components/main-page/mainPageDirective');
-var mainPageController = require('./components/main-page/mainPageController');
+var MainPageController = require('./components/main-page/MainPageController');
 var MainPageService = require('./components/main-page/MainPageService');
 
 var pages = require('./components/pages/pagesDirective');
@@ -46,7 +47,7 @@ angular
 	.controller('ImagesController', ImagesController)
 	.controller('MainImageController', MainImageController)
 	.controller('PagesController', PagesController)
-	.controller('mainPageController', mainPageController)
+	.controller('MainPageController', MainPageController)
 	.controller('ParamsController', ParamsController)
 
 	.directive('autofocus', ['$timeout', autofocus])

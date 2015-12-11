@@ -1,4 +1,4 @@
-function mainPageController(MainPageService, ParamService, PagesService, LanguagesService, utils) {
+function MainPageController(MainPageService, ParamService, PagesService, LanguagesService, utils) {
 	'use strict';
 
 	var ctrl = this;
@@ -32,6 +32,6 @@ function mainPageController(MainPageService, ParamService, PagesService, Languag
 	}	// setSearchTerm
 
 
-} // mainPageController
+} // MainPageController
 
-module.exports = mainPageController;
+module.exports = MainPageController;

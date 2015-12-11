@@ -2,7 +2,7 @@
 
 function mainPage() {
 	return {
-		controller: 'mainPageController',
+		controller: 'MainPageController',
 		controllerAs: 'pageCtrl',
 		bindToController: {
 			open: '=',
