@@ -1,11 +1,11 @@
 <!-- main-image -->
-<div class="main-image lead-wrapper pull-right" ng-show="mainImgControl.mainImageService.result">
-    <a ng-href="{{mainImgControl.mainImageService.result.fullurl}}" target="_blank">
-        <h1>{{mainImgControl.mainImageService.result.title}}</h1>
+<div class="main-image lead-wrapper pull-right" ng-show="mainImgCtrl.mainImageService.result">
+    <a ng-href="{{mainImgCtrl.mainImageService.result.fullurl}}" target="_blank">
+        <h1>{{mainImgCtrl.mainImageService.result.title}}</h1>
 
-        <img ng-show="mainImgControl.mainImageService.result.thumbnail" ng-src="{{mainImgControl.mainImageService.result.thumbnail.source}}" alt="{{mainImgControl.mainImageService.result.title}}" class="img-responsive img-rounded image-full">
+        <img ng-show="mainImgCtrl.mainImageService.result.thumbnail" ng-src="{{mainImgCtrl.mainImageService.result.thumbnail.source}}" alt="{{mainImgCtrl.mainImageService.result.title}}" class="img-responsive img-rounded image-full">
     </a>
-    <p ng-bind-html="mainImgControl.mainImageService.result.extract" ng-hide="mainImgControl.isEmptyExtract()"></p>
+    <p ng-bind-html="mainImgCtrl.mainImageService.result.extract" ng-hide="mainImgCtrl.isEmptyExtract()"></p>
 
-    <p class="read-more text-info pull-right"><a ng-href="{{mainImgControl.mainImageService.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{mainImgControl.paramService.settings.domain}}</span> >> </a></p>
+    <p class="read-more text-info pull-right"><a ng-href="{{mainImgCtrl.mainImageService.result.fullurl}}" target="_blank">See on <span class="text-capitalize">{{mainImgCtrl.paramService.settings.domain}}</span> >> </a></p>
 </div>

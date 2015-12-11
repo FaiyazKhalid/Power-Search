@@ -3,7 +3,7 @@
 function mainImage() {
 	return {
 		controller: 'MainImageController',
-		controllerAs: 'mainImgControl',
+		controllerAs: 'mainImgCtrl',
         templateUrl: 'components/main-image/main-image.html'
 	};
 } // mainImage
