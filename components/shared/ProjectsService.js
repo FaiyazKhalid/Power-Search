@@ -32,11 +32,6 @@ function ProjectsService($http, ParamService) {
 
 	/*** METHODS ***/
 
-	self.getProjects = function () {
-		return self.availableProjects;
-	};
-
-
 	self.get = function () {
 		// console.log(ParamService.languagesUrl);
 		$http.jsonp(ParamService.languagesUrl)
@@ -57,13 +52,13 @@ function ProjectsService($http, ParamService) {
 				pushAvailableProjects(thisLang.site[i]);
 			} // end for
 		}); // angular.forEach
-		console.log(self.all);
 	} // filterProjects
 
 
 	function pushAvailableProjects(thisSite) {
 		for (var i = 0; i < self.availableProjects.length; i++) {
-			if (thisSite.code === self.availableProjects[i].name) self.all.push(self.availableProjects[i]);
+			if (thisSite.code === self.availableProjects[i].name)
+				self.all.push(self.availableProjects[i]);
 		}
 	} // pushAvailableProjects
 
