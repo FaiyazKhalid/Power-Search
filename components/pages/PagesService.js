@@ -3,12 +3,9 @@
 function PagesService($http, utils, ParamService) {
 
     var self = this;
-
-	self.params = ParamService;
 	self.results = null;
 	self.exactMatch = null;
     self.showLoadMore = true;
-
 
     /*** METHODS ***/
 
