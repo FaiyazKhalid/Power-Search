@@ -2,29 +2,29 @@
 
 function ParamService(utils) {
 
-    var self = this;
+    var service = this;
     var thumbSize = utils.isDesktop() ? 250 : 150;
     var leadImageSize = 400;
 	var defaultLang = 'en';
 
-    self.searchFilters = ['intitle:', '', 'prefix:'];
-    self.pageLarge = false;
+    service.searchFilters = ['intitle:', '', 'prefix:'];
+    service.pageLarge = false;
 
-    self.languagesUrl = "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK";
+    service.languagesUrl = "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&format=json&formatversion=2&callback=JSON_CALLBACK";
 
     // interface settings
-    self.settings = {
+    service.settings = {
         lang: defaultLang,
         domain: 'wikipedia',
         searchTerm: '',
-        searchFilter: self.searchFilters[0],
+        searchFilter: service.searchFilters[0],
         orderBy: '',
         numResults: 20,
         remember: false
     };
 
     // basic wiki api settings for all
-    self.basic = {
+    service.basic = {
         action: 'query',
         inprop: 'url', // return page url
         redirects: '', // automatically resolve redirects
@@ -34,7 +34,7 @@ function ParamService(utils) {
     };
 
     // basic wiki api settings for pages and images
-    self.basicSearch = {
+    service.basicSearch = {
         generator: 'search',
         gsrsearch: '', // searchTerm + searchFilter
         gsrlimit: 20, // broj rezultata, max 50
@@ -43,18 +43,18 @@ function ParamService(utils) {
     };
 
     // specific settings
-    self.page = {
+    service.page = {
         titles: '',
         prop: 'extracts|pageimages|info',
         pithumbsize: leadImageSize // height
     };
 
-    self.mainImage = {
+    service.mainImage = {
         exintro: '', // only intro
         exchars: 250 // character limit
     };
 
-    self.pages = {
+    service.pages = {
         prop: 'extracts|pageimages|info|redirects',
         gsrnamespace: 0, // 0: article, 6: file
         pilimit: 'max', // thumb image for all articles
@@ -66,7 +66,7 @@ function ParamService(utils) {
         exchars: 1250 // character limit
     };
 
-	self.images = {
+	service.images = {
         prop: 'pageimages|imageinfo|info|redirects',
         gsrnamespace: 6, // 0: article, 6: file
         pilimit: 'max', // thumb image for all articles
@@ -78,112 +78,112 @@ function ParamService(utils) {
 
     /*** GETTERS ***/
 
-    self.getSearchTerm = function() {
-        return self.settings.searchTerm;
+    service.getSearchTerm = function() {
+        return service.settings.searchTerm;
     };
 
-    self.getPageTitle = function() {
-        return self.page.titles;
+    service.getPageTitle = function() {
+        return service.page.titles;
     }; // getPageTitle
 
-    self.getLang = function () {
-        return self.settings.lang;
+    service.getLang = function () {
+        return service.settings.lang;
     };
 
-    self.getDomain = function () {
-        return self.settings.domain;
+    service.getDomain = function () {
+        return service.settings.domain;
     };
 
-    self.getApiUrl = function() {
-        if (self.settings.domain == 'commons') return 'http://commons.wikimedia.org/w/api.php';
-        if (!self.settings.lang) self.settings.lang = defaultLang;
-        return 'http://' + self.settings.lang + '.' + self.settings.domain + '.org/w/api.php';
+    service.getApiUrl = function() {
+        if (service.settings.domain == 'commons') return 'http://commons.wikimedia.org/w/api.php';
+        if (!service.settings.lang) service.settings.lang = defaultLang;
+        return 'http://' + service.settings.lang + '.' + service.settings.domain + '.org/w/api.php';
     }; // getApiUrl
 
-    self.createParamUrl = function(chosenParams) {
-		var paramUrl = self.getApiUrl() + '?' + utils.serialize(chosenParams);
+    service.createParamUrl = function(chosenParams) {
+		var paramUrl = service.getApiUrl() + '?' + utils.serialize(chosenParams);
 		return paramUrl;
 	}; // createParamUrl
 
-    self.getPageParams = function() {
-        return angular.extend(self.page, self.basic);
+    service.getPageParams = function() {
+        return angular.extend(service.page, service.basic);
     }; // getPageParams
 
-    self.getPagesParams = function() {
-        return angular.extend(self.pages, self.basic, self.basicSearch);
+    service.getPagesParams = function() {
+        return angular.extend(service.pages, service.basic, service.basicSearch);
     }; // getPagesParams
 
-    self.getImageParams = function() {
-		return angular.extend(self.images, self.basic, self.basicSearch);
+    service.getImageParams = function() {
+		return angular.extend(service.images, service.basic, service.basicSearch);
 	}; // getImageParams
 
-    self.getImagePageParams = function() {
-		return angular.extend(self.mainImage, self.page, self.basic);
+    service.getImagePageParams = function() {
+		return angular.extend(service.mainImage, service.page, service.basic);
 	}; // getImagePageParams
 
 
     /*** SETTERS ***/
 
-    self.updateSearchTerm = function () {
-        var filter = self.settings.searchFilter;
-        var term = utils.capitalize(self.settings.searchTerm);
-        self.basicSearch.gsrsearch = filter + term;
-        self.page.titles = term;
-        self.mainImage.titles = term;
-        if (self.isCommons() && filter == 'prefix:') {
-            self.basicSearch.gsrsearch = filter + 'File:' + term;
+    service.updateSearchTerm = function () {
+        var filter = service.settings.searchFilter;
+        var term = utils.capitalize(service.settings.searchTerm);
+        service.basicSearch.gsrsearch = filter + term;
+        service.page.titles = term;
+        service.mainImage.titles = term;
+        if (service.isCommons() && filter == 'prefix:') {
+            service.basicSearch.gsrsearch = filter + 'File:' + term;
         }
     };  // updateSearchTerm
 
-    self.setSearchTerm = function(term) {
-        self.settings.searchTerm = term;
+    service.setSearchTerm = function(term) {
+        service.settings.searchTerm = term;
     };
 
-    self.setPageTitle = function(newName) {
-        self.page.titles = newName;
+    service.setPageTitle = function(newName) {
+        service.page.titles = newName;
     }; // setPageTitle
 
-    self.setLanguage = function(lang) {
-        self.settings.lang = lang;
+    service.setLanguage = function(lang) {
+        service.settings.lang = lang;
     };  // setLanguage
 
-    self.setOffset = function (x) {
-        self.basicSearch.gsroffset = x;
+    service.setOffset = function (x) {
+        service.basicSearch.gsroffset = x;
     };  // setOffset
 
 
     /*** HELPERS ***/
 
-    self.isCommons = function() {
-        return self.settings.domain == 'commons';
+    service.isCommons = function() {
+        return service.settings.domain == 'commons';
     }; // isCommons
 
 
     /*** STORAGE ***/
 
-    self.saveSettings = function() {
-        if (self.settings.remember) {
-            localStorage.wikiSettings = JSON.stringify(self.settings);
-            localStorage.basicSearch = JSON.stringify(self.basicSearch);
+    service.saveSettings = function() {
+        if (service.settings.remember) {
+            localStorage.wikiSettings = JSON.stringify(service.settings);
+            localStorage.basicSearch = JSON.stringify(service.basicSearch);
         }
     }; // saveSettings
 
-    self.loadSettings = function() {
-        if (localStorage.wikiSettings) self.settings = JSON.parse(localStorage.wikiSettings);
-        if (localStorage.basicSearch) self.basicSearch = JSON.parse(localStorage.basicSearch);
+    service.loadSettings = function() {
+        if (localStorage.wikiSettings) service.settings = JSON.parse(localStorage.wikiSettings);
+        if (localStorage.basicSearch) service.basicSearch = JSON.parse(localStorage.basicSearch);
     }; // loadSettings
 
-    self.deleteStorage = function() {
+    service.deleteStorage = function() {
         localStorage.removeItem("wikiSettings");
         localStorage.removeItem("basicSearch");
     }; // deleteSettings
 
-    self.toggleSave = function() {
-        if (self.settings.remember) {
-            self.saveSettings();
+    service.toggleSave = function() {
+        if (service.settings.remember) {
+            service.saveSettings();
             return;
         }
-        self.deleteStorage();
+        service.deleteStorage();
     }; // toggleSave
 
 } // ParamService

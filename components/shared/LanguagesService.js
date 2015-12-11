@@ -2,8 +2,8 @@
 
 function LanguagesService($http, ParamService) {
 
-	var self = this;
-	self.all = [];
+	var service = this;
+	service.all = [];
 
 	var defaultLang = 'en';
 	var chosenDomain = ParamService.getDomain();
@@ -11,13 +11,13 @@ function LanguagesService($http, ParamService) {
 
 	/*** METHODS ***/
 
-	self.get = function () {
-		self.resetErrors();
+	service.get = function () {
+		service.resetErrors();
 		if (ParamService.getDomain() === "commons") return;
 
 		$http.jsonp(ParamService.languagesUrl)
 			.success(function (data) {
-				self.resetLanguages();
+				service.resetLanguages();
 				filterLanguages(data);
 			})
 			.error(function (err) {
@@ -26,12 +26,12 @@ function LanguagesService($http, ParamService) {
 	}; // search
 
 
-	self.resetErrors = function () {
-		self.error = null;
+	service.resetErrors = function () {
+		service.error = null;
 	};
 
-	self.resetLanguages = function () {
-		self.all = [];
+	service.resetLanguages = function () {
+		service.all = [];
 	};
 
 
@@ -44,7 +44,7 @@ function LanguagesService($http, ParamService) {
 		angular.forEach(data.sitematrix, function (thisLang) {
 			if (!thisLang.site) return;
 			for (var i = 0; i < thisLang.site.length; i++) {
-				if (langDomainExists(thisLang.site[i])) self.all.push(thisLang);
+				if (langDomainExists(thisLang.site[i])) service.all.push(thisLang);
 				if (langDomainExists(thisLang.site[i]) && isChosenLang(thisLang)) chosenLangFound = true;
 			} // end for
 		}); // angular.forEach

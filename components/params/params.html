@@ -1,5 +1,5 @@
 <!-- params -->
-<section class="container">
+<section ng-controller="ParamsController as ctrl" class="container">
     <div class="logo-wrap row">
         <div class="col-md-6">
             <h1><a href="index.html" ng-click="ctrl.resetAndReload()">Wikipedia power search</a></h1>
@@ -7,7 +7,7 @@
         <form class="col-md-6" role="form" ng-cloak>
             <div class="wiki-logos">
                 <!-- projects -->
-                <label ng-repeat="project in ctrl.projectService.all">
+                <label ng-repeat="project in ctrl.projectService.projects">
                     <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': ctrl.isSelectedProject(project) }">
                     <input type="radio" ng-model="ctrl.paramService.settings.domain" value="{{project.name}}" ng-click="ctrl.refreshLanguages(); mainControl.search()">
                 </label>

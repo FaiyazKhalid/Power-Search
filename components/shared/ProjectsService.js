@@ -3,8 +3,8 @@
 
 function ProjectsService($http, ParamService) {
 
-	var self = this;
-	self.all = [];
+	var service = this;
+	service.projects = [];
 
 	/*** DATA ***/
 
@@ -33,7 +33,7 @@ function ProjectsService($http, ParamService) {
 
 	/*** METHODS ***/
 
-	self.get = function () {
+	service.get = function () {
 		// console.log(ParamService.languagesUrl);
 		$http.jsonp(ParamService.languagesUrl)
 			.success(function (data) {
@@ -52,12 +52,12 @@ function ProjectsService($http, ParamService) {
 				pushAvailableProjects(thisLang.site[i]);
 			} // end for
 		}); // angular.forEach
-		self.all.push(availableProjects[availableProjects.length-1]);	// always show commons
+		service.projects.push(availableProjects[availableProjects.length-1]);	// always show commons
 	} // filterProjects
 
 	function pushAvailableProjects(thisSite) {
 		for (var i = 0; i < availableProjects.length; i++) {
-			if (thisSite.code === availableProjects[i].name) self.all.push(availableProjects[i]);
+			if (thisSite.code === availableProjects[i].name) service.projects.push(availableProjects[i]);
 		}
 	} // pushAvailableProjects
 
@@ -66,7 +66,7 @@ function ProjectsService($http, ParamService) {
 	}
 
 	function resetProjects() {
-		self.all = [];
+		service.projects = [];
 	} // resetProjects
 
 	function isChosenLang(thisLang) {
