@@ -4,7 +4,6 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, utils
     LanguagesService.get();
     ProjectsService.get();
 
-
 	var ctrl = this;
     ctrl.paramService = ParamService;
 	ctrl.languageService = LanguagesService;

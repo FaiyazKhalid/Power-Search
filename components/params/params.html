@@ -38,7 +38,7 @@
             <div class="form-group">
                 <!-- languages -->
                 <!-- kada promenim jezik osveziProjekte -->
-                <select ng-model="ctrl.paramService.settings.lang" ng-options="lang.code as lang.name for lang in ctrl.languageService.all | orderBy:'prefix' " ng-change='mainControl.search()' class="form-control input-sm" ng-disabled="ctrl.isCommons()"></select>
+                <select ng-model="ctrl.paramService.settings.lang" ng-options="lang.code as lang.name for lang in ctrl.languageService.all | orderBy:'prefix' " ng-change='ctrl.refreshProjects(); mainControl.search()' class="form-control input-sm" ng-disabled="ctrl.isCommons()"></select>
             </div>
             <label class="checkbox-inline">
                 <!-- remember -->
