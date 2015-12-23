@@ -1,12 +1,13 @@
 'use strict';
 /*
 TODO:
+- upisati visinu i sirinu slikama javascriptom
 - da se opis slike pojavi tek kad se slika učita
 - srediti responsive header
 - povecati load more dugme
 - primer paramUrl u dokumentaciju
 - ubaciti dugme reset settings
-
+- mozda odvojiti header i params (search header komponenta, a param servis)
 BAG:
 - srediti preticanje rezultata i kucanja
 */
