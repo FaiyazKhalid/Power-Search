@@ -158,8 +158,9 @@ function ParamService(utils) {
     service.resetToDefaults = function () {
         service.setLanguage('en');
         service.setDomain('wikipedia');
-        // res 20
-        // filter
+        service.basicSearch.gsrlimit = 20;
+        service.settings.orderBy = '';
+        service.settings.searchFilter = service.searchFilters[0];
     };  // resetToDefaults
 
 
