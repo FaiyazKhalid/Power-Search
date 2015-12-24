@@ -8,6 +8,7 @@ TODO:
 - optimizovati
 BAG:
 - srediti preticanje rezultata i kucanja
+- kucam, brzo resetujem, obrise pa ga prestigne poslednji rezultat
 - izbaciti ng-controller iz pages.html i params.html
 */
 var angular = require('angular');
