@@ -1,14 +1,13 @@
 'use strict';
 /*
 TODO:
-- srediti responsive header
-- povecati load more dugme
-- primer paramUrl u dokumentaciju
-- ubaciti dugme reset settings
+- ubaciti dugme reset settings - resetAndReload
 - mozda odvojiti header i params (search header komponenta, a param servis)
+- srediti responsive header
+- primer paramUrl u dokumentaciju
 BAG:
 - srediti preticanje rezultata i kucanja
-- izbaciti ng-controller iz pages.html
+- izbaciti ng-controller iz pages.html i params.html
 */
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
