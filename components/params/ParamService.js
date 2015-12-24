@@ -3,7 +3,7 @@
 function ParamService(utils) {
 
     var service = this;
-    var thumbSize = utils.isDesktop() ? 250 : 150;
+    var thumbSize = utils.isDesktop() ? 250 : 150;  // > 992 px
     var leadImageSize = 400;
 	var defaultLang = 'en';
 

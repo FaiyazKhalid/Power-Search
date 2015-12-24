@@ -6,11 +6,11 @@
 }
 
 * {
-    /*transition: all 0.3s ease-out;*/
+    transition: all 0.3s ease-out;
 }
 
 
-/* HELPERS */
+/*** SHARED ***/
 
 .full-width {
     width: 100%;
@@ -48,6 +48,14 @@
     display: inline-block;
 }
 
+.main {
+    margin-bottom: 40px;
+}
+
+.loadmore-wrapper {
+    margin-top: 30px;
+}
+
 
 /* HEADER */
 
@@ -66,8 +74,7 @@
 }
 
 .wiki-logos label {
-    display: inline;
-    /* becouse of justify */
+    display: inline; /* because of justify */
 }
 
 .wiki-logos input {
@@ -88,13 +95,7 @@
 }
 
 
-/* MAIN */
-
-.main {
-    margin-bottom: 40px;
-}
-
-/* MAIN PAGE */
+/*** MAIN PAGE ***/
 
 .main-page-wrapper {
     float: right;
@@ -123,10 +124,8 @@
     margin-top: 10px;
 }
 
-/* PAGES */
 
-
-/* MAIN IMAGE */
+/*** MAIN IMAGE ***/
 
 .main-image {
     width: 25%;
@@ -138,13 +137,15 @@
     width:100%;
 }
 
-/* IMAGES */
+
+/*** IMAGES ***/
 
 .img-wrapper {
     position: relative;
     display: inline-block;
     padding: 5px;
     min-width: 150px;
+    min-height: 150px;
 }
 
 .inner-img-wrapper {
@@ -162,7 +163,8 @@
     padding: 5px 10px;
 }
 
-/* FORK-ME */
+
+/*** FORK-ME ***/
 
 .forkme {
     transform: rotate(-45deg);
@@ -182,4 +184,16 @@
     width: 200px;
     display: inline-block;
     padding: 2px 0;
+}
+
+
+/*** RESPONSIVE ***/
+
+@media screen and (max-width: 992px) {
+
+    .img-wrapper {
+        min-width: 100px;
+        min-height: 100px;
+    }
+
 }
