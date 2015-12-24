@@ -35,6 +35,7 @@ var LanguagesService = require('./components/shared/LanguagesService');
 var ProjectsService = require('./components/shared/ProjectsService');
 
 var MainController = require('./components/shared/MainController');
+var MainService = require('./components/shared/MainService');
 var autofocus = require('./components/shared/autofocusDirective');
 var imageOnload = require('./components/shared/imageOnloadDirective');
 var forkme = require('./components/shared/forkmeDirective');
@@ -61,6 +62,7 @@ angular
 	.directive('mainImage', mainImage)
 
 	.factory('utils', utils)
+	.service('MainService', MainService)
     .service('ProjectsService', ProjectsService)
 	.service('LanguagesService', LanguagesService)
 	.service('ParamService', ParamService)

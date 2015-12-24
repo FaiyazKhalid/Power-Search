@@ -1,54 +1,60 @@
 function ParamsController(ParamService, ProjectsService, LanguagesService, utils) {
-'use strict';
+	'use strict';
 
-    LanguagesService.get();
-    ProjectsService.get();
+	LanguagesService.get();
+	ProjectsService.get();
 
 	var ctrl = this;
-    ctrl.paramService = ParamService;
+	ctrl.paramService = ParamService;
 	ctrl.languageService = LanguagesService;
-    ctrl.projectService = ProjectsService;
+	ctrl.projectService = ProjectsService;
 
 
 	/*** PUBLIC METHODS ***/
 
-    ctrl.checkMaxResults = function () {
+	ctrl.checkMaxResults = function () {
 		if (ParamService.pages.gsrlimit > 50) ParamService.pages.gsrlimit = 50;
 	}; // checkMaxResults
 
-    ctrl.isSelectedProject = function(project) {
+	ctrl.isSelectedProject = function (project) {
 		return ParamService.settings.domain == project.name;
-	};	// isChosenProject
+	}; // isChosenProject
 
-    ctrl.toggleSave = function() {
+	ctrl.toggleSave = function () {
 		ParamService.toggleSave();
-	};	// toggleRemember
+	}; // toggleRemember
 
-	ctrl.reset = function() {
+	ctrl.reset = function () {
+		// ukloniti path term
 		resetSearchTerm();
-		utils.reload();
-	};	// reset
+		// iskljuciti pamcenje
+		ParamService.turnOffRemember();
+		// resetovati sve rezultate
 
-    ctrl.refreshLanguages = function() {
+		// vratiti default podesavanja
+
+		// utils.reload();
+	}; // reset
+
+	ctrl.refreshLanguages = function () {
 		LanguagesService.get();
-	};
+	}; // refreshLanguages
 
-    ctrl.refreshProjects = function() {
-        ProjectsService.get();
-    };
+	ctrl.refreshProjects = function () {
+		ProjectsService.get();
+	}; // refreshProjects
 
-    ctrl.isCommons = function() {
-      return ParamService.isCommons();
-  };
+	ctrl.isCommons = function () {
+		return ParamService.isCommons();
+	}; // isCommons
 
 
-	/*** PRIVATE FUNCTIONS ***/
+	/*** PRIVATE ***/
 
-    function resetSearchTerm() {
+	function resetSearchTerm() {
 		ParamService.setSearchTerm('');
-		utils.reupdatePath();
-	}
-
+		utils.resetPath();
+	} // resetSearchTerm
 
 } // ParamsController
 

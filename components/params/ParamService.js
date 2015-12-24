@@ -186,6 +186,11 @@ function ParamService(utils) {
         service.deleteStorage();
     }; // toggleSave
 
+    service.turnOffRemember = function () {
+        service.settings.remember = false;
+        service.toggleSave();
+    };  // turnOffRemember
+
 } // ParamService
 
 

@@ -1,8 +1,7 @@
 'use strict';
-function MainController($window, utils, ParamService, MainPageService, PagesService, ImagesService, MainImageService) {
+function MainController($window, utils, MainService, ParamService) {
 
 	var ctrl = this;
-
 
 	/*** PUBLIC METHODS ***/
 
@@ -14,42 +13,17 @@ function MainController($window, utils, ParamService, MainPageService, PagesServ
 	}; // init
 
 	ctrl.search = function () {
-		clearResults();
-		ParamService.updateSearchTerm();
-		utils.updatePath(ParamService.getSearchTerm());
-
-		if (ParamService.isCommons()) {
-			ImagesService.search();
-			MainImageService.open();
-		} else {
-			PagesService.search(openExactPage);
-		}
-		ParamService.saveSettings();
+		MainService.search();
 	}; // search
 
 	ctrl.open = function (title) {
-		ParamService.setPageTitle(title);
-		MainPageService.open();
-		utils.scrollToTop(300);
+		MainService.open(title);
 	}; // open
 
 	ctrl.selectText = function () {
 		ParamService.setSearchTerm(utils.getSelection());
 	}; // selectText
 
-
-	/*** PRIVATE FUNCTIONS ***/
-
-	function openExactPage() {
-	  MainPageService.open(ParamService.getPageTitle());
-  	}	// openExactPage
-
-	function clearResults() {
-		MainPageService.clearResults();
-        PagesService.clearResults();
-		ImagesService.clearResults();
-		MainImageService.clearResults();
-	} // clearResults
 
 } // MainController
 

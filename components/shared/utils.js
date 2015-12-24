@@ -4,6 +4,8 @@ function utils($window, $location) {
 
 	var noResultsMessage = "No results for the search term. Try again with different criteria.";
 
+	/*** FUNCTIONS ***/
+
 	function updatePath(term) {
 		$location.path(term);
 	} // updatePath
@@ -12,9 +14,9 @@ function utils($window, $location) {
 		return $location.path().substr(1);
 	} // updatePath
 
-	function reupdatePath() {
+	function resetPath() {
 		$location.path("");
-	}  // reupdatePath
+	}  // resetPath
 
 	function reload() {
 		$window.location.reload();
@@ -70,9 +72,10 @@ function utils($window, $location) {
     } // isDesktop
 
 
+	/*** PUBLIC ***/
+
 	return {
 		noResultsMessage: noResultsMessage,
-
 		isDesktop: isDesktop,
 		replaceSpacesWithUnderscores: replaceSpacesWithUnderscores,
 		scrollToTop: scrollToTop,
@@ -83,7 +86,7 @@ function utils($window, $location) {
 		htmlToPlaintext: htmlToPlaintext,
 		updatePath: updatePath,
 		getPath: getPath,
-		reupdatePath: reupdatePath,
+		resetPath: resetPath,
         reload: reload,
         getSelection: getSelection
 	};
