@@ -26,10 +26,14 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, MainS
 
 	ctrl.reset = function () {
 		resetSearchTerm();
-		ParamService.turnOffRemember();
         MainService.clearResults();
-        ParamService.resetToDefaults();
 	}; // reset
+
+    ctrl.hardReset = function () {
+        ctrl.reset();
+        ParamService.turnOffRemember();
+        ParamService.resetToDefaults();
+    }; // reset
 
 	ctrl.refreshLanguages = function () {
 		LanguagesService.get();

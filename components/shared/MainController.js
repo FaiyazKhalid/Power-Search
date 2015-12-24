@@ -1,5 +1,5 @@
 'use strict';
-function MainController($window, utils, MainService, ParamService) {
+function MainController(utils, MainService, ParamService) {
 
 	var ctrl = this;
 
@@ -9,7 +9,6 @@ function MainController($window, utils, MainService, ParamService) {
 		ParamService.loadSettings();
 		if (utils.getPath()) ParamService.setSearchTerm(utils.getPath());
 		ctrl.search();
-		$window.onhashchange = ctrl.init;
 	}; // init
 
 	ctrl.search = function () {
