@@ -5,6 +5,7 @@ TODO:
 - mozda odvojiti header i params (search header komponenta, a param servis)
 - srediti responsive header
 - primer paramUrl u dokumentaciju
+- optimizovati
 BAG:
 - srediti preticanje rezultata i kucanja
 - izbaciti ng-controller iz pages.html i params.html
