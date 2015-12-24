@@ -1,7 +1,7 @@
 'use strict';
 /*
 TODO:
-- ubaciti dugme reset settings - resetAndReload
+- napraviti jedno loadmore dugme umesto dva
 - mozda odvojiti header i params (search header komponenta, a param servis)
 - srediti responsive header
 - primer paramUrl u dokumentaciju
