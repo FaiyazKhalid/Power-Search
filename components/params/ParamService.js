@@ -139,6 +139,10 @@ function ParamService(utils) {
         service.settings.searchTerm = term;
     };
 
+    service.setDomain = function(domain) {
+        service.settings.domain = domain;
+    };
+
     service.setPageTitle = function(newName) {
         service.page.titles = newName;
     }; // setPageTitle
@@ -150,6 +154,13 @@ function ParamService(utils) {
     service.setOffset = function (x) {
         service.basicSearch.gsroffset = x;
     };  // setOffset
+
+    service.resetToDefaults = function () {
+        service.setLanguage('en');
+        service.setDomain('wikipedia');
+        // res 20
+        // filter
+    };  // resetToDefaults
 
 
     /*** HELPERS ***/

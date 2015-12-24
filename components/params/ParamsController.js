@@ -29,7 +29,8 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, MainS
 		ParamService.turnOffRemember();
         MainService.clearResults();
 		// vratiti default podesavanja
-
+        // napraviti metod u param servisu resetToDefaults
+        ParamService.resetToDefaults();
 	}; // reset
 
 	ctrl.refreshLanguages = function () {
