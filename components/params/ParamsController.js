@@ -1,4 +1,4 @@
-function ParamsController(ParamService, ProjectsService, LanguagesService, utils) {
+function ParamsController(ParamService, ProjectsService, LanguagesService, MainService, utils) {
 	'use strict';
 
 	LanguagesService.get();
@@ -25,15 +25,11 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, utils
 	}; // toggleRemember
 
 	ctrl.reset = function () {
-		// ukloniti path term
 		resetSearchTerm();
-		// iskljuciti pamcenje
 		ParamService.turnOffRemember();
-		// resetovati sve rezultate
-
+        MainService.clearResults();
 		// vratiti default podesavanja
 
-		// utils.reload();
 	}; // reset
 
 	ctrl.refreshLanguages = function () {
