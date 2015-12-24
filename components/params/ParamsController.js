@@ -24,10 +24,10 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, utils
 		ParamService.toggleSave();
 	};	// toggleRemember
 
-	ctrl.resetAndReload = function() {
+	ctrl.reset = function() {
 		resetSearchTerm();
 		utils.reload();
-	};	// resetAndReload
+	};	// reset
 
     ctrl.refreshLanguages = function() {
 		LanguagesService.get();
