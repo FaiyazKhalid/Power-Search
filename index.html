@@ -12,7 +12,9 @@
 <body ng-controller='MainController as mainControl' ng-init='mainControl.init()'>
 
     <header class="header">
-        <search-header></search-header>
+        <section ng-controller="SearchHeadController as ctrl" class="container">
+            <search-header></search-header>
+        </section>
     </header>
 
     <main class="container main" ng-cloak>
