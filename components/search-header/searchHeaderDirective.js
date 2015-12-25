@@ -2,7 +2,7 @@
 
 function searchHeader() {
 	return {
-		controller: 'ParamsController',
+		controller: 'SearchHeaderController',
 		controllerAs: 'ctrl',
 		bindToController: {
 			search: '='

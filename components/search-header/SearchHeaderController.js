@@ -1,4 +1,4 @@
-function ParamsController(ParamService, ProjectsService, LanguagesService, MainService, utils) {
+function SearchHeaderController(ParamService, ProjectsService, LanguagesService, MainService, utils) {
 	'use strict';
 
 	LanguagesService.get();
@@ -55,6 +55,6 @@ function ParamsController(ParamService, ProjectsService, LanguagesService, MainS
 		utils.resetPath();
 	} // resetSearchTerm
 
-} // ParamsController
+} // SearchHeaderController
 
-module.exports = ParamsController;
+module.exports = SearchHeaderController;
