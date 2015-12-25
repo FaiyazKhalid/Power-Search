@@ -1,39 +1,40 @@
 {
-	"name": "angular-wiki-search",
-	"version": "1.0.0",
-	"description": "A specialized search engine for Wikimedia projects, written in AngularJS",
-	"main": "app.js",
-	"scripts": {
-		"build": "browserify app.js -o dist.js",
-		"watch": "watchify app.js -o dist.js --debug --verbose",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"dependencies": {
-		"angular": "^1.4.7",
-		"angular-sanitize": "^1.4.7"
-	},
-	"devDependencies": {
-		"browserify": "^12.0.1",
-		"watchify": "^3.6.1"
-	},
-	"keywords": [
-        "JS",
-        "angular",
-        "angularjs",
-        "wikipedia-api",
-        "wikipedia",
-        "search",
-        "mediawiki-api",
-        "javascript"
-    ],
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/mudroljub/angular-wiki-search.git"
-	},
-	"bugs": {
-		"url": "https://github.com/mudroljub/angular-wiki-search/issues"
-	},
-	"homepage": "https://github.com/mudroljub/angular-wiki-search#readme",
-	"author": "mudroljub",
-	"license": "MIT"
+  "name": "angular-wiki-search",
+  "version": "1.0.0",
+  "description": "A specialized search engine for Wikimedia projects, written in AngularJS",
+  "main": "app.js",
+  "scripts": {
+    "build": "browserify app.js | uglifyjs > dist.js",
+    "watch": "watchify app.js -o dist.js --debug --verbose",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "angular": "^1.4.7",
+    "angular-sanitize": "^1.4.7"
+  },
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "uglify-js": "^2.6.1",
+    "watchify": "^3.6.1"
+  },
+  "keywords": [
+    "JS",
+    "angular",
+    "angularjs",
+    "wikipedia-api",
+    "wikipedia",
+    "search",
+    "mediawiki-api",
+    "javascript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mudroljub/angular-wiki-search.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mudroljub/angular-wiki-search/issues"
+  },
+  "homepage": "https://github.com/mudroljub/angular-wiki-search#readme",
+  "author": "mudroljub",
+  "license": "MIT"
 }
