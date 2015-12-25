@@ -31,8 +31,8 @@ var mainImage = require('./components/main-image/mainImageDirective');
 var MainImageController = require('./components/main-image/MainImageController');
 var MainImageService = require('./components/main-image/MainImageService');
 
-var searchHeader = require('./components/search-header/searchHeaderDirective');
-var SearchHeaderController = require('./components/search-header/SearchHeaderController');
+var searchHead = require('./components/search-header/searchHeadDirective');
+var SearchHeadController = require('./components/search-header/SearchHeadController');
 var ParamService = require('./components/search-header/ParamService');
 var LanguagesService = require('./components/shared/LanguagesService');
 var ProjectsService = require('./components/shared/ProjectsService');
@@ -53,14 +53,14 @@ angular
 	.controller('MainImageController', MainImageController)
 	.controller('PagesController', PagesController)
 	.controller('MainPageController', MainPageController)
-	.controller('SearchHeaderController', SearchHeaderController)
+	.controller('SearchHeadController', SearchHeadController)
 
 	.directive('autofocus', ['$timeout', autofocus])
 	.directive('imageOnload', imageOnload)
 	.directive('images', images)
 	.directive('mainPage', mainPage)
 	.directive('pages', pages)
-	.directive('searchHeader', searchHeader)
+	.directive('searchHead', searchHead)
 	.directive('forkme', forkme)
 	.directive('mainImage', mainImage)
 

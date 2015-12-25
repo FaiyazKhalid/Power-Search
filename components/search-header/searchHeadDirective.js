@@ -1,14 +1,14 @@
 'use strict';
 
-function searchHeader() {
+function searchHead() {
 	return {
-		controller: 'SearchHeaderController',
+		controller: 'SearchHeadController',
 		controllerAs: 'ctrl',
 		bindToController: {
 			search: '='
 		},
 		templateUrl: 'components/search-header/search-header.html'
 	};
-} // searchHeader
+} // searchHead
 
-module.exports = searchHeader;
+module.exports = searchHead;
