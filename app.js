@@ -1,10 +1,9 @@
 'use strict';
 /*
 TODO:
-- mozda odvojiti header i params (search header komponenta, a param servis)
+- optimizovati
 - srediti responsive header
 - primer paramUrl u dokumentaciju
-- optimizovati
 BAG:
 - srediti preticanje rezultata i kucanja
 - kucam, brzo resetujem, obrise pa ga prestigne poslednji rezultat
