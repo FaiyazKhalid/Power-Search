@@ -1,6 +1,6 @@
 'use strict';
 
-function searchHead() {
+function searchHeader() {
 	return {
 		controller: 'SearchHeadController',
 		controllerAs: 'ctrl',
@@ -9,6 +9,6 @@ function searchHead() {
 		},
 		templateUrl: 'components/search-header/search-header.html'
 	};
-} // searchHead
+} // searchHeader
 
-module.exports = searchHead;
+module.exports = searchHeader;
