@@ -31,7 +31,7 @@ var mainImage = require('./components/main-image/mainImageDirective');
 var MainImageController = require('./components/main-image/MainImageController');
 var MainImageService = require('./components/main-image/MainImageService');
 
-var searchHead = require('./components/search-header/searchHeadDirective');
+var searchHeader = require('./components/search-header/searchHeadDirective');
 var SearchHeadController = require('./components/search-header/SearchHeadController');
 var ParamService = require('./components/search-header/ParamService');
 var LanguagesService = require('./components/shared/LanguagesService');
@@ -60,7 +60,7 @@ angular
 	.directive('images', images)
 	.directive('mainPage', mainPage)
 	.directive('pages', pages)
-	.directive('searchHead', searchHead)
+	.directive('searchHeader', searchHeader)
 	.directive('forkme', forkme)
 	.directive('mainImage', mainImage)
 
