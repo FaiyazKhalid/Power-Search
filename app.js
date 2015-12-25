@@ -33,7 +33,8 @@ var MainImageService = require('./components/main-image/MainImageService');
 
 var searchHeader = require('./components/search-header/searchHeadDirective');
 var SearchHeadController = require('./components/search-header/SearchHeadController');
-var ParamService = require('./components/search-header/ParamService');
+
+var ParamService = require('./components/shared/ParamService');
 var LanguagesService = require('./components/shared/LanguagesService');
 var ProjectsService = require('./components/shared/ProjectsService');
 
