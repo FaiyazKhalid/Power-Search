@@ -1,7 +1,8 @@
 {
   "name": "angular-wiki-search",
+  "author": "mudroljub",
   "version": "1.0.0",
-  "description": "AngularJS module for consuming Wikipedia API",
+  "description": "A specialized search engine for Wikimedia projects, written in AngularJS",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,7 +23,6 @@
     "mediawiki-api",
     "javascript"
   ],
-  "author": "mudroljub",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mudroljub/angular-wiki-search/issues"
