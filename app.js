@@ -1,7 +1,6 @@
 'use strict';
 /*
 TODO:
-- napraviti jedno loadmore dugme umesto dva
 - mozda odvojiti header i params (search header komponenta, a param servis)
 - srediti responsive header
 - primer paramUrl u dokumentaciju
@@ -10,6 +9,8 @@ BAG:
 - srediti preticanje rezultata i kucanja
 - kucam, brzo resetujem, obrise pa ga prestigne poslednji rezultat
 - izbaciti ng-controller iz pages.html i params.html
+TRIVIA:
+- napraviti jedno loadmore dugme umesto dva
 */
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
@@ -30,9 +31,9 @@ var mainImage = require('./components/main-image/mainImageDirective');
 var MainImageController = require('./components/main-image/MainImageController');
 var MainImageService = require('./components/main-image/MainImageService');
 
-var params = require('./components/params/paramsDirective');
-var ParamsController = require('./components/params/ParamsController');
-var ParamService = require('./components/params/ParamService');
+var searchHeader = require('./components/search-header/searchHeaderDirective');
+var ParamsController = require('./components/search-header/ParamsController');
+var ParamService = require('./components/search-header/ParamService');
 var LanguagesService = require('./components/shared/LanguagesService');
 var ProjectsService = require('./components/shared/ProjectsService');
 
@@ -59,7 +60,7 @@ angular
 	.directive('images', images)
 	.directive('mainPage', mainPage)
 	.directive('pages', pages)
-	.directive('params', params)
+	.directive('searchHeader', searchHeader)
 	.directive('forkme', forkme)
 	.directive('mainImage', mainImage)
 
