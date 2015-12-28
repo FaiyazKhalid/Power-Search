@@ -1,15 +1,13 @@
 'use strict';
 /*
 TODO:
-- optimizovati
 - srediti responsive header
+- optimizovati
 - primer paramUrl u dokumentaciju
 BAG:
 - srediti preticanje rezultata i kucanja
 - kucam, brzo resetujem, obrise pa ga prestigne poslednji rezultat
 - izbaciti ng-controller iz pages.html i params.html
-TRIVIA:
-- napraviti jedno loadmore dugme umesto dva
 */
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');

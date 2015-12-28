@@ -2,8 +2,8 @@
 <div class="logo-wrap row">
     <div class="col-md-6">
         <h1>
-            <a href="index.html" class="btn btn-default btn-sm" ng-click="ctrl.hardReset()">Reset all</a>
-            <a href="index.html" ng-click="ctrl.reset()">Power Wiki Search</a>
+            <a href="index.html" class="btn btn-default btn-sm pull-right" ng-click="ctrl.hardReset()">Reset all</a>
+            <a href="index.html" ng-click="ctrl.reset()">Wiki Search</a>
         </h1>
     </div>
     <form class="col-md-6" role="form" ng-cloak>
@@ -44,7 +44,7 @@
         <label class="checkbox-inline">
             <!-- remember -->
             <input type="checkbox" ng-model="ctrl.paramService.settings.remember" ng-change="ctrl.toggleSave()">
-            <small>remember settings</small>
+            <small>save settings</small>
         </label>
     </div>
     <div class="col-md-1">
