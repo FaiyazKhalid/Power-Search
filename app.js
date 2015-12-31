@@ -1,6 +1,7 @@
 'use strict';
 /*
 TODO:
+- da prikazuje header bez javaskripta
 - izbaciti bootstrap, ostaviti samo korisne klase
 - optimizovati
 - primer paramUrl u dokumentaciju
