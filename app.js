@@ -1,7 +1,6 @@
 'use strict';
 /*
 TODO:
-- srediti responsive header (dimenzije glavnog teksta i slike, ogranici max visinu)
 - optimizovati
 - primer paramUrl u dokumentaciju
 BAG:

@@ -201,9 +201,18 @@
 
     .main-page-wrapper {
         width: 100%;
-        /*max-height: 600px;*/
     }
-
+    .lead-wrapper,
+    .pages-wrapper section {
+        max-height: 600px;
+    }
+    .lead-wrapper {
+        overflow: scroll;
+        margin-bottom: 40px;
+    }
+    .pages-wrapper section {
+        overflow: hidden;
+    }
     .img-wrapper {
         min-width: 100px;
         min-height: 100px;
