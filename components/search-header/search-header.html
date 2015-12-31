@@ -1,23 +1,4 @@
-<!-- params -->
-<div class="logo-wrap row">
-    <div class="col-md-6">
-        <h1>
-            <a href="index.html" class="btn btn-default btn-sm pull-right" ng-click="ctrl.hardReset()">Reset all</a>
-            <a href="index.html" ng-click="ctrl.reset()">Wiki Search</a>
-        </h1>
-    </div>
-    <form class="col-md-6" role="form" ng-cloak>
-        <div class="wiki-logos">
-            <!-- projects -->
-            <label ng-repeat="project in ctrl.projectService.projects">
-                <img ng-src="{{project.logo}}" alt="{{project.name}}" title="{{project.name}}" ng-class="{ 'selected-logo': ctrl.isSelectedProject(project) }">
-                <input type="radio" ng-model="ctrl.paramService.settings.domain" value="{{project.name}}" ng-click="ctrl.refreshLanguages(); mainControl.search()">
-            </label>
-            <span class="justify-helper"></span>
-        </div>
-    </form>
-</div>
-
+<!-- search header -->
 <form class="search-form row" role="form" ng-cloak>
     <div class="col-md-6">
         <div class="search-wrapper form-group">
