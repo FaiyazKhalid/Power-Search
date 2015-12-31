@@ -30,6 +30,7 @@ var MainImageController = require('./components/main-image/MainImageController')
 var MainImageService = require('./components/main-image/MainImageService');
 
 var searchHeader = require('./components/search-header/searchHeadDirective');
+var wikiProjects = require('./components/search-header/wikiProjectsDirective');
 var SearchHeadController = require('./components/search-header/SearchHeadController');
 
 var ParamService = require('./components/shared/ParamService');
@@ -52,13 +53,14 @@ angular
 	.controller('MainPageController', MainPageController)
 	.controller('SearchHeadController', SearchHeadController)
 
-	.directive('autofocus', ['$timeout', autofocus])
+	.directive('searchHeader', searchHeader)
+	.directive('wikiProjects', wikiProjects)
 	.directive('images', images)
 	.directive('mainPage', mainPage)
 	.directive('pages', pages)
-	.directive('searchHeader', searchHeader)
 	.directive('mainImage', mainImage)
-
+	.directive('autofocus', ['$timeout', autofocus])
+	
 	.factory('utils', utils)
 	.service('MainService', MainService)
     .service('ProjectsService', ProjectsService)
