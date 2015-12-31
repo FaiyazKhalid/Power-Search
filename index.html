@@ -18,10 +18,10 @@
         <section ng-controller="SearchHeadController as ctrl" class="container">
             <div class="header-upper-row row">
                 <div class="col-md-6">
-                    <button class="btn btn-default btn-sm pull-right" ng-click="ctrl.hardReset()">Reset all</button>
                     <h1 class="logo">
                         <span ng-click="ctrl.reset()">Power Wiki Search</span>
                     </h1>
+                    <button ng-click="ctrl.hardReset()" class="btn btn-default btn-sm pull-right" >Reset all</button>
                 </div>
                 <div class="col-md-6" ng-cloak>
                     <wiki-projects></wiki-projects>
