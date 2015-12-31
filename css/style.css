@@ -65,8 +65,13 @@
     margin-bottom: 20px;
 }
 
-.logo-wrap {
+.header-upper-row {
     margin-bottom: 20px;
+}
+
+.logo {
+    display: inline;
+    cursor: pointer;
 }
 
 .wiki-logos {
