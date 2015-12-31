@@ -1,6 +1,7 @@
 'use strict';
 /*
 TODO:
+- izbaciti bootstrap, ostaviti samo korisne klase
 - optimizovati
 - primer paramUrl u dokumentaciju
 BAG:
