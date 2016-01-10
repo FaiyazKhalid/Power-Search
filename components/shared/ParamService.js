@@ -155,6 +155,10 @@ function ParamService(utils) {
         service.basicSearch.gsroffset = x;
     };  // setOffset
 
+    service.resetOffset = function () {
+        service.basicSearch.gsroffset = null;
+    };  // resetOffset
+
     service.resetToDefaults = function () {
         service.setLanguage('en');
         service.setDomain('wikipedia');

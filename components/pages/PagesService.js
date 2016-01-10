@@ -2,58 +2,58 @@
 
 function PagesService($http, utils, ParamService) {
 
-    var service = this;
-	service.results = null;
-	service.exactMatch = null;
-    service.showLoadMore = true;
+    var self = this;
+	self.results = null;
+	self.exactMatch = null;
+    self.showLoadMore = true;
 
     /*** METHODS ***/
 
-	service.search = function(callback) {
-        service.clearResults();
+	self.search = function(callback) {
+        self.clearResults();
         if(!ParamService.getSearchTerm()) return;
 		var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
 		// console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function handleSearchResponse(data) {
 				if (!data.query) return noResults();
-				service.results = data.query.pages;
-                service.toggleLoadMore(Boolean(data.continue));
-                if (data.continue) service.offset = data.continue.gsroffset;
-				service.exactMatch = findExactTerm(service.results);
-				if (!service.exactMatch) return;
-				ParamService.setPageTitle(service.exactMatch);
+				self.results = data.query.pages;
+                self.toggleLoadMore(Boolean(data.continue));
+                if (data.continue) ParamService.setOffset(data.continue.gsroffset);
+				self.exactMatch = findExactTerm(self.results);
+				if (!self.exactMatch) return;
+				ParamService.setPageTitle(self.exactMatch);
                 callback(); // openThePage
 			})
 			.error(handleErrors);
 	}; // search
 
 
-    service.loadMore = function () {
-        ParamService.setOffset(service.offset);
+    self.loadMore = function () {
+        // ParamService.setOffset(self.offset);
         var paramUrl = ParamService.createParamUrl(ParamService.getPagesParams());
-        // console.log(paramUrl);
+        console.log(paramUrl);
 		$http.jsonp(paramUrl)
 			.success(function (data) {
-                service.toggleLoadMore(Boolean(data.continue));
-                if (data.continue) service.offset = data.continue.gsroffset;
+                self.toggleLoadMore(Boolean(data.continue));
+                if (data.continue) ParamService.setOffset(data.continue.gsroffset);
                 if (!data.query) return;
-                service.results = service.results.concat(data.query.pages);
+                self.results = self.results.concat(data.query.pages);
 			});
     };  // loadMore
 
 
-    service.clearResults = function() {
+    self.clearResults = function() {
         resetErrors();
-        service.results = null;
-        service.noResultsMessage = null;
-        service.exactMatch = null;
-        service.offset = null;
+        self.results = null;
+        self.noResultsMessage = null;
+        self.exactMatch = null;
+        ParamService.resetOffset();
     }; // clearResults
 
 
-    service.toggleLoadMore = function(bool) {
-        service.showLoadMore = bool;
+    self.toggleLoadMore = function(bool) {
+        self.showLoadMore = bool;
     };
 
 
@@ -75,18 +75,18 @@ function PagesService($http, utils, ParamService) {
 
     function handleErrors(data, status) {
         if(status == 404) {
-            service.error = "The domain you requesting does not exist. Try again with different criteria.";
+            self.error = "The domain you requesting does not exist. Try again with different criteria.";
             return;
         }
-		service.error = "Oh no, there was some error in geting data: " + status;
+		self.error = "Oh no, there was some error in geting data: " + status;
 	} // handleErrors
 
     function noResults() {
-        service.noResultsMessage = utils.noResultsMessage;
+        self.noResultsMessage = utils.noResultsMessage;
     }
 
     function resetErrors() {
-		service.error = "";
+		self.error = "";
 	}	// resetErrors
 
 } // PagesService
