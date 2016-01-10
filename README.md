@@ -12,7 +12,7 @@ bower install
 nmp install
 ```
 
-Open index.html on localhost.
+It is necessary to open index.html on localhost.
 
 ## Development
 
