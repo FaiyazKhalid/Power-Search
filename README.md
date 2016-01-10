@@ -66,8 +66,11 @@ npm run watch
 ```
 
 ## To-do list
+- page speed optimization
+- fix load more button (return duplicates)
 - error handling
-- filter files from commons (get only images)
+- filter files from commons (to get only images)
+- remove ng-controller from html
 
 ## Licence
 MIT

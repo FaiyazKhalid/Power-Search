@@ -1,14 +1,10 @@
 'use strict';
 /*
 TODO:
-- da prikazuje header bez javaskripta
-- optimizovati
 - primer paramUrl u dokumentaciju
 BAG:
-- loadmore button not working properly (return duplicates)
 - srediti preticanje rezultata i kucanja
 - kucam, brzo resetujem, obrise pa ga prestigne poslednji rezultat
-- izbaciti ng-controller iz pages.html i params.html
 */
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
