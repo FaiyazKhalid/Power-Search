@@ -1,4 +1,4 @@
-# Angular Wiki Search
+# Power Wiki Search
 AngularJS module for consuming Wikipedia API.
 
 See it in action: [http://mudroljub.github.io/angular-main-search/](http://mudroljub.github.io/angular-main-search/)
@@ -68,7 +68,6 @@ npm run watch
 ## To-do list
 - error handling
 - filter files from commons (get only images)
-- maybe remove MainController from main-page.html and params.html
 
 ## Licence
 MIT
