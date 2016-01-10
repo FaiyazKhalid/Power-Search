@@ -2,7 +2,7 @@
 
 # [Power Wiki Search](http://mudroljub.github.io/power-wiki-search/)
 
-### Search engine for Wikipedia and other Wikimedia projects.
+### Search engine for Wikipedia and related Wikimedia projects.
 
 See it in action: [mudroljub.github.io/power-wiki-search](http://mudroljub.github.io/power-wiki-search/)
 
