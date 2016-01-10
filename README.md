@@ -14,10 +14,6 @@ nmp install
 
 Open index.html on localhost.
 
-## Documentation
-
-
-
 ## Development
 
 While developing, use task runner to watch and compile your files:
