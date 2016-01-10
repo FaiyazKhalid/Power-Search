@@ -1,5 +1,6 @@
 # [Power Wiki Search](http://mudroljub.github.io/power-wiki-search/)
-AngularJS module for consuming Wikipedia API.
+
+Search engine for Wikipedia and other Wikimedia projects.
 
 See it in action: [mudroljub.github.io/power-wiki-search](http://mudroljub.github.io/power-wiki-search/)
 
