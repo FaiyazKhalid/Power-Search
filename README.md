@@ -1,8 +1,8 @@
 # [Power Wiki Search](http://mudroljub.github.io/power-wiki-search/)
 
-![power wiki search](http://i153.photobucket.com/albums/s210/mladifilozof/power-wiki-search.png "Power Wiki Search")
-
 ### Search engine for Wikipedia and other Wikimedia projects.
+
+![power wiki search](http://i153.photobucket.com/albums/s210/mladifilozof/power-wiki-search.png "Power Wiki Search")
 
 See it in action: [mudroljub.github.io/power-wiki-search](http://mudroljub.github.io/power-wiki-search/)
 
