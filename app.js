@@ -1,8 +1,8 @@
 'use strict';
 /*
 TODO:
+- ne radi loadmore!
 - da prikazuje header bez javaskripta
-- izbaciti bootstrap, ostaviti samo korisne klase
 - optimizovati
 - primer paramUrl u dokumentaciju
 BAG:
@@ -60,7 +60,7 @@ angular
 	.directive('pages', pages)
 	.directive('mainImage', mainImage)
 	.directive('autofocus', ['$timeout', autofocus])
-	
+
 	.factory('utils', utils)
 	.service('MainService', MainService)
     .service('ProjectsService', ProjectsService)

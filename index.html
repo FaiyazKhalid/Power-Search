@@ -19,9 +19,9 @@
             <div class="header-upper-row row">
                 <div class="col-md-6">
                     <h1 class="logo">
+                        <button ng-click="ctrl.hardReset()" class="btn btn-default btn-sm" >Reset all</button>
                         <span ng-click="ctrl.reset()">Power Wiki Search</span>
                     </h1>
-                    <button ng-click="ctrl.hardReset()" class="btn btn-default btn-sm pull-right" >Reset all</button>
                 </div>
                 <div class="col-md-6" ng-cloak>
                     <wiki-projects></wiki-projects>
