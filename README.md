@@ -4,17 +4,14 @@ AngularJS module for consuming Wikipedia API.
 See it in action: [mudroljub.github.io/power-wiki-search](http://mudroljub.github.io/power-wiki-search/)
 
 ## Install
-Just download the directory and open index.html file. You can also do it developer way:
 
 ```sh
 git clone https://github.com/mudroljub/angular-main-module.git
 bower install
-open index.html
+nmp install
 ```
 
-If you don't use [Bower](http://bower.io/), you can manually resolve dependencies from bower.json file.
-
-Enjoy power searching Wikipedia!
+Then open index.html on localhost.
 
 ## Documentation
 (be aware that this project is under active development, and the code is constantly evolving)
