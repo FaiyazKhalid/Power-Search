@@ -7,9 +7,9 @@ See it in action: [http://mudroljub.github.io/angular-main-search/](http://mudro
 Just download the directory and open index.html file. You can also do it developer way:
 
 ```sh
-$ git clone https://github.com/mudroljub/angular-main-module.git
-$ bower install
-$ open index.html
+git clone https://github.com/mudroljub/angular-main-module.git
+bower install
+open index.html
 ```
 
 If you don't use [Bower](http://bower.io/), you can manually resolve dependencies from bower.json file.
