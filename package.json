@@ -1,8 +1,8 @@
 {
-	"name": "angular-wiki-search",
+	"name": "power-wiki-search",
 	"version": "1.0.0",
-	"description": "A specialized search engine for Wikimedia projects, written in AngularJS",
-	"main": "app.js",
+	"description": "Search engine for Wikipedia and related Wikimedia projects.",
+	"main": "index.html",
 	"scripts": {
 		"build": "browserify app.js | uglifyjs > dist.js",
 		"watch": "watchify app.js -o dist.js --debug --verbose",
@@ -32,12 +32,12 @@
   ],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/mudroljub/angular-wiki-search.git"
+		"url": "git+https://github.com/mudroljub/power-wiki-search.git"
 	},
 	"bugs": {
-		"url": "https://github.com/mudroljub/angular-wiki-search/issues"
+		"url": "https://github.com/mudroljub/power-wiki-search/issues"
 	},
-	"homepage": "https://github.com/mudroljub/angular-wiki-search#readme",
+	"homepage": "https://github.com/mudroljub/power-wiki-search#readme",
 	"author": "mudroljub",
 	"license": "MIT"
 }
