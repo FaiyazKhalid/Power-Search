@@ -6,6 +6,8 @@
 
 See it in action: [mudroljub.github.io/power-wiki-search](http://mudroljub.github.io/power-wiki-search/)
 
+You can find the basic version of the project here: [github.com/mudroljub/angular-wiki-search](https://github.com/mudroljub/angular-wiki-search)
+
 ## Install
 
 ```sh
