@@ -1,11 +1,5 @@
 'use strict';
-/*
-TODO:
-- primer paramUrl u dokumentaciju
-BAG:
-- srediti preticanje rezultata i kucanja
-- kucam, brzo resetujem, obrise pa ga prestigne poslednji rezultat
-*/
+
 var angular = require('angular');
 var ngSanitize = require('angular-sanitize');
 

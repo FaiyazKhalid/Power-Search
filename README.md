@@ -26,12 +26,16 @@ While developing, use task runner to watch and compile your files:
 npm run watch
 ```
 
-## To-do list
+## TODO
+
 - page speed optimization
 - fix load more button (return duplicates)
 - error handling
 - filter files from commons (to get only images)
 - remove ng-controller from html
+- dodati primer paramUrl u dokumentaciju
+- srediti preticanje rezultata i kucanja
+  - slučaj: kucam, brzo resetujem, obrise pa ga prestigne poslednji rezultat
 
 ## Licence
 MIT
