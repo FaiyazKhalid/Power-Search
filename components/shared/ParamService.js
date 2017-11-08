@@ -95,9 +95,9 @@ function ParamService(utils) {
     };
 
     service.getApiUrl = function() {
-        if (service.settings.domain == 'commons') return 'http://commons.wikimedia.org/w/api.php';
+        if (service.settings.domain == 'commons') return 'https://commons.wikimedia.org/w/api.php';
         if (!service.settings.lang) service.settings.lang = defaultLang;
-        return 'http://' + service.settings.lang + '.' + service.settings.domain + '.org/w/api.php';
+        return 'https://' + service.settings.lang + '.' + service.settings.domain + '.org/w/api.php';
     }; // getApiUrl
 
     service.createParamUrl = function(chosenParams) {
