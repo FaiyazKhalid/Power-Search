@@ -1,10 +1,10 @@
-![power wiki search](http://i153.photobucket.com/albums/s210/mladifilozof/power-wiki-search.png "Power Wiki Search")
+![power wiki search](screen.png "Power Wiki Search")
 
-# [Power Wiki Search](http://mudroljub.github.io/power-wiki-search/)
+# [Power Wiki Search](https://mudroljub.github.io/power-wiki-search/)
 
 ### Search engine for Wikipedia and related Wikimedia projects.
 
-See it in action: [mudroljub.github.io/power-wiki-search](http://mudroljub.github.io/power-wiki-search/)
+See it in action: [mudroljub.github.io/power-wiki-search](https://mudroljub.github.io/power-wiki-search/)
 
 You can find the basic version here: [github.com/mudroljub/angular-wiki-search](https://github.com/mudroljub/angular-wiki-search)
 
