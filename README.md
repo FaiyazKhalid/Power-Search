@@ -10,10 +10,10 @@ You can find the basic version here: [github.com/mudroljub/angular-wiki-search](
 
 ## Install
 
-```sh
+```
 git clone https://github.com/mudroljub/power-wiki-search.git
 bower install
-nmp install
+npm install
 ```
 
 It is necessary to open index.html on localhost.

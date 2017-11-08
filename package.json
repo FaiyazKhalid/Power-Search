@@ -9,27 +9,27 @@
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"dependencies": {
-		"angular": "^1.4.7",
-		"angular-sanitize": "^1.4.7",
-		"browserify": "^12.0.1",
-		"uglify-js": "^2.6.1",
-		"watchify": "^3.6.1"
+		"angular": "1.4.7",
+		"angular-sanitize": "1.4.7",
+		"browserify": "12.0.1",
+		"uglify-js": "2.6.1",
+		"watchify": "3.6.1"
 	},
 	"devDependencies": {
-		"gulp": "^3.9.0",
-		"gulp-minify-css": "^1.2.3",
-		"gulp-rename": "^1.2.2"
+		"gulp": "3.9.0",
+		"gulp-minify-css": "1.2.3",
+		"gulp-rename": "1.2.2"
 	},
 	"keywords": [
-    "JS",
-    "angular",
-    "angularjs",
-    "wikipedia-api",
-    "wikipedia",
-    "search",
-    "mediawiki-api",
-    "javascript"
-  ],
+		"JS",
+		"angular",
+		"angularjs",
+		"wikipedia-api",
+		"wikipedia",
+		"search",
+		"mediawiki-api",
+		"javascript"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/mudroljub/power-wiki-search.git"
